@@ -13,8 +13,52 @@ header{
 
 footer{
   background-color: red;
+  color: white;
+}
+
+a{
+  color: white;
 }
 
 body{
   margin: 0;
+}
+
+.subhead{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  color: red;
+  font-style: italic;
+  font-size: 20px;
+}
+
+p{
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.subtitle{
+  font-style: italic;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.form-group{
+  margin-top: 20px;
+}
+
+.inscription{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.button{
+  margin-bottom: 20px;
+}
+
+.explication p{
+  font-style: italic;
+  font-size: 15px;
 }

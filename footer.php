@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Footer</title>
-  </head>
-  <body>
     <footer>
-
+          <div class="col-lg-offset-1 col-lg-2">Titre</div>
+          <div class="col-lg-offset-10"><a href="">Contact</a></div>
     </footer>
   </body>
 </html>
