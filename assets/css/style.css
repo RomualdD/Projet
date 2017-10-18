@@ -1,7 +1,5 @@
 html, body {
   height: 100%;
-  padding: 0;
-  margin: 0;
 }
 
 body{
@@ -10,22 +8,20 @@ body{
 }
 
 .navbar{
-  background-color: red;
+  background-color: #D90404;
 }
 
 .navbar-default .navbar-nav > li > a{
   color: white;
   font-size: 20px;
-  margin-bottom: 10px;
 }
 
 header{
-  margin-top: 0;
-  background-color: #FFFFCC
+  background-color: #FFFFCC;
 }
 
 footer{
-  background-color: red;
+  background-color: #D90404;
   color: white;
   margin-top: auto;
   padding-top: 5px;
@@ -79,6 +75,10 @@ p{
   border: 1px solid;
 }
 
+.contact{
+    border: 1px solid;
+}
+
 .button{
   margin-bottom: 20px;
 }
@@ -90,4 +90,8 @@ p{
 
 .role{
   margin-bottom: 15px;
+}
+
+textarea{
+  margin-bottom: 20px;
 }

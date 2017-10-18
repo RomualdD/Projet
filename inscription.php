@@ -5,8 +5,8 @@
     <div class="row">
       <div class="col-lg-offset-5"><h2>Inscription</h2></div>
     </div>
-    <p>Bonjour, afin de continuer sur le site il est obligatoire d'être inscrit, veuillez remplir les informations ci-dessous.</p>
-    <p>Si vous êtes déjà inscrit, veuillez-vous rendre sur la page <a href="connexion.php" class="link">connexion</a>.</p>
+    <div class="message col-lg-offset-2"><p>Bonjour, afin de continuer sur le site il est obligatoire d'être inscrit, veuillez remplir les informations ci-dessous.</p>
+    <p>Si vous êtes déjà inscrit, veuillez-vous rendre sur la page <a href="connexion.php" class="link">connexion</a>.</p></div>
     <div class="row">
       <div class="inscription col-lg-offset-3 col-lg-5">
         <div class="row">
@@ -14,36 +14,36 @@
         </div>
         <div class="form-group">
           <label for="texte">Nom :</label>
-          <input type="text" placeholder="Nom">
+          <input type="text" name="name" placeholder="Nom">
         </div>
         <div class="form-group">
           <label for="texte">Prénom :</label>
-          <input type="text" placeholder="Prénom">
+          <input type="text" name="surname" placeholder="Prénom">
         </div>
         <div class="form-group">
           <label for="texte">Date de naissance :</label>
-          <input type="text" placeholder="Date de naissance">
+          <input type="text" name="birthday" placeholder="Date de naissance">
           <div class="explication col-lg-offset-4"><p>Format: jj/mm/aaaa</p></div>
         </div>
         <div class="form-group">
           <label for="texte">Nom d'utilisateur :</label>
-          <input type="text" placeholder="Nom d'utilisateur">
+          <input type="text" name="user" placeholder="Nom d'utilisateur">
         </div>
         <div class="form-group">
           <label for="texte">Mot de passe :</label>
-          <input type="password" placeholder="Mot de passe">
+          <input type="password" name="password" placeholder="Mot de passe">
         </div>
         <div class="form-group">
           <label for="texte">Vérification mot de passe :</label>
-          <input type="password" placeholder="Même mot de passe">
+          <input type="password" name="passwordcheck" placeholder="Même mot de passe">
         </div>
         <div class="form-group">
           <label for="texte">Adresse mail :</label>
-          <input type="email" placeholder="Adresse mail">
+          <input type="email" name="mail" placeholder="Adresse mail">
         </div>
         <div class="form-group">
           <label for="texte">Numéro de téléphone :</label>
-          <input type="tel" placeholder="N° téléphone">
+          <input type="tel" name="phone" placeholder="N° téléphone">
         </div>
         <div class="form-group">
           <label for="texte" class="col-lg-2">Rôle :</label>
@@ -53,12 +53,13 @@
         <div class="form-group">
           <label for="texte">Informations de la pathologie :</label>
           <select>
-            <option>Diabète Type 1</option>
-            <option>Diabète Type 2</option>
-            <option>Anticoagulant (AVK)</option>
+            <option>Pathologie..</option>
+            <option name="pathology">Diabète Type 1</option>
+            <option name="pathology">Diabète Type 2</option>
+            <option name="pathology">Anticoagulant (AVK)</option>
           </select>
         </div>
-        <input type="button" value="Envoyer !" class="button col-lg-offset-4">
+        <input type="submit" value="Envoyer !" class="button btn btn-default col-lg-offset-4">
       </div>
     </div>
   </div>

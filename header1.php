@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +21,7 @@
       </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
-            <li><a href="index.php" class="col-lg-offset-2">Accueil</a></li>
+            <li><a href="http://projetfinal/" class="col-lg-offset-2">Accueil</a></li>
             <li><a href="profil.php" class="col-lg-offset-9">Profil</a></li>
             <li><a href="information.php" class="col-lg-offset-8">Information</a></li>
             <li><a href="suivi.php" class="col-lg-offset-9">Suivi</a></li>
