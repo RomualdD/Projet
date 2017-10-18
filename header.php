@@ -18,8 +18,8 @@
         <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
             <li><a href="index.php" class="col-lg-offset-5">Accueil</a></li>
-            <li><a href="inscription.php" class="col-lg-offset-10">Inscription</a></li>
-            <li><a href="connexion.php" class="col-lg-offset-10">Connexion</a></li>
+            <li><a href="inscription.php" class="col-lg-offset-9">Inscription</a></li>
+            <li><a href="connexion.php" class="col-lg-offset-9">Connexion</a></li>
             <li><a href="contact.php" class="col-lg-offset-10">Contact</a></li>
           </ul>
       </div>

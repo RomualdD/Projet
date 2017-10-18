@@ -1,9 +1,22 @@
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar{
   background-color: red;
 }
 
 .navbar-default .navbar-nav > li > a{
   color: white;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 header{
@@ -14,10 +27,16 @@ header{
 footer{
   background-color: red;
   color: white;
+  margin-top: auto;
+  padding-top: 5px;
 }
 
-a{
+footer a{
   color: white;
+}
+
+.link a{
+  color: blue;
 }
 
 body{
@@ -54,6 +73,12 @@ p{
   border: 1px solid;
 }
 
+.connexion{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
 .button{
   margin-bottom: 20px;
 }
@@ -61,4 +86,8 @@ p{
 .explication p{
   font-style: italic;
   font-size: 15px;
+}
+
+.role{
+  margin-bottom: 15px;
 }
