@@ -2,15 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
+      <link rel="icon" href="logo.ico" />
     <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Header Non Connecté</title>
+    <title>di-a-vk: La santé avant tout</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="row">
-          <div class="logo col-lg-1"><img src="" alt="logosite" title="logosite"/></div>
+          <div class="logo col-lg-1"><img src="assets/img/logo.png" alt="logosite" title="logosite" width="60px" height="60px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>Titre</h1></div>
           <div class="hello col-lg-offset-4 col-lg-1">Bonjour</div>
         </div>

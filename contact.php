@@ -3,6 +3,7 @@
   /*include 'header1.php'; //Si profil connecté */
 ?>
 
+<!-- Page contact -->
   <div class="container">
     <div class="row">
       <div class="col-lg-offset-5"><h2>Contact</h2></div>

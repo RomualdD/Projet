@@ -1,6 +1,7 @@
 <?php
   include "header.php";
 ?>
+<!-- Page d'inscription -->
   <div class="container">
     <div class="row">
       <div class="col-lg-offset-5"><h2>Inscription</h2></div>

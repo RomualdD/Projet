@@ -1,7 +1,7 @@
 <?php
   include 'header.php'
 ?>
-
+<!-- Page de connexion -->
   <div class="container">
     <div class="row">
       <div class="col-lg-offset-5"><h2>Connexion</h2></div>

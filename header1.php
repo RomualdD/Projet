@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Header Connecté</title>
+    <title>di-a-vk: La santé avant tout</title>
   </head>
   <body>
     <header>
