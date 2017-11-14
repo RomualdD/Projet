@@ -1,7 +1,6 @@
 <?php
-  include 'header.php';// Si visiteur
-  /*include 'header1.php'; //Si profil connecté */
-?>
+  include 'header.php';
+ ?>
 <!-- Page d'accueil -->
   <div class="container">
     <div class="row">
@@ -25,5 +24,5 @@
   </div>
 
 <?php
-  include 'footer.php';
+  include "footer.php";
 ?>

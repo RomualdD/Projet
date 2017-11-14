@@ -6,6 +6,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="icon" href="logo.ico" />
+    <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>di-a-vk: La santé avant tout</title>
@@ -14,7 +16,7 @@
     <header>
       <div class="container">
         <div class="row">
-          <div class="logo col-lg-1"><img src="" alt="logosite" title="logosite"/></div>
+          <div class="logo col-lg-1"><img src="assets/img/logo.png" alt="logosite" title="logosite" width="50px" height="50px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>Titre</h1></div>
           <div class="hello col-lg-offset-4 col-lg-1"><p>Bonjour</p></div>
         </div>

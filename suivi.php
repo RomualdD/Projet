@@ -22,7 +22,7 @@
     <div class="col-lg-offset-3">En tableau :</div>
   </div>
   <div class="row">
-    <table class="table table-bordered result col-lg-offset-3 col-lg-3">
+    <table class="table table-bordered result col-lg-offset-2 col-lg-3">
       <thead>
         <tr>
           <th>Date du résultat :</th>

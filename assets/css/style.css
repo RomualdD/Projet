@@ -95,3 +95,32 @@ p{
 textarea{
   margin-bottom: 20px;
 }
+
+.form-inline{
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.up{
+  padding-left: 15px;
+}
+
+.phoneup{
+  padding-left: 20px;
+}
+
+.profil, .formular{
+  border: 1px solid;
+}
+
+.formular{
+  margin-top: 10px;
+}
+
+.timeverif{
+  padding-left: 55px;
+}
+
+.clock{
+  padding-right: 235px;
+}
