@@ -15,17 +15,23 @@
         <div class="row">
           <div class="subtitle col-lg-offset-4"><h3>Contactez-nous :</h3></div>
         </div>
-        <div class="form-group">
-          <label for="texte">Nom et Prénom :</label>
-          <input type="text" placeholder="Nom">
+        <div class="form-inline">
+          <div class="input-group name col-lg-offset-2">
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="name" placeholder="Nom de Famille et Prénom">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Adresse mail :</label>
-          <input type="text" placeholder="mail">
+        <div class="form-inline">
+          <div class="input-group mail col-lg-offset-2">
+              <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="mail" placeholder="Adresse mail">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Sujet :</label>
-          <input type="text" placeholder="Sujet">
+        <div class="form-inline">
+          <div class="input-group subject col-lg-offset-2">
+              <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="subject" placeholder="Sujet du message">
+          </div>
         </div>
         <textarea rows="10" cols="100" placeholder="Veuillez entrer votre remarque, question ou information."></textarea>
         <input type="submit" value="Envoyez votre message !" class="button btn btn-default col-lg-offset-4">

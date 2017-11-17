@@ -14,13 +14,17 @@
           <div class="row">
             <div class="subtitle col-lg-offset-3"><h3>Informations de connexion :</h3></div>
           </div>
-          <div class="form-group">
-            <label for="texte">Nom d'utilisateur :</label>
-            <input type="text" name="user" placeholder="Nom d'utilisateur" class="col-lg-offset-1">
+          <div class="form-inline">
+            <div class="input-group username col-lg-offset-3">
+                <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="texte">Mot de passe :</label>
-            <input type="password" name="password" placeholder="Mot de Passe" class="col-lg-offset-1">
+          <div class="form-inline">
+            <div class="input-group password col-lg-offset-3">
+                <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="password" placeholder="Mot de passe">
+            </div>
           </div>
           <div class="form-group col-lg-offset-7">
           <input type="checkbox">Se rappeler de moi !

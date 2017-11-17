@@ -13,38 +13,54 @@
         <div class="row">
           <div class="subtitle col-lg-offset-3"><h3>Informations à renseigner :</h3></div>
         </div>
-        <div class="form-group">
-          <label for="texte">Nom :</label>
-          <input type="text" name="name" placeholder="Nom">
+        <div class="form-inline">
+          <div class="input-group name col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="name" placeholder="Nom de Famille">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Prénom :</label>
-          <input type="text" name="surname" placeholder="Prénom">
+        <div class="form-inline">
+          <div class="input-group surname col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="surname" placeholder="Prénom">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Date de naissance :</label>
-          <input type="text" name="birthday" placeholder="Date de naissance">
-          <div class="explication col-lg-offset-4"><p>Format: jj/mm/aaaa</p></div>
+        <div class="form-inline">
+          <div class="input-group birthday col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="birthday" placeholder="Date de naissance">
+          </div>
+          <p class="col-lg-offset-3">Format: jj/mm/aaaa</p>
         </div>
-        <div class="form-group">
-          <label for="texte">Nom d'utilisateur :</label>
-          <input type="text" name="user" placeholder="Nom d'utilisateur">
+        <div class="form-inline">
+          <div class="input-group username col-lg-offset-3">
+              <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Mot de passe :</label>
-          <input type="password" name="password" placeholder="Mot de passe">
+        <div class="form-inline">
+          <div class="input-group password col-lg-offset-3">
+              <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="password" placeholder="Mot de passe">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Vérification mot de passe :</label>
-          <input type="password" name="passwordcheck" placeholder="Même mot de passe">
+        <div class="form-inline">
+          <div class="input-group password col-lg-offset-3">
+              <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="passwordverif" placeholder="Vérification mot de passe">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Adresse mail :</label>
-          <input type="email" name="mail" placeholder="Adresse mail">
+        <div class="form-inline">
+          <div class="input-group mail col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="mail" placeholder="Adresse mail">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="texte">Numéro de téléphone :</label>
-          <input type="tel" name="phone" placeholder="N° téléphone">
+        <div class="form-inline">
+          <div class="input-group phone col-lg-offset-3">
+              <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="phone" placeholder="Numéro de téléphone">
+          </div>
         </div>
         <div class="form-group">
           <label for="texte" class="col-lg-2">Rôle :</label>
