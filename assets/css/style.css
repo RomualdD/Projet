@@ -109,11 +109,11 @@ textarea{
   padding-left: 20px;
 }
 
-.profil, .formular{
+.profil, .formular, .modificate{
   border: 1px solid;
 }
 
-.formular{
+.formular, .modificate{
   margin-top: 10px;
 }
 

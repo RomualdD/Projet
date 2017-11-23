@@ -1,7 +1,11 @@
+<!-- Header non connecté -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script src="assets/js/jquery-3.2.1.js"></script>
+    <script src="assets/js/script.js"></script>
     <link rel="icon" href="logo.ico" />
     <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
