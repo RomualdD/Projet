@@ -88,8 +88,6 @@
           </div>
         </form>
         <?php
-        if(isset($_POST['submit']))
-        {
           if(!empty($_POST['name']) && (!empty($_POST['surname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['phone'])))
           {
             if($_POST['password'] == $_POST['passwordverif'])
@@ -104,7 +102,6 @@
           {
            echo  'Les champs ne sont pas remplis.';
           }
-        }
         ?>
       </div>
     </div>

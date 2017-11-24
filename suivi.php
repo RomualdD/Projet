@@ -1,18 +1,25 @@
 <?php
-  include 'header1.php'
+  include 'header1.php';
 ?>
 <!-- Page suivi patient -->
 <div class="container">
   <div class="row">
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
   </div>
+  <?php
+  $datetime = date('d/m/Y');
+//  echo $datetime;
+  if(!empty($_POST['rate'])){
+    $rate=$_POST['rate'];
+  }
+  ?>
   <div class="row">
-    <form method="post" action="suivi.php">
+    <form name="followedrate" method="post" action="suivi.php">
     <div class="suivi form-group col-lg-offset-3">
-      <label for="texte">Résultats de la prise de sang :</label>
-      <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result">
+      <label for="text">Résultats de la prise de sang :</label>
+      <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
     </div>
-    <input type="button" value="Valider !" class="btn btn-default col-lg-offset-5 addresult" required>
+    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
   </form>
   </div>
   <div class="row">
@@ -42,53 +49,55 @@
   </div>
 </div>
 <?php
-$year = 2017;
-$chart ="<script>
-$('.addresult').click(function(){
-  var date = new Date();
-  var futureDate = new Date();
-  console.log(futureDate);
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois
-  var day = date.getDate();
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var result = $('#result').val();
+echo $rate;
+$chart = "<script>
+  $('.addresult').click(function(){
+    var resultat = '".$rate."';
+    console.log('blabla' + resultat);
+    var date = new Date(); //récupération date
+    var futureDate = new Date(); //récupération date pour mettre au futur
+    var year = date.getFullYear();  // Récupération de l'année
+    var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois (0 à 11)
+    var day = date.getDate(); // Récupération du jour
+    var hours = date.getHours();  // Récupération de l'heure
+    var minutes = date.getMinutes(); // Récupération des minutes
+    var resultvalue = $('#result').val(); // Récupération du résultat de l'analyse
 
-  var daydate = day + '/' + month + '/' + year; //INR
-  //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; Diabetes
-  futureDate.setDate(day + 21);
-  var yearfutureverif = futureDate.getFullYear();
-  var monthfutureverif = futureDate.getMonth() + 1;
-  var dayfutureverif = futureDate.getDate();
-  var futureverif = dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif;
-  console.log(date);
-  console.log(result);
-  $('.tableresult').append('<tr><td>' + daydate + '</td><td>' + result + '</td><td>' + futureverif);
+    var daydate = day + '/' + month + '/' + year; //INR
+    //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; Diabetes
+    futureDate.setDate(day + 21); // Ajout de 21jours (3semaines).
+    var yearfutureverif = futureDate.getFullYear(); // Récupération de l'année de la prochaine vérification
+    var monthfutureverif = futureDate.getMonth() + 1; // Récupération du mois de la prochaine vérification
+    var dayfutureverif = futureDate.getDate();  // Récupération du jour de la prochaine vérification
+    var futureverif = dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif; // Concaténation prochaine vérification
+    $('.tableresult').append('<tr><td>' + daydate + '</td><td>' + resultvalue + '</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
 
-  var chart = new CanvasJS.Chart('chartResult', {
-    animationEnabled: true,
-    theme: 'light2',
-    title: {
-      text: 'Résultats de vos analyses',},
-    axisX: {
-      title:'Date de la vérification',
-      valueFormatString: 'DD/MM/YYYY',},
-    axisY:{
-      title:'Résultats',
-      includeZero: false},
-    data: [{
-      type: 'spline',
-      dataPoints: [
-        {x: date,y: 1},
-        {x: new Date(".$year.",10,30),y: 2}
-      ]
-    }]
+        var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
+          animationEnabled: true, //Animation du graphique
+          theme: 'light2',  // Ligne du graphique
+          title: {
+            text: 'Résultats de vos analyses' // Titre du graphique
+          },
+          axisX: {
+            title:'Date de la vérification',  // Titre de l'axe X
+            valueFormatString: 'DD/MM/YYYY'   // Format des valeurs de l'axe X
+          },
+          axisY:{
+            title:'Résultats',  // Titre de l'axe Y
+            includeZero: false  // On ne prends pas le 0
+          },
+          data: [{
+            type: 'spline', // Type de courbe
+            dataPoints: [   // Tracé du graphique
+              {x: date, y: '".$rate."'}
+            ]
+          }]
+        });
+        chart.render(); // Affichage du graphique
   });
-  chart.render();
-});
-</script>";
-echo $chart; ?>
+  </script>";
+echo $chart;
+  ?>
 
 <?php
   include 'footer.php';

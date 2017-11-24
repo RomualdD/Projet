@@ -20,3 +20,9 @@ angular.module('Inscription',[]).controller('inscriptioncontroller', ['$scope', 
     regex: /[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}/
   };
 }]);
+
+angular.module('followed',[]).controller('followedcontroller', ['$scope', function ($scope) {
+  $scope.rate={
+    regex: /[0]{1}[.][0-9]{2}$/
+  }
+}]);
