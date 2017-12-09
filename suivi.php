@@ -7,10 +7,12 @@
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
   </div>
   <?php
+  $nextverif = time() + (1814400); //Récupération du timestamp pour avoir toutes les trois semaines
   $datetime = date('d/m/Y');
-//  echo $datetime;
+  $afterverifdate=date("d/m/Y", $nextverif);
   if(!empty($_POST['rate'])){
     $rate=$_POST['rate'];
+    echo $rate;
   }
   ?>
   <div class="row">
@@ -49,19 +51,18 @@
   </div>
 </div>
 <?php
-echo $rate;
 $chart = "<script>
   $('.addresult').click(function(){
     var resultat = '".$rate."';
-    console.log('blabla' + resultat);
+    console.log(resultat);
     var date = new Date(); //récupération date
+    console.log(date);
     var futureDate = new Date(); //récupération date pour mettre au futur
     var year = date.getFullYear();  // Récupération de l'année
     var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois (0 à 11)
     var day = date.getDate(); // Récupération du jour
     var hours = date.getHours();  // Récupération de l'heure
     var minutes = date.getMinutes(); // Récupération des minutes
-    var resultvalue = $('#result').val(); // Récupération du résultat de l'analyse
 
     var daydate = day + '/' + month + '/' + year; //INR
     //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; Diabetes
@@ -70,7 +71,7 @@ $chart = "<script>
     var monthfutureverif = futureDate.getMonth() + 1; // Récupération du mois de la prochaine vérification
     var dayfutureverif = futureDate.getDate();  // Récupération du jour de la prochaine vérification
     var futureverif = dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif; // Concaténation prochaine vérification
-    $('.tableresult').append('<tr><td>' + daydate + '</td><td>' + resultvalue + '</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
+    $('.tableresult').append('<tr><td>' + daydate + '</td><td>'+resultat+'</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
 
         var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
           animationEnabled: true, //Animation du graphique
@@ -89,7 +90,7 @@ $chart = "<script>
           data: [{
             type: 'spline', // Type de courbe
             dataPoints: [   // Tracé du graphique
-              {x: date, y: '".$rate."'}
+              {x: date, y: resultat}
             ]
           }]
         });

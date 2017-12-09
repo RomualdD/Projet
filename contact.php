@@ -8,7 +8,8 @@
       <div class="col-lg-offset-5"><h2>Contact</h2></div>
     </div>
     <div class="message col-lg-offset-2"><p>Bonjour, veuillez entrer votre Nom d'utilisateur et votre adresse mail pour obtenir une réponse à votre message.</p>
-      <p>Des questions? Des remarques? N'hésitez pas à nous contacter.</p></div>
+      <p>Des questions? Des remarques? N'hésitez pas à nous contacter.</p>
+    </div>
     <div class="row">
       <div class="contact col-lg-offset-3 col-lg-9">
         <div class="row">

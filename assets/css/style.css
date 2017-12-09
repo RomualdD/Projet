@@ -7,6 +7,10 @@ body{
   flex-direction: column;
 }
 
+h1{
+  color: red;
+}
+
 .navbar{
   background-color: #D90404;
 }

@@ -17,7 +17,7 @@
           <div class="form-inline">
             <div class="input-group username col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur">
+                <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur ou mail">
             </div>
           </div>
           <div class="form-inline">
@@ -37,8 +37,8 @@
 </div>
 
 <?php
-/*  // Si les champs sont remplis
-  if(isset($_POST['user']) && ($_POST['password']))
+  // Si les champs sont remplis
+  /*if(isset($_POST['user']) && ($_POST['password']))
    {
       // SI les champs correspondent dans la base de données
       if($_POST['user'] == 'user') && ($_POST['password'] == 'password'))
