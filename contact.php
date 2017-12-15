@@ -1,6 +1,10 @@
 <?php
-  include 'header.php'; // Si visiteur
-  /*include 'header1.php'; //Si profil connecté */
+if(!isset($_SESSION['user'])){
+  include 'header.php';
+}
+else {
+    include 'header1.php';
+  }
 ?>
 <!-- Page contact -->
   <div class="container">

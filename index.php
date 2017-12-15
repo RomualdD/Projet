@@ -1,5 +1,10 @@
 <?php
-  include 'header.php';
+if(isset($_SESSION['user'])){
+  include 'header1.php';
+}
+else {
+    include 'header.php';
+  }
  ?>
 <!-- Page d'accueil -->
   <div class="container">

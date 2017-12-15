@@ -1,3 +1,9 @@
+<?php
+  include 'bdd.php';
+
+  $user=$_SESSION['user'];
+ ?>
+
 <!-- Header connecté -->
 <!DOCTYPE html>
 <html>
@@ -20,7 +26,7 @@
         <div class="row">
           <div class="logo col-lg-1"><img src="assets/img/logo.png" alt="logosite" title="logosite" width="50px" height="50px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-4 col-lg-1"><p>Bonjour</p></div>
+          <div class="hello col-lg-offset-3 col-lg-2"><p>Bonjour <?php echo $user; ?></p></div>
         </div>
       </div>
       <div class="navbar navbar-default">
@@ -30,7 +36,7 @@
             <li><a href="information.php" class="col-lg-offset-8">Information</a></li>
             <li><a href="suivi.php" class="col-lg-offset-9">Suivi</a></li>
             <li><a href="contact.php" class="col-lg-offset-9">Contact</a></li>
-            <li><a href="index.php" class="col-lg-offset-7">Déconnexion</a></li>
+            <li><a href="deconnexion.php" class="col-lg-offset-7">Déconnexion</a></li>
           </ul>
       </div>
     </header>

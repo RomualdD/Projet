@@ -23,7 +23,7 @@
           <div class="form-inline">
             <div class="input-group password col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="password" placeholder="Mot de passe">
+                <input type="password" class="form-control" name="password" placeholder="Mot de passe">
             </div>
           </div>
           <div class="form-group col-lg-offset-7">
@@ -38,17 +38,39 @@
 
 <?php
   // Si les champs sont remplis
-  /*if(isset($_POST['user']) && ($_POST['password']))
-   {
-      // SI les champs correspondent dans la base de données
-      if($_POST['user'] == 'user') && ($_POST['password'] == 'password'))
-       {
-         // Démarrage d'une session
-         session_start();
-
-         //Enregistement dans la session:
-         $_SESSION['user'] = $_POST['user'];
-         $_SESSION['password'] = $_POST['password'];
+  if(!empty($_POST['username']) && (!empty($_POST['password']))) {
+       $user = $_POST['username'];
+       $pass = $_POST['password'];
+       $pass = md5($pass);
+       $request = $bdd->query("SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
+       $username = $request->fetch();
+       $request = $bdd->query("SELECT mot_de_passe FROM utilisateurs WHERE mot_de_passe = '".$pass."'");
+       $password = $request->fetch();
+      // Si les champs correspondent dans la base de données
+      if($username['nom_utilisateur'] == $user && $pass == $password['mot_de_passe']) {
+         $search = $bdd->prepare("SELECT actif FROM utilisateurs WHERE nom_utilisateur like :user");
+         if($search->execute(array(':user' => $user)) && $row = $search->fetch()){
+           $actif = $row['actif'];
+         }
+         if($actif == '1') {
+           // Démarrage d'une session
+           session_start();
+           $request = $bdd->query("SELECT role FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
+           $role = $request->fetch();
+           //Enregistement dans la session:
+           $_SESSION['user'] = $_POST['username'];
+           $_SESSION['password'] = $_POST['password'];
+           $_SESSION['role'] = $role['role'];
+           if($_SESSION['role'] == 1) {
+              echo "<script>document.location.replace('profil.php');</script>";
+           }
+           else {
+             echo "<script>document.location.replace('medecinprofil.php');</script>";
+           }
+         }
+         else {
+           echo "Veuillez activez votre compte !";
+         }
        }
        //Le mot de passe ou le nom d'utilisateur n'a pas était reconnu
      else
@@ -57,10 +79,9 @@
       }
    }
    // Les champs n'ont pas était remplis
-   else
-    {
+   else {
       echo "Tous les champs n'ont pas était remplis !";
-    }*/
+    }
 
   include 'footer.php'
 ?>

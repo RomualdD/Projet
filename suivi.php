@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['user'])){
+  include 'header.php';
+  echo "Vous n'êtes pas connecté pour accéder au contenu";
+}
+else {
   include 'header1.php';
 ?>
 <!-- Page suivi patient -->
@@ -98,8 +104,6 @@ $chart = "<script>
   });
   </script>";
 echo $chart;
-  ?>
-
-<?php
+  }
   include 'footer.php';
 ?>
