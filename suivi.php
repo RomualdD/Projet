@@ -27,7 +27,7 @@ else {
       <label for="text">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
     </div>
-    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
+    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult" onclick="return false;"/>
   </form>
   </div>
   <div class="row">
@@ -57,53 +57,74 @@ else {
   </div>
 </div>
 <?php
+$date = date('d/m/Y'); // Date du jour
+$nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours
+$futuredate = date('d/m/Y', $nextverif); // On récupère la nouvelle date
+
+$result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
+$id = $result->fetch();
+$id= $id['id'];
+
 $chart = "<script>
-  $('.addresult').click(function(){
-    var resultat = '".$rate."';
-    console.log(resultat);
-    var date = new Date(); //récupération date
-    console.log(date);
-    var futureDate = new Date(); //récupération date pour mettre au futur
-    var year = date.getFullYear();  // Récupération de l'année
-    var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois (0 à 11)
-    var day = date.getDate(); // Récupération du jour
-    var hours = date.getHours();  // Récupération de l'heure
-    var minutes = date.getMinutes(); // Récupération des minutes
-
-    var daydate = day + '/' + month + '/' + year; //INR
-    //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; Diabetes
-    futureDate.setDate(day + 21); // Ajout de 21jours (3semaines).
-    var yearfutureverif = futureDate.getFullYear(); // Récupération de l'année de la prochaine vérification
-    var monthfutureverif = futureDate.getMonth() + 1; // Récupération du mois de la prochaine vérification
-    var dayfutureverif = futureDate.getDate();  // Récupération du jour de la prochaine vérification
-    var futureverif = dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif; // Concaténation prochaine vérification
-    $('.tableresult').append('<tr><td>' + daydate + '</td><td>'+resultat+'</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
-
-        var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
-          animationEnabled: true, //Animation du graphique
-          theme: 'light2',  // Ligne du graphique
-          title: {
-            text: 'Résultats de vos analyses' // Titre du graphique
-          },
-          axisX: {
-            title:'Date de la vérification',  // Titre de l'axe X
-            valueFormatString: 'DD/MM/YYYY'   // Format des valeurs de l'axe X
-          },
-          axisY:{
-            title:'Résultats',  // Titre de l'axe Y
-            includeZero: false  // On ne prends pas le 0
-          },
-          data: [{
-            type: 'spline', // Type de courbe
-            dataPoints: [   // Tracé du graphique
-              {x: date, y: resultat}
-            ]
-          }]
-        });
-        chart.render(); // Affichage du graphique
+  // Values for chart and chart declaration
+  var chartValues = [];
+  var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
+    animationEnabled: true, //Animation du graphique
+    exportEnabled: true, // Can export chart
+    theme: 'light2',  // Ligne du graphique
+    title: {
+      text: 'Résultats de vos analyses' // Titre du graphique
+    },
+    axisX: {
+      includeZero: false,
+      title:'Date de la vérification',  // Titre de l'axe X
+      valueFormatString: 'DD/MM/YYYY HH:mm'   // Format des valeurs de l'axe X
+    },
+    axisY:{
+      title:'Résultats',  // Titre de l'axe Y
+      includeZero: false  // On ne prends pas le 0
+    },
+    data: [{
+      type: 'spline', // Type de courbe
+      dataPoints: chartValues   // Tracé du graphique
+    }]
   });
+
+  $('.addresult').click(function() {
+      var date = new Date(); //récupération date
+      var futureDate = new Date(); //récupération date pour mettre au futur
+      var year = date.getFullYear();  // Récupération de l'année
+      var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois (0 à 11)
+      var day = date.getDate(); // Récupération du jour
+      var hours = date.getHours();  // Récupération de l'heure
+      var minutes = date.getMinutes(); // Récupération des minutes
+      var daydate = '".$date."'//day + '/' + month + '/' + year; //INR
+      //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; //Diabetes
+
+      var resultValue = $('#result').val(); // Récupération du résultat de l'analyse
+
+      futureDate.setDate(day + 21); // Ajout de 21jours (3semaines).
+      var yearfutureverif = futureDate.getFullYear(); // Récupération de l'année de la prochaine vérification
+      var monthfutureverif = futureDate.getMonth() + 1; // Récupération du mois de la prochaine vérification
+      var dayfutureverif = futureDate.getDate();  // Récupération du jour de la prochaine vérification
+      if(dayfutureverif<10){
+        dayfutureverif='0'+dayfutureverif;
+      }
+      if(monthfutureverif<10){
+        monthfutureverif='0'+monthfutureverif;
+      }
+      var futureverif = '".$futuredate."'//dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif; // Concaténation prochaine vérification
+      $('.tableresult').append('<tr><td>' + daydate + '</td><td>' + resultValue + '</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
+
+      // Push values to chart
+      chartValues.push({
+        x: date,
+        y: parseFloat(resultValue)
+      });
+      chart.render();
+    });
   </script>";
-echo $chart;
+  echo $chart;
   }
   include 'footer.php';
 ?>

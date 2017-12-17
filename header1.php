@@ -9,8 +9,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="/assets/js/angular.min.js"></script>
+    <script src="/assets/js/canvasjs.min.js"></script>
     <script src="assets/js/jquery-3.2.1.js"></script>
     <script src="assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="assets/js/script.js"></script>

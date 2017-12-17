@@ -1,9 +1,10 @@
 <?php
-if(!isset($_SESSION['user'])){
-  include 'header.php';
+session_start();
+if(isset($_SESSION['user'])){
+  include 'header1.php';
 }
 else {
-    include 'header1.php';
+    include 'header.php';
   }
 ?>
 <!-- Page contact -->

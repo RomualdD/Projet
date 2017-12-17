@@ -27,9 +27,6 @@ else {
           $request = $bdd->query("SELECT date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
           $birthday = $request->fetch();
           $birthday = $birthday['date_anniversaire'];
-          $request = $bdd->query("SELECT mot_de_passe FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-          $password = $request->fetch();
-          $password = $password['mot_de_passe'];
           $request = $bdd->query("SELECT mail FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
           $mail = $request->fetch();
           $mail = $mail['mail'];
@@ -39,64 +36,58 @@ else {
           $request = $bdd->query("SELECT phone2 FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
           $otherphone = $request->fetch();
           $otherphone = $otherphone['phone2'];
-          $request = $bdd->query("SELECT pathology FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-          $otherphone = $request->fetch();
-          $otherphone = $otherphone['pathology'];
+          $request = $bdd->query("SELECT pathologie FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
+          $pathology = $request->fetch();
+          $pathology = $pathology['pathologie'];
           ?>
     <div class="profil col-lg-offset-3 col-lg-5">
       <div class="subtitle col-lg-offset-3"><h3>Informations du patient :</h3></div>
       <div class="form-inline">
         <div class="input-group name col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="name" value="<?php echo $name ?>">
+            <input type="text" class="form-control" disabled="true"  name="name" value="<?php echo $name ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group surname col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="surname" value="<?php echo $surname ?>">
+            <input type="text" class="form-control" disabled="true"  name="surname" value="<?php echo $surname ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group birthday col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="birthday" value="<?php echo $birthday ?>">
+            <input type="text" class="form-control" disabled="true"  name="birthday" value="<?php echo $birthday ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group username col-lg-offset-3">
             <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="username" value="<?php echo $user ?>">
-        </div>
-      </div>
-      <div class="form-inline">
-        <div class="input-group password col-lg-offset-3">
-            <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-            <input type="password" class="form-control" name="password" value="<?php echo $password ?>">
+            <input type="text" class="form-control" disabled="true"  name="username" value="<?php echo $user ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group mail col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="mail" value="<?php echo $mail ?>">
+            <input type="text" class="form-control" disabled="true"  name="mail" value="<?php echo $mail ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group phone col-lg-offset-3">
             <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="phone" value="<?php echo $phone ?>">
+            <input type="text" class="form-control" disabled="true"  name="phone" value="<?php echo $phone ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group otherphone col-lg-offset-3">
             <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="otherphone" value="<?php echo $otherphone ?>">
+            <input type="text" class="form-control" disabled="true"  name="otherphone" value="<?php echo $otherphone ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group pathology col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="pathology" value="<?php echo $pathology ?>">
+            <input type="text" class="form-control" disabled="true"  name="pathology" value="<?php echo $pathology ?>">
         </div>
       </div>
     </div>

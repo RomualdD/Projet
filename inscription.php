@@ -20,56 +20,61 @@
        if($role == 0){
          $pathology = 0;
        }
-       // On vérifie que les mots de passes sont identiques
-       if($password == $passwordverif) {
-         $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');
-         $nameverif = $result->fetch();
-         if($username == $nameverif['nom_utilisateur']) {
-           echo "Nom d'utilisateur déjà utilisé!";
-         }
+       if($role == 1 && $pathology != 0) {
+         // On vérifie que les mots de passes sont identiques
+         if($password == $passwordverif) {
+           $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');
+           $nameverif = $result->fetch();
+           if($username == $nameverif['nom_utilisateur']) {
+             echo "Nom d'utilisateur déjà utilisé!";
+           }
+           else {
+             // Clé généré aléatoirement
+             $cle = md5(microtime(TRUE)*100000);
+             // Indique qu'il faut le vérifier
+             $actif = 0;
+
+             // inclusion dans la bdd
+             $req = $bdd->prepare('INSERT INTO utilisateurs(nom, prenom, nom_utilisateur, mail, mot_de_passe,date_anniversaire, phone,phone2, role, pathologie,cleverif,actif) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif)');
+             $req->execute(array(
+               'name' => $name,
+               'firstname' => $firstname,
+               'username' => $username,
+               'mail' => $mail,
+               'password' => $password,
+               'birthday' => $birthday,
+               'phone' => $phone,
+               'phone2' => $phone2,
+               'role' => $role,
+               'pathology' => $pathology,
+               'cleverif' => $cle,
+               'actif' => $actif
+             ));
+             //Envoie du mail d'activation
+             $recipient = $mail;
+             $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
+             $entete = "From: inscriptiondiavk@gmail.com";
+             $message = "Bienvenue sur di-A-vk,
+             Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:
+
+             http://diavk/validation.php?log=".urlencode($username)."&cle=".urlencode($cle)."
+
+             Ne pas répondre à ce message.";
+             mail($recipient, $subject,$message,$entete);
+             //Informer l'utilisateur que l'inscription est bien prise en compte
+             echo "<script>alert('L\'inscription est réussi. Un mail a était envoyé!');</script>";
+             //Redirection vers la page de connexion
+             header('Location:http://diavk/connexion.php');
+             exit();
+            // echo "<script>document.location.replace('connexion.php');</script>";
+            }
+           }
          else {
-           // Clé généré aléatoirement
-           $cle = md5(microtime(TRUE)*100000);
-           // Indique qu'il faut le vérifier
-           $actif = 0;
-
-           // inclusion dans la bdd
-           $req = $bdd->prepare('INSERT INTO utilisateurs(nom, prenom, nom_utilisateur, mail, mot_de_passe,date_anniversaire, phone,phone2, role, pathologie,cleverif,actif) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif)');
-           $req->execute(array(
-             'name' => $name,
-             'firstname' => $firstname,
-             'username' => $username,
-             'mail' => $mail,
-             'password' => $password,
-             'birthday' => $birthday,
-             'phone' => $phone,
-             ':phone2' => $phone2,
-             'role' => $role,
-             'pathology' => $pathology,
-             'cleverif' => $cle,
-             'actif' => $actif
-           ));
-           //Envoie du mail d'activation
-           $recipient = $mail;
-           $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
-           $entete = "From: inscriptiondiavk@gmail.com";
-           $message = "Bienvenue sur di-A-vk,
-           Afin de continuer sur le site veuillez activez votre compte en cliquant sur ce lien:
-
-           http://diavk/validation.php?log=".urlencode($username)."&cle=".urlencode($cle)."
-
-           Ne pas répondre à ce message.";
-           mail($recipient, $subject,$message,$entete);
-           //Informer l'utilisateur que l'inscription est bien prise en compte
-           echo "<script>alert('L\'inscription est réussi. Un mail a était envoyé!');</script>";
-           //Redirection vers la page de connexion
-           header('Location:http://diavk/connexion.php');
-           exit();
-          // echo "<script>document.location.replace('connexion.php');</script>";
-          }
+           echo 'Mot de passe différent';
          }
+       }
        else {
-         echo 'Mot de passe différent';
+         echo "Veuillez choisir votre pathology !";
        }
      }
    else {
