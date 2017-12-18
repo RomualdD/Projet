@@ -64,7 +64,7 @@ else {
       <tbody>
         <tr>
           <?php
-          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'" ');
+          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY date_du_jour DESC ');
           while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
             ?><tr><?php
             foreach($requestarray as $element) {
@@ -73,7 +73,6 @@ else {
             }?></tr><?php
           }
          ?>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -85,56 +84,49 @@ else {
   </div>
 </div>
 <?php
+$dataPoints= array();
 $datechart = 'DD/MM/YYYY';
 $resultchart = 0;
-$requestbdd = $bdd->query('SELECT date_du_jour FROM suivis WHERE id_utilisateur = "'.$id.'"');
-$requestbdd2 = $bdd->query('SELECT resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
-while($requestdatechart = $requestbdd->fetch(PDO::FETCH_ASSOC))
+$n = 0;
+$requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
+while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
 {
-  while($requestresultchart = $requestbdd2->fetch(PDO::FETCH_ASSOC)) {
-  foreach ($requestdatechart as $datevalue) {
-    foreach($requestresultchart as $resultvalue) {
-      echo $datevalue." ".$resultvalue.' ';
-  $chart = "<script>
-    // Values for chart and chart declaration
-    var chartValues = [];
-    var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
-      animationEnabled: true, //Animation du graphique
-      exportEnabled: true, // Can export chart
-      theme: 'light2',  // Ligne du graphique
-      title: {
-        text: 'Résultats de vos analyses' // Titre du graphique
-      },
-      axisX: {
-        includeZero: false,
-        title:'Date de la vérification',  // Titre de l'axe X
-        valueFormatString: 'DD/MM/YYYY'   // Format des valeurs de l'axe X
-      },
-      axisY:{
-        title:'Résultats',  // Titre de l'axe Y
-        includeZero: false  // On ne prends pas le 0
-      },
-      data: [{
-        type: 'spline', // Type de courbe
-        dataPoints: chartValues   // Tracé du graphique
-      }]
-    });
-
-    $(window).load(function() {
-        // Push values to chart
-        chartValues.push({
-          x: ".$datevalue.",
-          y: parseFloat(".$resultchart.")
-        });
-        chart.render();
-      });
-    </script>";
-
-    echo $chart;
+  foreach ($requestchart as $datevalue) {
+    $dataPoints[$n] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
     }
+    $n++;
   }
+  ?>
+<script>
+    $(window).on('load', function() {
+        var chart = new CanvasJS.Chart("chartResult", {
+            theme: "light2",
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Résultats de vos analyses"
+            },
+            axisX: {
+              includeZero: false,
+              title:'Date de la vérification',  // Titre de l'axe X
+              valueFormatString: 'DD/MM/YYYY'   // Format des valeurs de l'axe X
+            },
+            axisY:{
+              title:'Résultats',  // Titre de l'axe Y
+              includeZero: false  // On ne prends pas le 0
+            },
+              data: [
+              {
+                  type: "line",
+
+                  dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+              }
+            ]
+          });
+          chart.render();
+      });
+    </script>
+<?php
 }
-}
-  }
   include 'footer.php';
 ?>

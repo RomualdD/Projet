@@ -128,3 +128,8 @@ textarea{
 .clock{
   padding-right: 235px;
 }
+
+#chartResult{
+  height: 370px;
+  width: 100%;
+}

@@ -16,7 +16,7 @@ else {
       <div class="welcome col-lg-offset-2"><h3>Bienvenue sur le site di-A-vk!</h3></div>
       <div class="subhead col-lg-offset-1"><h4>Pour qui est ce site?</h4></div>
       <p>Ce site est dédié aux personnes atteintes du Diabète ou de souci de santé nécessitant la prise d'anticoagulant (AVK) et utilisant principalement des appareils (par exemple coagucheck). Vous pourrez noter les résultats de vos prises de sang composant le suivi de votre diabète ou INR et ainsi observer l'évolution instantanément à chaque prise de sang.</p>
-      <p>Di-a-vk permet de vous aider à mémoriser la date à laquelle vous devez effectuez votre prise de sang grâce à un envoi de mail ou de SMS, et vous permet également de noter vos rendez-vous médicaux.</p>
+      <p>di-A-vk permet de vous aider à mémoriser la date à laquelle vous devez effectuez votre prise de sang grâce à un envoi de mail ou de SMS, et vous permet également de noter vos rendez-vous médicaux.</p>
       <p>Votre médecin pourra ainsi dans le même temps accéder à vos résultats de glycémie et d'INR, dans le cadre d'un accord patient-corps médical. Lors de vos consultations, l'ensemble de votre suivi pourra être visualisé facilitant vos interrogations éventuelles.</p>
       <div class="subhead col-lg-offset-1"><h4>En quoi ça consiste?</h4></div>
       <p>Lors de l'inscription, il est nécessaire d'indiquer la pathologie qui vous concerne. Ensuite il faut remplir les données de la fiche profil qui seront nécessaires dans le cadre du suivi. Celles-ci seront stockées et permettront d'actualiser les informations.</p>

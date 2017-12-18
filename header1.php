@@ -9,6 +9,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="/assets/js/angular.min.js.map"></script>
     <script src="/assets/js/angular.min.js"></script>
     <script src="/assets/js/canvasjs.min.js"></script>
     <script src="assets/js/jquery-3.2.1.js"></script>
