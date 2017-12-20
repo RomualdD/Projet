@@ -6,21 +6,40 @@ if(!isset($_SESSION['user'])){
 }
 else {
   include 'header1.php';
+  $pathology = $_SESSION['pathology'];
+  if($pathology == 3) {
+    header('Location:suivi1.php');
+  }
+  else {
+    $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
+    $id = $result->fetch();
+    $id= $id['id'];
 ?>
 <!-- Page suivi patient -->
 <div class="container">
   <div class="row">
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
   </div>
-  <?php
-  $nextverif = time() + (1814400); //Récupération du timestamp pour avoir toutes les trois semaines
-  $datetime = date('d/m/Y');
-  $afterverifdate=date("d/m/Y", $nextverif);
-  if(!empty($_POST['rate'])){
-    $rate=$_POST['rate'];
-    echo $rate;
-  }
-  ?>
+    <?php
+    if(isset($_POST['submit'])) {
+      if(!empty($_POST['rate'])){
+        $rate=$_POST['rate'];
+        $date = date('d/m/Y H:i'); // Date du jour
+        $futuredate = date('d/m/Y H:i');
+        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
+        $resultdate = $resultdate->fetch();
+        if($date != $resultdate['date_du_jour']) {
+          $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
+          $req->execute(array(
+          'id' => $id,
+          'daydate' => $date,
+          'result' => $rate,
+          'futureverif' => $futuredate
+          ));
+        }
+      }
+    }
+    ?>
   <div class="row">
     <form name="followedrate" method="post" action="suivi.php">
     <div class="suivi form-group col-lg-offset-3">
@@ -46,6 +65,16 @@ else {
         </tr>
       </thead>
       <tbody>
+          <?php
+          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY date_du_jour DESC ');
+          while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
+            ?><tr><?php
+            foreach($requestarray as $element) {
+              ?>
+            <td><?php echo $element; ?></td><?php
+            }?></tr><?php
+          }
+         ?>
       </tbody>
     </table>
   </div>
@@ -57,74 +86,47 @@ else {
   </div>
 </div>
 <?php
-$date = date('d/m/Y'); // Date du jour
-$nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours
-$futuredate = date('d/m/Y', $nextverif); // On récupère la nouvelle date
+$dataPoints= array();
+$n = 0;
+$requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
+while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
+{
+  foreach ($requestchart as $datevalue) {
+    $dataPoints[$n] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
+    }
+    $n++;
+  }
+  ?>
+<script>
+    $(window).on('load', function() {
+        var chart = new CanvasJS.Chart("chartResult", {
+            theme: "light2",
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Résultats de vos analyses"
+            },
+            axisX: {
+              includeZero: false,
+              title:'Date de la vérification',  // Titre de l'axe X
+            },
+            axisY:{
+              title:'Résultats',  // Titre de l'axe Y
+              includeZero: false  // On ne prends pas le 0
+            },
+              data: [
+              {
+                  type: "line",
 
-$result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
-$id = $result->fetch();
-$id= $id['id'];
-
-$chart = "<script>
-  // Values for chart and chart declaration
-  var chartValues = [];
-  var chart = new CanvasJS.Chart('chartResult', { // Création du graphique
-    animationEnabled: true, //Animation du graphique
-    exportEnabled: true, // Can export chart
-    theme: 'light2',  // Ligne du graphique
-    title: {
-      text: 'Résultats de vos analyses' // Titre du graphique
-    },
-    axisX: {
-      includeZero: false,
-      title:'Date de la vérification',  // Titre de l'axe X
-      valueFormatString: 'DD/MM/YYYY HH:mm'   // Format des valeurs de l'axe X
-    },
-    axisY:{
-      title:'Résultats',  // Titre de l'axe Y
-      includeZero: false  // On ne prends pas le 0
-    },
-    data: [{
-      type: 'spline', // Type de courbe
-      dataPoints: chartValues   // Tracé du graphique
-    }]
-  });
-
-  $('.addresult').click(function() {
-      var date = new Date(); //récupération date
-      var futureDate = new Date(); //récupération date pour mettre au futur
-      var year = date.getFullYear();  // Récupération de l'année
-      var month = date.getMonth() + 1;//+1 pour avoir résultats du bon mois (0 à 11)
-      var day = date.getDate(); // Récupération du jour
-      var hours = date.getHours();  // Récupération de l'heure
-      var minutes = date.getMinutes(); // Récupération des minutes
-      var daydate = '".$date."'//day + '/' + month + '/' + year; //INR
-      //var daydate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes; //Diabetes
-
-      var resultValue = $('#result').val(); // Récupération du résultat de l'analyse
-
-      futureDate.setDate(day + 21); // Ajout de 21jours (3semaines).
-      var yearfutureverif = futureDate.getFullYear(); // Récupération de l'année de la prochaine vérification
-      var monthfutureverif = futureDate.getMonth() + 1; // Récupération du mois de la prochaine vérification
-      var dayfutureverif = futureDate.getDate();  // Récupération du jour de la prochaine vérification
-      if(dayfutureverif<10){
-        dayfutureverif='0'+dayfutureverif;
-      }
-      if(monthfutureverif<10){
-        monthfutureverif='0'+monthfutureverif;
-      }
-      var futureverif = '".$futuredate."'//dayfutureverif + '/' + monthfutureverif + '/' + yearfutureverif; // Concaténation prochaine vérification
-      $('.tableresult').append('<tr><td>' + daydate + '</td><td>' + resultValue + '</td><td>' + futureverif + '</td></tr>'); //Ajout dans le tableau
-
-      // Push values to chart
-      chartValues.push({
-        x: date,
-        y: parseFloat(resultValue)
+                  dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+              }
+            ]
+          });
+          chart.render();
       });
-      chart.render();
-    });
-  </script>";
-  echo $chart;
+    </script>
+<?php  
+  }
   }
   include 'footer.php';
 ?>

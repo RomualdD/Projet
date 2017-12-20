@@ -2,25 +2,26 @@
   include "header.php";
   if(isset($_POST['submit'])){
      // Vérification si les champs sont bien remplis
-     if(!empty($_POST['name']) && (!empty($_POST['firstname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['birthday'])) && (!empty($_POST['phone'])) && (!empty($_POST['role'])))  {
+     if(!empty($_POST['name']) && (!empty($_POST['firstname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['birthday'])) && (!empty($_POST['phone'])))  {
        //enregistrement des données des champs
-       $name = $_POST['name'];
-       $firstname = $_POST['firstname'];
-       $username = $_POST['username'];
-       $mail = $_POST['mail'];
+       $name = htmlspecialchars($_POST['name']);
+       $name = strtoupper($name);
+       $firstname = htmlspecialchars($_POST['firstname']);
+       $username = htmlspecialchars($_POST['username']);
+       $mail = htmlspecialchars($_POST['mail']);
        $password = $_POST['password'];
        $passwordverif = $_POST['passwordverif'];
        $password = md5($password); //cryptage de données mdp
        $passwordverif = md5($passwordverif);
-       $birthday = $_POST['birthday'];
-       $phone = $_POST['phone'];
+       $birthday = htmlspecialchars($_POST['birthday']);
+       $phone = htmlspecialchars($_POST['phone']);
        $role = $_POST['role'];
        $pathology = $_POST['pathology'];
        $phone2 = "Pas indiqué";
        if($role == 0){
          $pathology = 0;
        }
-       if($role == 1 && $pathology != 0) {
+       if(($role == 1 && $pathology != 0) || ($role == 0 && $pathology == 0)) {
          // On vérifie que les mots de passes sont identiques
          if($password == $passwordverif) {
            $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');

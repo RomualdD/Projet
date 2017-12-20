@@ -22,7 +22,7 @@ else {
       if(!empty($_POST['rate'])){
         $rate=$_POST['rate'];
         $date = date('d/m/Y'); // Date du jour
-        $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours
+        $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)
         $futuredate = date('d/m/Y', $nextverif); // On récupère la nouvelle date
         $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
         $resultdate = $resultdate->fetch();
@@ -33,7 +33,7 @@ else {
           'daydate' => $date,
           'result' => $rate,
           'futureverif' => $futuredate
-        ));
+          ));
         }
       }
     }
@@ -62,7 +62,6 @@ else {
         </tr>
       </thead>
       <tbody>
-        <tr>
           <?php
           $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY date_du_jour DESC ');
           while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
@@ -85,8 +84,6 @@ else {
 </div>
 <?php
 $dataPoints= array();
-$datechart = 'DD/MM/YYYY';
-$resultchart = 0;
 $n = 0;
 $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
 while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
@@ -109,7 +106,6 @@ while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
             axisX: {
               includeZero: false,
               title:'Date de la vérification',  // Titre de l'axe X
-              valueFormatString: 'DD/MM/YYYY'   // Format des valeurs de l'axe X
             },
             axisY:{
               title:'Résultats',  // Titre de l'axe Y

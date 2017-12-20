@@ -206,78 +206,19 @@ else {
             <input type="text" class="form-control" name="searchdoctor" placeholder="Rechercher son médecin">
           </div>
           <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1" data-toggle="modal" data-target="#myModal">
-          <!-- Modal -->
-          <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Demande suivi du médecin :</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="array">
-                      <table class="doctortable" id="doctorarray">
-                        <thead>
-                          <tr>
-                            <th>Nom : </th>
-                            <th>Prénom : </th>
-                            <th>Localité : </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
-        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1" data-toggle="modal" data-target="#myModal">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Recherche du médecin :</h4>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="array">
-                    <table class="doctortable" id="doctorarray">
-                      <thead>
-                        <tr>
-                          <th>Nom : </th>
-                          <th>Prénom :</th>
-                          <th>Localité :</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
       </div>
     </div>
-  </div>
-</div>
+    <div>
+     <form method="post" action="add_follow.php">
+       <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
+       <input type="hidden" value="add" name="action">
+       <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
+     </form>
+    </div>
+    </div>
 <?php
 }
   include 'footer.php';

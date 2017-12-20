@@ -10,7 +10,7 @@
     <p>Si vous n'êtes pas inscrit, veuillez-vous rendre sur la page <a href="inscription.php" class="link">inscription</a>.</p></div>
     <div class="row">
       <div class="connexion col-lg-offset-3 col-lg-5">
-        <form action="" method="post">
+        <form action="connexion.php" method="post">
           <div class="row">
             <div class="subtitle col-lg-offset-3"><h3>Informations de connexion :</h3></div>
           </div>
@@ -57,10 +57,13 @@
            session_start();
            $request = $bdd->query("SELECT role FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
            $role = $request->fetch();
+           $request = $bdd->query("SELECT pathologie FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
+           $pathology = $request->fetch();
            //Enregistement dans la session:
            $_SESSION['user'] = $_POST['username'];
            $_SESSION['password'] = $_POST['password'];
            $_SESSION['role'] = $role['role'];
+           $_SESSION['pathology']= $pathology['pathologie'];
            if($_SESSION['role'] == 1) {
               echo "<script>document.location.replace('profil.php');</script>";
            }
