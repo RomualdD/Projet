@@ -6,9 +6,6 @@
     $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
     $id = $result->fetch();
     $id= $id['id'];
-    if(isset($_POST['action'])) {
-        $action = htmlspecialchars($_POST['action']);
-    }
     ?>
     <div class="container">
       <div class="row">
@@ -75,6 +72,9 @@
                             ));?>
                         <p>Ajout réussi, la personne demandé va recevoir un message pour valider votre demande. Retourner à votre <a href="../profil.php">profil</a></p><?php
                     }
+                }
+                else {
+                    ?><p>Vous n'avez pas mis un nom à rechercher. Retourner à votre <a href="../profil.php">profil</a></p><?php
                 }
             }
         ?>

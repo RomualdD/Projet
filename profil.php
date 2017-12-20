@@ -45,31 +45,31 @@ else {
       <div class="form-inline">
         <div class="input-group name col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="name" value="<?php echo $name ?>">
+            <input type="text" class="form-control" disabled="true"  name="name" value="<?php echo htmlspecialchars($name); ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group surname col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="surname" value="<?php echo $surname ?>">
+            <input type="text" class="form-control" disabled="true"  name="surname" value="<?php echo htmlspecialchars($surname); ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group birthday col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="birthday" value="<?php echo $birthday ?>">
+            <input type="text" class="form-control" disabled="true"  name="birthday" value="<?php echo htmlspecialchars($birthday); ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group username col-lg-offset-3">
             <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="username" value="<?php echo $user ?>">
+            <input type="text" class="form-control" disabled="true"  name="username" value="<?php echo htmlspecialchars($user); ?>">
         </div>
       </div>
       <div class="form-inline">
         <div class="input-group mail col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="mail" value="<?php echo $mail ?>">
+            <input type="text" class="form-control" disabled="true"  name="mail" value="<?php echo htmlspecialchars($mail) ?>">
         </div>
       </div>
       <div class="form-inline">
@@ -97,7 +97,7 @@ else {
         <div class="form-inline">
           <div class="input-group rate col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" name="name" value="Taux de glycémie">
+              <input type="text" class="form-control" name="name" placeholder="Taux de glycémie">
           </div>
         </div>
         <div class="form-inline">
@@ -123,7 +123,7 @@ else {
         <div class="form-inline">
           <div class="input-group time col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" name="time" value="Première vérification">
+              <input type="text" class="form-control" name="time" placeholder="Première vérification">
           </div>
           <div class="info col-lg-offset-3">Format jj/mm/aaaa</div>
         </div>
@@ -214,7 +214,6 @@ else {
     <div>
      <form method="post" action="add_follow.php">
        <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
-       <input type="hidden" value="add" name="action">
        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
      </form>
     </div>

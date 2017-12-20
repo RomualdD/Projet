@@ -23,3 +23,11 @@ CREATE TABLE 'suivis' (
 	'date_prochaine_verif' VARCHAR(40),
 	PRIMARY KEY('id')
 	)
+
+CREATE TABLE 'follow' (
+	'follow_from' int(11),
+	'follow_to' int(11),
+	'follow_confirm' enum('0','1') NOT NULL,
+	'follow_date' VARCHAR(40),
+	PRIMARY KEY ('follow_from', 'follow_to')
+	)

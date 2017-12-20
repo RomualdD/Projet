@@ -67,7 +67,6 @@
              //Redirection vers la page de connexion
              header('Location:http://diavk/connexion.php');
              exit();
-            // echo "<script>document.location.replace('connexion.php');</script>";
             }
            }
          else {
@@ -99,26 +98,26 @@
           <div class="form-inline">
             <div class="input-group name col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="name" id="name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>" placeholder="Nom de Famille" ng-model='name.text' ng-pattern='name.regex' required>
+                <input type="text" class="form-control" name="name" id="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>" placeholder="Nom de Famille" required>
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group surname col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="firstname" id="firstname" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>" placeholder="Prénom" ng-model='firstname.text' ng-pattern='firstname.regex' required>
+                <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : ''; ?>" placeholder="Prénom" required>
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group birthday col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" id="birthday" name="birthday" value="<?php if(isset($_POST['birthday'])) echo $_POST['birthday']; ?>" placeholder="Date de naissance" ng-model='birthday.text' ng-pattern='birthday.regex' required>
+                <input type="text" class="form-control" id="birthday" name="birthday" value="<?php echo isset($_POST['birthday']) ? $_POST['birthday'] : ''; ?>" placeholder="Date de naissance"required>
             </div>
             <p class="col-lg-offset-3">Format: jj/mm/aaaa</p>
           </div>
           <div class="form-inline">
             <div class="input-group username col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="username" id="username" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" placeholder="Nom d'utilisateur" required>
+                <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" placeholder="Nom d'utilisateur" required>
             </div>
           </div>
           <div class="form-inline">
@@ -136,13 +135,13 @@
           <div class="form-inline">
             <div class="input-group mail col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                <input type="mail" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="<?php if(isset($_POST['mail'])) echo $_POST['mail']; ?>" ng-model='mail.text' ng-pattern='mail.regex' required>
+                <input type="mail" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="<?php echo isset($_POST['mail']) ?  $_POST['mail'] : ''; ?>" required>
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group phone col-lg-offset-3">
                 <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="phone" class="form-control" name="phone" id="phone" placeholder="Numéro de téléphone" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>" ng-model='phone.text' ng-pattern='phone.regex' required>
+                <input type="phone" class="form-control" name="phone" id="phone" placeholder="Numéro de téléphone" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : ''; ?>" required>
             </div>
           </div>
           <div class="form-group">
@@ -161,14 +160,8 @@
           </div>
           <div>
             <label for="submit" class="col-lg-offset-3"><input type="submit" name="submit" value="S'inscrire !" class="button btn btn-default col-lg-offset-4"  ng-click="buttonClick()"></label>
-            <p><span class="error" ng-show="inscription.mail.$error.pattern || inscription.mail.$error.required">Le mail n'est pas valide !</span></p>
-            <p><span class="error" ng-show="inscription.name.$error.pattern || inscription.name.$error.required">Nom invalide !</span></p>
-            <p><span class="error" ng-show="inscription.firstname.$error.pattern || inscription.firstname.$error.required">Prénom invalide !</span></p>
-            <p><span class="error" ng-show="inscription.phone.$error.pattern || inscription.phone.$error.required">Numéro de téléphone invalide !</span></p>
-            <p><span class="error" ng-show="inscription.birthday.$error.pattern || inscription.birthday.$error.required">Date de naissance incorrecte !</span></p>
           </div>
         </form>
-
       </div>
     </div>
   </div>
