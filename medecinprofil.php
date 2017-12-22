@@ -156,119 +156,39 @@ else {
             <input type="submit" value="Modifier !" name="addnum" class="button btn btn-default col-lg-offset-3">
           </div>
         </div>
-        <form action="medecinprofil.php" method="post">
-        <div class="row">
-          <div class="newnum col-lg-offset-3">
-            <div class="form-inline">
-              <div class="input-group mail">
-                <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="newnum" placeholder="Nouveau numéro de téléphone" ng-model='phone.text' ng-pattern='phone.regex' required>
-              </div>
-            </div>
-            <input type="submit" value="Modifier !" name="addnum" class="button btn btn-default col-lg-offset-3">
-          </div>
-        </div>
-        </form>
-        <?php
-          if(!empty($_POST['newnum'])) {
-            $newnum=$_POST['newnum'];
-            $request=$bdd->prepare("UPDATE utilisateurs SET phone2 =" .$newnum. " WHERE nom_utilisateur like :user");
-            $request->bindParam(':user', $user);
-            $request->execute();
-          }
-         ?>
       </div>
     </div>
     <div class="row">
-      <div class="search col-lg-offset-3">
-       <form action="medecinprofil.php" method="post" enctype="multipart/form-data">
+      <div class="search col-lg-offset-4">
+          <p><?php
+        $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
+    $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
+    $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
+    $requestfollow->execute();
+    
+    if($requestfollow->rowCount()==0){
+        ?><?php echo 'Vous n\'avez aucune demande !';
+    }
+    else {
+     echo 'Vous avez '.$requestfollow.' demandes.';
+?>
         <div class="form-inline">
-          <div class="input-group search">
-            <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="searchpatient" placeholder="Rechercher son patient">
-          </div>
-          <input type="submit" value="Voir les demandes" name="answerpatient" class="button btn btn-default col-lg-offset-1" data-toggle="modal" data-target="#myModal" onclick="return false;" >
-          <!-- Modal -->
-          <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Demande suivi du patient :</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="array">
-                      <table class="patienttable" id="Patient">
-                        <thead>
-                          <tr>
-                            <th>Nom : </th>
-                            <th>Prénom : </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <form method="post" action="demande.php">
+            <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
+          </form>
         </div>
-      </form>
-        <input type="submit" value="Rechercher !" name="addpatient" class="button btn btn-default col-lg-offset-1" data-toggle="modal" data-target="#myModal" onclick="return false;" >
-        <?php
-          if(!empty($_POST['searchpatient'])) {
-            $patient = $_POST['searchpatient'];
-            $request = $bdd->query("SELECT nom,prenom FROM utilisateurs WHERE nom ='".$patient."' OR prenom = '".$patient."' OR nom_utilisateur = '".$patient."' AND role='1'" );
-            $row = $request->fetch();
-            $name = $row['nom'];
-            $surname = $row['prenom'];
-            echo "<script>$('.array').append('<tr><th>".$name."</th><th>".$surname."</th><th></th></tr>');</script>";
-          }
-         ?>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Recherche du patient :</h4>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="array">
-                    <table class="doctortable" id="doctorarray">
-                      <thead>
-                        <tr>
-                          <th>Nom : </th>
-                          <th>Prénom :</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <?php
+    }
+    ?></p>
       </div>
+    </div>
+    <div>
+     <form method="post" action="ajout.php">
+       <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
+       <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
      </form>
     </div>
-  </div>
-</div>
+    </div>
 <?php
   }
   include 'footer.php';

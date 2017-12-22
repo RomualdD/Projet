@@ -6,10 +6,6 @@ if(!isset($_SESSION['user'])){
 }
 else {
   include 'header1.php';
-
-    $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
-    $id = $result->fetch();
-    $id= $id['id'];
 ?>
 <!-- Page suivi patient -->
 <div class="container">
@@ -19,7 +15,7 @@ else {
   <div class="row">
     <?php
     if(isset($_POST['submit'])) {
-      if(!empty($_POST['rate'])){
+      if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))){
         $rate=$_POST['rate'];
         $date = date('d/m/Y'); // Date du jour
         $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)

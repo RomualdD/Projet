@@ -1,11 +1,13 @@
 <?php
     session_start();
+if(!isset($_SESSION['user'])){
+  include 'header.php';
+  echo "Vous n'êtes pas connecté pour accéder au contenu";
+}
+else {
     include 'header1.php';
-    $titre = 'Gestion des suivis';
     include 'bdd.php';
-    $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
-    $id = $result->fetch();
-    $id= $id['id'];
+
     ?>
     <div class="container">
       <div class="row">
@@ -26,7 +28,13 @@
         <?php
         if(isset($_POST['name'])) {
                 $name = $_POST['name'];
-                $request = $bdd->query('SELECT nom, prenom, nom_utilisateur FROM utilisateurs WHERE nom = "'.$name.'"');
+                $role = $_SESSION['role']; // on cherche le role pour chercher si il faut trouver les patients ou les médecins
+                if($role == 1) {
+                     $request = $bdd->query('SELECT nom, prenom, nom_utilisateur FROM utilisateurs WHERE nom = "'.$name.'" AND role = 0');
+                 }
+                 else {
+                     $request = $bdd->query('SELECT nom, prenom, nom_utilisateur FROM utilisateurs WHERE nom = "'.$name.'" AND role = 1');
+                 }
                 while($requestbdd = $request->fetch(PDO::FETCH_ASSOC) ) {
                    ?><tr><?php
                     foreach($requestbdd as $element) {
@@ -77,4 +85,5 @@
                     ?><p>Vous n'avez pas mis un nom à rechercher. Retourner à votre <a href="../profil.php">profil</a></p><?php
                 }
             }
-        ?>
+        }
+?>

@@ -10,10 +10,10 @@ else {
   if($pathology == 3) {
     header('Location:suivi1.php');
   }
+  elseif ($role==0) {
+  header('Location:suivimedecin.php');
+}
   else {
-    $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
-    $id = $result->fetch();
-    $id= $id['id'];
 ?>
 <!-- Page suivi patient -->
 <div class="container">
@@ -22,7 +22,7 @@ else {
   </div>
     <?php
     if(isset($_POST['submit'])) {
-      if(!empty($_POST['rate'])){
+      if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate']))){
         $rate=$_POST['rate'];
         $date = date('d/m/Y H:i'); // Date du jour
         $futuredate = date('d/m/Y H:i');
@@ -46,7 +46,7 @@ else {
       <label for="text">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
     </div>
-    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult" onclick="return false;"/>
+    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
   </form>
   </div>
   <div class="row">

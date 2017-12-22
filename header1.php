@@ -2,6 +2,10 @@
   include 'bdd.php';
 
   $user=$_SESSION['user'];
+  $role = $_SESSION['role'];
+    $result = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
+    $id = $result->fetch();
+    $id= $id['id'];
  ?>
 
 <!-- Header connecté -->

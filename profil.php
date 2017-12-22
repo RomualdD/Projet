@@ -7,8 +7,9 @@ if(!isset($_SESSION['user'])){
 else {
   include 'header1.php';
   if($_SESSION['role']==0){
-    echo "<script>document.location.replace('medecinprofil.php');</script>";
-  }
+        header('Location:http://diavk/medecinprofil.php');
+        exit();
+    }
 ?>
 <!-- Page profil type -->
 <div class="container">
@@ -199,20 +200,31 @@ else {
       </div>
     </div>
     <div class="row">
-      <div class="search col-lg-offset-3">
+      <div class="search col-lg-offset-4">
+          <p><?php
+        $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
+    $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
+    $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
+    $requestfollow->execute();
+    
+    if($requestfollow->rowCount()==0){
+        ?><?php echo 'Vous n\'avez aucune demande !';
+    }
+    else {
+     echo 'Vous avez '.$requestfollow.' demandes.';
+?>
         <div class="form-inline">
-          <div class="input-group search">
-            <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="searchdoctor" placeholder="Rechercher son médecin">
-          </div>
-          <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1" data-toggle="modal" data-target="#myModal">
-
+          <form method="post" action="demande.php">
+            <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
+          </form>
         </div>
-        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
+    <?php
+    }
+    ?></p>
       </div>
     </div>
     <div>
-     <form method="post" action="add_follow.php">
+     <form method="post" action="ajout.php">
        <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
      </form>

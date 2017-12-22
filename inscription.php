@@ -21,7 +21,8 @@
        if($role == 0){
          $pathology = 0;
        }
-       if(($role == 1 && $pathology != 0) || ($role == 0 && $pathology == 0)) {
+       if(preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['name']) && (preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['firstname'])) && (preg_match('#^[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}$#', $_POST['birthday']))&& (preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) && (preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail']))) {
+        if(($role == 1 && $pathology != 0) || ($role == 0 && $pathology == 0)) {
          // On vérifie que les mots de passes sont identiques
          if($password == $passwordverif) {
            $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');
@@ -73,9 +74,30 @@
            echo 'Mot de passe différent';
          }
        }
-       else {
-         echo "Veuillez choisir votre pathology !";
+        else {
+         echo 'Veuillez choisir votre pathology !';
        }
+      }
+        elseif(!preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['name'])) {
+            $_POST['name'] = '';
+            echo 'Le nom n\'est pas valide';
+        }
+        elseif(!preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['firstname'])) {
+            $_POST['firstname'] = '';
+            echo 'Le prénom n\'est pas valide';
+        }
+        elseif(!preg_match('#^[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}$#', $_POST['birthday'])) {
+            $_POST['birthday'] = '';
+            echo 'La date n\'est pas valide';
+        }
+       elseif(!preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) {
+            $_POST['phone'] = '';
+            echo 'Le numéro de téléphone n\'est pas valider';
+        }
+        else {
+            $_POST['mail'] = '';
+            echo 'Le mail n\'est pas valide !';
+        }
      }
    else {
     echo  'Les champs ne sont pas remplis.';
