@@ -161,16 +161,24 @@ else {
     <div class="row">
       <div class="search col-lg-offset-4">
           <p><?php
+          $nbquest = 0;
         $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
     $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
     $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
-    $requestfollow->execute();
-    
+    $requestfollow->execute();  
     if($requestfollow->rowCount()==0){
         ?><?php echo 'Vous n\'avez aucune demande !';
     }
     else {
-     echo 'Vous avez '.$requestfollow.' demandes.';
+        while($request = $requestfollow->fetch()) {
+            $nbquest++;
+        }
+        if($nbquest > 1) {
+            echo 'Vous avez '.$nbquest.' demandes.'; 
+        }
+        else {
+            echo 'Vous avez '.$nbquest.' demande.';
+        }
 ?>
         <div class="form-inline">
           <form method="post" action="demande.php">

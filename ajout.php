@@ -40,7 +40,7 @@ else {
                     foreach($requestbdd as $element) {
                       ?>
                     <td><?php echo $element; ?></td><?php
-                    }?><td><form  action="add_follow.php" method="post"/><input type="hidden" name="username" value="<?php echo $requestbdd['nom_utilisateur'];?>"/><input type="submit" /></form></td></tr><?php
+                    }?><td><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $requestbdd['nom_utilisateur'];?>"/><input type="submit" /></form></td></tr><?php
                   } 
                   ?>
         </tbody>

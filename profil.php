@@ -211,7 +211,15 @@ else {
         ?><?php echo 'Vous n\'avez aucune demande !';
     }
     else {
-     echo 'Vous avez '.$requestfollow.' demandes.';
+        while($request = $requestfollow->fetch()) {
+            $nbquest++;
+        }
+        if($nbquest > 1) {
+            echo 'Vous avez '.$nbquest.' demandes.'; 
+        }
+        else {
+            echo 'Vous avez '.$nbquest.' demande.';
+        }
 ?>
         <div class="form-inline">
           <form method="post" action="demande.php">

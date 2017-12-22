@@ -22,13 +22,13 @@ else {
   </div>
     <?php
     if(isset($_POST['submit'])) {
-      if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate']))){
+      if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))){
         $rate=$_POST['rate'];
         $date = date('d/m/Y H:i'); // Date du jour
         $futuredate = date('d/m/Y H:i');
-        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
+        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'" AND id_utilisateur = "'.$id.'"');
         $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour']) {
+        if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
           $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
@@ -46,7 +46,7 @@ else {
       <label for="text">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
     </div>
-    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
+    <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
   </form>
   </div>
   <div class="row">

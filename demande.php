@@ -41,11 +41,11 @@ else {
             <input type="hidden" name="username" value="<?php echo $reqfollow['follow_from']; ?>"/>
             <input type="hidden" name="action" value="delete"/>
             <input type="submit" value="X"/>
-        </form></td></tr>
+        </form></td></tr> <?php
+     }?>
       </tbody>
         </table>
-            <?php
-     }
+     <?php
      if(isset($_POST['username']) && ($_POST['action'] == 'add') ) {
          $member = (int) $_POST['username'];
          $follow = $bdd->prepare('UPDATE follow SET follow_confirm = :confirm WHERE follow_from = :member AND follow_to = :id');
@@ -60,11 +60,12 @@ else {
              echo 'Votre patient vous suit désormais !';
          }
      }
-     elseif(isset($_POST['username']) && ($_POST['action']) == 'delete') {
+     elseif(isset($_POST['username']) && (($_POST['action']) == 'delete')) {
          $member = (int) $_POST['username'];
          $requestrefuse = $bdd->prepare('DELETE FROM follow WHERE follow_from = :member AND follow_to = :id');
          $requestrefuse->bindValue(':member',$member,PDO::PARAM_INT);
          $requestrefuse->bindValue(':id',$id,PDO::PARAM_INT);
+         $requestrefuse->execute();
          echo 'Refus enregistré';
    }
 }

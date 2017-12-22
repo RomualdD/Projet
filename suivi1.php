@@ -22,7 +22,7 @@ else {
         $futuredate = date('d/m/Y', $nextverif); // On récupère la nouvelle date
         $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
         $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour']) {
+        if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
           $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
