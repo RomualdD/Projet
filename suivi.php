@@ -24,15 +24,37 @@ else {
     if(isset($_POST['submit'])) {
       if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))){
         $rate=$_POST['rate'];
-        $date = date('d/m/Y H:i'); // Date du jour
-        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification');
-        $searchfuturedate->fetch();
-        $futurehour = $searchfuturedate['Heure1'];
-        $futuredate = $searchfuturedate['date_verification'];
-        $futuredate = $futuredate.' '.$futurehour;
+        $date = date('d/m/Y H:i'); // Date du jour avec heure
+        $dateday = date('d/m/Y');
         $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'" AND id_utilisateur = "'.$id.'"');
         $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
+        $dateofday = $resultdate['date_du_jour'];
+        $dateofday = substr($dateofday,-5);
+        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification');
+        $searchfuturedate = $searchfuturedate->fetch();
+        $oneclock = $searchfuturedate['Heure1'];
+        $twoclock = $searchfuturedate['Heure2'];
+        $threeclock = $searchfuturedate['Heure3'];
+        $fourclock = $searchfuturedate['Heure4'];        
+        if($dateofday > $oneclock && $dateofday < $twoclock || $searchfuturedate['date_verification'] == $dateday.' '.$fourclock) {
+            $futurehour = $oneclock;       
+            $tomorrow = time() + (24*60*60); // calcul d'une journée
+            $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain     
+        }
+        elseif($dateofday > $twoclock && $dateofday < $threeclock || $searchfuturedate['date_verification'] == $dateday.' '.$oneclock) {
+            $futurehour = $twoclock;  
+            $futuredate = $dateday;
+        }
+        elseif($dateofday > $threeclock && $dateofday < $fourclock || $searchfuturedate['date_verification'] == $dateday.' '.$twoclock) {
+            $futurehour = $threeclock;      
+            $futuredate = $dateday;
+        }
+        else {
+            $futurehour = $fourclock;
+            $futuredate = $dateday;
+        }        
+        $futuredate = $futuredate.' '.$futurehour;
+        if($date != $dateofday && ($id != $resultdate['id_utilisateur'])) {
           $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
@@ -40,7 +62,9 @@ else {
           'result' => $rate,
           'futureverif' => $futuredate
           ));
-          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = ');
+          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = :newdate');
+          $requestmodif->bindValue('newdate',$futuredate,PDO::PARAM_STR);
+          $requestmodif->execute();
         }
       }
     }
