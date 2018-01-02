@@ -29,7 +29,7 @@
           <div class="form-group col-lg-offset-7">
           <input type="checkbox">Se rappeler de moi !
           </div>
-          <input type="submit" value="Se connecter !" class="button btn btn-default col-lg-offset-4">
+          <input type="submit" value="Se connecter !" name="connexion" class="button btn btn-default col-lg-offset-4">
           <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants,<a href="">cliquez ici</a></p></div>
         </form>
     </div>
@@ -38,6 +38,7 @@
 
 <?php
   // Si les champs sont remplis
+if(isset($_POST['connexion'])) {
   if(!empty($_POST['username']) && (!empty($_POST['password']))) {
        $user = $_POST['username'];
        $pass = $_POST['password'];
@@ -85,6 +86,6 @@
    else {
       echo "Tous les champs n'ont pas était remplis !";
     }
-
+}
   include 'footer.php'
 ?>

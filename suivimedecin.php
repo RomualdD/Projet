@@ -15,9 +15,9 @@ else {
     <div class="suivi form-group col-lg-offset-3">
       <label for="text">Choisir son patient :</label>
         <?php 
-          $requestfollow = $bdd->prepare('SELECT DISTINCT nom, prenom, nom_utilisateur FROM utilisateurs LEFT JOIN follow ON role = :role WHERE follow_to = id OR follow_from = id AND follow_confirm = :confirm ORDER BY nom');
-          $requestfollow->bindValue(':confirm','1', PDO::PARAM_STR);
-          $requestfollow->bindValue(':role','1', PDO::PARAM_STR);
+          $requestfollow = $bdd->prepare('SELECT follow_from = :id OR follow_to = :id AS follow_id, nom, prenom, nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id = follow_from OR id = follow_to WHERE follow_from = :id OR follow_to = :id AND follow_confirm = :confirm AND role = 1 ORDER BY nom_utilisateur');
+          $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
+          $requestfollow->bindValue('id',$id, PDO::PARAM_INT);
           $requestfollow->execute();
         ?>
       <select name="patient"><?php

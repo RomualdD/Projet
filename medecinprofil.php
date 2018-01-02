@@ -108,6 +108,7 @@ else {
         </div>
         </form>
         <?php
+        if(isset($_POST['submit'])) {
           if(!empty($_POST['passwordchange']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
             $pass = $_POST['passwordchange'];
             $pass = md5($pass);
@@ -133,6 +134,7 @@ else {
           else {
             echo "Les champs ne sont pas tous remplis !";
           }
+        }          
          ?>
         <div class="row">
           <div class="modificatemail col-lg-offset-3">

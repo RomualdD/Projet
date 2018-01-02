@@ -25,7 +25,11 @@ else {
       if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))){
         $rate=$_POST['rate'];
         $date = date('d/m/Y H:i'); // Date du jour
-        $futuredate = date('d/m/Y H:i');
+        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification');
+        $searchfuturedate->fetch();
+        $futurehour = $searchfuturedate['Heure1'];
+        $futuredate = $searchfuturedate['date_verification'];
+        $futuredate = $futuredate.' '.$futurehour;
         $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'" AND id_utilisateur = "'.$id.'"');
         $resultdate = $resultdate->fetch();
         if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
@@ -36,6 +40,7 @@ else {
           'result' => $rate,
           'futureverif' => $futuredate
           ));
+          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = ');
         }
       }
     }

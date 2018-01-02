@@ -95,30 +95,28 @@ else {
     <div class="row">
       <div class="formular col-lg-offset-3 col-lg-5">
         <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
-        <div class="form-inline">
-          <div class="input-group rate col-lg-offset-3">
-              <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" name="name" placeholder="Taux de glycémie">
-          </div>
-        </div>
+        <?php 
+            if($pathology == 1 || $pathology == 2) {
+        ?>
+        <form  name="addverif" method="post" action="profil.php">
         <div class="form-inline">
           <div class="input-group date col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
-              <select class="timeverif">
+              <select name="timeverif">
                 <option>Vérification par :</option>
-                <option name="date">Heure</option>
-                <option name="date">Jours</option>
-                <option name="date">Mois</option>
+                <option value="Heure">Heure</option>
+                <option value="Jours">Jours</option>
+                <option value="Mois">Mois</option>
               </select>
           </div>
         </div>
         <div class="form-inline">
           <div class="input-group clock col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" name="clock" placeholder="Heures de vérification">
-              <input type="text" class="form-control" name="clock">
-              <input type="text" class="form-control" name="clock">
-              <input type="text" class="form-control" name="clock">
+              <input type="text" class="form-control" name="clockone" placeholder="Heures de vérification">
+              <input type="text" class="form-control" name="clocktwo">
+              <input type="text" class="form-control" name="clockthree">
+              <input type="text" class="form-control" name="clockfour">
           </div>
         </div>
         <div class="form-inline">
@@ -126,19 +124,119 @@ else {
               <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
               <input type="text" class="form-control" name="time" placeholder="Première vérification">
           </div>
-          <div class="info col-lg-offset-3">Format jj/mm/aaaa</div>
+          <div class="info col-lg-offset-3">Format jj/mm/aaaa (première vérification sur le site !)</div>
         </div>
         <div class="form-inline">
           <div class="input-group notif col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-bell" aria-hidden="true"></i></span>
-              <select class="timeverif">
+              <select name="notification">
                 <option>Notifications par :</option>
-                <option name="notif">SMS</option>
-                <option name="notif">Mail</option>
+                <option value="SMS">SMS</option>
+                <option value="Mail">Mail</option>
               </select>
           </div>
         </div>
         <input type="submit" value="Valider !" name="valid" class="button btn btn-default col-lg-offset-5">
+        </form>
+        <?php 
+            if(isset($_POST['valid'])) {
+                if(isset($_POST['timeverif']) && (isset($_POST['time'])) && (isset($_POST['notification']))) {
+                    $timeverif = $_POST['timeverif'];
+                    $time = $_POST['time'];
+                    if($_POST['notification'] == 'SMS') {
+                        $notification = 0;
+                    }
+                    else {
+                        $notification = 1;
+                    }
+                    $oneclock = $_POST['clockone'];
+                    if(isset($_POST['clocktwo'])) {
+                        $twoclock = $_POST['clocktwo'];                        
+                    }
+                    else {
+                        $twoclock = '';
+                    }
+                    if(isset($_POST['clockthree'])) {
+                        $threeclock = $_POST['clockthree'];
+                    }
+                    else {
+                        $threeclock = '';
+                    }
+                    if(isset($_POST['clockfour'])) {
+                        $fourclock = $_POST['clockfour'];                        
+                    }
+                    else {
+                        $fourclock = '';
+                    }                    
+                    $requestverif = $bdd->prepare('INSERT INTO verification(id_utilisateur, verification, Heure1, Heure2, Heure3, Heure4, notification, date_verification) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
+                    $requestverif->execute(array(
+                        'id' => $id,
+                        'verification' => $timeverif,
+                        'hour1' => $oneclock,
+                        'hour2' => $twoclock,
+                        'hour3' => $threeclock,
+                        'hour4' => $fourclock,
+                        'notification' => $notification,
+                        'dateverification' => $time
+                    ));
+                    echo 'Les modifications sont prises en compte !';
+                }
+                else {
+                    echo 'Les champs ne sont pas tous remplis !';
+                }
+            }
+        }
+        elseif($pathology == 3) {
+            ?>
+        <form  name="addverif" method="post" action="suivimedecin.php">
+        <div class="form-inline">
+          <div class="input-group clock col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="clock" placeholder="Heures de vérification">
+          </div>
+        </div>
+        <div class="form-inline">
+          <div class="input-group time col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" name="time" placeholder="Première vérification">
+          </div>
+          <div class="info col-lg-offset-3">Format jj/mm/aaaa (première vérification sur le site !)</div>
+        </div>
+        <div class="form-inline">
+          <div class="input-group notif col-lg-offset-3">
+              <span class="input-group-addon"><i class="fa fa-bell" aria-hidden="true"></i></span>
+              <select class="notification">
+                <option>Notifications par :</option>
+                <option value="SMS">SMS</option>
+                <option value="Mail">Mail</option>
+              </select>
+          </div>
+        </div>
+        <input type="submit" value="Valider !" name="valid" class="button btn btn-default col-lg-offset-5">
+        </form>
+        <?php
+            if(isset($_POST['valid'])) {
+                if(isset($_POST['time']) && (isset($_POST['notification']))) {
+                    $time = $_POST['time'];
+                    if($_POST['notification'] == 'SMS') {
+                        $notification = 0;
+                    }
+                    else {
+                        $notification = 1;
+                    }
+                    $oneclock = $_POST['clock'];
+                    $requestverif = $bdd->prepare('INSERT INTO verification(id_utilisateur, verification, Heure1, notification, date_verification) VALUES (:id, :verification, :hour1, :notification, :dateverification)');
+                    $requestverif->execute(array(
+                        'id' => $id,
+                        'verification' => $timeverif,
+                        'hour1' => $clock,
+                        'notification' => $notification,
+                        'dateverification' => $time
+                    ));
+                }
+            }
+        }
+        ?>
       </div>
     </div>
     <div class="modificate col-lg-offset-3 col-lg-5">
@@ -169,7 +267,7 @@ else {
             <div class="form-inline">
               <div class="input-group mail">
                 <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="newmail" placeholder="Nouvelle adresse mail">
+                <input type="text" class="form-control" name="newmail" value="Nouvelle adresse mail">
               </div>
             </div>
             <input type="submit" value="Modifier !" name="modificatemail" class="button btn btn-default col-lg-offset-3">
@@ -183,7 +281,7 @@ else {
                 <input type="text" class="form-control" name="newnum" placeholder="Modifier numéro de téléphone">
               </div>
             </div>
-            <input type="submit" value="Modifier !" name="addnum" class="button btn btn-default col-lg-offset-3">
+            <input type="submit" value="Modifier !" name="modificatenum" class="button btn btn-default col-lg-offset-3">
           </div>
         </div>
         <div class="row">
@@ -203,37 +301,37 @@ else {
       <div class="search col-lg-offset-4">
           <p><?php
         $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
-    $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
-    $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
-    $requestfollow->execute();
-    
-    if($requestfollow->rowCount()==0){
-        ?><?php echo 'Vous n\'avez aucune demande !';
-    }
-    else {
-        while($request = $requestfollow->fetch()) {
-            $nbquest++;
-        }
-        if($nbquest > 1) {
-            echo 'Vous avez '.$nbquest.' demandes.'; 
+        $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
+        $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
+        $requestfollow->execute();
+
+        if($requestfollow->rowCount() == 0){
+            echo 'Vous n\'avez aucune demande !';
         }
         else {
-            echo 'Vous avez '.$nbquest.' demande.';
-        }
-?>
-        <div class="form-inline">
-          <form method="post" action="demande.php">
-            <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
-          </form>
-        </div>
+            while($request = $requestfollow->fetch()) {
+                $nbquest++;
+            }
+            if($nbquest > 1) {
+                echo 'Vous avez '.$nbquest.' demandes.'; 
+            }
+            else {
+                echo 'Vous avez '.$nbquest.' demande.';
+            }
+    ?>
+            <div class="form-inline">
+              <form method="post" action="demande.php">
+                <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
+              </form>
+            </div>
     <?php
-    }
+        }
     ?></p>
       </div>
     </div>
     <div>
      <form method="post" action="ajout.php">
-       <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
+       <input type="text" name="name" placeholder="Nom du médecin" class="col-lg-offset-3 col-lg-2"/>
        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
      </form>
     </div>
