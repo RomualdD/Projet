@@ -39,7 +39,7 @@ else {
             $request->execute();
             $request = $request->fetch();
             $idpatient = $request['id'];
-            $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat, date_prochaine_verif FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE nom_utilisateur = :user AND follow_to = :id OR follow_from = :id AND follow_confirm = :confirm ORDER BY date_du_jour DESC');
+            $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat, date_prochaine_verif FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE nom_utilisateur = :user AND follow_to = :id OR follow_from = :id AND follow_confirm = :confirm ORDER BY id DESC');
             $requestsearch->bindValue(':idpatient',$idpatient, PDO::PARAM_INT); 
             $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
             $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);

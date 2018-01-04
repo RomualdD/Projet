@@ -4,24 +4,24 @@
      // Vérification si les champs sont bien remplis
      if(!empty($_POST['name']) && (!empty($_POST['firstname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['birthday'])) && (!empty($_POST['phone'])))  {
        //enregistrement des données des champs
-       $name = htmlspecialchars($_POST['name']);
+       $name = strip_tags($_POST['name']);
        $name = strtoupper($name);
-       $firstname = htmlspecialchars($_POST['firstname']);
-       $username = htmlspecialchars($_POST['username']);
-       $mail = htmlspecialchars($_POST['mail']);
+       $firstname = strip_tags($_POST['firstname']);
+       $username = strip_tags($_POST['username']);
+       $mail = strip_tags($_POST['mail']);
        $password = $_POST['password'];
        $passwordverif = $_POST['passwordverif'];
        $password = md5($password); //cryptage de données mdp
        $passwordverif = md5($passwordverif);
-       $birthday = htmlspecialchars($_POST['birthday']);
-       $phone = htmlspecialchars($_POST['phone']);
+       $birthday = strip_tags($_POST['birthday']);
+       $phone = strip_tags($_POST['phone']);
        $role = $_POST['role'];
        $pathology = $_POST['pathology'];
        $phone2 = "Pas indiqué";
        if($role == 0){
          $pathology = 0;
        }
-       if(preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['name']) && (preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['firstname'])) && (preg_match('#^[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}$#', $_POST['birthday']))&& (preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) && (preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail']))) {
+       if(preg_match('#^[a-zA-Z]{1,20}$#', $_POST['name']) && (preg_match('#^[a-zA-Z]{1,20}$#', $_POST['firstname'])) && (preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}$#', $_POST['birthday'])) || (preg_match('#^[0-9]{2}[/]{1}[1]{1}[0-2]{1}[/]{1}[0-9]{4}$#', $_POST['birthday']))&& (preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) && (preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail']))) {
         if(($role == 1 && $pathology != 0) || ($role == 0 && $pathology == 0)) {
          // On vérifie que les mots de passes sont identiques
          if($password == $passwordverif) {
@@ -78,11 +78,11 @@
          echo 'Veuillez choisir votre pathology !';
        }
       }
-        elseif(!preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['name'])) {
+        elseif(!preg_match('#^[a-zA-Z]{1,20}$#', $_POST['name'])) {
             $_POST['name'] = '';
             echo 'Le nom n\'est pas valide';
         }
-        elseif(!preg_match('#^[a-zA-Z -]{1,20}$#', $_POST['firstname'])) {
+        elseif(!preg_match('#^[a-zA-Z]{1,20}$#', $_POST['firstname'])) {
             $_POST['firstname'] = '';
             echo 'Le prénom n\'est pas valide';
         }

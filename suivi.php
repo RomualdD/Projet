@@ -29,8 +29,7 @@ else {
         $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'" AND id_utilisateur = "'.$id.'"');
         $resultdate = $resultdate->fetch();
         $dateofday = $resultdate['date_du_jour'];
-        $dateofday = substr($dateofday,-5);
-        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification');
+        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
         $oneclock = $searchfuturedate['Heure1'];
         $twoclock = $searchfuturedate['Heure2'];
@@ -62,8 +61,9 @@ else {
           'result' => $rate,
           'futureverif' => $futuredate
           ));
-          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = :newdate');
+          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = :newdate WHERE id_utilisateur = :id');
           $requestmodif->bindValue('newdate',$futuredate,PDO::PARAM_STR);
+          $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
           $requestmodif->execute();
         }
       }
@@ -95,7 +95,7 @@ else {
       </thead>
       <tbody>
           <?php
-          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY date_du_jour DESC ');
+          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY id DESC ');
           while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
             ?><tr><?php
             foreach($requestarray as $element) {

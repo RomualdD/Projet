@@ -118,13 +118,14 @@ else {
               <input type="text" class="form-control" name="clockthree">
               <input type="text" class="form-control" name="clockfour">
           </div>
+            <div class="info col-lg-offset-3">Format h:min</div>
         </div>
         <div class="form-inline">
           <div class="input-group time col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
               <input type="text" class="form-control" name="time" placeholder="Première vérification">
           </div>
-          <div class="info col-lg-offset-3">Format jj/mm/aaaa (première vérification sur le site !)</div>
+          <div class="info col-lg-offset-3">Format jj/mm/aaaa h:min (première vérification sur le site !)</div>
         </div>
         <div class="form-inline">
           <div class="input-group notif col-lg-offset-3">
@@ -194,13 +195,14 @@ else {
               <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
               <input type="text" class="form-control" name="clock" placeholder="Heures de vérification">
           </div>
+                      <div class="info col-lg-offset-3">Format h:min</div>
         </div>
         <div class="form-inline">
           <div class="input-group time col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
               <input type="text" class="form-control" name="time" placeholder="Première vérification">
           </div>
-          <div class="info col-lg-offset-3">Format jj/mm/aaaa (première vérification sur le site !)</div>
+          <div class="info col-lg-offset-3">Format jj/mm/aaaa h:min (première vérification sur le site !)</div>
         </div>
         <div class="form-inline">
           <div class="input-group notif col-lg-offset-3">

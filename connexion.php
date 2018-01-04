@@ -45,7 +45,7 @@ if(isset($_POST['connexion'])) {
        $pass = md5($pass);
        $request = $bdd->query("SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
        $username = $request->fetch();
-       $request = $bdd->query("SELECT mot_de_passe FROM utilisateurs WHERE mot_de_passe = '".$pass."'");
+       $request = $bdd->query("SELECT mot_de_passe FROM utilisateurs WHERE mot_de_passe = '".$pass."' AND nom_utilisateur = '".$user."'");
        $password = $request->fetch();
       // Si les champs correspondent dans la base de données
       if($username['nom_utilisateur'] == $user && $pass == $password['mot_de_passe']) {
