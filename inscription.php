@@ -116,7 +116,7 @@
         <div class="row">
           <div class="subtitle col-lg-offset-3"><h3>Informations à renseigner :</h3></div>
         </div>
-        <form method="post" action="inscription.php" ng-controller='inscriptioncontroller' name='inscription' enctype="multipart/form-data">
+        <form method="POST" action="inscription.php" ng-controller='inscriptioncontroller' name='inscription'>
           <div class="form-inline">
             <div class="input-group name col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>

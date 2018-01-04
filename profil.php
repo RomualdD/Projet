@@ -40,6 +40,15 @@ else {
           $request = $bdd->query("SELECT pathologie FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
           $pathology = $request->fetch();
           $pathology = $pathology['pathologie'];
+          if($pathology == 1) {
+              $pathologyname = 'Diabète Type 1';
+          }
+          elseif ($pathology == 2) {
+              $pathologyname = 'Diabète Type 2';
+          }
+          else {
+              $pathologyname = 'Anticoagulant (AVK)';
+          }
           ?>
     <div class="profil col-lg-offset-3 col-lg-5">
       <div class="subtitle col-lg-offset-3"><h3>Informations du patient :</h3></div>
@@ -88,7 +97,7 @@ else {
       <div class="form-inline">
         <div class="input-group pathology col-lg-offset-3">
             <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" disabled="true"  name="pathology" value="<?php echo $pathology ?>">
+            <input type="text" class="form-control" disabled="true"  name="pathology" value="<?php echo $pathologyname ?>">
         </div>
       </div>
     </div>
@@ -98,7 +107,7 @@ else {
         <?php 
             if($pathology == 1 || $pathology == 2) {
         ?>
-        <form  name="addverif" method="post" action="profil.php">
+        <form  name="addverif" method="POST" action="profil.php">
         <div class="form-inline">
           <div class="input-group date col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
@@ -189,7 +198,7 @@ else {
         }
         elseif($pathology == 3) {
             ?>
-        <form  name="addverif" method="post" action="suivimedecin.php">
+        <form  name="addverif" method="POST" action="suivimedecin.php">
         <div class="form-inline">
           <div class="input-group clock col-lg-offset-3">
               <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>

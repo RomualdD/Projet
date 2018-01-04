@@ -32,12 +32,12 @@ else {
         ?><tr><td><?php echo stripslashes(htmlspecialchars($reqfollow['nom']));?></td><td><?php
         echo stripslashes(htmlspecialchars($reqfollow['prenom']));?></td><td><?php
         echo stripslashes(htmlspecialchars($reqfollow['nom_utilisateur']));?></td><td>
-        <form method="post" action="demande.php">
+        <form method="POST" action="demande.php">
             <input type="hidden" name="username" value="<?php echo $reqfollow['follow_from']; ?>"/>
             <input type="hidden" name="action" value="add"/>
             <input type="submit" value="Accepter"/>
         </form></td><td>
-        <form method="post" action="demande.php">
+        <form method="POST" action="demande.php">
             <input type="hidden" name="username" value="<?php echo $reqfollow['follow_from']; ?>"/>
             <input type="hidden" name="action" value="delete"/>
             <input type="submit" value="X"/>

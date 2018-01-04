@@ -11,11 +11,11 @@ else {
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
   </div>
   <div class="row">
-    <form name="followedrate" method="post" action="suivimedecin.php">
+    <form name="followedrate" method="POST" action="suivimedecin.php">
     <div class="suivi form-group col-lg-offset-3">
       <label for="text">Choisir son patient :</label>
         <?php 
-          $requestfollow = $bdd->prepare('SELECT follow_from = :id OR follow_to = :id AS follow_id, nom, prenom, nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id = follow_from OR id = follow_to WHERE follow_from = :id OR follow_to = :id AND follow_confirm = :confirm AND role = 1 ORDER BY nom_utilisateur');
+          $requestfollow = $bdd->prepare('SELECT follow_from = :id OR follow_to = :id AS follow_id, nom, prenom, nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id = follow_from OR id = follow_to WHERE follow_from = :id OR follow_to = :id AND follow_confirm = :confirm AND role = 1 ORDER BY nom');
           $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
           $requestfollow->bindValue('id',$id, PDO::PARAM_INT);
           $requestfollow->execute();
@@ -39,7 +39,7 @@ else {
             $request->execute();
             $request = $request->fetch();
             $idpatient = $request['id'];
-            $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat, date_prochaine_verif FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE nom_utilisateur = :user AND follow_to = :id OR follow_from = :id AND follow_confirm = :confirm ORDER BY id DESC');
+            $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat, date_prochaine_verif FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE nom_utilisateur = :user AND follow_to = :id OR follow_from = :id AND follow_confirm = :confirm ORDER BY date_du_jour DESC');
             $requestsearch->bindValue(':idpatient',$idpatient, PDO::PARAM_INT); 
             $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
             $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);

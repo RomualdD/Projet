@@ -34,7 +34,7 @@ else {
       }
     }
     ?>
-    <form method="post" action="suivi1.php" name="followedrate" >
+    <form method="POST" action="suivi1.php" name="followedrate" >
     <div class="suivi form-group col-lg-offset-3">
       <label for="text">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result" />

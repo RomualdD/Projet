@@ -83,7 +83,7 @@ else {
       </div>
     </div>
     <div class="modificate col-lg-offset-3 col-lg-5">
-    <form action="medecinprofil.php" method="post" enctype="multipart/form-data">
+    <form action="medecinprofil.php" method="POST" enctype="multipart/form-data">
       <div class="row">
         <div class="subtitle col-lg-offset-1"><h3>Informations du compte à modifier :</h3></div>
         <div class="form-inline">
@@ -163,11 +163,14 @@ else {
     <div class="row">
       <div class="search col-lg-offset-4">
           <p><?php
+          // Initialisation du nombre de requete faite
           $nbquest = 0;
+          // Recherche si il y'a des demandes de suivis
         $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
     $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
     $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
     $requestfollow->execute();  
+    // Affichage du nombre de demande
     if($requestfollow->rowCount()==0){
         ?><?php echo 'Vous n\'avez aucune demande !';
     }
@@ -183,7 +186,7 @@ else {
         }
 ?>
         <div class="form-inline">
-          <form method="post" action="demande.php">
+          <form method="POST" action="demande.php">
             <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
           </form>
         </div>
