@@ -23,8 +23,8 @@
         $firstname = $request['prenom'];
         $subject = '[IMPORTANT] Prise de sang à faire';
         $entete = 'From: inscriptiondiavk@gmail.com';
-        $message = 'Bonjour '.$firstname.' '.$name.',\r\n'
-        .'Il est l\'heure de faire votre vérification !\r\n'
+        $message = 'Bonjour '.$firstname.' '.$name.",\r\n"
+        .'Il est l\'heure de faire votre vérification !'."\r\n"
         .'N\'oubliez pas de mettre le résultat dans le tableau afin de garder en mémoire votre résultat';
         mail($recipient, $subject,$message,$entete);
        }

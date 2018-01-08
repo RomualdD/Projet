@@ -31,8 +31,18 @@ else {
           'futureverif' => $futuredate
           ));
         }
+        // Recherche de l'heure a laquelle il faudra envoyer le mail
+        $searchfuturedate = $bdd->query('SELECT Heure1 FROM verification WHERE id_utilisateur = "'.$id.'"');
+        $searchfuturedate = $searchfuturedate->fetch();
+        $oneclock = $searchfuturedate['Heure1'];
+        $futuredate = $futuredate.' '.$oneclock;
+        // Modification de la prochaine vérifiacation dans la table vérification
+        $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = :newdate WHERE id_utilisateur = :id');
+        $requestmodif->bindValue('newdate',$futuredate,PDO::PARAM_STR);
+        $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
+        $requestmodif->execute();
+        }
       }
-    }
     ?>
     <form method="POST" action="suivi1.php" name="followedrate" >
     <div class="suivi form-group col-lg-offset-3">
@@ -59,7 +69,7 @@ else {
       </thead>
       <tbody>
           <?php
-          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY date_du_jour DESC ');
+          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY id DESC ');
           while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
             ?><tr><?php
             foreach($requestarray as $element) {
@@ -81,7 +91,7 @@ else {
 <?php
 $dataPoints= array();
 $n = 0;
-$requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
+$requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" LIMIT TO 20');
 while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
 {
   foreach ($requestchart as $datevalue) {

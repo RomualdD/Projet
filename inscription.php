@@ -11,8 +11,8 @@
        $mail = strip_tags($_POST['mail']);
        $password = $_POST['password'];
        $passwordverif = $_POST['passwordverif'];
-       $password = md5($password); //cryptage de données mdp
-       $passwordverif = md5($passwordverif);
+       $password = sha1(md5($password)); //cryptage de données mdp
+       $passwordverif = sha1(md5($passwordverif));
        $birthday = strip_tags($_POST['birthday']);
        $phone = strip_tags($_POST['phone']);
        $role = $_POST['role'];
@@ -28,7 +28,7 @@
            $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');
            $nameverif = $result->fetch();
            if($username == $nameverif['nom_utilisateur']) {
-             echo "Nom d'utilisateur déjà utilisé!";
+             echo 'Nom d\'utilisateur déjà utilisé!';
            }
            else {
              // Clé généré aléatoirement
@@ -56,12 +56,10 @@
              $recipient = $mail;
              $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
              $entete = "From: inscriptiondiavk@gmail.com";
-             $message = "Bienvenue sur di-A-vk,
-             Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:
-
-             http://diavk/validation.php?log=".urlencode($username)."&cle=".urlencode($cle)."
-
-             Ne pas répondre à ce message.";
+             $message = 'Bienvenue sur di-A-vk,'. "/r/n"
+             .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'. "\r\n"
+             .'http://diavk/validation.php?log='.urlencode($username).'&cle='.urlencode($cle)."\r\n"
+             .'Ne pas répondre à ce message.';
              mail($recipient, $subject,$message,$entete);
              //Informer l'utilisateur que l'inscription est bien prise en compte
              echo "<script>alert('L\'inscription est réussi. Un mail a était envoyé!');</script>";

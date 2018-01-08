@@ -17,24 +17,15 @@ else {
   </div>
   <?php
         $user = $_SESSION['user'];
-        $request = $bdd->query("SELECT nom FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $name = $request->fetch();
-        $name = $name['nom'];
-        $request = $bdd->query("SELECT prenom FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $surname = $request->fetch();
-        $surname = $surname['prenom'];
-        $request = $bdd->query("SELECT date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $birthday = $request->fetch();
-        $birthday = $birthday['date_anniversaire'];
-        $request = $bdd->query("SELECT mail FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $mail = $request->fetch();
-        $mail = $mail['mail'];
-        $request = $bdd->query("SELECT phone FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $phone = $request->fetch();
-        $phone = $phone['phone'];
-        $request = $bdd->query("SELECT phone2 FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
-        $otherphone = $request->fetch();
-        $otherphone = $otherphone['phone2'];
+        $request = $bdd->query("SELECT nom, prenom, mail,utilisateur, phone, phone2, date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
+        $request = $request->fetch();
+        $name = $request['nom'];
+        $surname = $request['prenom'];
+        $user = $request['utilisateur'];
+        $birthday = $request['date_anniversaire'];
+        $mail = $request['mail'];
+        $phone = $request['phone'];
+        $otherphone = $request['phone2'];
   ?>
   <div class="row" ng-controller='inscriptioncontroller'>
     <div class="profil col-lg-offset-3 col-lg-5">
@@ -118,7 +109,7 @@ else {
               if($_POST['newpassword'] == $_POST['passwordverif']) {
                 $newpass = $_POST['newpassword'];
                 $newpass = md5($newpass);
-                $changepass = $bdd->prepare("UPDATE utilisateurs SET mot_de_passe=".$newpass." WHERE nom_utilisateur like :user");
+                $changepass = $bdd->prepare("UPDATE utilisateurs SET mot_de_passe=".$newpass." WHERE nom_utilisateur = :user");
                 $changepass->bindParam(':user', $user);
                 $changepass->execute();
                 echo "Changement réussi.";

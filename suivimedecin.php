@@ -1,11 +1,15 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
+if(!isset($_SESSION['user'])) {
   include 'header.php';
   echo "Vous n'êtes pas connecté pour accéder au contenu";
 }
 else {
-  include 'header1.php';?>
+  include 'header1.php';
+  if($role == 1) {
+          header('Location:suivi.php');
+  } else {
+  ?>
   <div class="container">
   <div class="row">
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
@@ -131,4 +135,5 @@ while($requestchart = $requestsearch->fetch(PDO::FETCH_ASSOC))
         }
        ?> </div><?php
 }
+  }
 include 'footer.php';

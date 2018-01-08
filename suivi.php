@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
+if(!isset($_SESSION['user'])) {
   include 'header.php';
   echo "Vous n'êtes pas connecté pour accéder au contenu";
 }
@@ -30,44 +30,68 @@ else {
         $date = date('d/m/Y H:i'); 
         // Date du jour
         $dateday = date('d/m/Y');
+        // Horraire du jour afin de faire une comparaison
+        $hour = date('Hi');
         // Récupération de la date de vérification et des heures demandés
         $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
+        $dateverif = $searchfuturedate['date_verification'];
         $oneclock = $searchfuturedate['Heure1'];
         $twoclock = $searchfuturedate['Heure2'];
         $threeclock = $searchfuturedate['Heure3'];
         $fourclock = $searchfuturedate['Heure4'];  
+        // On ne récupère que les chiffres des heures
+        $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
+        $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
+        $threehour = substr($threeclock,0,2).substr($threeclock,3,4);
+        $fourhour = substr($fourclock,0,2).substr($fourclock,3,4);
+      /*  $dateverif = date_create_from_format('d/m/Y H:i', $dateverif);
+        $dateverif = date_format($dateverif, 'd/m/Y H:i');*/
         // Vérification de quelle date est la prochaine
-        if($searchfuturedate['date_verification'] == $dateday.' '.$fourclock) {
-            $futurehour = $oneclock;       
-            $tomorrow = time() + (24*60*60); // calcul d'une journée
-            $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain     
-        }
-        elseif($searchfuturedate['date_verification'] == $dateday.' '.$oneclock) {
+        if($hour > $onehour && $hour < $twohour) {
             $futurehour = $twoclock;  
             $futuredate = $dateday;
         }
-        elseif($searchfuturedate['date_verification'] == $dateday.' '.$twoclock) {
+        elseif($hour > $twohour && $hour < $threehour) {
             $futurehour = $threeclock;      
             $futuredate = $dateday;
         }
-        elseif($searchfuturedate['date_verification'] == $dateday.' '.$threeclock) {
+        elseif($hour > $threehour && $hour < $fourhour) {
             $futurehour = $fourclock;
             $futuredate = $dateday;
         }
-        else {
-            if($date < $dateday.' '.$onehour) {
+        elseif($hour < $onehour) {
                 $futurehour = $oneclock;
+                $futuredate = $dateday;
+        }
+        else {
+            // Comparaison des heures et minutes pour savoir dans quel horaire on se situe
+/*            if($hour < $onehour) {
+                $futurehour = $oneclock;
+                $futuredate = $dateday;
             }
-            elseif ($date > $dateday.' '.$oneclock && $date < $dateday.' '.$twoclock) {
+            elseif ($hour > $onehour && $hour < $twohour) {
                 $futurehour = $twoclock;
+                $futuredate = $dateday;
+
             }
-            elseif ($date > $dateday.' '.$twoclock && $date < $dateday.' '.$threeclock) {
+            elseif ($hour > $twohour && $hour < $threehour) {
                 $futurehour = $threeclock;
+                $futuredate = $dateday;
+            }
+            elseif($hour > $threehour && $hour < $fourhour) {
+                $futurehour = $fourclock;
+                $futuredate = $dateday;            
             }
             else {
-                $futurehour = $fourclock;
-            }
+                $futurehour = $oneclock;
+                $tomorrow = time() + (24*60*60); // calcul d'une journée
+                $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain     
+            }*/
+            
+            $futurehour = $oneclock;
+            $tomorrow = time() + (24*60*60); // calcul d'une journée
+            $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain   
         }
         // Concaténation de la prochaine date avec l'heure correspondante
         $futuredate = $futuredate.' '.$futurehour;
@@ -140,15 +164,12 @@ else {
 <?php
     $dataPoints= array();
     $n = 0;
-    // Récupération de la date du jour avec le résultat
-    $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'"');
-    while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
-    {
-      // Ajout des points X (label) et Y pour le graphique  
-      foreach ($requestchart as $datevalue) {
-        $dataPoints[$n] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
-      }
-        // permet d'avoir plusieurs points
+    // Récupération de la date du jour avec le résultat limité a 28 résultats (une semaine)
+    $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" ORDER BY id LIMIT 28');
+    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $cle => $result) {
+        foreach($result as $resultchart) {
+            $dataPoints[$n] = array('label'=>$cle, 'y'=>$resultchart);
+        }
         $n++;
     }
   ?>
