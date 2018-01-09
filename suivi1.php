@@ -20,9 +20,9 @@ else {
         $date = date('d/m/Y'); // Date du jour
         $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)
         $futuredate = date('d/m/Y', $nextverif); // On récupère la nouvelle date
-        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
+        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE id_utilisateur="'.$id.'"');
         $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
+        if($date != $resultdate['date_du_jour'] && ($id == $resultdate['id_utilisateur'])) {
           $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
@@ -46,7 +46,7 @@ else {
     ?>
     <form method="POST" action="suivi1.php" name="followedrate" >
     <div class="suivi form-group col-lg-offset-3">
-      <label for="text">Résultats de la prise de sang :</label>
+      <label for="rate">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result" />
     </div>
     <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
@@ -56,7 +56,7 @@ else {
     <div class="col-lg-offset-4"><h3>Visualisations des résultats :</h3></div>
   </div>
   <div class="row">
-    <div class="col-lg-offset-3">En tableau :</div>
+    <div class="col-lg-offset-3"><p>En tableau :</p></div>
   </div>
   <div class="row">
     <table class="tableresult table table-bordered result col-lg-offset-2 col-lg-3">
@@ -82,7 +82,7 @@ else {
     </table>
   </div>
   <div class="row">
-      <div class="col-lg-offset-3">En graphique :</div>
+      <div class="col-lg-offset-3"><p>En graphique :</p></div>
   </div>
   <div class="row">
       <div id="chartResult"></div>
@@ -90,14 +90,14 @@ else {
 </div>
 <?php
 $dataPoints= array();
-$n = 0;
+$nbresult = 0;
 $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" LIMIT TO 20');
 while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
 {
   foreach ($requestchart as $datevalue) {
-    $dataPoints[$n] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
+    $dataPoints[$nbresult] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
     }
-    $n++;
+    $nbresult++;
   }
   ?>
 <script>

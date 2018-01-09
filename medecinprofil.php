@@ -187,7 +187,7 @@ else {
       </div>
     </div>
     <div>
-     <form method="post" action="ajout.php">
+     <form method="POST" action="ajout.php">
        <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
        <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
      </form>

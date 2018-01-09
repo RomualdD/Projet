@@ -60,12 +60,10 @@ else {
                     $requestadd->execute();
                     $alreadyfollow = $requestadd->fetchColumn();
                     $requestadd->closeCursor(); // Fin de requete
-                    
                     if($alreadyfollow != 0) {?>
-      <p>Ce membre est déjà votre ami ! Retournez à votre profil pour faire une autre demande <a href="../profil.php">Cliquez ici !</a></p><?php
-                    $error++;
+                        <p>Ce membre est déjà votre ami ! Retournez à votre profil pour faire une autre demande <a href="../profil.php">Cliquez ici !</a></p><?php
+                        $error++;
                     }
-                    
                     if($id == $idfollow) {?>
                         <p>Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="../profil.php">Cliquez ici !</a></p><?php
                         $error++;

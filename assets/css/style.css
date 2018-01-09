@@ -2,48 +2,48 @@ html, body {
   height: 100%;
 }
 
-body{
+body {
   display: flex;
   flex-direction: column;
 }
 
-h1{
+h1 {
   color: red;
 }
 
-.navbar{
+.navbar {
   background-color: #D90404;
 }
 
-.navbar-default .navbar-nav > li > a{
+.navbar-default .navbar-nav > li > a {
   color: white;
   font-size: 20px;
 }
 
-header{
+header {
   background-color: #FFFFCC;
 }
 
-footer{
+footer {
   background-color: #D90404;
   color: white;
   margin-top: auto;
   padding-top: 5px;
 }
 
-footer a{
+footer a {
   color: white;
 }
 
-.link a{
+.link a {
   color: blue;
 }
 
-body{
+body {
   margin: 0;
 }
 
-.subhead{
+.subhead {
   margin-top: 20px;
   margin-bottom: 20px;
   text-decoration: underline;
@@ -52,84 +52,89 @@ body{
   font-size: 20px;
 }
 
-p{
+p {
   margin-bottom: 10px;
   font-size: 17px;
 }
 
-.subtitle{
+.subtitle {
   font-style: italic;
   font-size: 20px;
   text-decoration: underline;
 }
 
-.form-group{
+.form-group {
   margin-top: 20px;
 }
 
-.inscription{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: 1px solid;
-}
-
-.connexion{
+.inscription {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 1px solid;
 }
 
-.contact{
+.connexion {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.contact {
     border: 1px solid;
 }
 
-.button{
+.button {
   margin-bottom: 20px;
 }
 
-.explication p{
+.explication p {
   font-style: italic;
   font-size: 15px;
 }
 
-.role{
+.role {
   margin-bottom: 15px;
 }
 
-textarea{
+textarea {
   margin-bottom: 20px;
 }
 
-.form-inline{
+.form-inline {
   padding-top: 10px;
   padding-bottom: 5px;
 }
 
-.up{
+.up {
   padding-left: 15px;
 }
 
-.phoneup{
+.phoneup {
   padding-left: 20px;
 }
 
-.profil, .formular, .modificate{
+.profil, .formular, .modificate {
   border: 1px solid;
 }
 
-.formular, .modificate{
+.formular, .modificate {
   margin-top: 10px;
 }
 
-.timeverif{
+.timeverif {
   padding-left: 55px;
 }
 
-.clock{
+.clock {
   padding-right: 235px;
 }
 
-#chartResult{
+#chartResult {
   height: 370px;
   width: 100%;
 }
+
+.tdcalendar, .thcalendar{
+  width:70px;
+  height:100px  
+}    

@@ -33,8 +33,9 @@ else {
         // Horraire du jour afin de faire une comparaison
         $hour = date('Hi');
         // Récupération de la date de vérification et des heures demandés
-        $searchfuturedate = $bdd->query('SELECT date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
+        $searchfuturedate = $bdd->query('SELECT id_utilisateur,date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
+        $iduser=$searchfuturedate['id_utilisateur'];
         $dateverif = $searchfuturedate['date_verification'];
         $oneclock = $searchfuturedate['Heure1'];
         $twoclock = $searchfuturedate['Heure2'];
@@ -45,8 +46,6 @@ else {
         $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
         $threehour = substr($threeclock,0,2).substr($threeclock,3,4);
         $fourhour = substr($fourclock,0,2).substr($fourclock,3,4);
-      /*  $dateverif = date_create_from_format('d/m/Y H:i', $dateverif);
-        $dateverif = date_format($dateverif, 'd/m/Y H:i');*/
         // Vérification de quelle date est la prochaine
         if($hour > $onehour && $hour < $twohour) {
             $futurehour = $twoclock;  
@@ -64,40 +63,14 @@ else {
                 $futurehour = $oneclock;
                 $futuredate = $dateday;
         }
-        else {
-            // Comparaison des heures et minutes pour savoir dans quel horaire on se situe
-/*            if($hour < $onehour) {
-                $futurehour = $oneclock;
-                $futuredate = $dateday;
-            }
-            elseif ($hour > $onehour && $hour < $twohour) {
-                $futurehour = $twoclock;
-                $futuredate = $dateday;
-
-            }
-            elseif ($hour > $twohour && $hour < $threehour) {
-                $futurehour = $threeclock;
-                $futuredate = $dateday;
-            }
-            elseif($hour > $threehour && $hour < $fourhour) {
-                $futurehour = $fourclock;
-                $futuredate = $dateday;            
-            }
-            else {
-                $futurehour = $oneclock;
-                $tomorrow = time() + (24*60*60); // calcul d'une journée
-                $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain     
-            }*/
-            
+        else {            
             $futurehour = $oneclock;
             $tomorrow = time() + (24*60*60); // calcul d'une journée
             $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain   
         }
         // Concaténation de la prochaine date avec l'heure correspondante
         $futuredate = $futuredate.' '.$futurehour;
-        $resultdate = $bdd->query('SELECT date_du_jour FROM suivis WHERE date_du_jour ="'.$date.'"');
-        $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour'] && ($id != $resultdate['id_utilisateur'])) {
+        if($futuredate != $dateverif && ($id == $iduser )) {
           // Ajout dans la table suivis pour récupéré ensuite les valeurs  
           $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
@@ -118,7 +91,7 @@ else {
   <div class="row">
     <form name="followedrate" method="POST" action="suivi.php">
     <div class="suivi form-group col-lg-offset-3">
-      <label for="text">Résultats de la prise de sang :</label>
+      <label for="rate">Résultats de la prise de sang :</label>
       <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
     </div>
     <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
@@ -128,7 +101,7 @@ else {
     <div class="col-lg-offset-4"><h3>Visualisations des résultats :</h3></div>
   </div>
   <div class="row">
-    <div class="col-lg-offset-3">En tableau :</div>
+      <div class="col-lg-offset-3"><p>En tableau :</p></div>
   </div>
   <div class="row">
     <table class="tableresult table table-bordered result col-lg-offset-2 col-lg-3">
@@ -155,7 +128,7 @@ else {
     </table>
   </div>
   <div class="row">
-      <div class="col-lg-offset-3">En graphique :</div>
+      <div class="col-lg-offset-3"><p>En graphique :</p></div>
   </div>
   <div class="row">
       <div id="chartResult"></div>
@@ -163,14 +136,14 @@ else {
 </div>
 <?php
     $dataPoints= array();
-    $n = 0;
+    $nbresult = 0;
     // Récupération de la date du jour avec le résultat limité a 28 résultats (une semaine)
     $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" ORDER BY id LIMIT 28');
-    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $cle => $result) {
+    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $day => $result) {
         foreach($result as $resultchart) {
-            $dataPoints[$n] = array('label'=>$cle, 'y'=>$resultchart);
+            $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);
         }
-        $n++;
+        $nbresult++;
     }
   ?>
 <script>

@@ -119,7 +119,7 @@ else {
                       <input type="text" class="form-control" name="clockthree">
                       <input type="text" class="form-control" name="clockfour">
                   </div>
-                    <div class="info col-lg-offset-3">Format h:min</div>
+                    <div class="info col-lg-offset-3">Format HH:mm</div>
                 </div>
                <div class="form-inline">
                   <div class="input-group notif col-lg-offset-3">
@@ -143,7 +143,9 @@ else {
                                             $oneclock = $_POST['clockone'];                        
                                         }
                                         else {
+                                            ?><p><?php
                                             echo 'Le format demandé est : hh:mm';
+                                            ?></p><?php
                                             $error++;
                                         }
                                     }
@@ -156,6 +158,9 @@ else {
                                         $requestmodif->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                         $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
                                         $requestmodif->execute(); 
+                                        ?><p><?php
+                                        echo 'Les modifications sont bien prises en compte !';
+                                        ?></p><?php
                                     }    
                                 }
                                 else {
@@ -163,7 +168,9 @@ else {
                                         $oneclock = $_POST['clockone'];    
                                     }
                                     else {
+                                        ?><p><?php
                                         echo 'Le format demandé est hh:mm';
+                                        ?></p><?php
                                         $error++;
                                     }                                    
                                     if(!empty($_POST['clocktwo'])) {
@@ -171,7 +178,9 @@ else {
                                             $twoclock = $_POST['clocktwo']; 
                                         }
                                         else {
+                                            ?><p><?php
                                             echo 'Le format demandé est hh:mm';
+                                            ?></p><?php
                                             $error++;
                                         }
                                     }
@@ -183,7 +192,9 @@ else {
                                             $threeclock = $_POST['clockthree'];
                                         }
                                         else {
+                                           ?><p><?php
                                            echo 'Le format demandé est hh:mm';
+                                           ?></p><?php
                                            $error++;
                                         }
                                     }
@@ -196,7 +207,9 @@ else {
                                             $error++;
                                         }
                                         else {
+                                           ?><p><?php
                                            echo 'Le format demandé est hh:mm'; 
+                                           ?></p><?php
                                         }                                        
                                     }
                                     else {
@@ -208,6 +221,9 @@ else {
                                         $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                         $modifverification->bindValue('id',$id,PDO::PARAM_INT);
                                         $modifverification->execute();
+                                        ?><p><?php
+                                        echo 'Les modifications sont bien prises en compte !';
+                                        ?></p><?php
                                     }
                                 }
                             }
@@ -222,7 +238,9 @@ else {
                                     $oneclock = $_POST['clockone'];    
                                 }
                                 else {
+                                    ?><p><?php
                                     echo 'Le format demandé est hh:mm';
+                                    ?></p><?php
                                     $error++;
                                 }
                                 if(!empty($_POST['clocktwo'])) {
@@ -230,7 +248,9 @@ else {
                                         $twoclock = $_POST['clocktwo']; 
                                     }
                                     else {
+                                        ?><p><?php
                                         echo 'Le format demandé est hh:mm';
+                                        ?></p><?php
                                         $error++;
                                     }
                                 }
@@ -242,7 +262,9 @@ else {
                                         $threeclock = $_POST['clockthree'];
                                     }
                                     else {
+                                       ?><p><?php
                                        echo 'Le format demandé est hh:mm'; 
+                                       ?></p><?php
                                        $error++;
                                     }
                                 }
@@ -254,7 +276,9 @@ else {
                                         $fourclock = $_POST['clockfour'];  
                                     }
                                     else {
+                                        ?><p><?php
                                         echo 'Le format demandé est hh:mm';
+                                        ?></p><?php
                                         $error++;
                                     }   
                                 }
@@ -268,7 +292,10 @@ else {
                                     $modifverification->bindValue('threeclock',$threeclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('fourclock',$fourclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('id',$id,PDO::PARAM_INT);
-                                    $modifverification->execute();   
+                                    $modifverification->execute(); 
+                                    ?><p><?php
+                                    echo 'Les modifications sont bien prises en compte !';
+                                    ?></p><?php
                                 }
                             }
                         }   
@@ -295,7 +322,7 @@ else {
                       <input type="text" class="form-control" name="clockthree">
                       <input type="text" class="form-control" name="clockfour">
                   </div>
-                    <div class="info col-lg-offset-3">Format h:min</div>
+                    <div class="info col-lg-offset-3">Format HH:mm</div>
                 </div>
                 <div class="form-inline">
                   <div class="input-group time col-lg-offset-3">
@@ -331,7 +358,9 @@ else {
                             $oneclock = $_POST['clockone'];    
                         }
                         else {
+                            ?><p><?php
                             echo 'Le format demandé est hh:mm';
+                            ?></p><?php
                             $error++;
                         }
                         if(!empty($_POST['clocktwo'])) {
@@ -339,7 +368,9 @@ else {
                                 $twoclock = $_POST['clocktwo']; 
                         }
                             else {
+                                ?><p><?php
                                 echo 'Le format demandé est hh:mm';
+                                ?></p><?php
                                 $error++;
                             }
                         }
@@ -351,7 +382,9 @@ else {
                                 $threeclock = $_POST['clockthree'];
                             }
                             else {
-                               echo 'Le format demandé est hh:mm'; 
+                                ?><p><?php
+                               echo 'Le format demandé est hh:mm';
+                               ?></p><?php
                                $error++;
                             }
                         }
@@ -363,7 +396,9 @@ else {
                                 $fourclock = $_POST['clockfour'];  
                             }
                             else {
+                                ?><p><?php
                                echo 'Le format demandé est hh:mm'; 
+                               ?></p><?php
                                $error++;
                             }
                         }
@@ -382,11 +417,15 @@ else {
                                 'notification' => $notification,
                                 'dateverification' => $time
                             ));
+                            ?><p><?php
                             echo 'Les modifications sont prises en compte !';
+                            ?></p><?php
                         }
                     }
                     else {
+                        ?><p><?php
                         echo 'Les champs ne sont pas tous remplis !';
+                        ?></p><?php
                     }
                 }
             }
@@ -398,7 +437,7 @@ else {
                       <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                       <input type="text" class="form-control" name="clock" placeholder="Heure de vérification">
                   </div>
-                 <div class="info col-lg-offset-3">Format h:min</div>
+                 <div class="info col-lg-offset-3">Format HH:mm</div>
                 </div>
                 <div class="form-inline">
                   <div class="input-group time col-lg-offset-3">
@@ -433,7 +472,9 @@ else {
                             $oneclock = $_POST['clockone'];    
                         }
                         else {
+                            ?><p><?php
                             echo 'Le format demandé est hh:mm';
+                            ?></p><?php
                             $error++;
                         }
                         if($error == 0) {
@@ -444,11 +485,15 @@ else {
                                 'notification' => $notification,
                                 'dateverification' => $time
                             ));
+                            ?><p><?php
                             echo 'Les modifications sont prises en compte !';
+                            ?></p><?php
                         }
                     }
                     else {
+                        ?><p><?php
                         echo 'Les champs ne sont pas tous remplis !';
+                        ?></p><?php
                     }
                 }
             }
@@ -492,7 +537,7 @@ else {
             <div class="row">
               <div class="modificatenum col-lg-offset-3">
                 <div class="form-inline">
-                  <div class="input-group mail">
+                  <div class="input-group phone">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newnum" placeholder="Modifier numéro de téléphone">
                   </div>
@@ -503,7 +548,7 @@ else {
             <div class="row">
               <div class="newnum col-lg-offset-3">
                 <div class="form-inline">
-                  <div class="input-group mail">
+                  <div class="input-group phone">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newnum" placeholder="Nouveau numéro de téléphone">
                   </div>
@@ -547,8 +592,15 @@ else {
         </div>
         <div>
          <form method="post" action="ajout.php">
-           <input type="text" name="name" placeholder="Nom du médecin" class="col-lg-offset-3 col-lg-2"/>
-           <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
+            <div class="form-inline">
+                <div class="input-group search col-lg-offset-4">
+                    <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                </div>
+            </div>
+            <div class="form-inline col-lg-offset-4">
+                <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
+            </div>
          </form>
         </div>
     </div>
