@@ -1,5 +1,7 @@
 CREATE DATABASE diavk;
 
+USE diavk;
+
 CREATE TABLE utilisateurs (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
 	nom VARCHAR(40),
@@ -14,7 +16,7 @@ CREATE TABLE utilisateurs (
 	pathologie INT(11),
 	cleverif varchar(32),
 	actif INT(11)	
-)
+);
 
 CREATE TABLE suivis (
 	id INT(11) PRIMARY KEY,
@@ -22,7 +24,7 @@ CREATE TABLE suivis (
 	date_du_jour VARCHAR(40),
 	resultat VARCHAR(10),
 	date_prochaine_verif VARCHAR(40)
-)
+);
 
 CREATE TABLE follow (
 	follow_from INT(11),
@@ -30,7 +32,7 @@ CREATE TABLE follow (
 	follow_confirm enum('0','1') NOT NULL,
 	follow_date VARCHAR(40),
 	CONSTRAINT PK_Follow PRIMARY KEY (follow_from, follow_to)
-)
+);
 
 CREATE TABLE verification ( 
 	id_utilisateur INT(11) PRIMARY KEY,
@@ -40,7 +42,7 @@ CREATE TABLE verification (
 	Heure3 VARCHAR(40),
 	Heure4 VARCHAR(40),
 	notification INT(11)
-)
+);
 
 CREATE TABLE rendez_vous ( 
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -49,4 +51,4 @@ CREATE TABLE rendez_vous (
 	date_rendez_vous VARCHAR(40),
 	heure_rendez_vous VARCHAR(40),
 	infos_complementaire VARCHAR(255)
-)
+);
