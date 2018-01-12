@@ -228,7 +228,7 @@ else {
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay) {
                                         $nbmodal++;
-                                        ?><p><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></button></p>
+                                        ?><p><i class="fa fa-book" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"></i></p>
                                     <?php
                                     } // Affichage fenêtre modal
                                     ?>
