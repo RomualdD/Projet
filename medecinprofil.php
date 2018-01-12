@@ -17,11 +17,11 @@ else {
   </div>
   <?php
         $user = $_SESSION['user'];
-        $request = $bdd->query("SELECT nom, prenom, mail,utilisateur, phone, phone2, date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
+        $request = $bdd->query("SELECT nom, prenom, mail,nom_utilisateur, phone, phone2, date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
         $request = $request->fetch();
         $name = $request['nom'];
         $surname = $request['prenom'];
-        $user = $request['utilisateur'];
+        $user = $request['nom_utilisateur'];
         $birthday = $request['date_anniversaire'];
         $mail = $request['mail'];
         $phone = $request['phone'];

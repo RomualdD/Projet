@@ -91,14 +91,13 @@ else {
 <?php
 $dataPoints= array();
 $nbresult = 0;
-$requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" LIMIT TO 20');
-while($requestchart = $requestbdd->fetch(PDO::FETCH_ASSOC))
-{
-  foreach ($requestchart as $datevalue) {
-    $dataPoints[$nbresult] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
+    $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" ORDER BY id LIMIT 28');
+    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $day => $result) {
+        foreach($result as $resultchart) {
+            $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);
+        }
+        $nbresult++;
     }
-    $nbresult++;
-  }
   ?>
 <script>
     $(window).on('load', function() {

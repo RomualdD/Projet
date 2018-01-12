@@ -19,7 +19,7 @@ else {
       <div class="row">
         <?php
               $user = $_SESSION['user'];
-              $request = $bdd->query("SELECT nom, prenom, date_anniversaire, mail, phone, phone2, pathologie FROM utilisateurs WHERE nom_utilisateur ='".$user."'");
+              $request = $bdd->query('SELECT nom, prenom, date_anniversaire, mail, phone, phone2, pathologie FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
               $request = $request->fetch();
               $name = $request['nom'];
               $surname = $request['prenom'];
@@ -135,6 +135,7 @@ else {
             </form>
                    <?php
                         if(isset($_POST['modif'])) {
+                            $error=0;
                             if(!empty($_POST['timeverif'])) {
                                 $verif = $_POST['timeverif'];
                                 if($verif != 'Heure') {
@@ -153,11 +154,11 @@ else {
                                         $oneclock = $searchinfo['Heure1'];
                                     }
                                     if($error == 0) { 
-                                        $modifverification = $bdd->prepare('UPDATE verification SET verification = :verif, Heure1 = oneclock WHERE id = :id');
-                                        $requestmodif->bindValue('verif',$verif,PDO::PARAM_STR);
-                                        $requestmodif->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
-                                        $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
-                                        $requestmodif->execute(); 
+                                        $modifverification = $bdd->prepare('UPDATE verification SET verification = :verif, Heure1 = :oneclock WHERE id_utilisateur = :id');
+                                        $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
+                                        $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
+                                        $modifverification->bindValue('id',$id,PDO::PARAM_INT);
+                                        $modifverification->execute(); 
                                         ?><p><?php
                                         echo 'Les modifications sont bien prises en compte !';
                                         ?></p><?php
@@ -461,7 +462,6 @@ else {
             <?php
                 if(isset($_POST['valid'])) {
                     if(isset($_POST['time']) && (isset($_POST['notification'])) && (isset($_POST['clock']))) {
-                        $time = $_POST['time'];
                         if($_POST['notification'] == 'SMS') {
                             $notification = 0;
                         }
@@ -474,6 +474,15 @@ else {
                         else {
                             ?><p><?php
                             echo 'Le format demandé est hh:mm';
+                            ?></p><?php
+                            $error++;
+                        }
+                        if(preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])){
+                            $time = $_POST['time'];
+                        }
+                        else {
+                            ?><p><?php
+                            echo 'Le format demandé est jj/mm/YYYY hh:mm';
                             ?></p><?php
                             $error++;
                         }

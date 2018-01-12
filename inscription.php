@@ -57,7 +57,7 @@
              $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
              $entete = "From: inscriptiondiavk@gmail.com";
              $message = 'Bienvenue sur di-A-vk,'. "/r/n"
-             .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'. "\r\n"
+             .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'."\r\n"
              .'http://diavk/validation.php?log='.urlencode($username).'&cle='.urlencode($cle)."\r\n"
              .'Ne pas répondre à ce message.';
              mail($recipient, $subject,$message,$entete);
@@ -88,7 +88,7 @@
             $_POST['birthday'] = '';
             echo 'La date n\'est pas valide';
         }
-       elseif(!preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) {
+       elseif(!preg_match('#^0[1-68]([-. ]?[0-9]{2}){4}$#', $_POST['phone'])) {
             $_POST['phone'] = '';
             echo 'Le numéro de téléphone n\'est pas valider';
         }
@@ -165,7 +165,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="texte" class="col-lg-2">Rôle :</label>
+            <label for="role" class="col-lg-2">Rôle :</label>
             <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="0" checked="<?php if(isset($_POST['role'])){if(($_POST['role'])==0) echo "checked"; } ?>"/> Médecin</div>
             <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="1" checked="<?php if(isset($_POST['role'])){if(($_POST['role'])==1) echo "checked"; } ?>"/> Patient</div>
           </div>

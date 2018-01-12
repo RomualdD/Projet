@@ -10,7 +10,7 @@
 
 <!-- Header connecté -->
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <script src="/assets/js/angular.min.js.map"></script>

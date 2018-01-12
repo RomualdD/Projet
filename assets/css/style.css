@@ -134,7 +134,30 @@ textarea {
   width: 100%;
 }
 
-.tdcalendar, .thcalendar{
-  width:70px;
+.tdcalendar, .thcalendar {
+  width:80px;
   height:100px  
+}
+
+.thcalendar {
+    text-align: center;
+    font-size: 17px;
 }    
+
+.calendarchoice {
+    padding-bottom: 10px;
+}    
+table th[class*="col-xs"] {
+    display: none;
+}   
+table th[class*="col-lg"] {
+        display: table-cell;
+}
+@media screen and (max-width: 1280px)  {
+    table th[class*="col-lg"] {
+        display: none;
+    }
+    table th[class*="col-xs"] {
+        display: table-cell;
+    }  
+}

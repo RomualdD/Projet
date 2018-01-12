@@ -63,10 +63,10 @@ else {
                 $futurehour = $oneclock;
                 $futuredate = $dateday;
         }
-        else {            
-            $futurehour = $oneclock;
-            $tomorrow = time() + (24*60*60); // calcul d'une journée
-            $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain   
+        else {   
+                $futurehour = $oneclock;
+                $tomorrow = time() + (24*60*60); // calcul d'une journée
+                $futuredate = date('d/m/Y', $tomorrow); // intégration pour passer au lendemain 
         }
         // Concaténation de la prochaine date avec l'heure correspondante
         $futuredate = $futuredate.' '.$futurehour;
@@ -90,10 +90,15 @@ else {
     ?>
   <div class="row">
     <form name="followedrate" method="POST" action="suivi.php">
-    <div class="suivi form-group col-lg-offset-3">
-      <label for="rate">Résultats de la prise de sang :</label>
-      <input type="text" name="rate" placeholder="Taux obtenus" class="col-lg-offset-1" id="result"/>
-    </div>
+        <div class="col-lg-offset-3">
+            <div class="form-inline">
+                <label for="rate">Résultats de la prise de sang : </label>
+                <div class="input-group subject col-lg-offset-1 col-lg-3 col-sm-4 col-md-4 col-xs-10">
+                    <span class="input-group-addon"><i class="fa fa-medkit" aria-hidden="true"></i></span>
+                    <input type="text" name="rate" placeholder="Taux obtenus" class="form-control" id="result"/>
+                </div>
+            </div>
+        </div>
     <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
   </form>
   </div>
