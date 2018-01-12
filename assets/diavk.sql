@@ -1,3 +1,5 @@
+CREATE DATABASE diavk;
+
 CREATE TABLE utilisateurs (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
 	nom VARCHAR(40),
@@ -38,4 +40,13 @@ CREATE TABLE verification (
 	Heure3 VARCHAR(40),
 	Heure4 VARCHAR(40),
 	notification INT(11)
+)
+
+CREATE TABLE rendez_vous ( 
+	id INT(11) PRIMARY KEY AUTO_INCREMENT,
+	id_utilisateur INT(12),
+	nom_rendez_vous VARCHAR(255),
+	date_rendez_vous VARCHAR(40),
+	heure_rendez_vous VARCHAR(40),
+	infos_complementaire VARCHAR(255)
 )
