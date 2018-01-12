@@ -115,7 +115,7 @@ else {
         </div>
         <div class="row">
             <div class="col-lg-offset-4">
-                <h2>Informations de vos rendez-vous</h2>
+                <h2>Calendrier de vos rendez-vous</h2>
             </div>
         </div>
         <div class="row">
@@ -166,21 +166,23 @@ else {
            </thead>
            <tbody>
                <?php
+               //Création d'un tableau
                $timeappoitment=array();
+               // Recherche dans la base de données
                 $researchappoitment = $bdd->query('SELECT nom_rendez_vous,date_rendez_vous,heure_rendez_vous,infos_complementaire FROM rendez_vous WHERE id_utilisateur='.$id);
                 while($appointment = $researchappoitment->fetch()) {
+                    // Récupération des inforations
                     $nameappointment = $appointment['nom_rendez_vous'];
                     $dayAppointment = $appointment['date_rendez_vous'];
                     $hourappointment = $appointment['heure_rendez_vous'];
                     $informationappointment = $appointment['infos_complementaire'];
-                    
+                    // On sépare le jour le mois et l'année du rendez-vous
                     $dayappointment= substr($dayAppointment,0,2);
                     $monthappointment= substr($dayAppointment,3,2);
                     $yearappointment= substr($dayAppointment,6,6);
-                
+                    // On écrit tout dans un tableau
                     $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment);
-                    $numbercle++;
-                   
+                   // On le push pour avoir tous les rendez-vous
                   $result =  array_push($timeappoitment,$numbercle);
                 }
                ?>
@@ -200,6 +202,7 @@ else {
                     // jour en cours
                     $currentDay = 1;
                     $day='';
+                    $nbmodal=0;
                     $infoappointment = array();
                     // bon nombre de cases dans le mois
                     for($daysCases = 1; $daysCases <= $numberDaysInMonth + $firstWeekDayOfMonth - 1; $daysCases++) {
@@ -210,20 +213,46 @@ else {
                                 // Si jour du rendez-vous est le jour d'aujourd'hui alors on récupère les informations
                                 if($appointment['day'] == $currentDay) {
                                         $day=$appointment['day'];
+                                        $hour=$appointment['hour'];
                                         $name=$appointment['name'];
                                         $infos=$appointment['infos'];
-                                        $infocle= array('day' => $day,'nameappointment'=>$name,'infoappointment'=>$infos);
-                                        $infocle++;
+                                        // On écrit pour récupéré les informations qu'on veut
+                                        $infocle=  array('day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos);
                                         $informations = array_push($infoappointment, $infocle);
                                 } 
                             }
                             if($day == $currentDay) {
                                 ?><td class="tdcalendar"><?php
                                 echo $currentDay;
+                                // on cherche si y'a un rendez-vous ou plusieurs pour le jour
                                 foreach($infoappointment as $informations) {
-                                    if($informations['day'] == $currentDay){
-                                        ?><p><i class="fa fa-book" aria-hidden="true"></i></p><?php
-                                    }
+                                    if($informations['day'] == $currentDay) {
+                                        $nbmodal++;
+                                        ?><p><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></button></p>
+                                    <?php
+                                    } // Affichage fenêtre modal
+                                    ?>
+                                    <div class="modal fade" id="myModal<?php echo $nbmodal;?>" role="dialog">
+                                      <div class="modal-dialog">
+                                      <!-- Modal content-->
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          <h3 class="modal-title"><i class="fa fa-info" aria-hidden="true"></i> Informations de ce rendez-vous :</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="row">
+                                              <p><?php echo 'Nom du rendez-vous : '.$informations['nameappointment']; ?></p>
+                                              <p><?php echo 'Heure du rendez-vous : '.$informations['hour']; ?></p>
+                                              <p><?php echo 'Informations du rendez-vous : '.$informations['infoappointment']; ?></p>                                              
+                                          </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fermer</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div><?php
                                 }    
                                 ?></td><?php
                             }
