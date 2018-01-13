@@ -37,7 +37,7 @@ else {
               else {
                   $pathologyname = 'Anticoagulant (AVK)';
               }
-              ?>
+        ?>
         <div class="profil col-lg-offset-3 col-lg-5">
           <div class="subtitle col-lg-offset-3"><h3>Informations du patient :</h3></div>
           <div class="form-inline">
@@ -98,7 +98,7 @@ else {
                     $searchinfo->bindValue('id',$id,PDO::PARAM_INT);
                     $searchinfo->execute();
                             if($searchinfo->rowCount() == 1) {
-                                ?>
+            ?>
             <form name="modifverif" method="POST" action="profil.php">
                 <div class="form-inline">
                   <div class="input-group date col-lg-offset-3">
@@ -115,7 +115,7 @@ else {
                   <div class="input-group clock col-lg-offset-3 col-lg-6">
                       <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                       <input type="text" class="form-control" name="clockone" placeholder="Heures de vérification">
-                      <input type="text" class="form-control" name="clocktwo">
+                      <input type="text" class="form-control" name="clocktwo" placeholder="<?php echo date('H:i'); ?>">
                       <input type="text" class="form-control" name="clockthree">
                       <input type="text" class="form-control" name="clockfour">
                   </div>

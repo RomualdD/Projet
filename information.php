@@ -29,8 +29,9 @@ else {
             <div class="col-lg-offset-4">
                 <h2>Ajouter vos rendez-vous</h2>
             </div>
+            <div class="col-lg-offset-3">
                 <form action="information.php" method="POST">
-                    <div class="col-lg-offset-4">
+                    <div class="col-lg-12">
                         <div class="form-inline">
                             <label for="nameappointment">Nom du rendez-vous : </label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
@@ -39,25 +40,25 @@ else {
                             </div>
                         </div> 
                     </div>
-                    <div class="col-lg-offset-4">
+                    <div class="col-lg-12">
                         <div class="form-inline">
                             <label for="dayappointment">Jour du rendez-vous : </label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="dayappointment" placeholder="01/01/2018">
+                                <input type="text" class="form-control" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
                             </div>
                         </div> 
                     </div>
-                    <div class="col-lg-offset-4">
+                    <div class="col-lg-12">
                         <div class="form-inline">
                             <label for="hourappointment">Horaire consultation :</label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                 <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="hourappointment" placeholder="00:00">
+                                <input type="text" class="form-control" name="hourappointment" placeholder="<?php echo date('h:i'); ?>">
                             </div>
                         </div> 
                     </div>
-                    <div class="col-lg-offset-4">
+                    <div class="col-lg-12">
                         <div class="form-inline">
                             <div class="input-group subject">
                                 <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
@@ -65,7 +66,7 @@ else {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-offset-5 col-lg-2">
+                    <div class="col-lg-7">
                         <div class="form-inline">
                           <input type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submit">                        
                         </div>
@@ -112,39 +113,46 @@ else {
                     }
                 } 
                 ?>
+            </div>
         </div>
         <div class="row">
-            <div class="col-lg-offset-4">
+            <div class="col-lg-offset-4 col-lg-8">
                 <h2>Calendrier de vos rendez-vous</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-offset-5 calendarchoice">
+            <div class="col-lg-offset-3 calendarchoice">
                 <form action="information.php" method="POST">
-                    <select name="months">
-                        <?php
-                        foreach ($months as $monthNumber => $monthName) {
-                            ?>
-                            <option value="<?= $monthNumber ?>" <?= $month == $monthNumber ? 'selected' : '' ?>><?= $monthName ?></option>
+                    <div class="col-lg-3">
+                        <select class="form-control" name="months">
                             <?php
-                        }
-                        ?>
-                    </select>
-                    <select name="years">
-                        <?php
-                        for ($yearsList = $yearDay; $yearsList <= $yearDay + 100; $yearsList++) {
+                            foreach ($months as $monthNumber => $monthName) {
+                                ?>
+                                <option value="<?= $monthNumber ?>" <?= $month == $monthNumber ? 'selected' : '' ?>><?= $monthName ?></option>
+                                <?php
+                            }
                             ?>
-                            <option value="<?= $yearsList ?>" <?= $year == $yearsList ? 'selected' : '' ?>><?= $yearsList ?></option>
-                    <?php
-                        }
-                    ?>
-                    </select>
-                    <input type="submit" name="send" value="Valider">      
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <select class="form-control" name="years">
+                            <?php
+                            for ($yearsList = $yearDay; $yearsList <= $yearDay + 100; $yearsList++) {
+                                ?>
+                                <option value="<?= $yearsList ?>" <?= $year == $yearsList ? 'selected' : '' ?>><?= $yearsList ?></option>
+                        <?php
+                            }
+                        ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                     <input type="submit" class="button btn btn-default form-control" name="send" value="Valider !">  
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="table-responsive-sm">
+    <div id="tablecalendar" class="table-responsive-sm">
         <table class="calendar table table-bordered">
           <thead>
             <tr>
@@ -228,7 +236,7 @@ else {
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay) {
                                         $nbmodal++;
-                                        ?><p><i class="fa fa-book" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"></i></p>
+                                        ?><p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php
                                     } // Affichage fenêtre modal
                                     ?>
@@ -242,9 +250,80 @@ else {
                                         </div>
                                         <div class="modal-body">
                                           <div class="row">
-                                              <p><?php echo 'Nom du rendez-vous : '.$informations['nameappointment']; ?></p>
-                                              <p><?php echo 'Heure du rendez-vous : '.$informations['hour']; ?></p>
-                                              <p><?php echo 'Informations du rendez-vous : '.$informations['infoappointment']; ?></p>                                              
+                                              <div class="col-lg-offset-1 col-lg-11">
+                                                <p id="test"><?php echo 'Nom du rendez-vous : '.$informations['nameappointment']; ?></p>
+                                                <p><?php echo 'Heure du rendez-vous : '.$informations['hour']; ?></p>
+                                                <p><?php echo 'Informations du rendez-vous : '.$informations['infoappointment']; ?></p>    
+                                              </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                              <div class="col-lg-11">
+                                                 <h3 class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier ce rendez-vous :</h3>
+                                              </div>
+                                          </div>
+                                            <div class="row">
+                                                <div class="col-lg-offset-1">
+                                                    <form action="information.php" method="POST">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-inline">
+                                                                <label for="nameappointment">Nom du rendez-vous : </label>
+                                                                <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
+                                                                    <input type="text" class="form-control" name="nameappoitment" placeholder="Médecin">
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-inline">
+                                                                <label for="dayappointment">Jour du rendez-vous : </label>
+                                                                <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                                    <input type="text" class="form-control" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-inline">
+                                                                <label for="hourappointment">Horaire consultation :</label>
+                                                                <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                    <input type="text" class="form-control" name="hourappointment" placeholder="<?php echo date('h:i'); ?>">
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-inline">
+                                                                <div class="input-group subject">
+                                                                    <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
+                                                                    <textarea class="form-control" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointment"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-offset-3 col-lg-2">
+                                                            <div class="form-inline">
+                                                              <input type="submit" value="Modifier !" class="button btn btn-default col-lg-offset-4" name="submitmodif">                        
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                          <hr>
+                                          <div class="row">
+                                              <div class="col-lg-11">
+                                                 <h3 class="modal-title"><i class="fa fa-times" aria-hidden="true"></i> Supprimer ce rendez-vous :</h3>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-lg-offset-1"
+                                                    <form method="POST" action="information.php">
+                                                      <div class="col-lg-offset-3 col-lg-2">
+                                                          <div class="form-inline">
+                                                              <input type="submit" value="Supprimer !" class="button btn btn-default col-lg-offset-4" name="submitdelete">                        
+                                                          </div>
+                                                      </div>
+                                                    </form>
+                                              </div>
+                                              </div>
                                           </div>
                                         </div>
                                         <div class="modal-footer">

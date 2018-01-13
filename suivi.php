@@ -85,6 +85,7 @@ else {
           $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
           $requestmodif->execute();
         }
+             echo $_POST['submit'];
       }
     }
     ?>
