@@ -16,7 +16,8 @@
     <script src="/assets/js/angular.min.js.map"></script>
     <script src="/assets/js/angular.min.js"></script>
     <script src="/assets/js/canvasjs.min.js"></script>
-    <script src="assets/js/jquery-3.2.1.js"></script>
+    <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="assets/js/script.js"></script>
     <link rel="icon" href="logo.ico" />

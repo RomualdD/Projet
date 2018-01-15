@@ -54,7 +54,7 @@ else {
                             <label for="hourappointment">Horaire consultation :</label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                 <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="hourappointment" placeholder="<?php echo date('h:i'); ?>">
+                                <input type="text" class="form-control" name="hourappointment" placeholder="<?php echo date('H:i'); ?>">
                             </div>
                         </div> 
                     </div>
@@ -236,7 +236,8 @@ else {
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay) {
                                         $nbmodal++;
-                                        ?><p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                        ?>
+                                    <p class="test"></p><p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php
                                     } // Affichage fenêtre modal
                                     ?>
@@ -251,9 +252,9 @@ else {
                                         <div class="modal-body">
                                           <div class="row">
                                               <div class="col-lg-offset-1 col-lg-11">
-                                                <p id="test"><?php echo 'Nom du rendez-vous : '.$informations['nameappointment']; ?></p>
-                                                <p><?php echo 'Heure du rendez-vous : '.$informations['hour']; ?></p>
-                                                <p><?php echo 'Informations du rendez-vous : '.$informations['infoappointment']; ?></p>    
+                                                <p><?php echo 'Nom du rendez-vous : ';?><input type="text" name="nameappointment" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
+                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" name="hourappointment" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
+                                                <p><?php echo 'Informations du rendez-vous : '; ?><input type="text" name="infoappointment" id="infoappointment<?php echo $nbmodal;?>" value="<?php echo $informations['infoappointment'];?>" disabled></p> 
                                               </div>
                                           </div>
                                           <hr>
@@ -270,7 +271,7 @@ else {
                                                                 <label for="nameappointment">Nom du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" name="nameappoitment" placeholder="Médecin">
+                                                                    <input type="text" class="form-control" id="name<?php echo $nbmodal;?>" name="nameappoitment" placeholder="Médecin">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -279,7 +280,7 @@ else {
                                                                 <label for="dayappointment">Jour du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
+                                                                    <input type="text" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -288,7 +289,7 @@ else {
                                                                 <label for="hourappointment">Horaire consultation :</label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" name="hourappointment" placeholder="<?php echo date('h:i'); ?>">
+                                                                    <input type="text" class="form-control" id="hour<?php echo $nbmodal;?>" name="hourappointment" placeholder="<?php echo date('H:i'); ?>">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -296,16 +297,42 @@ else {
                                                             <div class="form-inline">
                                                                 <div class="input-group subject">
                                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
-                                                                    <textarea class="form-control" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointment"></textarea>
+                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointment"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-offset-3 col-lg-2">
                                                             <div class="form-inline">
-                                                              <input type="submit" value="Modifier !" class="button btn btn-default col-lg-offset-4" name="submitmodif">                        
+                                                              <input id="submitmodif<?php echo $nbmodal;?>" type="submit" value="Modifier !" class="button btn btn-default col-lg-offset-4" name="submitmodif">                        
                                                             </div>
                                                         </div>
                                                     </form>
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            $('#submitmodif<?php echo $nbmodal;?>').click(function() {
+                                                                $.post(
+                                                                     'modifappointment.php', {
+                                                                        dayappointment : $("#day<?php echo $nbmodal;?>") .val(),
+                                                                        nameappointment : $("#name<?php echo $nbmodal;?>").val(),
+                                                                        hourappointment : $("#hour<?php echo $nbmodal;?>").val(),
+                                                                        infosappointment : $("#info<?php echo $nbmodal;?>").val(),
+                                                                        name : $("#nameappointment<?php echo $nbmodal;?>").val(),
+                                                                        hour : $("#hourappointment<?php echo $nbmodal;?>").val(),
+                                                                        infos : $("#infoappointment<?php echo $nbmodal;?>").val()
+                                                                    },
+                                                                    function(data) {
+                                                                        if(data == 'Success') {
+                                                                            alert('Rendez-vous modifié !');
+                                                                        }
+                                                                        else {
+                                                                            alert('Rendez-vous non modifié !');
+                                                                        }
+                                                                    },
+                                                                    'text' // Recevoir success ou failed
+                                                                );
+                                                            });
+                                                        });   
+                                                    </script>                                                   
                                                 </div>
                                             </div>
                                           <hr>
@@ -314,14 +341,36 @@ else {
                                                  <h3 class="modal-title"><i class="fa fa-times" aria-hidden="true"></i> Supprimer ce rendez-vous :</h3>
                                               </div>
                                               <div class="row">
-                                                <div class="col-lg-offset-1"
+                                                <div class="col-lg-offset-1">
                                                     <form method="POST" action="information.php">
                                                       <div class="col-lg-offset-3 col-lg-2">
                                                           <div class="form-inline">
-                                                              <input type="submit" value="Supprimer !" class="button btn btn-default col-lg-offset-4" name="submitdelete">                        
+                                                              <input id="submitdelete<?php echo $nbmodal;?>" type="submit" value="Supprimer !" class="button btn btn-default col-lg-offset-4" name="submitdelete">                        
                                                           </div>
                                                       </div>
                                                     </form>
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            $('#submitdelete<?php echo $nbmodal;?>').click(function() {
+                                                                $.post(
+                                                                     'deleteappointment.php', {
+                                                                        name : $("#nameappointment<?php echo $nbmodal;?>").val(),
+                                                                        hour : $("#hourappointment<?php echo $nbmodal;?>").val(),
+                                                                        infos : $("#infoappointment<?php echo $nbmodal;?>").val()
+                                                                    },
+                                                                    function(data) {
+                                                                        if(data == 'Success') {
+                                                                            alert('Rendez-vous supprimé !');
+                                                                        }
+                                                                        else {
+                                                                            alert('Rendez-vous non supprimé !');
+                                                                        }
+                                                                    },
+                                                                    'text' // Recevoir success ou failed
+                                                                );
+                                                            });
+                                                        });   
+                                                    </script>
                                               </div>
                                               </div>
                                           </div>

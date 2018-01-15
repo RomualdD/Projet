@@ -35,7 +35,7 @@ else {
         // Récupération de la date de vérification et des heures demandés
         $searchfuturedate = $bdd->query('SELECT id_utilisateur,date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
-        $iduser=$searchfuturedate['id_utilisateur'];
+        $iduser = $searchfuturedate['id_utilisateur'];
         $dateverif = $searchfuturedate['date_verification'];
         $oneclock = $searchfuturedate['Heure1'];
         $twoclock = $searchfuturedate['Heure2'];
