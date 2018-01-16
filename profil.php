@@ -19,7 +19,7 @@ else {
       <div class="row">
         <?php
               $user = $_SESSION['user'];
-              $request = $bdd->query('SELECT nom, prenom, date_anniversaire, mail, phone, phone2, pathologie FROM utilisateurs WHERE nom_utilisateur ="'.$user.'"');
+              $request = $bdd->query('SELECT `nom`, `prenom`, `date_anniversaire`, `mail`, `phone`, `phone2`, `pathologie` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$user.'"');
               $request = $request->fetch();
               $name = $request['nom'];
               $surname = $request['prenom'];
@@ -94,10 +94,10 @@ else {
             <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
             <?php 
                 if($pathology == 1 || $pathology == 2) {
-                    $searchinfo = $bdd->prepare("SELECT * FROM verification WHERE id_utilisateur = :id");
+                    $searchinfo = $bdd->prepare("SELECT `verification` FROM `verification` WHERE `id_utilisateur` = :id");
                     $searchinfo->bindValue('id',$id,PDO::PARAM_INT);
                     $searchinfo->execute();
-                            if($searchinfo->rowCount() == 1) {
+                    if($searchinfo->rowCount() == 1) {
             ?>
             <form name="modifverif" method="POST" action="profil.php">
                 <div class="form-inline">
@@ -154,7 +154,7 @@ else {
                                         $oneclock = $searchinfo['Heure1'];
                                     }
                                     if($error == 0) { 
-                                        $modifverification = $bdd->prepare('UPDATE verification SET verification = :verif, Heure1 = :oneclock WHERE id_utilisateur = :id');
+                                        $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif, `Heure1` = :oneclock WHERE `id_utilisateur` = :id');
                                         $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
                                         $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                         $modifverification->bindValue('id',$id,PDO::PARAM_INT);
@@ -217,7 +217,7 @@ else {
                                         $fourclock = '';
                                     }
                                     if($error == 0) { 
-                                        $modifverification = $bdd->prepare('UPDATE verification SET verification = :verif, Heure1 = oneclock WHERE id = :id');
+                                        $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif, `Heure1` = oneclock WHERE `id` = :id');
                                         $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
                                         $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                         $modifverification->bindValue('id',$id,PDO::PARAM_INT);
@@ -229,7 +229,7 @@ else {
                                 }
                             }
                             elseif (!empty($_POST['notification'])) {
-                                $modifverification = $bdd->prepare('UPDATE verification SET notification = :notif WHERE id = :id');
+                                $modifverification = $bdd->prepare('UPDATE `verification` SET `notification` = :notif WHERE `id` = :id');
                                 $modifverification->bindValue('notification',$verif,PDO::PARAM_STR);
                                 $modifverification->bindValue('id',$id,PDO::PARAM_INT);
                                 $modifverification->execute(); 
@@ -287,7 +287,7 @@ else {
                                     $fourclock = '';
                                 }
                                 if($error == 0) { 
-                                    $modifverification = $bdd->prepare('UPDATE verification SET Heure1 = :oneclock, Heure2 = :twoclock, Heure3 = :threeclock, Heure4 = :fourclock WHERE id = :id');
+                                    $modifverification = $bdd->prepare('UPDATE `verification` SET `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id` = :id');
                                     $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('twoclock',$twoclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('threeclock',$threeclock,PDO::PARAM_STR);
@@ -407,7 +407,7 @@ else {
                             $fourclock = '';
                         }     
                         if($error == 0) {
-                            $requestverif = $bdd->prepare('INSERT INTO verification(id_utilisateur, verification, Heure1, Heure2, Heure3, Heure4, notification, date_verification) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
+                            $requestverif = $bdd->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
                             $requestverif->execute(array(
                                 'id' => $id,
                                 'verification' => $timeverif,
@@ -487,7 +487,7 @@ else {
                             $error++;
                         }
                         if($error == 0) {
-                            $requestverif = $bdd->prepare('INSERT INTO verification(id_utilisateur, Heure1, notification, date_verification) VALUES (:id, :hour1, :notification, :dateverification)');
+                            $requestverif = $bdd->prepare('INSERT INTO `verification`(`id_utilisateur`, `Heure1`, `notification`, `date_verification`) VALUES (:id, :hour1, :notification, :dateverification)');
                             $requestverif->execute(array(
                                 'id' => $id,
                                 'hour1' => $oneclock,
@@ -570,7 +570,7 @@ else {
         <div class="row">
           <div class="search col-lg-offset-4">
               <p><?php
-            $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
+            $requestfollow = $bdd->prepare('SELECT `follow_from`, `follow_date`,`nom`,`prenom`,`nom_utilisateur` FROM `follow` LEFT JOIN `utilisateurs` ON `id`=`follow_from` WHERE `follow_to` = :id AND `follow_confirm` = :confirm');
             $requestfollow->bindValue(':id',$id, PDO::PARAM_INT);
             $requestfollow->bindValue(':confirm','0', PDO::PARAM_STR);
             $requestfollow->execute();

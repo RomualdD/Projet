@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])) {
 else {
   include 'header1.php';
   if($role == 1) {
-          header('Location:suivi.php');
+        header('Location:suivi.php');
   } else {
   ?>
   <div class="container">
@@ -19,7 +19,7 @@ else {
     <div class="suivi form-group col-lg-offset-3">
       <label for="text">Choisir son patient :</label>
         <?php 
-          $requestfollow = $bdd->prepare('SELECT follow_from = :id OR follow_to = :id AS follow_id, nom, prenom, nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id = follow_from OR id = follow_to WHERE follow_from = :id OR follow_to = :id AND follow_confirm = :confirm AND role = 1 ORDER BY nom');
+          $requestfollow = $bdd->prepare('SELECT `follow_from` = :id OR `follow_to` = :id AS `follow_id`, `nom`, `prenom`, `nom_utilisateur` FROM `follow` LEFT JOIN `utilisateurs` ON `id` = `follow_from` OR `id` = `follow_to` WHERE `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `nom`');
           $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
           $requestfollow->bindValue('id',$id, PDO::PARAM_INT);
           $requestfollow->execute();
@@ -38,12 +38,12 @@ else {
       <?php
         if(isset($_POST['patient'])) {
             $patient = $_POST['patient'];
-            $request = $bdd->prepare('SELECT id FROM utilisateurs WHERE nom_utilisateur = :user');
+            $request = $bdd->prepare('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = :user');
             $request->bindValue(':user',$patient, PDO::PARAM_STR);
             $request->execute();
             $request = $request->fetch();
             $idpatient = $request['id'];
-            $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat, date_prochaine_verif FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE nom_utilisateur = :user AND follow_to = :id OR follow_from = :id AND follow_confirm = :confirm ORDER BY date_du_jour DESC');
+            $requestsearch = $bdd->prepare('SELECT DISTINCT `date_du_jour`, `resultat`, `date_prochaine_verif` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `nom_utilisateur` = :user AND `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm ORDER BY `date_du_jour` DESC');
             $requestsearch->bindValue(':idpatient',$idpatient, PDO::PARAM_INT); 
             $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
             $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);
@@ -89,7 +89,7 @@ else {
 $dataPoints= array();
 $n = 0;
     $patient = $_POST['patient'];
-    $requestsearch = $bdd->prepare('SELECT DISTINCT date_du_jour, resultat FROM suivis LEFT JOIN utilisateurs ON suivis.id_utilisateur = :idpatient LEFT JOIN follow ON role = :role WHERE follow_to = :id OR follow_from = :id AND follow_confirm = :confirm');
+    $requestsearch = $bdd->prepare('SELECT DISTINCT `date_du_jour`, `resultat` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm');
     $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
     $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);
     $requestsearch->bindValue(':role','1', PDO::PARAM_STR);

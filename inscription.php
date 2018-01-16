@@ -25,7 +25,7 @@
         if(($role == 1 && $pathology != 0) || ($role == 0 && $pathology == 0)) {
          // On vérifie que les mots de passes sont identiques
          if($password == $passwordverif) {
-           $result = $bdd->query('SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur ="'.$username.'"');
+           $result = $bdd->query('SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$username.'"');
            $nameverif = $result->fetch();
            if($username == $nameverif['nom_utilisateur']) {
              echo 'Nom d\'utilisateur déjà utilisé!';
@@ -37,7 +37,7 @@
              $actif = 0;
 
              // inclusion dans la bdd
-             $req = $bdd->prepare('INSERT INTO utilisateurs(nom, prenom, nom_utilisateur, mail, mot_de_passe,date_anniversaire, phone,phone2, role, pathologie,cleverif,actif) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif)');
+             $req = $bdd->prepare('INSERT INTO `utilisateurs`(`nom`, `prenom`, `nom_utilisateur`, `mail`, `mot_de_passe`,`date_anniversaire`, `phone`,`phone2`, `role`, `pathologie`,`cleverif`,`actif`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif)');
              $req->execute(array(
                'name' => $name,
                'firstname' => $firstname,

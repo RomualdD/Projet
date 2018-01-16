@@ -4,7 +4,7 @@
   $user = $_GET['log'];
   $cle = $_GET['cle'];
 
-  $recupcle = $bdd->prepare('SELECT cleverif, actif FROM utilisateurs WHERE nom_utilisateur like :user');
+  $recupcle = $bdd->prepare('SELECT `cleverif`, `actif` FROM `utilisateurs` WHERE `nom_utilisateur` like :user');
   if($recupcle->execute(array(':user' => $user)) && $row = $recupcle->fetch()) {
     $clebdd = $row['cleverif'];
     $actif = $row['actif'];
@@ -15,7 +15,7 @@
   else {
     if($cle == $clebdd) {
       echo "Votre compte a bien été activé.";
-      $stmt = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nom_utilisateur like :user ");
+      $stmt = $bdd->prepare("UPDATE `utilisateurs` SET `actif` = 1 WHERE `nom_utilisateur` like :user ");
       $stmt->bindParam(':user', $user);
       $stmt->execute();
     }

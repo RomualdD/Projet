@@ -33,7 +33,7 @@ else {
         // Horraire du jour afin de faire une comparaison
         $hour = date('Hi');
         // Récupération de la date de vérification et des heures demandés
-        $searchfuturedate = $bdd->query('SELECT id_utilisateur,date_verification, Heure1, Heure2, Heure3, Heure4 FROM verification WHERE id_utilisateur = "'.$id.'"');
+        $searchfuturedate = $bdd->query('SELECT `id_utilisateur`,`date_verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4` FROM `verification` WHERE `id_utilisateur` = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
         $iduser = $searchfuturedate['id_utilisateur'];
         $dateverif = $searchfuturedate['date_verification'];
@@ -72,7 +72,7 @@ else {
         $futuredate = $futuredate.' '.$futurehour;
         if($futuredate != $dateverif && ($id == $iduser )) {
           // Ajout dans la table suivis pour récupéré ensuite les valeurs  
-          $req = $bdd->prepare('INSERT INTO suivis(id_utilisateur, date_du_jour, resultat, date_prochaine_verif) VALUES(:id, :daydate, :result, :futureverif)');
+          $req = $bdd->prepare('INSERT INTO suivis(`id_utilisateur`, `date_du_jour`, `resultat`, `date_prochaine_verif`) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
           'daydate' => $date,
@@ -80,7 +80,7 @@ else {
           'futureverif' => $futuredate
           ));
           // Modification de la prochaine vérifiacation dans la table vérification
-          $requestmodif = $bdd->prepare('UPDATE verification SET date_verification = :newdate WHERE id_utilisateur = :id');
+          $requestmodif = $bdd->prepare('UPDATE `verification` SET `date_verification` = :newdate WHERE `id_utilisateur` = :id');
           $requestmodif->bindValue('newdate',$futuredate,PDO::PARAM_STR);
           $requestmodif->bindValue('id',$id,PDO::PARAM_INT);
           $requestmodif->execute();
@@ -121,7 +121,7 @@ else {
       <tbody>
           <?php
           // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant
-          $requestbdd = $bdd->query('SELECT date_du_jour, resultat, date_prochaine_verif FROM suivis WHERE id_utilisateur = "'.$id.'"ORDER BY id DESC ');
+          $requestbdd = $bdd->query('SELECT `date_du_jour`, `resultat`, `date_prochaine_verif` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'"ORDER BY `id` DESC ');
           while($requestarray = $requestbdd->fetch(PDO::FETCH_ASSOC)) { //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur
             ?><tr><?php
             foreach($requestarray as $element) {
@@ -144,7 +144,7 @@ else {
     $dataPoints= array();
     $nbresult = 0;
     // Récupération de la date du jour avec le résultat limité a 28 résultats (une semaine)
-    $requestbdd = $bdd->query('SELECT date_du_jour,resultat FROM suivis WHERE id_utilisateur = "'.$id.'" ORDER BY id LIMIT 28');
+    $requestbdd = $bdd->query('SELECT `date_du_jour`,`resultat` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'" ORDER BY `id` LIMIT 28');
     foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $day => $result) {
         foreach($result as $resultchart) {
             $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);

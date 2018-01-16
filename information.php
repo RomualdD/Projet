@@ -88,7 +88,7 @@ else {
                         }
                         if(preg_match('#^[0-9]{2}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}$#', $dayappointment) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $informationappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $nameappointment))) {
                             if($error==0) {
-                            $requestappoitment = $bdd->prepare('INSERT INTO rendez_vous(id_utilisateur,nom_rendez_vous, date_rendez_vous, heure_rendez_vous, infos_complementaire) VALUES(:id,:name, :date, :hour, :information)');
+                            $requestappoitment = $bdd->prepare('INSERT INTO `rendez_vous`(`id_utilisateur`,`nom_rendez_vous`, `date_rendez_vous`, `heure_rendez_vous`, `infos_complementaire`) VALUES(:id,:name, :date, :hour, :information)');
                             $requestappoitment->execute(array(
                                 'id' => $id,
                                 'name' => $nameappointment,
@@ -177,25 +177,27 @@ else {
                //Création d'un tableau
                $timeappoitment=array();
                // Recherche dans la base de données
-                $researchappoitment = $bdd->query('SELECT nom_rendez_vous,date_rendez_vous,heure_rendez_vous,infos_complementaire FROM rendez_vous WHERE id_utilisateur='.$id);
+                $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,`date_rendez_vous`,`heure_rendez_vous`,`infos_complementaire`,`rendez_vous_fait` FROM `rendez_vous` WHERE `id_utilisateur`='.$id);
                 while($appointment = $researchappoitment->fetch()) {
                     // Récupération des inforations
                     $nameappointment = $appointment['nom_rendez_vous'];
                     $dayAppointment = $appointment['date_rendez_vous'];
                     $hourappointment = $appointment['heure_rendez_vous'];
                     $informationappointment = $appointment['infos_complementaire'];
+                    $appointmentevent = $appointment['rendez_vous_fait'];
                     // On sépare le jour le mois et l'année du rendez-vous
                     $dayappointment= substr($dayAppointment,0,2);
                     $monthappointment= substr($dayAppointment,3,2);
                     $yearappointment= substr($dayAppointment,6,6);
                     // On écrit tout dans un tableau
-                    $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment);
+                    $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'event' =>$appointmentevent);
                    // On le push pour avoir tous les rendez-vous
                   $result =  array_push($timeappoitment,$numbercle);
                 }
                ?>
               <tr>
                 <?php
+                $yearappointment = 0;
                 // Vérification de l'année et du mois si rendez-vous
                 foreach($timeappoitment as $appointment) {
                     if($appointment['year'] == $year) {
@@ -224,8 +226,9 @@ else {
                                         $hour=$appointment['hour'];
                                         $name=$appointment['name'];
                                         $infos=$appointment['infos'];
+                                        $event = $appointment['event'];
                                         // On écrit pour récupéré les informations qu'on veut
-                                        $infocle=  array('day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos);
+                                        $infocle=  array('day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'event'=>$event);
                                         $informations = array_push($infoappointment, $infocle);
                                 } 
                             }
@@ -236,10 +239,18 @@ else {
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay) {
                                         $nbmodal++;
+                                        echo $informations['event'];
+                                        if($informations['event'] == 1) {
+                                        ?> 
+                                        <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>        
+                                        <?php
+                                        }
+                                        else {
                                         ?>
-                                    <p class="test"></p><p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                    <p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php
-                                    } // Affichage fenêtre modal
+                                    }
+                                    }// Affichage fenêtre modal
                                     ?>
                                     <div class="modal fade" id="myModal<?php echo $nbmodal;?>" role="dialog">
                                       <div class="modal-dialog">
@@ -252,9 +263,9 @@ else {
                                         <div class="modal-body">
                                           <div class="row">
                                               <div class="col-lg-offset-1 col-lg-11">
-                                                <p><?php echo 'Nom du rendez-vous : ';?><input type="text" name="nameappointment" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
-                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" name="hourappointment" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
-                                                <p><?php echo 'Informations du rendez-vous : '; ?><input type="text" name="infoappointment" id="infoappointment<?php echo $nbmodal;?>" value="<?php echo $informations['infoappointment'];?>" disabled></p> 
+                                                  <p><?php echo 'Nom du rendez-vous : ';?><input class="col-lg-offset-1 nameappointment" type="text" name="nameappointment" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
+                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" class="col-lg-offset-1 hourappointment" name="hourappointment" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
+                                                <p><?php echo 'Informations consultation : '; ?></p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointment" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
                                               </div>
                                           </div>
                                           <hr>
@@ -312,7 +323,7 @@ else {
                                                             $('#submitmodif<?php echo $nbmodal;?>').click(function() {
                                                                 $.post(
                                                                      'modifappointment.php', {
-                                                                        dayappointment : $("#day<?php echo $nbmodal;?>") .val(),
+                                                                        dayappointment : $("#day<?php echo $nbmodal;?>").val(),
                                                                         nameappointment : $("#name<?php echo $nbmodal;?>").val(),
                                                                         hourappointment : $("#hour<?php echo $nbmodal;?>").val(),
                                                                         infosappointment : $("#info<?php echo $nbmodal;?>").val(),

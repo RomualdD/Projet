@@ -1,5 +1,57 @@
 <?php
-  include 'header.php'
+  include 'header.php';
+
+  // Si les champs sont remplis
+if(isset($_POST['connexion'])) {
+  if(!empty($_POST['username']) && (!empty($_POST['password']))) {
+       $user = $_POST['username'];
+       $pass = $_POST['password'];
+       //$pass = sha1(md5($pass));
+       $pass = md5($pass);
+       $request = $bdd->query("SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` = '".$user."'");
+       $username = $request->fetch();
+       $request = $bdd->query("SELECT `mot_de_passe` FROM `utilisateurs` WHERE `mot_de_passe` = '".$pass."' AND `nom_utilisateur` = '".$user."'");
+       $password = $request->fetch();
+      // Si les champs correspondent dans la base de données
+      if($username['nom_utilisateur'] == $user && $pass == $password['mot_de_passe']) {
+         $search = $bdd->prepare("SELECT `actif` FROM `utilisateurs` WHERE `nom_utilisateur` like :user");
+         if($search->execute(array(':user' => $user)) && $row = $search->fetch()){
+           $actif = $row['actif'];
+         }
+         if($actif == '1') {
+           // Démarrage d'une session
+           session_start();
+           $request = $bdd->query("SELECT `role` FROM `utilisateurs` WHERE `nom_utilisateur` = '".$user."'");
+           $role = $request->fetch();
+           $request = $bdd->query("SELECT `pathologie` FROM `utilisateurs` WHERE `nom_utilisateur` = '".$user."'");
+           $pathology = $request->fetch();
+           //Enregistement dans la session:
+           $_SESSION['user'] = $_POST['username'];
+           $_SESSION['password'] = $_POST['password'];
+           $_SESSION['role'] = $role['role'];
+           $_SESSION['pathology']= $pathology['pathologie'];
+           if($_SESSION['role'] == 1) {
+                header('Location:profil.php');
+           }
+           else {
+             header('Location: medecinprofil.php');;
+           }
+         }
+         else {
+           echo 'Veuillez activez votre compte !';
+         }
+       }
+       //Le mot de passe ou le nom d'utilisateur n'a pas était reconnu
+     else
+      {
+         echo 'Utilisateur ou mot de passe incorrect !';
+      }
+   }
+   // Les champs n'ont pas était remplis
+   else {
+      echo 'Tous les champs n\'ont pas était remplis !';
+    }
+}
 ?>
 <!-- Page de connexion -->
   <div class="container">
@@ -37,55 +89,5 @@
 </div>
 
 <?php
-  // Si les champs sont remplis
-if(isset($_POST['connexion'])) {
-  if(!empty($_POST['username']) && (!empty($_POST['password']))) {
-       $user = $_POST['username'];
-       $pass = $_POST['password'];
-       $pass = md5($pass);
-       $request = $bdd->query("SELECT nom_utilisateur FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
-       $username = $request->fetch();
-       $request = $bdd->query("SELECT mot_de_passe FROM utilisateurs WHERE mot_de_passe = '".$pass."' AND nom_utilisateur = '".$user."'");
-       $password = $request->fetch();
-      // Si les champs correspondent dans la base de données
-      if($username['nom_utilisateur'] == $user && $pass == $password['mot_de_passe']) {
-         $search = $bdd->prepare("SELECT actif FROM utilisateurs WHERE nom_utilisateur like :user");
-         if($search->execute(array(':user' => $user)) && $row = $search->fetch()){
-           $actif = $row['actif'];
-         }
-         if($actif == '1') {
-           // Démarrage d'une session
-           session_start();
-           $request = $bdd->query("SELECT role FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
-           $role = $request->fetch();
-           $request = $bdd->query("SELECT pathologie FROM utilisateurs WHERE nom_utilisateur = '".$user."'");
-           $pathology = $request->fetch();
-           //Enregistement dans la session:
-           $_SESSION['user'] = $_POST['username'];
-           $_SESSION['password'] = $_POST['password'];
-           $_SESSION['role'] = $role['role'];
-           $_SESSION['pathology']= $pathology['pathologie'];
-           if($_SESSION['role'] == 1) {
-              echo "<script>document.location.replace('profil.php');</script>";
-           }
-           else {
-             echo "<script>document.location.replace('medecinprofil.php');</script>";
-           }
-         }
-         else {
-           echo "Veuillez activez votre compte !";
-         }
-       }
-       //Le mot de passe ou le nom d'utilisateur n'a pas était reconnu
-     else
-      {
-         echo "Utilisateur ou mot de passe incorrect !";
-      }
-   }
-   // Les champs n'ont pas était remplis
-   else {
-      echo "Tous les champs n'ont pas était remplis !";
-    }
-}
   include 'footer.php'
 ?>
