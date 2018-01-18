@@ -170,7 +170,22 @@ table th[class*="col-lg"] {
  .nameappointment {
     margin-left: 4.3em;
  } 
-@media screen and (max-width: 1280px)  {
+ .modificateform {
+  color: black;
+  font-weight: lighter;
+  }  
+ #pageactive {
+     font-weight: bold;
+     font-size: 1.2em;
+     color: white;
+    background-color: red;
+  } 
+.pagination > li > a{
+     font-weight: bold;
+     font-size: 1.2em;
+    color: red;
+}
+@media screen and (max-width: 1280px) {
     table th[class*="col-lg"] {
         display: none;
     }

@@ -7,7 +7,7 @@ if(isset($_POST['connexion'])) {
        $user = $_POST['username'];
        $pass = $_POST['password'];
        //$pass = sha1(md5($pass));
-       $pass = md5($pass);
+       $pass = sha1(md5($pass));
        $request = $bdd->query("SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` = '".$user."'");
        $username = $request->fetch();
        $request = $bdd->query("SELECT `mot_de_passe` FROM `utilisateurs` WHERE `mot_de_passe` = '".$pass."' AND `nom_utilisateur` = '".$user."'");

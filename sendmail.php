@@ -29,7 +29,7 @@
        }
     }
     
-    $requestmailappointment = $bdd->query('SELECT `nom`, `prenom`, `mail`, `date_rendez_vous`,`heure_rendez_vous`,`nom_rendez_vous` FROM `utilisateurs` INNER JOIN `rendez_vous` ON `rendez_vous`.`id_utilisateur` = `utilisateurs`.`id`');
+    $requestmailappointment = $bdd->query('SELECT `nom`, `prenom`, `mail`, `date_rendez_vous`,`heure_rendez_vous`,`nom_rendez_vous`,`infos_complementaire` FROM `utilisateurs` INNER JOIN `rendez_vous` ON `rendez_vous`.`id_utilisateur` = `utilisateurs`.`id`');
     while($request = $requestmailappointment->fetch()) {
         // Récupération du jour du rendez-vous
         $date = $request['date_rendez_vous'];
@@ -54,16 +54,17 @@
        if($day == $dayappointment.' '.$hourappointment) {
         //Envoie du mail d'information pour vérification           
         $nameappointment = $request['nom_rendez_vous'];
+        $infosappointment = $request['infos_complementaire'];
         $recipient = $request['mail'];
         $name = $request['nom'];
         $firstname = $request['prenom'];
         $subject = '[IMPORTANT] Rendez-vous du lendemain';
         $entete = 'From: inscriptiondiavk@gmail.com';
         $message = 'Bonjour '.$firstname.' '.$name.",\r\n"
-        .'Votre rendez-vous "'.$nameappointment.'" est demain à '.$hourappointment.' !';
+        .'Votre rendez-vous "'.$nameappointment.'" est demain à '.$hourappointment." !\r\n"
+        .'Les informations complémentaire que vous avez écrites sont '.$infosappointment;
         mail($recipient, $subject,$message,$entete);
        }
-       
     }
     ?>
       </body>

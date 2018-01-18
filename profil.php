@@ -432,7 +432,7 @@ else {
             }
             elseif($pathology == 3) {
                 ?>
-            <form  name="addverif" method="POST" action="profil.php">
+            <form name="addverif" method="POST" action="profil.php">
                 <div class="form-inline">
                   <div class="input-group clock col-lg-offset-3 col-lg-6">
                       <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
@@ -512,29 +512,63 @@ else {
         <div class="modificate col-lg-offset-3 col-lg-5">
           <div class="row">
             <div class="subtitle col-lg-offset-1"><h3>Informations du compte à modifier :</h3></div>
-            <div class="form-inline">
-              <div class="input-group password col-lg-offset-3">
-                  <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="password" placeholder="Mot de passe actuel">
-              </div>
-             </div>
-              <div class="form-inline">
-                <div class="input-group newpassword col-lg-offset-3">
-                  <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="newpassword" placeholder="Nouveau mot de passe">
-                </div>
-              </div>
-              <div class="form-inline">
-                <div class="input-group passwordverif col-lg-offset-3">
-                  <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="passwordverif" placeholder="Vérfication nouveau mot de passe">
-                </div>
-              </div>
-            <input type="submit" value="Valider !" name="valid" class="button btn btn-default col-lg-offset-5">
+            <form name="modifpassword" method="POST" action="profil.php">
+                <div class="form-inline">
+                  <label class="col-lg-offset-3 col-lg-9 modificateform" for="password">Mot de passe actuel :</label>
+                  <div class="input-group password col-lg-offset-3">
+                      <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                      <input type="password" class="form-control" name="password" placeholder="Mot de passe actuel">
+                  </div>
+                 </div>
+                  <div class="form-inline">
+                      <label class="col-lg-offset-3 col-lg-9 modificateform" for="newpassword">Nouveau mot de passe :</label>
+                    <div class="input-group newpassword col-lg-offset-3">
+                      <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                      <input type="password" class="form-control" name="newpassword" placeholder="Nouveau mot de passe">
+                    </div>
+                  </div>
+                  <div class="form-inline">
+                    <label class="col-lg-offset-3 col-lg-9 modificateform" for="passwordverif">Vérification nouveau mot de passe :</label>
+                    <div class="input-group passwordverif col-lg-offset-3">
+                      <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                      <input type="password" class="form-control" name="passwordverif" placeholder="Vérification nouveau mot de passe">
+                    </div>
+                  </div>
+                <input type="submit" value="Valider !" name="submitmodifpassword" class="button btn btn-default col-lg-offset-5">
+            </form>
+            <?php 
+                if(isset($_POST['submitmodifpassword'])) {
+                    if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
+                        $recuppassword = $bdd->query('SELECT `mot_de_passe` FROM `utilisateurs` WHERE `id` = '.$id);
+                        $recuppassword = $recuppassword->fetch();
+                        $password = sha1(md5($_POST['password']));
+                        if($password == $recuppassword['mot_de_passe']) {
+                          $newpassword = sha1(md5($_POST['newpassword']));
+                          $newpasswordverif = sha1(md5($_POST['passwordverif']));
+                          if($newpassword == $newpasswordverif) {
+                              $insertnewpassword = $bdd->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = '.$id);
+                              $insertnewpassword->bindValue('password', $newpassword, PDO::PARAM_STR);
+                              $insertnewpassword->execute();
+                              echo 'Le mot de passe a bien était modifié !';
+                          }
+                          else {
+                              echo 'Les mots de passes ne sont pas identiques !';
+                          }
+                        }
+                        else {
+                            echo 'Ce n\'est pas votre mot de passe !';
+                        }
+                    }
+                    else {
+                        echo 'Les champs ne sont pas tous remplis !';
+                    }
+                }
+            ?>
             </div>
             <div class="row">
               <div class="modificatemail col-lg-offset-3">
                 <div class="form-inline">
+                <label class="col-lg-9 modificateform" for="newmail">Nouvelle adresse mail :</label>                    
                   <div class="input-group mail">
                     <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newmail" placeholder="Nouvelle adresse mail">
@@ -546,23 +580,25 @@ else {
             <div class="row">
               <div class="modificatenum col-lg-offset-3">
                 <div class="form-inline">
+                <label class="col-lg-9 modificateform" for="modificatenum">Modifier numéro de téléphone :</label>                                        
                   <div class="input-group phone">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="newnum" placeholder="Modifier numéro de téléphone">
+                    <input type="text" class="form-control" name="modificatenum" placeholder="Modifier numéro de téléphone">
                   </div>
                 </div>
-                <input type="submit" value="Modifier !" name="modificatenum" class="button btn btn-default col-lg-offset-3">
+                <input type="submit" value="Modifier !" name="submitmodificatenum" class="button btn btn-default col-lg-offset-3">
               </div>
             </div>
             <div class="row">
               <div class="newnum col-lg-offset-3">
                 <div class="form-inline">
+                <label class="col-lg-9 modificateform" for="newnum">Ajouter numéro de téléphone :</label>                                                            
                   <div class="input-group phone">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newnum" placeholder="Nouveau numéro de téléphone">
                   </div>
                 </div>
-                <input type="submit" value="Modifier !" name="addnum" class="button btn btn-default col-lg-offset-3">
+                <input type="submit" value="Ajouter !" name="addnum" class="button btn btn-default col-lg-offset-3">
               </div>
             </div>
           </div>
@@ -602,9 +638,10 @@ else {
         <div>
          <form method="post" action="ajout.php">
             <div class="form-inline">
+                <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
                 <div class="input-group search col-lg-offset-4">
                     <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                    <input type="text" class="form-control" name="namedoctor" placeholder="Chercher votre médecin">
                 </div>
             </div>
             <div class="form-inline col-lg-offset-4">

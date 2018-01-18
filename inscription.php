@@ -130,7 +130,7 @@
           <div class="form-inline">
             <div class="input-group birthday col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" id="birthday" name="birthday" value="<?php echo isset($_POST['birthday']) ? $_POST['birthday'] : ''; ?>" placeholder="Date de naissance"required>
+                <input type="text" class="form-control" id="birthday" name="birthday" value="<?php echo isset($_POST['birthday']) ? $_POST['birthday'] : ''; ?>" placeholder="Date de naissance" required>
             </div>
             <p class="col-lg-offset-3">Format: jj/mm/aaaa</p>
           </div>

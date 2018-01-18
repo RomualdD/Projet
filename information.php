@@ -177,7 +177,7 @@ else {
                //Création d'un tableau
                $timeappoitment=array();
                // Recherche dans la base de données
-                $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,`date_rendez_vous`,`heure_rendez_vous`,`infos_complementaire`,`rendez_vous_fait` FROM `rendez_vous` WHERE `id_utilisateur`='.$id);
+                $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,`date_rendez_vous`,`heure_rendez_vous`,`infos_complementaire`,`rendez_vous_fait` FROM `rendez_vous` WHERE `id_utilisateur`='.$id.' ORDER BY heure_rendez_vous');
                 while($appointment = $researchappoitment->fetch()) {
                     // Récupération des inforations
                     $nameappointment = $appointment['nom_rendez_vous'];
@@ -239,8 +239,8 @@ else {
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay) {
                                         $nbmodal++;
-                                        echo $informations['event'];
                                         if($informations['event'] == 1) {
+                                            $appointmentup=1;
                                         ?> 
                                         <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>        
                                         <?php
@@ -268,12 +268,16 @@ else {
                                                 <p><?php echo 'Informations consultation : '; ?></p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointment" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
                                               </div>
                                           </div>
+                                            <?php
+                                            if($appointmentup!=1) {
+                                          ?>
                                           <hr>
                                           <div class="row">
                                               <div class="col-lg-11">
                                                  <h3 class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier ce rendez-vous :</h3>
                                               </div>
                                           </div>
+
                                             <div class="row">
                                                 <div class="col-lg-offset-1">
                                                     <form action="information.php" method="POST">
@@ -373,6 +377,9 @@ else {
                                                                         if(data == 'Success') {
                                                                             alert('Rendez-vous supprimé !');
                                                                         }
+                                                                        elseif(date == 'FailedHour') {
+                                                                         alert('Erreur');   
+                                                                        }    
                                                                         else {
                                                                             alert('Rendez-vous non supprimé !');
                                                                         }
@@ -382,9 +389,11 @@ else {
                                                             });
                                                         });   
                                                     </script>
+                                                </div>
                                               </div>
-                                              </div>
-                                          </div>
+                                          </div><?php  
+                                        }
+                                    ?>
                                         </div>
                                         <div class="modal-footer">
                                          <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fermer</button>
