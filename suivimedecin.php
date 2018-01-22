@@ -43,7 +43,7 @@ else {
             $request->execute();
             $request = $request->fetch();
             $idpatient = $request['id'];
-            $requestsearch = $bdd->prepare('SELECT DISTINCT `date_du_jour`, `resultat`, `date_prochaine_verif` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `nom_utilisateur` = :user AND `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm ORDER BY `date_du_jour` DESC');
+            $requestsearch = $bdd->prepare('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y %H:%i") AS `date_du_jour`, `resultat`, DATE_FORMAT(`date_prochaine_verif`,"%d/%m/%Y %H:%i") AS `date_prochaine_verif` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `nom_utilisateur` = :user AND `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm ORDER BY `suivis`.`id` DESC');
             $requestsearch->bindValue(':idpatient',$idpatient, PDO::PARAM_INT); 
             $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
             $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);
@@ -57,28 +57,31 @@ else {
   <div class="row">
     <div class="col-lg-offset-3">En tableau :</div>
   </div>
-  <div class="row">
-    <table class="tableresult table table-bordered result col-lg-offset-2 col-lg-3">
-      <thead>
-        <tr>
-          <th>Date du résultat :</th>
-          <th>Résultat :</th>
-          <th>Date de la prochaine analyse :</th>
-        </tr>
-      </thead>
-      <tbody>
-          <?php
-          while($requestarray = $requestsearch->fetch(PDO::FETCH_ASSOC)) { 
-            ?><tr><?php
-            foreach($requestarray as $element) {
-              ?>
-            <td><?php echo $element; ?></td><?php
-            }?></tr><?php
-          }
-         ?>
-      </tbody>
-    </table>
-  </div>
+      <div class="row">
+        <table class="tableresult table table-bordered result col-lg-offset-2 col-lg-3">
+          <thead>
+            <tr>
+              <th>Date du résultat :</th>
+              <th>Résultat :</th>
+              <th>Date de la prochaine analyse :</th>
+            </tr>
+          </thead>
+          <tbody>
+              <?php
+              // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant
+               $requestarray = $requestsearch->fetchAll(PDO::FETCH_ASSOC);
+              //while()
+                foreach($requestarray as $result) { 
+                ?><tr>
+                    <td><?php echo $result['date_du_jour']; ?></td>
+                    <td><?php echo $result['resultat']; ?></td>
+                    <td><?php echo $result['date_prochaine_verif']; ?></td>
+                </tr><?php
+              }
+             ?>
+          </tbody>
+        </table>
+      </div>
   <div class="row">
       <div class="col-lg-offset-3">En graphique :</div>
   </div>
@@ -87,21 +90,20 @@ else {
   </div>
 <?php
 $dataPoints= array();
-$n = 0;
+$nbresult = 0;
     $patient = $_POST['patient'];
-    $requestsearch = $bdd->prepare('SELECT DISTINCT `date_du_jour`, `resultat` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm');
+    $requestsearch = $bdd->prepare('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y H:i") AS date_du_jour, `resultat` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `follow_to` = :id OR `follow_from` = :id AND `follow_confirm` = :confirm');
     $requestsearch->bindValue(':id',$id, PDO::PARAM_INT);
     $requestsearch->bindValue(':confirm','1', PDO::PARAM_STR);
     $requestsearch->bindValue(':role','1', PDO::PARAM_STR);
     $requestsearch->bindValue(':idpatient',$idpatient, PDO::PARAM_STR);
     $requestsearch->execute();
-while($requestchart = $requestsearch->fetch(PDO::FETCH_ASSOC))
-{
-  foreach ($requestchart as $datevalue) {
-    $dataPoints[$n] = array('label'=>$requestchart['date_du_jour'], 'y'=>$requestchart['resultat']);
+    foreach($requestsearch->fetchAll(PDO::FETCH_UNIQUE) as $day => $result) {
+        foreach($result as $resultchart) {
+            $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);
+        }
+        $nbresult++;
     }
-    $n++;
-  }
   ?>
 <script>
     $(window).on('load', function() {

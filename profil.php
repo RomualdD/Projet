@@ -43,49 +43,49 @@ else {
           <div class="form-inline">
             <div class="input-group name col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="name" value="<?php echo htmlspecialchars($name); ?>">
+                <input type="text" class="form-control" disabled name="name" value="<?php echo htmlspecialchars($name); ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group surname col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="surname" value="<?php echo htmlspecialchars($surname); ?>">
+                <input type="text" class="form-control" disabled name="surname" value="<?php echo htmlspecialchars($surname); ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group birthday col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="birthday" value="<?php echo htmlspecialchars($birthday); ?>">
+                <input type="text" class="form-control" disabled name="birthday" value="<?php echo htmlspecialchars($birthday); ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group username col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="username" value="<?php echo htmlspecialchars($user); ?>">
+                <input type="text" class="form-control" disabled name="username" value="<?php echo htmlspecialchars($user); ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group mail col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="mail" value="<?php echo htmlspecialchars($mail) ?>">
+                <input type="text" class="form-control" disabled name="mail" value="<?php echo htmlspecialchars($mail) ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group phone col-lg-offset-3">
                 <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="phone" value="<?php echo $phone ?>">
+                <input type="text" class="form-control" disabled name="phone" value="<?php echo $phone ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group otherphone col-lg-offset-3">
                 <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="otherphone" value="<?php echo $otherphone ?>">
+                <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $otherphone ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group pathology col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled="true"  name="pathology" value="<?php echo $pathologyname ?>">
+                <input type="text" class="form-control" disabled name="pathology" value="<?php echo $pathologyname ?>">
             </div>
           </div>
         </div>
@@ -94,17 +94,18 @@ else {
             <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
             <?php 
                 if($pathology == 1 || $pathology == 2) {
-                    $searchinfo = $bdd->prepare("SELECT `verification` FROM `verification` WHERE `id_utilisateur` = :id");
+                    $searchinfo = $bdd->prepare('SELECT `verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
                     $searchinfo->bindValue('id',$id,PDO::PARAM_INT);
                     $searchinfo->execute();
                     if($searchinfo->rowCount() == 1) {
+                        $info=$searchinfo->fetch();
             ?>
             <form name="modifverif" method="POST" action="profil.php">
                 <div class="form-inline">
                   <div class="input-group date col-lg-offset-3">
                       <span class="input-group-addon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
                       <select name="timeverif">
-                        <option>Vérification par :</option>
+                          <option value="">Vérification par :</option>
                         <option value="Heure">Heure</option>
                         <option value="Jours">Jours</option>
                         <option value="Mois">Mois</option>
@@ -125,7 +126,7 @@ else {
                   <div class="input-group notif col-lg-offset-3">
                       <span class="input-group-addon"><i class="fa fa-bell" aria-hidden="true"></i></span>
                       <select name="notification">
-                        <option>Notifications par :</option>
+                        <option value="">Notifications par :</option>
                         <option value="SMS">SMS</option>
                         <option value="Mail">Mail</option>
                       </select>
@@ -136,117 +137,45 @@ else {
                    <?php
                         if(isset($_POST['modif'])) {
                             $error=0;
-                            if(!empty($_POST['timeverif'])) {
-                                $verif = $_POST['timeverif'];
-                                if($verif != 'Heure') {
-                                    if(!empty($_POST['clockone'])) {
-                                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                                            $oneclock = $_POST['clockone'];                        
-                                        }
-                                        else {
-                                            ?><p><?php
-                                            echo 'Le format demandé est : hh:mm';
-                                            ?></p><?php
-                                            $error++;
-                                        }
-                                    }
-                                    else {
-                                        $oneclock = $searchinfo['Heure1'];
-                                    }
-                                    if($error == 0) { 
-                                        $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif, `Heure1` = :oneclock WHERE `id_utilisateur` = :id');
-                                        $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
-                                        $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
-                                        $modifverification->bindValue('id',$id,PDO::PARAM_INT);
-                                        $modifverification->execute(); 
-                                        ?><p><?php
-                                        echo 'Les modifications sont bien prises en compte !';
-                                        ?></p><?php
-                                    }    
+                            if(!empty($_POST['timeverif']) ||(!empty($_POST['notification']))||(!empty($_POST['clockone']))||(!empty($_POST['clocktwo']))||(!empty($_POST['clockthree']))||(!empty($_POST['clockfour']))) {
+                                if(!empty($_POST['notification'])) {
+                                    $notif=$_POST['notification'];
                                 }
                                 else {
+                                    $notif = $info['notification'];
+                                }
+                                if(!empty($_POST['timeverif'])) {
+                                    $verif = $_POST['timeverif'];  
+                                }
+                                else {
+                                    $verif = $info['verification'];
+                                }
+                                if(!empty($_POST['clockone'])) {
                                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                                        $oneclock = $_POST['clockone'];    
+                                        $oneclock = $_POST['clockone']; 
+                                        $clockfirst=explode(':', $oneclock);
+                                        $firstHour = $clockfirst['0'];
+                                        $firstMin = $clockfirst['1'];                                        
                                     }
                                     else {
                                         ?><p><?php
                                         echo 'Le format demandé est hh:mm';
                                         ?></p><?php
                                         $error++;
-                                    }                                    
-                                    if(!empty($_POST['clocktwo'])) {
-                                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo'])) {                                
-                                            $twoclock = $_POST['clocktwo']; 
-                                        }
-                                        else {
-                                            ?><p><?php
-                                            echo 'Le format demandé est hh:mm';
-                                            ?></p><?php
-                                            $error++;
-                                        }
                                     }
-                                    else {
-                                        $twoclock = '';
-                                    }
-                                    if(!empty($_POST['clockthree'])) {
-                                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree'])) {                                
-                                            $threeclock = $_POST['clockthree'];
-                                        }
-                                        else {
-                                           ?><p><?php
-                                           echo 'Le format demandé est hh:mm';
-                                           ?></p><?php
-                                           $error++;
-                                        }
-                                    }
-                                    else {
-                                        $threeclock = '';
-                                    }
-                                    if(!empty($_POST['clockfour'])) {
-                                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour'])) {                                                                        
-                                            $fourclock = $_POST['clockfour'];
-                                            $error++;
-                                        }
-                                        else {
-                                           ?><p><?php
-                                           echo 'Le format demandé est hh:mm'; 
-                                           ?></p><?php
-                                        }                                        
-                                    }
-                                    else {
-                                        $fourclock = '';
-                                    }
-                                    if($error == 0) { 
-                                        $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif, `Heure1` = oneclock WHERE `id` = :id');
-                                        $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
-                                        $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
-                                        $modifverification->bindValue('id',$id,PDO::PARAM_INT);
-                                        $modifverification->execute();
-                                        ?><p><?php
-                                        echo 'Les modifications sont bien prises en compte !';
-                                        ?></p><?php
-                                    }
-                                }
-                            }
-                            elseif (!empty($_POST['notification'])) {
-                                $modifverification = $bdd->prepare('UPDATE `verification` SET `notification` = :notif WHERE `id` = :id');
-                                $modifverification->bindValue('notification',$verif,PDO::PARAM_STR);
-                                $modifverification->bindValue('id',$id,PDO::PARAM_INT);
-                                $modifverification->execute(); 
-                            }
-                            elseif (!empty($_POST['clockone'])) {
-                                if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                                    $oneclock = $_POST['clockone'];    
-                                }
+                                }    
                                 else {
-                                    ?><p><?php
-                                    echo 'Le format demandé est hh:mm';
-                                    ?></p><?php
-                                    $error++;
-                                }
+                                    $oneclock = $info['Heure1'];
+                                    $clockfirst=explode(':', $oneclock);
+                                    $firstHour = $clockfirst['0'];
+                                    $firstMin = $clockfirst['1'];                                           
+                                }                                    
                                 if(!empty($_POST['clocktwo'])) {
                                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo'])) {                                
-                                        $twoclock = $_POST['clocktwo']; 
+                                        $twoclock = $_POST['clocktwo'];
+                                        $clocksecond=explode(':', $twoclock);
+                                        $secondHour = $clocksecond['0'];
+                                        $secondMin = $clocksecond['1'];                                        
                                     }
                                     else {
                                         ?><p><?php
@@ -256,50 +185,160 @@ else {
                                     }
                                 }
                                 else {
-                                    $twoclock = '';
+                                    $twoclock = $info['Heure2'];
+                                    if($twoclock != '') {
+                                       $clocksecond=explode(':', $twoclock);
+                                       $secondHour = $clocksecond['0'];
+                                       $secondMin = $clocksecond['1'];                                        
+                                    }
+                                    else {
+                                        $secondHour = 24;
+                                        $secondMin = 59;
+                                    }
                                 }
                                 if(!empty($_POST['clockthree'])) {
                                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree'])) {                                
                                         $threeclock = $_POST['clockthree'];
+                                        $clockthree=explode(':', $threeclock);
+                                        $threeHour = $clockthree['0'];
+                                        $threeMin = $clockthree['1'];                                        
                                     }
                                     else {
                                        ?><p><?php
-                                       echo 'Le format demandé est hh:mm'; 
+                                       echo 'Le format demandé est hh:mm';
                                        ?></p><?php
                                        $error++;
                                     }
                                 }
                                 else {
-                                    $threeclock = '';
+                                    $threeclock = $info['Heure3'];
+                                    if($threeclock != '' ) {
+                                       $clockthree=explode(':', $threeclock);
+                                       $threeHour = $clockthree['0'];
+                                       $threeMin = $clockthree['1'];                                       
+                                    }
+                                    else {
+                                        $threeHour = 24;
+                                        $threeMin = 59;
+                                    }      
                                 }
                                 if(!empty($_POST['clockfour'])) {
                                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour'])) {                                                                        
-                                        $fourclock = $_POST['clockfour'];  
+                                        $fourclock = $_POST['clockfour'];
+                                        $clockfour=explode(':', $fourclock);
+                                        $fourHour = $clockfour['0'];
+                                        $fourMin = $clockfour['1'];                                          
                                     }
                                     else {
-                                        ?><p><?php
-                                        echo 'Le format demandé est hh:mm';
-                                        ?></p><?php
+                                       ?><p><?php
+                                       echo 'Le format demandé est hh:mm'; 
+                                       ?></p><?php
                                         $error++;
-                                    }   
+                                    }                                        
                                 }
                                 else {
-                                    $fourclock = '';
+                                    $fourclock = $info['Heure4'];
+                                    if($fourclock != '') {
+                                        $clockfour=explode(':', $fourclock);
+                                        $fourHour = $clockfour['0'];
+                                        $fourMin = $clockfour['1'];                                          
+                                    }
+                                    else {
+                                        $fourHour = 24;
+                                        $fourMin = 59;
+                                    }
                                 }
+                                // Vérification des heures si dans l'ordre
+                                for($testverification=0 ; $testverification <= 4 ; $testverification++) {            
+                                    if($firstHour == $secondHour) {
+                                        if($firstMin > $secondMin) {
+                                            $clocktemp = $twoclock;
+                                            $twoclock = $oneclock;
+                                            $oneclock = $clocktemp;
+                                            $hourtemp = $secondHour;
+                                            $secondHour = $firstHour;
+                                            $firstHour = $hourtemp;
+                                            $mintemp = $secondMin;
+                                            $secondMin = $firstMin;
+                                            $firstMin = $mintemp;
+                                        }
+                                    }
+                                    if($firstHour > $secondHour) {
+                                        $clocktemp = $twoclock;
+                                        $twoclock = $oneclock;
+                                        $oneclock = $clocktemp;
+                                        $hourtemp = $secondHour;
+                                        $secondHour = $firstHour;
+                                        $firstHour = $hourtemp;
+                                        $mintemp = $secondMin;
+                                        $secondMin = $firstMin;
+                                        $firstMin = $mintemp;                                        
+                                    }
+                                    if($secondHour == $threeHour) {
+                                        if($secondMin > $threeMin) {
+                                            $clocktemp = $threeclock;
+                                            $threeclock = $twoclock;
+                                            $twoclock = $clocktemp;
+                                            $hourtemp = $threeHour;
+                                            $threeHour = $secondHour;
+                                            $secondHour = $hourtemp; 
+                                            $mintemp = $threeMin;
+                                            $threeMin = $secondMin;
+                                            $secondMin = $mintemp;                                            
+                                        }
+                                    }
+                                    if($secondHour > $threeHour) {
+                                        $clocktemp = $threeclock;
+                                        $threeclock = $twoclock;
+                                        $twoclock = $clocktemp;
+                                        $hourtemp = $threeHour;
+                                        $threeHour = $secondHour;
+                                        $secondHour = $hourtemp; 
+                                        $mintemp = $threeMin;
+                                        $threeMin = $secondMin;
+                                        $secondMin = $mintemp;                                         
+                                    }
+                                    if($threeHour == $fourHour) {
+                                        if($threeMin > $fourMin) {
+                                            $clocktemp = $fourclock;
+                                            $fourclock = $threeclock;
+                                            $threeclock = $clocktemp;
+                                            $hourtemp = $fourHour;
+                                            $fourHour = $threeHour;
+                                            $threeHour = $hourtemp;
+                                            $mintemp = $fourMin;
+                                            $fourMin = $threeMin;
+                                            $threeMin = $mintemp;                                             
+                                        }
+                                    }
+                                    if($threeHour > $fourHour) {
+                                        $clocktemp = $fourclock;
+                                        $fourclock = $threeclock;
+                                        $threeclock = $clocktemp;
+                                        $hourtemp = $fourHour;
+                                        $fourHour = $threeHour;
+                                        $threeHour = $hourtemp;  
+                                        $mintemp = $fourMin;
+                                        $fourMin = $threeMin;
+                                        $threeMin = $mintemp;                                           
+                                    }
+                                }                                
                                 if($error == 0) { 
-                                    $modifverification = $bdd->prepare('UPDATE `verification` SET `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id` = :id');
+                                    $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
+                                    $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
+                                    $modifverification->bindValue('notif',$notif,PDO::PARAM_INT);
                                     $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('twoclock',$twoclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('threeclock',$threeclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('fourclock',$fourclock,PDO::PARAM_STR);
                                     $modifverification->bindValue('id',$id,PDO::PARAM_INT);
-                                    $modifverification->execute(); 
+                                    $modifverification->execute();
                                     ?><p><?php
                                     echo 'Les modifications sont bien prises en compte !';
                                     ?></p><?php
                                 }
                             }
-                        }   
+                        }
                     }
                     else {  
             ?>
@@ -330,7 +369,7 @@ else {
                       <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
                       <input type="text" class="form-control" name="time" placeholder="Première vérification">
                   </div>
-                  <div class="info col-lg-offset-3">Format jj/mm/aaaa h:min (première vérification sur le site !)</div>
+                  <div class="info col-lg-offset-3">Format jj/mm/aaaa hh:mm (première vérification sur le site !)</div>
                 </div>
                 <div class="form-inline">
                   <div class="input-group notif col-lg-offset-3">
@@ -346,27 +385,52 @@ else {
             </form>
             <?php }
                 if(isset($_POST['valid'])) {
+                    $error = 0;
                     if(!empty($_POST['timeverif']) && (!empty($_POST['time'])) && (!empty($_POST['notification'])) && (!empty($_POST['clockone']))) {
                         $timeverif = $_POST['timeverif'];
-                        $time = $_POST['time'];
+                        if(preg_match('#^[0-2]{1}[0-9]{1}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[3]{1}[0-1]{1}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
+                            $time = $_POST['time'];
+                            //On récupère la date
+                            $verif = explode(' ', $time);
+                            $firstverif = $verif['0'];
+                            $hourverif = $verif['1'];
+                            // On met dans le format date SQ
+                            $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
+                            $firstverif =  $dt->format('Y-m-d');
+                            $time = $firstverif.' '.$hourverif;
+                        }
+                        else {
+                            ?><p><?php
+                            echo 'Le format demandé est jj/mm/YYYY hh:mm';
+                            ?></p><?php
+                            $error++;
+                        }
                         if($_POST['notification'] == 'SMS') {
                             $notification = 0;
                         }
                         else {
                             $notification = 1;
                         }
-                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                            $oneclock = $_POST['clockone'];    
+                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']))) {
+                            $oneclock = $_POST['clockone']; 
+                            $clockfirst=explode(':', $oneclock);
+                            $firstHour = $clockfirst['0'];
+                            $firstMin = $clockfirst['1'];     
                         }
                         else {
                             ?><p><?php
                             echo 'Le format demandé est hh:mm';
                             ?></p><?php
                             $error++;
+                            $firstHour = 24;
+                            $firstMin = 59;                             
                         }
                         if(!empty($_POST['clocktwo'])) {
-                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo'])) {                                
-                                $twoclock = $_POST['clocktwo']; 
+                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']))) {                                
+                                $twoclock = $_POST['clocktwo'];
+                                $clocksecond=explode(':', $twoclock);
+                                $secondHour = $clocksecond['0'];
+                                $secondMin = $clocksecond['1'];  
                         }
                             else {
                                 ?><p><?php
@@ -377,10 +441,15 @@ else {
                         }
                         else {
                             $twoclock = '';
+                            $secondHour = 24;
+                            $secondMin = 59;
                         }
                         if(!empty($_POST['clockthree'])) {
-                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree'])) {                                
+                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']))) {                                
                                 $threeclock = $_POST['clockthree'];
+                                $clockthree=explode(':', $threeclock);
+                                $threeHour = $clockthree['0'];
+                                $threeMin = $clockthree['1']; 
                             }
                             else {
                                 ?><p><?php
@@ -391,10 +460,15 @@ else {
                         }
                         else {
                             $threeclock = '';
+                            $threeHour = 24;
+                            $threeMin = 59; 
                         }
                         if(!empty($_POST['clockfour'])) {
-                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour'])) {                                                                        
-                                $fourclock = $_POST['clockfour'];  
+                            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']))) {                                                                        
+                                $fourclock = $_POST['clockfour']; 
+                                $clockfour=explode(':', $fourclock);
+                                $fourHour = $clockfour['0'];
+                                $fourMin = $clockfour['1'];     
                             }
                             else {
                                 ?><p><?php
@@ -405,7 +479,98 @@ else {
                         }
                         else {
                             $fourclock = '';
-                        }     
+                            $fourHour = 0;
+                            $fourMin = 0; 
+                        }                            
+                        if($oneclock > $twoclock && $twoclock != '') {
+                            $clocktemp = $twoclock;
+                            $twoclock = $oneclock;
+                            $oneclock = $clocktemp;
+                        }
+                        elseif($twoclock > $threeclock && $threeclock != '') {
+                            $clocktemp = $threeclock;
+                            $threeclock = $twoclock;
+                            $twoclock = $clocktemp;                            
+                        }
+                        elseif($threeclock > $fourclock && $fourclock != '') {
+                            $clocktemp = $fourclock;
+                            $fourclock = $threeclock;
+                            $threeclock = $clocktemp;                            
+                        }
+                        for($testverification=0 ; $testverification <= 4 ; $testverification++) {            
+                            if($firstHour == $secondHour) {
+                                if($firstMin > $secondMin) {
+                                    $clocktemp = $twoclock;
+                                    $twoclock = $oneclock;
+                                    $oneclock = $clocktemp;
+                                    $hourtemp = $secondHour;
+                                    $secondHour = $firstHour;
+                                    $firstHour = $hourtemp;
+                                    $mintemp = $secondMin;
+                                    $secondMin = $firstMin;
+                                    $firstMin = $mintemp;
+                                }
+                            }
+                            if($firstHour > $secondHour) {
+                                $clocktemp = $twoclock;
+                                $twoclock = $oneclock;
+                                $oneclock = $clocktemp;
+                                $hourtemp = $secondHour;
+                                $secondHour = $firstHour;
+                                $firstHour = $hourtemp;
+                                $mintemp = $secondMin;
+                                $secondMin = $firstMin;
+                                $firstMin = $mintemp;                                        
+                            }
+                            if($secondHour == $threeHour) {
+                                if($secondMin > $threeMin) {
+                                    $clocktemp = $threeclock;
+                                    $threeclock = $twoclock;
+                                    $twoclock = $clocktemp;
+                                    $hourtemp = $threeHour;
+                                    $threeHour = $secondHour;
+                                    $secondHour = $hourtemp; 
+                                    $mintemp = $threeMin;
+                                    $threeMin = $secondMin;
+                                    $secondMin = $mintemp;                                            
+                                }
+                            }
+                            if($secondHour > $threeHour) {
+                                $clocktemp = $threeclock;
+                                $threeclock = $twoclock;
+                                $twoclock = $clocktemp;
+                                $hourtemp = $threeHour;
+                                $threeHour = $secondHour;
+                                $secondHour = $hourtemp; 
+                                $mintemp = $threeMin;
+                                $threeMin = $secondMin;
+                                $secondMin = $mintemp;                                         
+                            }
+                            if($threeHour == $fourHour) {
+                                if($threeMin > $fourMin) {
+                                    $clocktemp = $fourclock;
+                                    $fourclock = $threeclock;
+                                    $threeclock = $clocktemp;
+                                    $hourtemp = $fourHour;
+                                    $fourHour = $threeHour;
+                                    $threeHour = $hourtemp;
+                                    $mintemp = $fourMin;
+                                    $fourMin = $threeMin;
+                                    $threeMin = $mintemp;                                             
+                                }
+                            }
+                            if($threeHour > $fourHour) {
+                                $clocktemp = $fourclock;
+                                $fourclock = $threeclock;
+                                $threeclock = $clocktemp;
+                                $hourtemp = $fourHour;
+                                $fourHour = $threeHour;
+                                $threeHour = $hourtemp;  
+                                $mintemp = $fourMin;
+                                $fourMin = $threeMin;
+                                $threeMin = $mintemp;                                           
+                            }
+                        }                             
                         if($error == 0) {
                             $requestverif = $bdd->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
                             $requestverif->execute(array(
@@ -479,6 +644,14 @@ else {
                         }
                         if(preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])){
                             $time = $_POST['time'];
+                            //On récupère la date
+                            $verif = explode(' ', $time);
+                            $firstverif = $verif['0'];
+                            $hourverif = $verif['1'];
+                            // On met dans le format date SQ
+                            $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
+                            $firstverif =  $dt->format('Y-m-d');
+                            $time = $firstverif.' '.$hourverif;
                         }
                         else {
                             ?><p><?php
@@ -641,7 +814,7 @@ else {
                 <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
                 <div class="input-group search col-lg-offset-4">
                     <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="namedoctor" placeholder="Chercher votre médecin">
+                    <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
                 </div>
             </div>
             <div class="form-inline col-lg-offset-4">

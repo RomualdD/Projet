@@ -11,6 +11,7 @@ else
     if ($_SESSION['role'] == 1)
     {
         echo "<script>document.location.replace('medecinprofil.php');</script>";
+        header('Location: medecinprofil.php');
     }
     ?>
     <!-- Page profil médecin -->

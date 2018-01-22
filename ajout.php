@@ -11,7 +11,7 @@ else {
     ?>
     <div class="container">
       <div class="row">
-          <div class="col-lg-offset-5"><h2> Gestions de suivis</h2></div>
+          <div class="col-lg-offset-5"><h2>Gestions de suivis</h2></div>
       </div>
     </div>
     <div class="col-lg-12">
@@ -30,10 +30,10 @@ else {
                 $name = $_POST['name'];
                 $role = $_SESSION['role']; // on cherche le role pour chercher si il faut trouver les patients ou les médecins
                 if($role == 1) {
-                     $request = $bdd->query('SELECT nom, prenom, nom_utilisateur FROM utilisateurs WHERE nom = "'.$name.'" AND role = 0');
+                     $request = $bdd->query('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE `nom` like "'.$name.'" AND `role` = 0');
                  }
                  else {
-                     $request = $bdd->query('SELECT nom, prenom, nom_utilisateur FROM utilisateurs WHERE nom = "'.$name.'" AND role = 1');
+                     $request = $bdd->query('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE `nom` like "'.$name.'" AND `role` = 1');
                  }
                 while($requestbdd = $request->fetch(PDO::FETCH_ASSOC) ) {
                    ?><tr><?php
@@ -51,10 +51,10 @@ else {
                 if(isset($_POST['username'])) {
                     $error = 0;
                     $username = $_POST['username'];
-                    $idfollow = $bdd->query('SELECT id FROM utilisateurs WHERE nom_utilisateur = "'.$username.'"');
+                    $idfollow = $bdd->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$username.'"');
                     $idfollow = $idfollow->fetch();
                     $idfollow = $idfollow['id'];
-                    $requestadd = $bdd->prepare('SELECT COUNT(*) AS nb FROM follow WHERE follow_from = :id AND follow_to = :id_to');
+                    $requestadd = $bdd->prepare('SELECT COUNT(*) AS nb FROM `follow` WHERE `follow_from` = :id AND `follow_to` = :id_to');
                     $requestadd->bindValue(':id',$id,PDO::PARAM_INT);
                     $requestadd->bindValue(':id_to', $idfollow, PDO::PARAM_INT);
                     $requestadd->execute();
@@ -69,12 +69,11 @@ else {
                         $error++;
                     }
                     if($error == 0) {
-                        $requestadd = $bdd->prepare('INSERT INTO follow(follow_from, follow_to, follow_confirm, follow_date)VALUES(:id,:id_to,:confirm,:date)');
+                        $requestadd = $bdd->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
                         $requestadd->execute(array(
                             'id' => $id,
                             'id_to' => $idfollow,
-                            'confirm' => 0,
-                            'date' => date('d/m/Y')
+                            'confirm' => 0
                             ));?>
                         <p>Ajout réussi, la personne demandé va recevoir un message pour valider votre demande. Retourner à votre <a href="../profil.php">profil</a></p><?php
                     }

@@ -57,6 +57,10 @@ p {
   font-size: 17px;
 }
 
+.errormessage {
+    color: red;
+}
+
 .subtitle {
   font-style: italic;
   font-size: 20px;

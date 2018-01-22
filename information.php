@@ -45,7 +45,7 @@ else {
                             <label for="dayappointment">Jour du rendez-vous : </label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
+                                <input type="date" class="form-control" name="dayappointment">
                             </div>
                         </div> 
                     </div>
@@ -79,14 +79,14 @@ else {
                         $nameappointment = strip_tags($_POST['nameappoitment']);
                         $dayappointment = strip_tags($_POST['dayappointment']);
                         $informationappointment = strip_tags($_POST['informationappointment']);
-                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment'])) {
+                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']))) {
                             $hourappointment = $_POST['hourappointment'];
                         }
                         else {
                             echo 'L\'heure n\'est pas dans un format valide (ex:00:00)!';                            
                             $error++;
                         }
-                        if(preg_match('#^[0-9]{2}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}$#', $dayappointment) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $informationappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $nameappointment))) {
+                        if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $dayappointment) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment)) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $dayappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $informationappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $nameappointment))) {
                             if($error==0) {
                             $requestappoitment = $bdd->prepare('INSERT INTO `rendez_vous`(`id_utilisateur`,`nom_rendez_vous`, `date_rendez_vous`, `heure_rendez_vous`, `infos_complementaire`) VALUES(:id,:name, :date, :hour, :information)');
                             $requestappoitment->execute(array(
@@ -137,7 +137,7 @@ else {
                     <div class="col-lg-3">
                         <select class="form-control" name="years">
                             <?php
-                            for ($yearsList = $yearDay; $yearsList <= $yearDay + 100; $yearsList++) {
+                            for ($yearsList = $yearDay-1; $yearsList <= $yearDay + 100; $yearsList++) {
                                 ?>
                                 <option value="<?= $yearsList ?>" <?= $year == $yearsList ? 'selected' : '' ?>><?= $yearsList ?></option>
                         <?php
@@ -177,20 +177,21 @@ else {
                //Création d'un tableau
                $timeappoitment=array();
                // Recherche dans la base de données
-                $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,`date_rendez_vous`,`heure_rendez_vous`,`infos_complementaire`,`rendez_vous_fait` FROM `rendez_vous` WHERE `id_utilisateur`='.$id.' ORDER BY heure_rendez_vous');
-                while($appointment = $researchappoitment->fetch()) {
+                $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,DATE_FORMAT(`date_rendez_vous`,"%d") AS day,DATE_FORMAT(`date_rendez_vous`,"%m") AS month,DATE_FORMAT(`date_rendez_vous`,"%Y") AS year,`heure_rendez_vous`,`infos_complementaire`,`note` FROM `rendez_vous` WHERE `id_utilisateur`='.$id.' ORDER BY heure_rendez_vous');
+             //   while($appointment = $researchappoitment->fetch()) {
+                $appointment = $researchappoitment->fetchAll();
+                foreach($appointment as $appointmentResult) {
                     // Récupération des inforations
-                    $nameappointment = $appointment['nom_rendez_vous'];
-                    $dayAppointment = $appointment['date_rendez_vous'];
-                    $hourappointment = $appointment['heure_rendez_vous'];
-                    $informationappointment = $appointment['infos_complementaire'];
-                    $appointmentevent = $appointment['rendez_vous_fait'];
+                    $nameappointment = $appointmentResult['nom_rendez_vous'];
+                    $hourappointment = $appointmentResult['heure_rendez_vous'];
+                    $informationappointment = $appointmentResult['infos_complementaire'];
+                    $remarque = $appointmentResult['note'];
                     // On sépare le jour le mois et l'année du rendez-vous
-                    $dayappointment= substr($dayAppointment,0,2);
-                    $monthappointment= substr($dayAppointment,3,2);
-                    $yearappointment= substr($dayAppointment,6,6);
+                    $dayappointment= $appointmentResult['day'];
+                    $monthappointment= $appointmentResult['month'];
+                    $yearappointment= $appointmentResult['year'];
                     // On écrit tout dans un tableau
-                    $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'event' =>$appointmentevent);
+                    $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
                    // On le push pour avoir tous les rendez-vous
                   $result =  array_push($timeappoitment,$numbercle);
                 }
@@ -226,9 +227,11 @@ else {
                                         $hour=$appointment['hour'];
                                         $name=$appointment['name'];
                                         $infos=$appointment['infos'];
-                                        $event = $appointment['event'];
+                                        $monthDay=$appointment['month'];
+                                        $yearDay=$appointment['year'];
+                                        $remarqueForAppointment = $appointment['remarque'];
                                         // On écrit pour récupéré les informations qu'on veut
-                                        $infocle=  array('day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'event'=>$event);
+                                        $infocle=  array('year'=>$yearDay,'month'=>$monthDay,'day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'remarque'=>$remarqueForAppointment);
                                         $informations = array_push($infoappointment, $infocle);
                                 } 
                             }
@@ -237,10 +240,11 @@ else {
                                 echo $currentDay;
                                 // on cherche si y'a un rendez-vous ou plusieurs pour le jour
                                 foreach($infoappointment as $informations) {
-                                    if($informations['day'] == $currentDay) {
+                                    if($informations['day'] == $currentDay && $informations['month']== $month && $informations['year']== $yearDay) {
                                         $nbmodal++;
-                                        if($informations['event'] == 1) {
-                                            $appointmentup=1;
+                                        $dateNow=date('Y-m-d H:i');
+                                        $verifEventDay=$informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
+                                        if($dateNow>$verifEventDay) {
                                         ?> 
                                         <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>        
                                         <?php
@@ -249,8 +253,8 @@ else {
                                         ?>
                                     <p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php
-                                    }
-                                    }// Affichage fenêtre modal
+                                        }
+                                    } // Affichage fenêtre modal
                                     ?>
                                     <div class="modal fade" id="myModal<?php echo $nbmodal;?>" role="dialog">
                                       <div class="modal-dialog">
@@ -269,15 +273,14 @@ else {
                                               </div>
                                           </div>
                                             <?php
-                                            if($appointmentup!=1) {
-                                          ?>
+                                                if($dateNow < $verifEventDay) {
+                                            ?>
                                           <hr>
                                           <div class="row">
                                               <div class="col-lg-11">
                                                  <h3 class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier ce rendez-vous :</h3>
                                               </div>
                                           </div>
-
                                             <div class="row">
                                                 <div class="col-lg-offset-1">
                                                     <form action="information.php" method="POST">
@@ -295,7 +298,7 @@ else {
                                                                 <label for="dayappointment">Jour du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointment" placeholder="<?php echo date('d/m/Y'); ?>">
+                                                                    <input type="date" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointment">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -327,13 +330,13 @@ else {
                                                             $('#submitmodif<?php echo $nbmodal;?>').click(function() {
                                                                 $.post(
                                                                      'modifappointment.php', {
-                                                                        dayappointment : $("#day<?php echo $nbmodal;?>").val(),
-                                                                        nameappointment : $("#name<?php echo $nbmodal;?>").val(),
-                                                                        hourappointment : $("#hour<?php echo $nbmodal;?>").val(),
-                                                                        infosappointment : $("#info<?php echo $nbmodal;?>").val(),
-                                                                        name : $("#nameappointment<?php echo $nbmodal;?>").val(),
-                                                                        hour : $("#hourappointment<?php echo $nbmodal;?>").val(),
-                                                                        infos : $("#infoappointment<?php echo $nbmodal;?>").val()
+                                                                        dayappointment : $('#day<?php echo $nbmodal;?>').val(),
+                                                                        nameappointment : $('#name<?php echo $nbmodal;?>').val(),
+                                                                        hourappointment : $('#hour<?php echo $nbmodal;?>').val(),
+                                                                        infosappointment : $('#info<?php echo $nbmodal;?>').val(),
+                                                                        name : $('#nameappointment<?php echo $nbmodal;?>').val(),
+                                                                        hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
+                                                                        infos : $('#infoappointment<?php echo $nbmodal;?>').val()
                                                                     },
                                                                     function(data) {
                                                                         if(data == 'Success') {
@@ -356,7 +359,7 @@ else {
                                                  <h3 class="modal-title"><i class="fa fa-times" aria-hidden="true"></i> Supprimer ce rendez-vous :</h3>
                                               </div>
                                               <div class="row">
-                                                <div class="col-lg-offset-1">
+                                                <div class="col-lg-offset-1 col-lg-11">
                                                     <form method="POST" action="information.php">
                                                       <div class="col-lg-offset-3 col-lg-2">
                                                           <div class="form-inline">
@@ -369,17 +372,14 @@ else {
                                                             $('#submitdelete<?php echo $nbmodal;?>').click(function() {
                                                                 $.post(
                                                                      'deleteappointment.php', {
-                                                                        name : $("#nameappointment<?php echo $nbmodal;?>").val(),
-                                                                        hour : $("#hourappointment<?php echo $nbmodal;?>").val(),
-                                                                        infos : $("#infoappointment<?php echo $nbmodal;?>").val()
+                                                                        name : $('#nameappointment<?php echo $nbmodal;?>').val(),
+                                                                        hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
+                                                                        infos : $('#infoappointment<?php echo $nbmodal;?>').val()
                                                                     },
                                                                     function(data) {
                                                                         if(data == 'Success') {
                                                                             alert('Rendez-vous supprimé !');
                                                                         }
-                                                                        elseif(date == 'FailedHour') {
-                                                                         alert('Erreur');   
-                                                                        }    
                                                                         else {
                                                                             alert('Rendez-vous non supprimé !');
                                                                         }
@@ -387,21 +387,73 @@ else {
                                                                     'text' // Recevoir success ou failed
                                                                 );
                                                             });
-                                                        });   
+                                                        });  
                                                     </script>
                                                 </div>
                                               </div>
-                                          </div><?php  
-                                        }
-                                    ?>
+                                          </div>
+                                          <?php
+                                                }
+                                                else {
+                                                    ?>
+                                                    <div class="row">
+                                                        <div class="col-lg-11">
+                                                            <h3 class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ajouter une note à ce rendez-vous :</h3>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-offset-1 col-lg-11">
+                                                                <form method="POST" action="information.php">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="form-inline">
+                                                                            <div class="input-group subject">
+                                                                                <label for="remarqueappointment">Note complémentaire du rendez-vous : </label>
+                                                                                <textarea class="form-control" id="remarqueappointment<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Notes complémentaire" name="remarqueappointment"><?php echo $informations['remarque']; ?></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-offset-3 col-lg-2">
+                                                                        <div class="form-inline">
+                                                                          <input id="submitremarqueadd<?php echo $nbmodal;?>" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submitremarqueadd">                        
+                                                                        </div>
+                                                                    </div>                                                                    
+                                                                </form>
+                                                                <script>
+                                                                    $(document).ready(function() {
+                                                                    $('#submitremarqueadd<?php echo $nbmodal;?>').click(function() {
+                                                                        $.post(
+                                                                             'modifappointment.php', {
+                                                                                remarque : $('#remarqueappointment<?php echo $nbmodal;?>').val(),
+                                                                                name : $('#nameappointment<?php echo $nbmodal;?>').val(),
+                                                                                hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
+                                                                                infos : $('#infoappointment<?php echo $nbmodal;?>').val()
+                                                                            },
+                                                                            function(data) {
+                                                                                if(data == 'Success') {
+                                                                                    alert('Note enregistré !');
+                                                                                }
+                                                                                else {
+                                                                                    alert('Note non enregistré !');
+                                                                                }
+                                                                            },
+                                                                            'text' // Recevoir success ou failed
+                                                                        );
+                                                                    });
+                                                                });                                                                                                                  
+                                                                </script>
+                                                            </div>
+                                                        </div>    
+                                                    </div><?php
+                                                } 
+                                            ?>                                          
                                         </div>
                                         <div class="modal-footer">
                                          <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fermer</button>
                                         </div>
                                       </div>
                                     </div>
-                                  </div><?php
-                                }    
+                                  </div>
+                                <?php
+                                   }   
                                 ?></td><?php
                             }
                             else { ?>
