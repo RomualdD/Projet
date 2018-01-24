@@ -1,11 +1,12 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])) {
-  include 'header1.php';
+if(!isset($_SESSION['user'])) {
+    include 'header.php';
 }
 else {
-    include 'header.php';
-  }
+    include 'header1.php';
+}
+include '../Model/mailcontact.php';
 ?>
 <!-- Page contact -->
   <div class="container">
@@ -26,53 +27,32 @@ else {
             <div class="form-inline">
               <div class="input-group name col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="name" placeholder="Nom de Famille et Prénom">
+                  <input type="text" class="form-control" name="name" value="<?php echo isset($_POST['name']) ? strip_tags($_POST['name']) : ''; ?>" placeholder="Nom de Famille et Prénom" required>
               </div>
+                <p class="errormessage col-lg-offset-1 col-lg-11"><?php echo $errorName; ?></p>
             </div>
             <div class="form-inline">
               <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                   <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="mail" placeholder="Adresse mail">
+                  <input type="text" class="form-control" name="mail" value="<?php echo isset($_POST['mail']) ? strip_tags($_POST['mail']) : ''; ?>" placeholder="Adresse mail" required>
               </div>
+                <p class="errormessage col-lg-offset-1 col-lg-11"><?php echo $errorMail; ?></p>
             </div>
             <div class="form-inline">
               <div class="input-group subject col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                   <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="subject" placeholder="Sujet du message">
+                  <input type="text" class="form-control" name="subject" value="<?php echo isset($_POST['subject']) ? strip_tags($_POST['subject']) : ''; ?>" placeholder="Sujet du message" required>
               </div>
+                <p class="errormessage col-lg-offset-1 col-lg-11"><?php echo $errorSubject; ?></p>
             </div>
             <div class="form-inline">
                 <div class="input-group subject">
-                    <textarea class="form-control" rows="10" cols="100" placeholder="Veuillez entrer votre remarque, question ou information." name="message"></textarea>
+                    <textarea class="form-control" rows="10" cols="100" placeholder="Veuillez entrer votre remarque, question ou information." name="message" required><?php echo isset($_POST['message']) ? strip_tags($_POST['message']) : ''; ?></textarea>
                 </div>
+                <p class="errormessage col-lg-offset-1 col-lg-11"><?php echo $errorMessage; ?></p>
             </div>
             <input type="submit" value="Envoyez votre message !" class="button btn btn-default col-lg-offset-4" name="submit">
           </form>
-          <?php
-            if(isset($_POST['submit'])) {
-                if(!empty($_POST['name']) && (!empty($_POST['mail'])) && (!empty($_POST['subject']))) {
-                    if(preg_match('#^[a-zA-Z]{1,50}+ [a-zA-Z]{1,50}$#',$_POST['name']) && (preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail']))) {
-                        $name = strip_tags($_POST['name']);
-                        $mail = strip_tags($_POST['mail']);
-                        $subject = strip_tags($_POST['subject']);
-                        $message = strip_tags($_POST['message']);
-                        $recipient = 'inscriptiondiavk@gmail.com';
-                        $entete = 'From: '.$mail;
-                        $message = 'Nom et Prénom : '.$name."\r\n"
-                                .' Adresse mail : '.$mail."\r\n"
-                                . ' Message :'.$message;
-                        mail($recipient, $subject,$message,$entete);
-                        echo 'Le mail a bien était envoyé, vous aurez bientôt une réponse.';
-                    }
-                    else {
-                        echo 'Champs de saisis non respectés !';
-                    } 
-                }
-                else {
-                    echo 'Les champs ne sont pas tous remplis !';
-                }
-            }
-          ?>
       </div>
     </div>
   </div>

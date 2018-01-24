@@ -1,11 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])){
-  include 'header1.php';
+if(!isset($_SESSION['user'])) {
+    include 'header.php';
 }
 else {
-    include 'header.php';
-  }
+    include 'header1.php';
+}
  ?>
 <!-- Page d'accueil -->
   <div class="container">
@@ -30,5 +30,5 @@ else {
   </div>
 
 <?php
-  include "footer.php";
+  include 'footer.php';
 ?>

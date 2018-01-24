@@ -1,37 +1,18 @@
 <?php
-session_start();
-if (!isset($_SESSION['user']))
-{
-    include 'header.php';
-    echo "Vous n'êtes pas connecté pour accéder au contenu";
-}
-else
-{
-    include 'header1.php';
-    if ($_SESSION['role'] == 1)
-    {
-        echo "<script>document.location.replace('medecinprofil.php');</script>";
-        header('Location: medecinprofil.php');
-    }
+    include '../Model/verificationconnexion.php';
+    if(isset($_SESSION['user'])) {  
+        if($_SESSION['role'] == 1) {
+            header('Location: profil.php');
+        }
+        include '../Model/modificationprofilmedecin.php';
+        include '../Model/modifprofil.php';
     ?>
     <!-- Page profil médecin -->
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-5"><h2>Profil</h2></div>
         </div>
-        <?php
-        $user = $_SESSION['user'];
-        $request = $bdd->query("SELECT nom, prenom, mail,nom_utilisateur, phone, phone2, date_anniversaire FROM utilisateurs WHERE nom_utilisateur ='" . $user . "'");
-        $request = $request->fetch();
-        $name = $request['nom'];
-        $surname = $request['prenom'];
-        $user = $request['nom_utilisateur'];
-        $birthday = $request['date_anniversaire'];
-        $mail = $request['mail'];
-        $phone = $request['phone'];
-        $otherphone = $request['phone2'];
-        ?>
-        <div class="row" ng-controller='inscriptioncontroller'>
+        <div class="row">
             <div class="profil col-lg-offset-3 col-lg-5">
                 <div class="subtitle col-lg-offset-3"><h3>Informations du médecin :</h3></div>
                 <div class="form-inline">
@@ -87,6 +68,7 @@ else
                                 <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                                 <input type="password" class="form-control" name="password" placeholder="Mot de passe actuel">
                             </div>
+                            <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorPasswordFalse; ?></p>
                         </div>
                         <div class="form-inline">
                             <label class="col-lg-offset-3 col-lg-9 modificateform" for="newpassword">Nouveau mot de passe :</label>
@@ -101,37 +83,11 @@ else
                                 <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                                 <input type="password" class="form-control" name="passwordverif" placeholder="Vérification nouveau mot de passe">
                             </div>
+                            <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorPassword ?></p>
                         </div>
                         <input type="submit" value="Valider !" name="submitmodifpassword" class="button btn btn-default col-lg-offset-5">
                     </form>
-                    <?php
-                    if(isset($_POST['submitmodifpassword'])) {
-                        if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
-                            $recuppassword = $bdd->query('SELECT `mot_de_passe` FROM `utilisateurs` WHERE `id` = ' . $id);
-                            $recuppassword = $recuppassword->fetch();
-                            $password = md5($_POST['password']);
-                            if ($password == $recuppassword['mot_de_passe']) {
-                                $newpassword = sha1(md5($_POST['newpassword']));
-                                $newpasswordverif = sha1(md5($_POST['passwordverif']));
-                                if ($newpassword == $newpasswordverif) {
-                                    $insertnewpassword = $bdd->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = ' . $id);
-                                    $insertnewpassword->bindValue('password', $newpassword, PDO::PARAM_STR);
-                                    $insertnewpassword->execute();
-                                    echo 'Le mot de passe a bien était modifié !';
-                                }
-                                else {
-                                    echo 'Les mots de passes ne sont pas identiques !';
-                                }
-                            }
-                            else {
-                                echo 'Ce n\'est pas votre mot de passe !';
-                            }
-                        }
-                        else {
-                            echo 'Les champs ne sont pas tous remplis !';
-                        }
-                    }
-                    ?>
+                    <p><?php echo $successMsg; ?></p>
                 </div>
                 <div class="row">
                     <div class="modificatemail col-lg-offset-3">
@@ -159,43 +115,32 @@ else
         </div>
         <div class="row">
             <div class="search col-lg-offset-4">
-                <p><?php
-                    // Initialisation du nombre de requete faite
-                    $nbquest = 0;
-                    // Recherche si il y'a des demandes de suivis
-                    $requestfollow = $bdd->prepare('SELECT follow_from, follow_date,nom,prenom,nom_utilisateur FROM follow LEFT JOIN utilisateurs ON id=follow_from WHERE follow_to = :id AND follow_confirm = :confirm');
-                    $requestfollow->bindValue(':id', $id, PDO::PARAM_INT);
-                    $requestfollow->bindValue(':confirm', '0', PDO::PARAM_STR);
-                    $requestfollow->execute();
-                    // Affichage du nombre de demande
-                    if ($requestfollow->rowCount() == 0)
-                    {
-                        ?><?php
-                        echo 'Vous n\'avez aucune demande !';
+                <?php
+                // Affichage du nombre de demande
+                if ($requestfollow->rowCount() == 0) {
+                    ?><p><?php
+                    echo 'Vous n\'avez aucune demande !';?></p><?php
+                }
+                else {
+                    while ($request = $requestfollow->fetch()) {
+                        $nbquest++;
                     }
-                    else
-                    {
-                        while ($request = $requestfollow->fetch())
-                        {
-                            $nbquest++;
-                        }
-                        if ($nbquest > 1)
-                        {
-                            echo 'Vous avez ' . $nbquest . ' demandes.';
-                        }
-                        else
-                        {
-                            echo 'Vous avez ' . $nbquest . ' demande.';
-                        }
-                        ?>
-                    <div class="form-inline">
-                        <form method="POST" action="demande.php">
-                            <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
-                        </form>
-                    </div>
-        <?php
-    }
-    ?></p>
+                    if ($nbquest > 1) {
+                        $infoQuest = 'Vous avez ' . $nbquest . ' demandes.';
+                    }
+                    else {
+                        $infoQuest = 'Vous avez ' . $nbquest . ' demande.';
+                    }
+                    ?>
+                <p><?php echo $infoQuest ;?></p>
+                <div class="form-inline">
+                    <form method="POST" action="demande.php">
+                        <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
+                    </form>
+                </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <div>
@@ -206,6 +151,6 @@ else
         </div>
     </div>
     <?php
-}
+    }
 include 'footer.php';
 ?>
