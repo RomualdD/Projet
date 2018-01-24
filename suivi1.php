@@ -1,11 +1,6 @@
 <?php
-session_start();
-if(!isset($_SESSION['user'])){
-  include 'header.php';
-  echo "Vous n'êtes pas connecté pour accéder au contenu";
-}
-else {
-  include 'header1.php';
+    include 'Model/verificationconnexion.php';
+    if(isset($_SESSION['user'])) {
 ?>
 <!-- Page suivi patient -->
 <div class="container">
@@ -22,7 +17,7 @@ else {
         $futuredate = date('Y-m-d', $nextverif); // On récupère la nouvelle date
         $resultdate = $bdd->query('SELECT `date_du_jour` FROM `suivis` WHERE `id_utilisateur`="'.$id.'"');
         $resultdate = $resultdate->fetch();
-        if($date != $resultdate['date_du_jour'] && ($id == $resultdate['id_utilisateur'])) {
+        if($date != $resultdate['date_du_jour']) {
           $req = $bdd->prepare('INSERT INTO `suivis`(`id_utilisateur`, `date_du_jour`, `resultat`, `date_prochaine_verif`) VALUES(:id, :daydate, :result, :futureverif)');
           $req->execute(array(
           'id' => $id,
@@ -46,6 +41,7 @@ else {
         // Recherche de l'heure a laquelle il faudra envoyer le mail
         $searchfuturedate = $bdd->query('SELECT `Heure1` FROM `verification` WHERE `id_utilisateur` = "'.$id.'"');
         $searchfuturedate = $searchfuturedate->fetch();
+        $bdd = NULL;
         $oneclock = $searchfuturedate['Heure1'];
         $futuredate = $futuredate.' '.$oneclock;
         // Modification de la prochaine vérifiacation dans la table vérification
@@ -107,7 +103,7 @@ else {
 
               // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant
                 $requestbdd = $bdd->query('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y") AS `date_du_jour`, `resultat`, DATE_FORMAT(`date_prochaine_verif`,"%d/%m/%Y") AS `date_prochaine_verif` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'"ORDER BY `id` DESC limit '.$first.', '.$nbPagesForResult);
-                $requestarray = $requestbdd->fetchAll(PDO::FETCH_ASSOC); //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur   
+                $requestarray = $requestbdd->fetchAll(PDO::FETCH_ASSOC); //PDO FETCH_ASSOC empêche d'avoir deux fois la même valeur  
                 foreach($requestarray as $result) {
                 ?><tr>
                     <td><?php 
@@ -147,7 +143,7 @@ else {
 $dataPoints= array();
 $nbresult = 0;
     $requestbdd = $bdd->query('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y"),`resultat` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'" ORDER BY `id` LIMIT 28');
-    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE) as $day => $result) {
+    foreach($requestbdd->fetchAll(PDO::FETCH_ASSOC| PDO::FETCH_UNIQUE) as $day => $result) {
         foreach($result as $resultchart) {
             $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);
         }
@@ -183,6 +179,6 @@ $nbresult = 0;
       });
     </script>
 <?php
-}
-  include 'footer.php';
+ }
+  include 'Model/footer.php';
 ?>
