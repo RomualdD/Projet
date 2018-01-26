@@ -1,4 +1,69 @@
 <?php
+// -- // Ajout d'un rendez-vous
+    $errorMessageDate='';
+    $errorMessageInfos='';
+    $errorMessageName='';
+    $errorMessageHour='';
+    $errorMessageAppointment = '';
+    $successAppointment = '';
+    if(isset($_POST['submit'])) {
+        $error=0;
+        if(!empty($_POST['nameappoitment']) && (!empty($_POST['dayappointment'])) && (!empty($_POST['informationappointment'])) && (!empty($_POST['hourappointment']))) {
+            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']))) {
+                $hourappointment = $_POST['hourappointment'];
+            }
+            else {
+                $errorMessageHour= 'L\'heure n\'est pas dans un format valide (ex:00:00)!';                            
+                $error++;
+            }
+            if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']))) { 
+                $dayappointment = strip_tags($_POST['dayappointment']);               
+            }
+            else {
+                $errorMessageDate = 'La date n\'est pas dans un format valide !';
+                $error++;
+            }
+            if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $_POST['nameappoitment'])) {
+                $nameappointment = strip_tags($_POST['nameappoitment']);
+            }
+            else {
+                $errorMessageName = 'Veuillez écrire votre nom de rendez-vous seulement avec des lettres !';
+                $error++;
+            }
+            if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $_POST['informationappointment'])) {
+                $informationappointment = strip_tags($_POST['informationappointment']);                
+            }
+            else {
+                $errorMessageInfos = 'Veuillez écrire vos informations complémentaires seulement avec des lettres !';
+                $error++;
+            }
+            if($error==0) {
+                $searchappointment = $db->query('SELECT `date_rendez_vous` FROM `rendez_vous` WHERE `date_rendez_vous` = "'.$dayappointment.'" AND `heure_rendez_vous` = "'.$hourappointment.'" AND `id_utilisateur` = '.$id);
+                $appointmentInTime = $searchappointment->fetchColumn();
+                $searchappointment->closeCursor();
+                if($appointmentInTime == 0) {
+                    $requestappointment = $db->prepare('INSERT INTO `rendez_vous`(`id_utilisateur`,`nom_rendez_vous`, `date_rendez_vous`, `heure_rendez_vous`, `infos_complementaire`) VALUES(:id,:name, :date, :hour, :information)');
+                    $requestappointment->bindValue('id',$id, PDO::PARAM_INT);
+                    $requestappointment->bindValue('name',$nameappointment,PDO::PARAM_STR);
+                    $requestappointment->bindValue('date',$dayappointment,PDO::PARAM_STR);
+                    $requestappointment->bindValue('hour',$hourappointment,PDO::PARAM_STR);
+                    $requestappointment->bindValue('information',$informationappointment,PDO::PARAM_STR);
+                    $requestappointment->execute();
+                    $_POST['hourappointment'] = '';
+                    $_POST['dayappointment'] = '';
+                    $_POST['nameappointment'] = '';
+                    $_POST['informationappointment'] = '';
+                    $successAppointment = 'Enregistrement de votre rendez-vous effectué avec succès !';
+                }
+                else {
+                    $errorMessageAppointment = 'Vous avez déjà un rendez-vous ce jour là à la même heure !';
+                }
+            }
+        }
+        else {
+            echo 'Les champs ne sont pas tous remplis !';
+        }
+    }
 // -- // Calendrier
     $yearDay = date('Y');
     // Récupération des mois avec leur numéro
@@ -17,57 +82,14 @@
     $numberDaysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
     // Premier jour de la semaine
     $firstWeekDayOfMonth = date('N', mktime(0, 0, 0, $month, 1, $year));
-// -- // Ajout d'un rendez-vous
-    $errorMessageDate='';
-    $errorMessageInfos='';
-    $errorMessageName='';
-    $errorMessageHour='';
-    if(isset($_POST['submit'])) {
-        $error=0;
-        if(!empty($_POST['nameappoitment']) && (!empty($_POST['dayappointment'])) && (!empty($_POST['informationappointment'])) && (!empty($_POST['hourappointment']))) {
-            $nameappointment = strip_tags($_POST['nameappoitment']);
-            $dayappointment = strip_tags($_POST['dayappointment']);
-            $informationappointment = strip_tags($_POST['informationappointment']);
-            if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']))) {
-                $hourappointment = $_POST['hourappointment'];
-            }
-            else {
-                $errorMessageHour= 'L\'heure n\'est pas dans un format valide (ex:00:00)!';                            
-                $error++;
-            }
-            if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $dayappointment) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment)) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $dayappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $informationappointment)) && (preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $nameappointment))) {
-                if($error==0) {
-                $requestappoitment = $bdd->prepare('INSERT INTO `rendez_vous`(`id_utilisateur`,`nom_rendez_vous`, `date_rendez_vous`, `heure_rendez_vous`, `infos_complementaire`) VALUES(:id,:name, :date, :hour, :information)');
-                $requestappoitment->execute(array(
-                    'id' => $id,
-                        'name' => $nameappointment,
-                        'date' => $dayappointment,
-                        'hour' => $hourappointment,
-                        'information' => $informationappointment
-                    ));                                
-                    }
-                }
-                elseif(!preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}$#', $dayappointment)|| (!preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment)) || (!preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $dayappointment)) || (!preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $dayappointment))) {
-                    $errorMessageDate = 'La date n\'est pas dans un format valide !';
-                }
-                elseif(!preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $informationappointment)) {
-                    $errorMessageInfos = 'Veuillez écrire vos informations complémentaires seulement avec des lettres !';
-                }
-                elseif(!preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $nameappointment)) {
-                    $errorMessageName = 'Veuillez écrire votre nom de rendez-vous seulement avec des lettres !';
-                }
-            }
-            else {
-    echo 'Les champs ne sont pas tous remplis !';
-        }
-    }
+        
 // -- // Récupération des rendez-vous
     //Création d'un tableau
     $timeappoitment=array();
     // Recherche dans la base de données
-     $researchappoitment = $bdd->query('SELECT `nom_rendez_vous`,DATE_FORMAT(`date_rendez_vous`,"%d") AS day,DATE_FORMAT(`date_rendez_vous`,"%m") AS month,DATE_FORMAT(`date_rendez_vous`,"%Y") AS year,`heure_rendez_vous`,`infos_complementaire`,`note` FROM `rendez_vous` WHERE `id_utilisateur`='.$id.' ORDER BY heure_rendez_vous');
+    $researchappoitment = $db->query('SELECT `nom_rendez_vous`,DATE_FORMAT(`date_rendez_vous`,"%d") AS day,DATE_FORMAT(`date_rendez_vous`,"%m") AS month,DATE_FORMAT(`date_rendez_vous`,"%Y") AS year,`heure_rendez_vous`,`infos_complementaire`,`note` FROM `rendez_vous` WHERE `id_utilisateur`='.$id.' ORDER BY heure_rendez_vous');
     $appointment = $researchappoitment->fetchAll();
-    $bdd = NULL;
+    $db = NULL;
     foreach($appointment as $appointmentResult) {
         // Récupération des inforations
         $nameappointment = $appointmentResult['nom_rendez_vous'];

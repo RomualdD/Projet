@@ -4,10 +4,10 @@
             $('#submitmodif<?php echo $nbmodal;?>').click(function() {
                 $.post(
                      '../Model/modifappointment.php', {
-                        dayappointment : $('#day<?php echo $nbmodal;?>').val(),
-                        nameappointment : $('#name<?php echo $nbmodal;?>').val(),
-                        hourappointment : $('#hour<?php echo $nbmodal;?>').val(),
-                        infosappointment : $('#info<?php echo $nbmodal;?>').val(),
+                        dayappointmentmodif : $('#day<?php echo $nbmodal;?>').val(),
+                        nameappointmentmodif : $('#name<?php echo $nbmodal;?>').val(),
+                        hourappointmentmodif : $('#hour<?php echo $nbmodal;?>').val(),
+                        infosappointmentmodif : $('#info<?php echo $nbmodal;?>').val(),
                         name : $('#nameappointment<?php echo $nbmodal;?>').val(),
                         hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
                         infos : $('#infoappointment<?php echo $nbmodal;?>').val()

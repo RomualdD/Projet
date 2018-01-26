@@ -13,23 +13,23 @@
            // Cryptage du mot de passe entré
            $pass = sha1(md5($pass));
            // Cherche le nom d'utilisateur et le mot de passe entré
-           $request = $bdd->query('SELECT `nom_utilisateur`,`mot_de_passe` FROM `utilisateurs` WHERE `mot_de_passe` = "'.$pass.'" AND `nom_utilisateur` = "'.$user.'"');
+           $request = $db->query('SELECT `nom_utilisateur`,`mot_de_passe` FROM `utilisateurs` WHERE `mot_de_passe` = "'.$pass.'" AND `nom_utilisateur` = "'.$user.'"');
            $requestUser = $request->fetch(PDO::FETCH_ASSOC);
            $verifUser = $requestUser['nom_utilisateur'];
            $verifPassword = $requestUser['mot_de_passe'];
           // Si les champs correspondent dans la base de données
           if($verifUser == $user && $pass == $verifPassword) {
               // Vérification si le compte est bien actif
-             $search = $bdd->prepare('SELECT `actif` FROM `utilisateurs` WHERE `nom_utilisateur` = :user');
+             $search = $db->prepare('SELECT `actif` FROM `utilisateurs` WHERE `nom_utilisateur` = :user');
              if($search->execute(array(':user' => $user)) && $row = $search->fetch()){
                $actif = $row['actif'];
              }
              if($actif == '1') {
                // Démarrage d'une session
                session_start();
-               $requestInfo = $bdd->query('SELECT `role`,`pathologie` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$user.'"');
+               $requestInfo = $db->query('SELECT `role`,`pathologie` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$user.'"');
                $infosUser = $requestInfo->fetch(PDO::FETCH_ASSOC);
-               $bdd = NULL;
+               $db = NULL;
                //Enregistement dans la session:
                $_SESSION['user'] = $_POST['username'];
                $_SESSION['password'] = $_POST['password'];

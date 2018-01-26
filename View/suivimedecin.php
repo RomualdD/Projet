@@ -11,9 +11,12 @@
   <div class="row">
       <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
   </div>
+      <?php
+       if(empty($_POST['patient'])) {
+      ?>
   <div class="row">
     <form name="followedrate" method="POST" action="suivimedecin.php">
-    <div class="suivi form-group col-lg-offset-3">
+    <div class="suivi form-group col-lg-offset-4">
       <label for="text">Choisir son patient :</label>
       <select name="patient"><?php
               foreach ($follow as $followPatient) {
@@ -26,8 +29,30 @@
   </form>
   </div>
       <?php
-        if(isset($_POST['patient'])) {
+      }
+       else {
       ?>
+         <div class="row">
+        <form action="suivimedecin.php" method="POST">
+            <div class="suivi form-group col-lg-offset-4">
+              <label for="text">Choisir son patient :</label>
+              <select name="patient"><?php
+                      foreach ($follow as $followPatient) {
+                        ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>"><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+                    }
+                  ?>
+              </select>
+            </div>       
+            <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
+            <div class="col-lg-offset-3">
+              <label for="firstDate">Première date :</label>
+              <input type="date" name="date1">
+              <label for="secondeDate">Seconde date :</label>
+              <input type="date" name="date2">
+          </div>  
+          <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult"/>
+        </form>
+    </div>
   <div class="row">
     <div class="col-lg-offset-4"><h3>Visualisations des résultats :</h3></div>
   </div>

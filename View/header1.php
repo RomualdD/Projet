@@ -1,10 +1,10 @@
 <?php
   include '../Model/bdd.php';
-
-  $user=$_SESSION['user'];
-  $role = $_SESSION['role'];
-    $result = $bdd->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$user.'"');
-    $id = $result->fetch();
+    $user=$_SESSION['user'];
+    $role = $_SESSION['role'];
+    $pathology = $_SESSION['pathology'];
+    $result = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$user.'"');
+    $id = $result->fetch(PDO::FETCH_ASSOC);
     $id= $id['id'];
  ?>
 <!-- Header connecté -->
@@ -12,13 +12,10 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <script src="../assets/js/angular.min.js.map"></script>
-    <script src="../assets/js/angular.min.js"></script>
     <script src="../assets/js/canvasjs.min.js"></script>
     <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="../assets/js/script.js"></script>
     <link rel="icon" href="../logo.ico" />
     <link rel="stylesheet" href="../assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">

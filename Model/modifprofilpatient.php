@@ -1,7 +1,7 @@
 <?php
      // -- // Modification vérification
     if($pathology == 1 || $pathology == 2) {
-        $searchinfo = $bdd->prepare('SELECT `verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
+        $searchinfo = $db->prepare('SELECT `verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
         $searchinfo->bindValue('id',$id,PDO::PARAM_INT);
         $searchinfo->execute();
         if($searchinfo->rowCount() == 1) {
@@ -193,7 +193,7 @@
                     }
                 }                                
                 if($error == 0) { 
-                    $modifverification = $bdd->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
+                    $modifverification = $db->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
                     $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
                     $modifverification->bindValue('notif',$notif,PDO::PARAM_INT);
                     $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
@@ -390,7 +390,7 @@
                             }
                         }                             
                         if($error == 0) {
-                            $requestverif = $bdd->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
+                            $requestverif = $db->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
                             $requestverif->execute(array(
                                 'id' => $id,
                                 'verification' => $timeverif,

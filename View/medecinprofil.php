@@ -87,7 +87,7 @@
                         </div>
                         <input type="submit" value="Valider !" name="submitmodifpassword" class="button btn btn-default col-lg-offset-5">
                     </form>
-                    <p><?php echo $successMsg; ?></p>
+                    <p class="successmessage"><?php echo $successMsg; ?></p>
                 </div>
                 <div class="row">
                     <div class="modificatemail col-lg-offset-3">
@@ -148,6 +148,10 @@
                 <input type="text" name="name" class="col-lg-offset-3 col-lg-2"/>
                 <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
             </form>
+        </div>
+        <div class="col-lg-offset-3">
+            <h4>Votre QRCode pour permettre à votre patient de vous suivre instantané</h4>
+            <img src="../Model/qrcode.php" class="col-lg-offset-3">
         </div>
     </div>
     <?php

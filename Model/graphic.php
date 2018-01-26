@@ -1,4 +1,5 @@
     <script>
+// -- // Graphique
         $(window).on('load', function() {
             var chart = new CanvasJS.Chart("chartResult", {
                 theme: "light2",

@@ -55,6 +55,8 @@
                         </div>
                     </div>
                 </form>
+                <p class="successmessage col-lg-7"><?php echo $successAppointment; ?></p>
+                <p class="errormessage col-lg-7"><?php echo $errorMessageAppointment; ?></p>
             </div>
         </div>
         <div class="row">
@@ -93,8 +95,8 @@
                 </form>
             </div>
         </div>
-        <div class="col-lg-offset-2 col-lg-10"><p><span id="graycolor">Gris</span> Rendez-vous passé (cliquez pour ajouter une note)</p></div>
-        <div class="col-lg-offset-2 col-lg-10"><p><span id="greencolor">Vert</span> Rendez-vous à venir (cliquer pour modifier ou supprimé le rendez-vous)</p></div>
+        <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="graycolor"><i class="fa fa-check-square-o" aria-hidden="true"></i></span> Rendez-vous passé (cliquez pour ajouter une note)</p></div>
+        <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="greencolor"><i class="fa fa-book" aria-hidden="true"></i></span> Rendez-vous à venir (cliquer pour modifier ou supprimer le rendez-vous)</p></div>
     </div>
     <div id="tablecalendar" class="table-responsive-sm">
         <table class="calendar table table-bordered">
@@ -142,7 +144,7 @@
                                         $verifEventDay=$informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
                                         if($dateNow>$verifEventDay) {
                                         ?> 
-                                        <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>        
+                                            <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
                                         <?php
                                         }
                                         else {
@@ -185,7 +187,7 @@
                                                                 <label for="nameappointment">Nom du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" id="name<?php echo $nbmodal;?>" name="nameappoitment" placeholder="Médecin">
+                                                                    <input type="text" class="form-control" id="name<?php echo $nbmodal;?>" name="nameappoitmentmodif" placeholder="Médecin">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -194,7 +196,7 @@
                                                                 <label for="dayappointment">Jour du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                                    <input type="date" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointment">
+                                                                    <input type="date" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointmentmodif">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -203,7 +205,7 @@
                                                                 <label for="hourappointment">Horaire consultation :</label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                    <input type="time" class="form-control" id="hour<?php echo $nbmodal;?>" name="hourappointment" placeholder="<?php echo date('H:i'); ?>">
+                                                                    <input type="time" class="form-control" id="hour<?php echo $nbmodal;?>" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -211,7 +213,7 @@
                                                             <div class="form-inline">
                                                                 <div class="input-group subject">
                                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
-                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointment"></textarea>
+                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointmentmodif"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>

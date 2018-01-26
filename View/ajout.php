@@ -23,14 +23,14 @@ if(isset($_SESSION['user'])) {
                 $name = $_POST['name'];
                 $role = $_SESSION['role']; // on cherche le role pour chercher si il faut trouver les patients ou les médecins
                 if($role == 1) {
-                     $request = $bdd->query('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE `nom` like "'.$name.'" OR `prenom` like "'.$name.'" AND `role` = 0');
+                     $request = $db->query('SELECT `nom`, `prenom`, `nom_utilisateur`,`role` FROM `utilisateurs` WHERE `role` = 0 AND (`nom` like "'.$name.'" OR `prenom` like "'.$name.'")');
                  }
                  else {
-                     $request = $bdd->query('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE `nom` like "'.$name.'" OR `prenom` like "'.$name.'" AND `role` = 1');
+                     $request = $db->query('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE (`nom` like "'.$name.'" OR `prenom` like "'.$name.'") AND `role` = 1');
                  }
                  $requestbdd = $request->fetchAll(PDO::FETCH_ASSOC);
                  // On affectue NULL à l'objet PDO pour pouvoir fermer la connexion à la base de données
-                $bdd = NULL;
+                $db = NULL;
                 //while($requestbdd = $request->fetch(PDO::FETCH_ASSOC) ) {
                    foreach($requestbdd as $element) {
                    ?><tr>
@@ -48,10 +48,10 @@ if(isset($_SESSION['user'])) {
                 if(isset($_POST['username'])) {
                     $error = 0;
                     $username = $_POST['username'];
-                    $idfollow = $bdd->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$username.'"');
+                    $idfollow = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$username.'"');
                     $idfollow = $idfollow->fetch();
                     $idfollow = $idfollow['id'];
-                    $requestadd = $bdd->prepare('SELECT COUNT(*) AS nbfollow FROM `follow` WHERE `follow_from` = :id AND `follow_to` = :id_to');
+                    $requestadd = $db->prepare('SELECT COUNT(*) AS nbfollow FROM `follow` WHERE `follow_from` = :id AND `follow_to` = :id_to');
                     $requestadd->bindValue(':id',$id,PDO::PARAM_INT);
                     $requestadd->bindValue(':id_to', $idfollow, PDO::PARAM_INT);
                     $requestadd->execute();
@@ -66,7 +66,7 @@ if(isset($_SESSION['user'])) {
                         $error++;
                     }
                     if($error == 0) {
-                        $requestadd = $bdd->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
+                        $requestadd = $db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
                         $requestadd->execute(array(
                             'id' => $id,
                             'id_to' => $idfollow,

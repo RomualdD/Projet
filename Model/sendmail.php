@@ -5,10 +5,10 @@
     $day = date('Y-m-d H:i').':00';
     // -- // Mail prise de sang 
     // Récupération des valeurs indispensable à l'envoie de mail et la récupération de la date et l'heure de l'envoie du mail
-    $requestmail = $bdd->query('SELECT `nom`, `prenom`, `mail`, `date_verification` FROM `utilisateurs` INNER JOIN `verification` ON `id_utilisateur` = id');
+    $requestmail = $db->query('SELECT `nom`, `prenom`, `mail`, `date_verification` FROM `utilisateurs` LEFT JOIN `verification` ON `id_utilisateur` = id');
     // On recherche dans toute table
-    $request = $requestmail->fetchAll(PDO::FETCH_ASSOC);
-    foreach($request as $infoMail) {
+    $requestMail = $requestmail->fetchAll(PDO::FETCH_ASSOC);
+    foreach($requestMail as $infoMail) {
         // On compare si c'est le moment d'envoyer le mail
        if($day == $infoMail['date_verification']) {
         //Envoie du mail d'information pour rappel
@@ -25,7 +25,7 @@
     }
 // -- // Mail rendez-vous
     // Récupération du mail et des informations du rendez-vous
-    $requestmailappointment = $bdd->query('SELECT `nom`, `prenom`, `mail`, `date_rendez_vous`,`heure_rendez_vous`,`nom_rendez_vous`,`infos_complementaire` FROM `utilisateurs` LEFT JOIN `rendez_vous` ON `rendez_vous`.`id_utilisateur` = `utilisateurs`.`id`');
+    $requestmailappointment = $db->query('SELECT `nom`, `prenom`, `mail`, `date_rendez_vous`,`heure_rendez_vous`,`nom_rendez_vous`,`infos_complementaire` FROM `utilisateurs` LEFT JOIN `rendez_vous` ON `rendez_vous`.`id_utilisateur` = `utilisateurs`.`id`');
     $request = $requestmailappointment->fetchAll(PDO::FETCH_ASSOC);
     foreach($request as $informationAppointment) {
         // Récupération du jour du rendez-vous

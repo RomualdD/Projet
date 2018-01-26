@@ -1,4 +1,5 @@
 <?php
+// -- // Profil Avk
 if($pathology == 3) {
         $succesAddmsg='';
         $errorDateMsg='';
@@ -34,7 +35,7 @@ if($pathology == 3) {
                             $error++;
                         }
                         if($error == 0) {
-                            $requestverif = $bdd->prepare('INSERT INTO `verification`(`id_utilisateur`, `Heure1`, `notification`, `date_verification`) VALUES (:id, :hour1, :notification, :dateverification)');
+                            $requestverif = $db->prepare('INSERT INTO `verification`(`id_utilisateur`, `Heure1`, `notification`, `date_verification`) VALUES (:id, :hour1, :notification, :dateverification)');
                             $requestverif->execute(array(
                                 'id' => $id,
                                 'hour1' => $oneclock,

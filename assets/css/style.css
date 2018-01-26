@@ -61,6 +61,9 @@ p {
     color: red;
 }
 
+.successmessage {
+    color: green;
+}
 .subtitle {
   font-style: italic;
   font-size: 20px;
@@ -140,14 +143,10 @@ textarea {
 
 #graycolor {
     background-color: gray;
-    width: 30px;
-    height: 15px;
     display: inline-block;
 }
 
 #greencolor {
-    width: 30px;
-    height: 15px;
     background-color: green;
     display: inline-block;
 }
@@ -178,7 +177,7 @@ table th[class*="col-lg"] {
    background-color: green;
 }
 
-.fa-book {
+.fa-book, .fa-check-square-o{
     padding-left: 1em;
     color: white;
     }
@@ -203,6 +202,8 @@ table th[class*="col-lg"] {
      font-size: 1.2em;
     color: red;
 }
+
+
 @media screen and (max-width: 1280px) {
     table th[class*="col-lg"] {
         display: none;

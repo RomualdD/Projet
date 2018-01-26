@@ -59,6 +59,7 @@
        $role = $_POST['role'];
        $pathology = $_POST['pathology'];
        $phone2 = 'Pas indiqué';
+       $qrcodeParam = md5(microtime(TRUE)*100000);
        if($role == 0){
          $pathology = 0;
        }
@@ -67,7 +68,7 @@
              // On vérifie que les mots de passes sont identiques
                 if($password == $passwordverif) {
                     // Vérification qu'un utilisateur n'a pas le même nom
-                  $result = $bdd->query('SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$username.'"');
+                  $result = $db->query('SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$username.'"');
                   $nameverif = $result->fetch();
                   if($username == $nameverif['nom_utilisateur']) {
                     $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
@@ -79,21 +80,21 @@
                     $actif = 0;
 
                     // Inclusion dans la bdd
-                    $req = $bdd->prepare('INSERT INTO `utilisateurs`(`nom`, `prenom`, `nom_utilisateur`, `mail`, `mot_de_passe`,`date_anniversaire`, `phone`,`phone2`, `role`, `pathologie`,`cleverif`,`actif`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif)');
-                    $req->execute(array(
-                      'name' => $name,
-                      'firstname' => $firstname,
-                      'username' => $username,
-                      'mail' => $mail,
-                      'password' => $password,
-                      'birthday' => $birthday,
-                      'phone' => $phone,
-                      'phone2' => $phone2,
-                      'role' => $role,
-                      'pathology' => $pathology,
-                      'cleverif' => $cle,
-                      'actif' => $actif
-                    ));
+                    $reqAdd = $db->prepare('INSERT INTO `utilisateurs`(`nom`, `prenom`, `nom_utilisateur`, `mail`, `mot_de_passe`,`date_anniversaire`, `phone`,`phone2`, `role`, `pathologie`,`cleverif`,`actif`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif,:qrcode)');
+                    $reqAdd->bindValue('name',$name,PDO::PARAM_STR);
+                    $reqAdd->bindValue('firstname',$firstname,PDO::PARAM_STR);
+                    $reqAdd->bindValue('username',$username,PDO::PARAM_STR);
+                    $reqAdd->bindValue('mail',$mail,PDO::PARAM_STR);
+                    $reqAdd->bindValue('password',$password,PDO::PARAM_STR);
+                    $reqAdd->bindValue('birthday',$birthday,PDO::PARAM_STR);
+                    $reqAdd->bindValue('phone',$phone,PDO::PARAM_STR);
+                    $reqAdd->bindValue('phone2',$phone2,PDO::PARAM_STR);
+                    $reqAdd->bindValue('role',$role,PDO::PARAM_INT);
+                    $reqAdd->bindValue('pathology',$pathology,PDO::PARAM_INT);
+                    $reqAdd->bindValue('cleverif',$cle,PDO::PARAM_STR);
+                    $reqAdd->bindValue('actif',$actif,PDO::PARAM_INT);
+                    $reqAdd->bindValue('qrcode',$qrcodeParam,PDO::PARAM_STR);
+                    $reqAdd->execute();
                     //Envoie du mail d'activation
                     $recipient = $mail;
                     $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
@@ -105,7 +106,7 @@
                     mail($recipient, $subject,$message,$entete);
                     //Informer l'utilisateur que l'inscription est bien prise en compte
                     //Redirection vers la page de connexion
-                    header('Location:http://diavk/connexion.php');
+                    header('Location:http://diavk/View/connexion.php');
                     exit();
                    }
                 }

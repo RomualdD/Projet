@@ -1,7 +1,6 @@
 <?php
   include '../Model/verificationconnexion.php';
 if(isset($_SESSION['user'])) {  
-  $pathology = $_SESSION['pathology'];
   include '../Model/addResult.php';
   include '../Model/showtable.php';
   include '../Model/showgraphic.php';
@@ -29,6 +28,7 @@ if(isset($_SESSION['user'])) {
             </div>
         <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
       </form>
+          <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
       </div>
       <div class="row">
         <div class="col-lg-offset-4"><h3>Visualisation des résultats :</h3></div>
@@ -37,7 +37,7 @@ if(isset($_SESSION['user'])) {
           <div class="col-lg-offset-3"><p>En tableau :</p></div>
       </div>
       <div class="row">
-        <table class="tableresult table table-bordered result col-lg-offset-2 col-lg-3">
+        <table class="tableresult table table-bordered result col-lg-offset-1 col-lg-3">
           <thead>
             <tr>
               <th>Date du résultat :</th>
@@ -57,7 +57,7 @@ if(isset($_SESSION['user'])) {
              ?>
           </tbody>
         </table>
-        <nav class="col-lg-offset-4">
+        <nav class="col-lg-offset-3 col-lg-9">
             <ul class="pagination">
             <?php
                 for($numberPage=1; $numberPage<=$nbPagesForResult; $numberPage++) { 
@@ -77,6 +77,18 @@ if(isset($_SESSION['user'])) {
           <div class="col-lg-offset-3"><p>En graphique :</p></div>
       </div>
       <div class="row">
+          <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
+          <form action="suivi.php" method="POST">
+            <div class="col-lg-offset-3">
+                <label for="firstDate">Première date :</label>
+                <input type="date" name="date1">
+                <label for="secondeDate" class="col-lg-offset-1">Seconde date :</label>
+                <input type="date" name="date2">
+            </div>  
+            <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5"/>
+          </form>
+      </div>  
+      <div class="row">
           <div id="chartResult"></div>
       </div>
     </div>
@@ -88,7 +100,7 @@ if(isset($_SESSION['user'])) {
         }
         $nbresult++;
     }
-    $bdd = NULL;
+    $db = NULL;
     include '../Model/graphic.php';
   }
 }  
