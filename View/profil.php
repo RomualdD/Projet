@@ -1,9 +1,5 @@
 <?php
-  include '../Model/verificationconnexion.php';
-  if($_SESSION['role']==0){
-        header('Location:http://diavk/View/medecinprofil.php');
-        exit();
-    }
+  include '../Controller/verificationconnexion.php';
    if(isset($_SESSION['user'])) { 
        include '../Model/follow.php';
        include '../Model/verification.php';
@@ -12,11 +8,11 @@
 <!-- Page profil type -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-offset-5"><h2>Profil</h2></div>
+        <div class="col-lg-offset-5"><h2>Votre profil</h2></div>
       </div>
       <div class="row">
         <div class="profil col-lg-offset-3 col-lg-5">
-          <div class="subtitle col-lg-offset-3"><h3>Informations du patient :</h3></div>
+          <div class="subtitle col-lg-offset-3"><h3>Vos informations :</h3></div>
           <div class="form-inline">
             <div class="input-group name col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
@@ -59,6 +55,7 @@
                 <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $user->phone2; ?>">
             </div>
           </div>
+          <?php if($_SESSION['role']!=0) { ?>
           <div class="form-inline">
             <div class="input-group pathology col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
@@ -220,7 +217,8 @@
             <?php }
             }
             ?>
-          </div>
+          </div>   
+        <?php } ?>
         </div>
         <div class="modificate col-lg-offset-3 col-lg-5">
           <div class="row">
@@ -254,47 +252,47 @@
             <p class="successmessage"><?php echo $successMsg; ?></p>
           </div>
             <div class="row">
-              <div class="modificatemail col-lg-offset-3">
+              <form name="modifmail" method="POST" action="profil.php">
                 <div class="form-inline">
-                <label class="col-lg-9 modificateform" for="newmail">Nouvelle adresse mail :</label>                    
-                  <div class="input-group mail">
+                <label class="col-lg-offset-3 col-lg-9 modificateform" for="newmail">Nouvelle adresse mail :</label>                    
+                  <div class="input-group mail col-lg-offset-3">
                     <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newmail" placeholder="Nouvelle adresse mail">
                   </div>
                 </div>
-                <input type="submit" value="Modifier !" name="modificatemail" class="button btn btn-default col-lg-offset-3">
-              </div>
+                <input type="submit" value="Modifier !" name="modificatemail" class="button btn btn-default col-lg-offset-5">
+              </form>
             </div>
             <div class="row">
-              <div class="modificatenum col-lg-offset-3">
+                <form name="modifnum" method="POST" action="profil.php">
                 <div class="form-inline">
-                <label class="col-lg-9 modificateform" for="modificatenum">Modifier numéro de téléphone :</label>                                        
-                  <div class="input-group phone">
+                <label class="col-lg-offset-3 col-lg-9 modificateform" for="modificatenum">Modifier numéro de téléphone :</label>                                        
+                  <div class="input-group phone col-lg-offset-3">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="modificatenum" placeholder="Modifier numéro de téléphone">
                   </div>
                 </div>
-                <input type="submit" value="Modifier !" name="submitmodificatenum" class="button btn btn-default col-lg-offset-3">
-              </div>
+                <input type="submit" value="Modifier !" name="submitmodificatenum" class="button btn btn-default col-lg-offset-5">
+              </form>
             </div>
             <div class="row">
-              <div class="newnum col-lg-offset-3">
+                <form name="addnum" method="POST" action="profil.php">
                 <div class="form-inline">
-                <label class="col-lg-9 modificateform" for="newnum">Ajouter numéro de téléphone :</label>                                                            
-                  <div class="input-group phone">
+                <label class="col-lg-offset-3 col-lg-9 modificateform" for="newnum">Ajouter numéro de téléphone :</label>                                                            
+                  <div class="input-group phone col-lg-offset-3">
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newnum" placeholder="Nouveau numéro de téléphone">
                   </div>
                 </div>
-                <input type="submit" value="Ajouter !" name="addnum" class="button btn btn-default col-lg-offset-3">
-              </div>
+                <input type="submit" value="Ajouter !" name="addnum" class="button btn btn-default col-lg-offset-5">
+              </form>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="search col-lg-offset-4">
               <p><?php
-              if($requestfollow == 0) {  
+              if($requestfollow == NULL) {  
                   echo 'Vous n\'avez aucune demande !';
               }
               else {
@@ -306,7 +304,7 @@
                 }
                 else {
                     echo 'Vous avez '.$nbquest.' demande.';
-                }?>
+                } ?>
                 <div class="form-inline">
                   <form method="post" action="demande.php">
                     <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
@@ -316,6 +314,7 @@
           </div>
         </div>
         <div>
+            <?php if($_SESSION['role']!=0) {  ?>
          <form method="post" action="ajout.php">
             <div class="form-inline">
                 <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
@@ -328,10 +327,30 @@
                 <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
             </div>
          </form>
+         <?php  }
+         else { ?>
+            <form method="post" action="ajout.php">
+                <div class="form-inline">
+                    <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre patient :</label>                                                        
+                    <div class="input-group search col-lg-offset-4">
+                        <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                    </div>
+                </div>
+                <div class="form-inline col-lg-offset-4">
+                    <input type="submit" value="Rechercher !" name="addpatient" class="button btn btn-default col-lg-offset-1">
+                </div>
+            </form>
+            <?php  } ?>
         </div>
-        <div class="col-lg-offset-2">
-            <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané</h4>
-            <img src="../Controller/qrcode.php" class="col-lg-offset-3">
+        <div class="col-lg-offset-3">
+    <?php if($_SESSION['role']!=0) {  ?>
+            <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané : </h4>
+            <?php }
+            else { ?>
+            <h4>Votre QRCode pour permettre à votre patient de le suivre : </h4>
+            <?php } ?>
+            <img src="../Controller/qrcode.php" class="col-lg-offset-2">
         </div>
     </div>
 <?php

@@ -107,38 +107,12 @@
             $monthappointment=$appointment['month'];
         }
     } ?>
-        <script>              
-// -- // AJAX Modifier rendez-vous
-// -- // AJAX Page modal modification du rendez-vous          
-        $(document).ready(function() {
-            $('#submitmodif<?php echo $nbmodal;?>').click(function() {
-                $.post(
-                     '../Controller/modifappointmentController.php', {
-                        dayappointmentmodif : $('#day<?php echo $nbmodal;?>').val(),
-                        nameappointmentmodif : $('#name<?php echo $nbmodal;?>').val(),
-                        hourappointmentmodif : $('#hour<?php echo $nbmodal;?>').val(),
-                        infosappointmentmodif : $('#info<?php echo $nbmodal;?>').val(),
-                        name : $('#nameappointment<?php echo $nbmodal;?>').val(),
-                        hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
-                        infos : $('#infoappointment<?php echo $nbmodal;?>').val()
-                    },
-                    function(data) {
-                        if(data == 'Success') {
-                            alert('Rendez-vous modifié !');
-                        }
-                        else {
-                            alert('Rendez-vous non modifié !');
-                        }
-                    },
-                    'text' // Recevoir success ou failed
-                );
-            });
-        });
-        // -- // Ajouter une note dans la page modal          
+    <script>
+// -- // Ajouter une note dans la page modal          
         $(document).ready(function() {
             $('#submitremarqueadd<?php echo $nbmodal;?>').click(function() {
                 $.post(
-                     '../Controller/modifappointmentController.php', {
+                     '../Model/modifappointment.php', {
                         remarque : $('#remarqueappointment<?php echo $nbmodal;?>').val(),
                         name : $('#nameappointment<?php echo $nbmodal;?>').val(),
                         hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
@@ -152,31 +126,9 @@
                             alert('Note non enregistré !');
                         }
                     },
-                    'text'
+                    'text' // Recevoir success ou failed
                 );
             });
-        }); 
-        // -- // AJAX Supprimé le rendez-vous dans la page modal           
-        $(document).ready(function() {
-            $('#submitdelete<?php echo $nbmodal;?>').click(function() {
-                $.post(
-                     '../Model/deleteappointment.php', {
-                        name : $('#nameappointment<?php echo $nbmodal;?>').val(),
-                        hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
-                        infos : $('#infoappointment<?php echo $nbmodal;?>').val()
-                    },
-                    function(data) {
-                        if(data == 'Success') {
-                            alert('Rendez-vous supprimé !');
-                        }
-                        else {
-                            alert('Rendez-vous non supprimé !');
-                        }
-                    },
-                    'text' 
-                );
-            });
-        }); 
-    </script> 
-   
+        });                                                                                                                  
+    </script>
     

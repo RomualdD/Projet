@@ -8,8 +8,6 @@
     <meta charset="utf-8">
     <script src="../assets/js/canvasjs.min.js"></script>
     <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="icon" href="../logo.ico" />
     <link rel="stylesheet" href="../assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">

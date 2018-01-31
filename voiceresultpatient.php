@@ -4,7 +4,7 @@
     $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
     $requestfollow->bindValue('id',$id, PDO::PARAM_INT);
     $requestfollow->execute();
-    $follow = $requestfollow->fetchAll(PDO::FETCH_ASSOC);
+    $follow = $requestfollow->fetchAll(PDO::FETCH_ASSOC); 
     if(!empty($_POST['patient'])) {
         // -- // Tableau
         $patient = $_POST['patient'];

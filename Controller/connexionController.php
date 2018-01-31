@@ -27,12 +27,7 @@
                $_SESSION['password'] = $_POST['password'];
                $_SESSION['role'] = $infosUser['role'];
                $_SESSION['pathology']= $infosUser['pathologie'];
-               if($_SESSION['role'] == 1) {
-                    header('Location: profil.php');
-               }
-               else {
-                 header('Location: medecinprofil.php');
-               }
+               header('Location: profil.php');
              }
              else {
                $errorMessageActive = 'Veuillez activez votre compte !';

@@ -5,14 +5,6 @@
     $user->username = $_SESSION['user'];
     $requestInfo = $user->getUserInfo();
 // -- // Information des résultats
-   // $name = $requestInfo['nom'];
-   /* $surname = $requestInfo['prenom'];
-    $birthday = $requestInfo['date_anniversaire'];
-    $mail = $requestInfo['mail'];
-    $phone = $requestInfo['phone'];
-    $otherphone = $requestInfo['phone2'];
-    $pathologyname = $requestInfo['pathologieName'];
-    $user = $requestInfo['nom_utilisateur'];*/
     $follow->id = $id;
     $verification->userId = $id;
     $info = $verification->getVerification();

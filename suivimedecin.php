@@ -94,7 +94,6 @@
         }
         $nbresult++;
     }
-    $bdd = NULL;
     include '../Model/viewgraphic.php';
     }
     ?></div><?php

@@ -2,7 +2,7 @@
 // -- // Ajout du résultat 
 $successAddMsg = '';
 $errorResult = '';
-if($pathology == 1 || $pathology == 2) {
+/*if($pathology == 1 || $pathology == 2) {
     if(isset($_POST['submit'])) {
         // Vérification qu'il y'a bien un taux et qu'il est écrit en chiffre.chiffre ou chiffre
       if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]{2}$#',$_POST['rate']))){
@@ -86,7 +86,7 @@ if($pathology == 1 || $pathology == 2) {
       }
     }  
 }
-elseif($pathology == 3) {
+if($pathology == 3) {
     if(isset($_POST['submit'])) {
         if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))) {
           $rate=$_POST['rate'];
@@ -138,4 +138,4 @@ elseif($pathology == 3) {
             $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
         }
     }    
-}
+}*/

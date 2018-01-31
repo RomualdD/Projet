@@ -93,6 +93,14 @@ class appointments extends dataBase{
         return $appointment;
     }
     
+    public function deleteAppointment() {
+        $requestsupprappointment = $this->db->prepare('DELETE FROM `rendez_vous` WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos');
+        $requestsupprappointment->bindValue('name',$this->nameappointment,PDO::PARAM_STR);
+        $requestsupprappointment->bindValue('hour',$this->hourappointment,PDO::PARAM_STR);
+        $requestsupprappointment->bindValue('infos',$this->infosappointment,PDO::PARAM_STR);
+        $requestsupprappointment->execute();
+    }
+    
     public function __destruct() {
         
     }

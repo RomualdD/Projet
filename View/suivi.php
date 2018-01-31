@@ -1,15 +1,96 @@
 <?php
-  include '../Model/verificationconnexion.php';
+  include '../Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {  
-  include '../Model/addResult.php';
-  include '../Model/showtable.php';
-  include '../Model/showgraphic.php';
+  include '../Model/verification.php';
+  include '../Model/suivis.php';
+  include '../Model/follow.php';
+  include '../Controller/suiviController.php';
+  ?><div class="container">
+        <div class="row">
+            <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
+        </div><?php
   if ($role==0) {
-    header('Location:suivimedecin.php');
-    exit();
-  }
-  else {
-?>
+   /* header('Location:suivimedecin.php');
+    exit();*/
+       if(empty($_POST['patient'])) {
+      ?>
+  <div class="row">
+    <form name="followedrate" method="POST" action="suivi.php">
+    <div class="suivi form-group col-lg-offset-4">
+      <label for="text">Choisir son patient :</label>
+      <select name="patient"><?php
+              foreach ($followDoctor as $followPatient) {
+                ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>"><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+            }
+          ?>
+      </select>
+    </div>
+    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
+  </form>
+  </div>
+      <?php
+      }
+       else {
+      ?>
+         <div class="row">
+        <form action="suivimedecin.php" method="POST">
+            <div class="suivi form-group col-lg-offset-4">
+              <label for="text">Choisir son patient :</label>
+              <select name="patient"><?php
+                      foreach($followDoctor as $followPatient) {
+                        ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>" <?php if($_POST['patient'] == $followPatient['nom_utilisateur']) { echo 'selected'; } ?>><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+                    }
+                  ?>
+              </select>
+            </div>       
+            <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
+            <div class="col-lg-offset-4">
+              <label for="firstDate">Première date :</label>
+              <input type="date" name="date1">
+              <label for="secondeDate">Seconde date :</label>
+              <input type="date" name="date2">
+          </div>  
+          <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult"/>
+        </form>
+    </div>
+  <div class="row">
+    <div class="col-lg-offset-4"><h3>Visualisations des résultats :</h3></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-offset-3">En tableau :</div>
+  </div>
+      <div class="row">
+        <table class="tableresult table table-bordered result col-lg-offset-1 col-lg-3">
+          <thead>
+            <tr>
+              <th>Date du résultat :</th>
+              <th>Résultat :</th>
+              <th>Date de la prochaine analyse :</th>
+            </tr>
+          </thead>
+          <tbody>
+              <?php
+                foreach($requestarray as $result) { 
+                ?><tr>
+                    <td><?php echo $result['date_now']; ?></td>
+                    <td><?php echo $result['resultat']; ?></td>
+                    <td><?php echo $result['date_prochaine_verif']; ?></td>
+                </tr><?php
+              }
+             ?>
+          </tbody>
+        </table>
+      </div>
+  <div class="row">
+      <div class="col-lg-offset-3">En graphique :</div>
+  </div>
+  <div class="row">
+      <div id="chartResult"></div>
+  </div><?php
+        }
+    } 
+    else {    
+    ?>
     <!-- Page suivi patient -->
     <div class="container">
       <div class="row">
@@ -60,7 +141,7 @@ if(isset($_SESSION['user'])) {
         <nav class="col-lg-offset-3 col-lg-9">
             <ul class="pagination">
             <?php
-                for($numberPage=1; $numberPage<=$nbPagesForResult; $numberPage++) { 
+                for($numberPage=1; $numberPage<=$suivi->nbPage; $numberPage++) { 
                     // Vérification que le numéro de page est égal à la page voulu
                     if($numberPage == $actuallyPage) { // Si page actuelle alors on lui attribue un id pageactive
                        ?><li class="page-item"><a id="pageactive" href="suivi.php?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
@@ -87,22 +168,14 @@ if(isset($_SESSION['user'])) {
             </div>  
             <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5"/>
           </form>
-      </div>  
+      </div>
       <div class="row">
           <div id="chartResult"></div>
       </div>
     </div>
 <?php  
-    // Résultats indexé selon la valeur de la première colonne soit date du jour
-    foreach($requestSearchGraphic->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_UNIQUE) as $day => $result) {
-        foreach($result as $resultchart) {
-            $dataPoints[$nbresult] = array('label'=>$day, 'y'=>$resultchart);
-        }
-        $nbresult++;
     }
-    $db = NULL;
-    include '../Model/graphic.php';
-  }
-}  
+    ?></div><?php
+  }  
   include 'footer.php';
 ?>

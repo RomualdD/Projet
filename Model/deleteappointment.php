@@ -1,7 +1,7 @@
 <?php
 include 'bdd.php';
 // -- // Suppression du rendez-vous
-    if(!empty($_POST['name']) && !empty($_POST['hour']) && !empty($_POST['infos'])) {
+    if(!empty($_POST['name']) && !empty($_POST['hour']) && !empty($_POST['infos']) && (!empty($_POST['suppr']))) {
         // Récupération des données du rendez-vous
         $nameappointment = $_POST['name'];
         $hourappointment = $_POST['hour'];

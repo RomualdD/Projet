@@ -90,8 +90,8 @@ class users extends dataBase {
         $requestInfo = $this->db->prepare('SELECT `nom_utilisateur`,`nom`, `prenom`, DATE_FORMAT(`date_anniversaire`,"%d/%m/%Y") AS `date_anniversaire`, `mail`, `phone`, `phone2`, CASE WHEN `pathologie` = 1 Then \'Diabète Type 1\' WHEN `pathologie` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologieName`  FROM `utilisateurs` WHERE `nom_utilisateur` =:username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
-            if(is_object($requestInfo)) {
-                $infoUser = $requestInfo->fetch(PDO::FETCH_ASSOC);
+                $infoUser = $requestInfo->fetch(PDO::FETCH_ASSOC); 
+            if(is_array($infoUser)) {
                 $this->name = $infoUser['nom'];
                 $this->firstname = $infoUser['prenom'];
                 $this->birthday = $infoUser['date_anniversaire'];
@@ -110,7 +110,7 @@ class users extends dataBase {
     public function getPassword() {
         $password = array();
         $recuppassword = $this->db->query('SELECT `mot_de_passe` FROM `utilisateurs` WHERE `id` = '.$this->id);
-        if(is_object($recuppassword)) {
+        if(is_array($recuppassword)) {
             $password = $recuppassword->fetch();
         }    
         return $password;    
@@ -147,7 +147,10 @@ class users extends dataBase {
         }
         return $infosUser;
     }
-    
+    /**
+     * Permet de trouver le code qrCode de l'utilisateur
+     * @return array
+     */
     public function getQrCode() {
         $researchqrcode = array();
         $researchqrcode = $this->db->query('SELECT `qrcode` FROM `utilisateurs` WHERE `nom_utilisateur` = \''.$this->username.'\'');
@@ -156,7 +159,36 @@ class users extends dataBase {
         }
         return $researchqrcode;
     }
-
+    /**
+     * Méthode qui renvoie les patients avec le nom ou le prénom demandé
+     * @return array
+     */
+    public function getPatientUserByName() {
+        $patient = array();
+        $requestSearchPatient = $this->db->prepare('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE (`nom` like :name OR `prenom` like :firstname) AND `role` = :role');
+        $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
+        $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
+        $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
+        if($requestSearchPatient->execute()) {
+            $patient = $requestSearchPatient->fetchAll(PDO::FETCH_ASSOC);
+        }
+       return $patient; 
+    }
+    /**
+     * Méthode qui renvoie les médecins avec le nom ou le prénom demandé
+     * @return array
+     */
+    public function getDoctorUserByName() {
+        $doctor = array();
+        $requestSearchDoctor = $this->db->prepare('SELECT `nom`, `prenom`, `nom_utilisateur` FROM `utilisateurs` WHERE (`nom` like :name OR `prenom` like :firstname) AND `role` = :role');
+        $requestSearchDoctor->bindValue('name',$this->name.'%',PDO::PARAM_STR);
+        $requestSearchDoctor->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
+        $requestSearchDoctor->bindValue('role','0',PDO::PARAM_STR);
+        if($requestSearchDoctor->execute()) {
+            $doctor = $requestSearchDoctor->fetchAll(PDO::FETCH_ASSOC);
+        }
+       return $doctor;         
+    }
     
     public function __destruct() {
         

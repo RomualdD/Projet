@@ -23,5 +23,5 @@ if($pathology == 1 || $pathology == 2) {
     $requestSearchGraphic = $db->query('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y %H:%i") AS `date_now`,`resultat` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'" AND `date_du_jour` BETWEEN "'.$dateFirst.'" AND "'.$dateSecond.'" ORDER BY `date_du_jour`');
 }
 elseif ($pathology == 3) {
-    $requestSearchGraphic = $db->query('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y") AS `date_now`,`resultat` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'" AND `date_du_jour` BETWEEN "'.$dateFirst.'" AND "'.$dateSecond.'" ORDER BY `date_du_jour` LIMIT 28');
+    $requestSearchGraphic = $db->query('SELECT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y") AS `date_now`,`resultat` FROM `suivis` WHERE `id_utilisateur` = "'.$id.'" AND `date_du_jour` BETWEEN "'.$dateFirst.'" AND "'.$dateSecond.'" ORDER BY `date_du_jour`');
 }

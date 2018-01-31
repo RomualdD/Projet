@@ -5,8 +5,8 @@ if(!isset($_SESSION['user'])) {
     echo 'Vous n\'êtes pas connecté pour accéder au contenu';
 }
 else {    
-    include 'dataBase.php';
-    include 'users.php';
+    include '../Model/dataBase.php';
+    include '../Model/users.php';
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();

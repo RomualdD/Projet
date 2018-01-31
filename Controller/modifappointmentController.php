@@ -90,4 +90,18 @@
     }
     else {
         echo 'Failed';
-    }     
+    }
+    
+    if(!empty($_POST['name']) && (!empty($_POST['hour'])) && (!empty($_POST['infos'])) && (!empty($_POST['suppr']))) {
+        // Récupération des données du rendez-vous
+        $appointment->nameappointment = $_POST['name'];
+        $appointment->hourappointment = $_POST['hour'];
+        $appointment->infosappointment = $_POST['infos'];
+        // Requête pour supprimer le rendez-vous
+        $appointment->deleteAppointment();
+        // Permet de dire à l'AJAX que l'opération est effectué
+        echo 'Success';
+    }
+    else {
+        echo 'Failed';
+    }      

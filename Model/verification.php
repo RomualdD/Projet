@@ -22,14 +22,16 @@ class verification extends dataBase {
      */
     public function getVerification() {
         $infoVerification = array();
-        $searchinfo = $this->db->query('SELECT `verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = '.$this->userId);
-        if(is_object($searchinfo)) {
+        $searchinfo = $this->db->prepare('SELECT `id_utilisateur`,`date_verification`,`verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
+        $searchinfo->bindValue('id',$this->userId,PDO::PARAM_INT);
+        if($searchinfo->execute()) {
             $infoVerification = $searchinfo->fetch(PDO::FETCH_ASSOC);       
         }
         return $infoVerification;
     }
     /**
      * Méthode qui permet de modifier les informations de vérifications de l'utilisateur
+     * @return bool
      */
     public function updateVerification() {
         $modifverification = $this->db->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
@@ -44,6 +46,7 @@ class verification extends dataBase {
     }
     /**
      * Méthode permettant d'ajouter les informations de vérification de l'utilisateur diabétique
+     * @return bool
      */
     public function addVerificationDiabete() {
         $requestverif = $this->db->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
@@ -60,6 +63,7 @@ class verification extends dataBase {
     }
     /**
      * Méthode permettant d'ajouter les informations de vérification de l'utilisateur sous antivitamine K
+     * @return bool
      */
     public function addVerificationAvk() {
         $requestAddverif = $this->db->prepare('INSERT INTO `verification`(`id_utilisateur`, `Heure1`, `notification`, `date_verification`) VALUES (:id, :hour1, :notification, :dateverification)');
@@ -71,6 +75,7 @@ class verification extends dataBase {
     }
     /**
      * Méthode permettant de modifier les informations de l'utilisateur sous antivitamine K
+     * @return bool
      */
     public function updateVerificationAvk() {
         $requestUpdateverif = $this->db->prepare('UPDATE `verification` SET `Heure1` = :oneclock, `notification` = :notification WHERE `id_utilisateur` = :id');
@@ -79,7 +84,17 @@ class verification extends dataBase {
         $requestUpdateverif->bindValue('notification', $this->notification,PDO::PARAM_STR);
         return $requestUpdateverif->execute();          
     }
-            
+     /**
+      * Modification de la date de vérification utile pour l'envoie de mail
+      * @return bool
+      */
+    public function updateDateVerif() {
+        $requestmodif = $this->db->prepare('UPDATE `verification` SET `date_verification` = :newdate WHERE `id_utilisateur` = :id');
+        $requestmodif->bindValue('newdate',$this->dateverification,PDO::PARAM_STR);
+        $requestmodif->bindValue('id',$this->userId,PDO::PARAM_INT);
+        return $requestmodif->execute();
+    }
+    
     public function __destruct() {
         parent::__destruct();
     }
