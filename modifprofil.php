@@ -16,14 +16,14 @@
     $errorPasswordFalse = '';
     if(isset($_POST['submitmodifpassword'])) {
         if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
-            $recuppassword = $db->query('SELECT `mot_de_passe` FROM `utilisateurs` WHERE `id` = ' . $id);
+            $recuppassword = $db->query('SELECT `mot_de_passe` FROM `utilisateurs` WHERE `id` = '.$id);
             $recuppassword = $recuppassword->fetch();
             $password = sha1(md5($_POST['password']));
             if ($password == $recuppassword['mot_de_passe']) {
                 $newpassword = sha1(md5($_POST['newpassword']));
                 $newpasswordverif = sha1(md5($_POST['passwordverif']));
                 if ($newpassword == $newpasswordverif) {
-                    $insertnewpassword = $db->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = ' . $id);
+                    $insertnewpassword = $db->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = '.$id);
                     $insertnewpassword->bindValue('password', $newpassword, PDO::PARAM_STR);
                     $insertnewpassword->execute();
                     $successMsg = 'Le mot de passe a bien était modifié !';
