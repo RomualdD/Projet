@@ -1,6 +1,9 @@
 <?php
   include 'header.php';
-  include '../Model/userconnexion.php';
+  include '../Model/dataBase.php';
+  include '../Model/users.php';
+  include '../Controller/connexionController.php';
+  //include '../Model/userconnexion.php';
 ?>
 <!-- Page de connexion -->
   <div class="container">

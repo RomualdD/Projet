@@ -1,5 +1,7 @@
 <?php
 session_start();
+include '../Model/bdd.php';
+include '../Model/qrcodeconnexion.php';
 $idFollow = $_GET['idFollow'];
 if(!isset($_SESSION['user'])) {
     include 'header.php'; 
@@ -44,9 +46,6 @@ if(!isset($_SESSION['user'])) {
                   <input type="submit" value="Se connecter !" name="connexion" class="button btn btn-default col-lg-offset-4">
                   <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants,<a href="">cliquez ici</a></p></div>
                 </form>
-            <?php 
-            include '../Model/qrcodeconnexion.php';
-            ?>
           <!--  <p class=" col-lg-offset-5">Accéder à la connexion pour rester sur la page</p>
             <button data-toggle="modal" data-target="#myModalConnexion" class="button btn btn-default  col-lg-offset-5 col-lg-2">Connexion</button>
             <div class="modal fade" id="myModalConnexion" role="dialog">
@@ -113,18 +112,18 @@ if(!isset($_SESSION['user'])) {
 }
 else {
     include 'header1.php';
-    $researchParam = $db->query('SELECT `id` FROM `utilisateurs` WHERE qrcode ="'.$idFollow.'"');
+    $researchParam = $db->query('SELECT `id` FROM `utilisateurs` WHERE qrcode = \''.$idFollow.'\'');
     $researchidParam = $researchParam->fetch(PDO::FETCH_ASSOC);
     $idTo = $researchidParam['id'];
     
     $verifFollow = $db->query('SELECT `follow_confirm` FROM `follow` WHERE (`follow_to` ='.$idTo.' OR `follow_from` ='.$idTo.') AND (`follow_to` ='.$id.' OR `follow_from` ='.$id.')');
     $verif = $verifFollow->fetchColumn();
-    if($verif == 0) {
-    $addfollow = $db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`) VALUES(:id,:id_to,:confirm,NOW())');
-    $addfollow->bindValue('id',$id,PDO::PARAM_STR);
-    $addfollow->bindValue('id_to',$idTo, PDO::PARAM_INT);
-    $addfollow->bindValue('confirm','1',PDO::PARAM_INT);
-    $addfollow->execute();
+    if($verif == 0 && $idTo != $id) {
+        $addfollow = $db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`) VALUES(:id,:id_to,:confirm,NOW())');
+        $addfollow->bindValue('id',$id,PDO::PARAM_STR);
+        $addfollow->bindValue('id_to',$idTo, PDO::PARAM_INT);
+        $addfollow->bindValue('confirm','1',PDO::PARAM_INT);
+        $addfollow->execute();
     
     ?><p>Suivi ajouté !</p><?php
     }

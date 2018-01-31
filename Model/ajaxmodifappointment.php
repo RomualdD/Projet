@@ -3,7 +3,7 @@
         $(document).ready(function() {
             $('#submitmodif<?php echo $nbmodal;?>').click(function() {
                 $.post(
-                     '../Model/modifappointment.php', {
+                     '../Controller/modifappointmentController.php', {
                         dayappointmentmodif : $('#day<?php echo $nbmodal;?>').val(),
                         nameappointmentmodif : $('#name<?php echo $nbmodal;?>').val(),
                         hourappointmentmodif : $('#hour<?php echo $nbmodal;?>').val(),

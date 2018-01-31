@@ -38,7 +38,7 @@
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
                       foreach ($follow as $followPatient) {
-                        ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>"><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+                        ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>" <?php if($_POST['patient'] == $followPatient['nom_utilisateur']) { echo 'selected'; } ?>><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
                     }
                   ?>
               </select>

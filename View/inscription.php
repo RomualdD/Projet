@@ -1,6 +1,9 @@
 <?php
   include 'header.php';
-  include '../Model/userInsert.php';
+  include '../Model/dataBase.php';
+  include '../Model/users.php';
+  include '../Controller/inscriptionController.php';
+  //include '../Model/userInsert.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container">
@@ -14,7 +17,7 @@
         <div class="row">
           <div class="subtitle col-lg-offset-3"><h3>Informations à renseigner :</h3></div>
         </div>
-        <form method="POST" action="inscription.php" ng-controller='inscriptioncontroller' name='inscription'>
+        <form method="POST" action="inscription.php" name="inscription">
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="name">Nom de famille :</label>
             <div class="input-group name col-lg-offset-3">

@@ -212,6 +212,7 @@
         $errorAddTwoClock='';
         $errorAddThreeClock='';
         $errorAddFourClock='';
+        // -- // Ajout des heures
          if(isset($_POST['valid'])) {
                     $error = 0;
                     if(!empty($_POST['timeverif']) && (!empty($_POST['time'])) && (!empty($_POST['notification'])) && (!empty($_POST['clockone']))) {

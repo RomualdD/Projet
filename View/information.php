@@ -1,7 +1,8 @@
 <?php
     include '../Model/verificationconnexion.php';
     if(isset($_SESSION['user'])) {
-        include '../Model/informationInsert.php';
+        include '../Model/appointments.php';
+        include '../Controller/informationController.php';
 ?>
     <div class="container">
         <div class="row">
@@ -165,9 +166,9 @@
                                         <div class="modal-body">
                                           <div class="row">
                                               <div class="col-lg-offset-1 col-lg-11">
-                                                  <p><?php echo 'Nom du rendez-vous : ';?><input class="col-lg-offset-1 nameappointment" type="text" name="nameappointment" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
-                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" class="col-lg-offset-1 hourappointment" name="hourappointment" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
-                                                <p><?php echo 'Informations consultation : '; ?></p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointment" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
+                                                <p><?php echo 'Nom du rendez-vous : ';?><input class="col-lg-offset-1 nameappointment" type="text" name="nameappointmentforModif" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
+                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" class="col-lg-offset-1 hourappointment" name="hourappointmentforModif" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
+                                                <p><?php echo 'Informations consultation : '; ?></p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
                                               </div>
                                           </div>
                                             <?php
@@ -213,7 +214,7 @@
                                                             <div class="form-inline">
                                                                 <div class="input-group subject">
                                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
-                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="informationappointmentmodif"></textarea>
+                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="infosappointmentmodif"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -224,7 +225,7 @@
                                                         </div>
                                                     </form>
                                                 <?php 
-                                                    include '../Model/ajaxmodifappointment.php';
+                                                   include '../Model/ajaxmodifappointment.php';
                                                 ?>  
                                                 </div>
                                             </div>
@@ -271,7 +272,7 @@
                                                                         </div>
                                                                     </div>                                                                    
                                                                 </form>
-                                                                <?php include '../Model/ajaxaddremarque.php';?> 
+                                                                <?php  include '../Model/ajaxaddremarque.php';?> 
                                                             </div>
                                                         </div>    
                                                     </div><?php

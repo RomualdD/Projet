@@ -1,11 +1,5 @@
 <?php
   include '../Model/bdd.php';
-    $user=$_SESSION['user'];
-    $role = $_SESSION['role'];
-    $pathology = $_SESSION['pathology'];
-    $result = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` ="'.$user.'"');
-    $id = $result->fetch(PDO::FETCH_ASSOC);
-    $id= $id['id'];
  ?>
 <!-- Header connecté -->
 <!DOCTYPE html>
@@ -38,7 +32,7 @@
             <li><a href="information.php" class="col-lg-offset-8">Information</a></li>
             <li><a href="suivi.php" class="col-lg-offset-9">Suivi</a></li>
             <li><a href="contact.php" class="col-lg-offset-9">Contact</a></li>
-            <li><a href="http://diavk/Model/deconnexion.php" class="col-lg-offset-7">Déconnexion</a></li>
+            <li><a href="http://diavk/Controller/deconnexion.php" class="col-lg-offset-7">Déconnexion</a></li>
           </ul>
       </div>
     </header>

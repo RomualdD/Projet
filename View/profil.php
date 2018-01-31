@@ -5,7 +5,9 @@
         exit();
     }
    if(isset($_SESSION['user'])) { 
-       include '../Model/modifprofil.php';
+       include '../Model/follow.php';
+       include '../Model/verification.php';
+       include '../Controller/profilController.php';
 ?>
 <!-- Page profil type -->
     <div class="container">
@@ -18,49 +20,49 @@
           <div class="form-inline">
             <div class="input-group name col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="name" value="<?php echo htmlspecialchars($name); ?>">
+                <input type="text" class="form-control" disabled name="name" value="<?php echo $user->name; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group surname col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="surname" value="<?php echo htmlspecialchars($surname); ?>">
+                <input type="text" class="form-control" disabled name="surname" value="<?php echo $user->firstname; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group birthday col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="birthday" value="<?php echo htmlspecialchars($birthday); ?>">
+                <input type="text" class="form-control" disabled name="birthday" value="<?php echo $user->birthday; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group username col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="username" value="<?php echo htmlspecialchars($user); ?>">
+                <input type="text" class="form-control" disabled name="username" value="<?php echo $user->username; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group mail col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="mail" value="<?php echo htmlspecialchars($mail) ?>">
+                <input type="text" class="form-control" disabled name="mail" value="<?php echo $user->mail; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group phone col-lg-offset-3">
                 <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="phone" value="<?php echo $phone ?>">
+                <input type="text" class="form-control" disabled name="phone" value="<?php echo $user->phone; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group otherphone col-lg-offset-3">
                 <span class="input-group-addon phoneup"><i class="fa fa-mobile" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $otherphone ?>">
+                <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $user->phone2; ?>">
             </div>
           </div>
           <div class="form-inline">
             <div class="input-group pathology col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" disabled name="pathology" value="<?php echo $pathologyname ?>">
+                <input type="text" class="form-control" disabled name="pathology" value="<?php echo $user->pathology; ?>">
             </div>
           </div>
         </div>
@@ -69,8 +71,7 @@
             <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
             <?php 
                 if($pathology == 1 || $pathology == 2) {
-                include '../Model/modifprofilpatient.php';
-                    if($searchinfo->rowCount() == 1) {
+                    if($info != 0) {
             ?>
             <form name="modifverif" method="POST" action="profil.php">
                 <div class="form-inline">
@@ -138,7 +139,7 @@
                 <div class="form-inline">
                   <div class="input-group time col-lg-offset-3">
                       <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                      <input type="text" class="form-control" name="time" placeholder="Première vérification">
+                      <input type="text" class="form-control" name="time" placeholder="Première vérification" required>
                   </div>
                   <div class="info col-lg-offset-3">Format jj/mm/aaaa hh:mm (première vérification sur le site !)</div>
                   <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorDateMsg; ?></p>
@@ -160,13 +161,13 @@
                 }
             }
             elseif($pathology == 3) {
-                include '../Model/modifprofilavk.php';
+                    if($info == 0) {
                 ?>
             <form name="addverif" method="POST" action="profil.php">
                 <div class="form-inline">
                   <div class="input-group clock col-lg-offset-3 col-lg-6">
                       <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <input type="time" class="form-control" name="clock" placeholder="Heure de vérification">
+                      <input type="time" class="form-control" name="clock" placeholder="Heure de vérification" required>
                   </div>
                  <div class="info col-lg-offset-3">Format HH:mm</div>
                  <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorAddOneClock; ?></p>
@@ -174,7 +175,7 @@
                 <div class="form-inline">
                   <div class="input-group time col-lg-offset-3">
                       <span class="input-group-addon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                      <input type="text" class="form-control" name="time" placeholder="Première vérification">
+                      <input type="text" class="form-control" name="time" placeholder="Première vérification" required>
                   </div>
                   <div class="info col-lg-offset-3">Format jj/mm/aaaa h:min (première vérification sur le site !)</div>
                   <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorDateMsg; ?></p>
@@ -192,7 +193,31 @@
                 <input type="submit" value="Valider !" name="valid" class="button btn btn-default col-lg-offset-5">
             </form>
             <p class="successmessage"><?php echo $succesAddmsg; ?></p>
-            <?php                
+            <?php 
+                }
+                else { ?> 
+                <form name="modifverif" method="POST" action="profil.php">
+                    <div class="form-inline">
+                      <div class="input-group clock col-lg-offset-3 col-lg-6">
+                          <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                          <input type="time" class="form-control" name="clock" placeholder="Heure de vérification">
+                      </div>
+                     <div class="info col-lg-offset-3">Format HH:mm</div>
+                     <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorAddOneClock; ?></p>
+                    </div>
+                    <div class="form-inline">
+                      <div class="input-group notif col-lg-offset-3">
+                          <span class="input-group-addon"><i class="fa fa-bell" aria-hidden="true"></i></span>
+                          <select name="notification">
+                            <option>Notifications par :</option>
+                            <option value="SMS">SMS</option>
+                            <option value="Mail">Mail</option>
+                          </select>
+                      </div>
+                    </div>
+                    <input type="submit" value="Valider !" name="modifverif" class="button btn btn-default col-lg-offset-5">
+                </form>
+            <?php }
             }
             ?>
           </div>
@@ -269,11 +294,11 @@
         <div class="row">
           <div class="search col-lg-offset-4">
               <p><?php
-            if($requestfollow->rowCount() == 0){
-                echo 'Vous n\'avez aucune demande !';
-            }
-            else {
-                while($request = $requestfollow->fetch()) {
+              if($requestfollow == 0) {  
+                  echo 'Vous n\'avez aucune demande !';
+              }
+              else {
+                foreach($requestfollow as $request) {
                     $nbquest++;
                 }
                 if($nbquest > 1) {
@@ -281,16 +306,13 @@
                 }
                 else {
                     echo 'Vous avez '.$nbquest.' demande.';
-                }
-        ?>
+                }?>
                 <div class="form-inline">
                   <form method="post" action="demande.php">
                     <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
                   </form>
                 </div>
-        <?php
-            }
-        ?></p>
+                <?php } ?></p>
           </div>
         </div>
         <div>
@@ -309,7 +331,7 @@
         </div>
         <div class="col-lg-offset-2">
             <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané</h4>
-            <img src="../Model/qrcode.php" class="col-lg-offset-3">
+            <img src="../Controller/qrcode.php" class="col-lg-offset-3">
         </div>
     </div>
 <?php

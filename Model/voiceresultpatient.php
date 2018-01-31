@@ -1,6 +1,6 @@
 <?php
     // -- // Recherche patient 
-    $requestfollow = $db->prepare('SELECT `follow_from` = :id OR `follow_to` = :id AS `follow_id`, `nom`, `prenom`, `nom_utilisateur` FROM `follow` LEFT JOIN `utilisateurs` ON `id` = `follow_from` OR `id` = `follow_to` WHERE `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `nom`');    
+    $requestfollow = $db->prepare('SELECT DISTINCT `follow_from` = :id OR `follow_to` = :id AS `follow_id`, `nom`, `prenom`, `nom_utilisateur`,`role` FROM `follow` LEFT JOIN `utilisateurs` ON `id` = `follow_from` OR `id` = `follow_to` WHERE (`follow_from` = :id OR `follow_to` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `nom`');    
     $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
     $requestfollow->bindValue('id',$id, PDO::PARAM_INT);
     $requestfollow->execute();
