@@ -206,6 +206,9 @@
                </tr>
            </tbody>
         </table>
+        <?php 
+          //   include '../Controller/ajaxaddremarque.php';
+        ?>
     </div>
 <?php
 }

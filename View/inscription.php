@@ -3,7 +3,6 @@
   include '../Model/dataBase.php';
   include '../Model/users.php';
   include '../Controller/inscriptionController.php';
-  //include '../Model/userInsert.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container">

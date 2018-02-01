@@ -86,7 +86,7 @@ class users extends dataBase {
      * @return array
      */
     public function getUserInfo() {
-        $infoUser = array();
+        $isCorrect = false;
         $requestInfo = $this->db->prepare('SELECT `nom_utilisateur`,`nom`, `prenom`, DATE_FORMAT(`date_anniversaire`,"%d/%m/%Y") AS `date_anniversaire`, `mail`, `phone`, `phone2`, CASE WHEN `pathologie` = 1 Then \'Diabète Type 1\' WHEN `pathologie` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologieName`  FROM `utilisateurs` WHERE `nom_utilisateur` =:username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
@@ -99,9 +99,10 @@ class users extends dataBase {
                 $this->phone = $infoUser['phone'];
                 $this->phone2 = $infoUser['phone2'];
                 $this->pathology = $infoUser['pathologieName'];
+                $isCorrect = true;
             }           
         }        
-       return $infoUser;
+       return $isCorrect;
     }
     /**
      * Méthode qui récupère le mot de passe pour vérifier si c'est le bon
@@ -188,6 +189,68 @@ class users extends dataBase {
             $doctor = $requestSearchDoctor->fetchAll(PDO::FETCH_ASSOC);
         }
        return $doctor;         
+    }
+    /**
+     * Méthode qui retourne l'id de l'utilisateur a qui on a scanner le QRCode
+     * @return array
+     */
+    public function getIdByQrCode() {
+        $idParam = array();
+        $researchId = $this->db->prepare('SELECT `id` FROM `utilisateurs` WHERE qrcode = :qrcode');
+        $researchId->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
+        if($researchId->execute()) {
+            $idParam = $researchId->fetch(PDO::FETCH_ASSOC);            
+        }
+        return $idParam;     
+    }
+    /**
+     * Méthode cherchant les informations importantes pour un envoie de mail et leur date de vérification
+     * @return array
+     */
+    public function getInfoAndVerification() {
+        $mail = array();
+        $requestmail = $this->db->query('SELECT `nom`, `prenom`, `mail`, `date_verification` FROM `utilisateurs` LEFT JOIN `verification` ON `id_utilisateur` = id');
+        if(is_object($requestmail)) {
+            $mail = $requestmail->fetchAll(PDO::FETCH_ASSOC);         
+        }
+        return $mail;
+    }
+    /**
+     * Méthode récupération des informations importantes pour l'envoie de mail et la date du rendez_vous
+     * @return array
+     */
+    public function getInfoAndAppointment() {
+        $mail = array();
+        $requestmailappointment = $this->db->query('SELECT `nom`, `prenom`, `mail`, `date_rendez_vous`,`heure_rendez_vous`,`nom_rendez_vous`,`infos_complementaire` FROM `utilisateurs` LEFT JOIN `rendez_vous` ON `rendez_vous`.`id_utilisateur` = `utilisateurs`.`id`');
+        if(is_object($requestmailappointment)) {
+            $mail = $requestmailappointment->fetchAll(PDO::FETCH_ASSOC);                
+        }
+        return $mail;
+    }
+    /**
+     * Récupère les informations si la clé est actif
+     * @return array
+     */
+    public function getCleVerifActif() {
+        $isCorrect = false;
+        $recupcle = $this->db->prepare('SELECT `cleverif`, `actif` FROM `utilisateurs` WHERE `nom_utilisateur` = :user');
+        $recupcle->bindValue('user',$this->username,PDO::PARAM_STR);
+        if($recupcle->execute()) {
+            $cle = $recupcle->fetch();
+            $this->cleverif = $cle['cleverif'];
+            $this->actif = $cle['actif'];
+            $isCorrect = true;
+        }
+        return $isCorrect;
+    }
+    /**
+     * Méthode qui modifie le compte de l'utilisateur en actif
+     * @return bool
+     */
+    public function updateActif() {
+        $modifActif = $this->db->prepare('UPDATE `utilisateurs` SET `actif` = 1 WHERE `nom_utilisateur` = :user ');
+        $modifActif->bindValue(':user', $this->username,PDO::PARAM_STR);
+        return $modifActif->execute();
     }
     
     public function __destruct() {

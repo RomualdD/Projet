@@ -4,6 +4,7 @@
           $errorMail = '';
           $errorMessage = '';
           $errorSubject = '';
+          $succesMsg = '';
             if(isset($_POST['submit'])) {
                 if(!empty($_POST['name']) && (!empty($_POST['mail'])) && (!empty($_POST['subject'])) && (!empty($_POST['message']))) {
                     if(preg_match('#^[a-zA-Z]{1,50}+ [a-zA-Z]{3,50}$#',$_POST['name']) || (preg_match('#^[a-zA-Z]{3,50}$#',$_POST['name']))) {
@@ -36,7 +37,6 @@
                     }
                     
                     if($error == 0) {
-                        
                         $message = strip_tags($_POST['message']);
                         $recipient = 'inscriptiondiavk@gmail.com';
                         $entete = 'From: '.$mail;
@@ -45,6 +45,10 @@
                                     .' Message :'.$message;
                         mail($recipient, $subject,$message,$entete);
                         $succesMsg = 'Le mail a bien était envoyé, vous aurez bientôt une réponse.'; 
+                        $_POST['name'] = '';
+                        $_POST['mail'] = '';
+                        $_POST['subject'] = '';
+                        $_POST['message'] = '';
                     }  
                 }
                 else {

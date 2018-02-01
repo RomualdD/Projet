@@ -67,9 +67,7 @@
                                                             </div>
                                                         </div>
                                                     </form>
-                                                <?php 
-                                                   include '../Controller/ajaxmodifappointment.php';
-                                                ?>  
+
                                                 </div>
                                             </div>
                                           <hr>
@@ -128,3 +126,8 @@
                                       </div>
                                     </div>
                                   </div>
+                                    <?php 
+                                       include '../Controller/ajaxmodifappointment.php';
+                                       include '../Controller/ajaxaddremarque.php';
+                                       include '../Controller/ajaxsupprapointment.php';
+                                    ?>  

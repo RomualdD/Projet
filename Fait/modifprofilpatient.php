@@ -1,15 +1,12 @@
 <?php
-    $verification = new verification();
-    $follow = new follow();
-    $user = new users();
-    $user->username = $_SESSION['user'];
-    $requestInfo = $user->getUserInfo();
-// -- // Information des résultats
-    $follow->id = $id;
-    $verification->userId = $id;
-    $info = $verification->getVerification();
-// -- // Modification vérification
+     // -- // Modification vérification
     if($pathology == 1 || $pathology == 2) {
+        $searchinfo = $db->prepare('SELECT `verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
+        $searchinfo->bindValue('id',$id,PDO::PARAM_INT);
+        $searchinfo->execute();
+        if($searchinfo->rowCount() == 1) {
+            $info=$searchinfo->fetch();
+        }
         $successModifMsg='';
         $errorModifOneClock='';
         $errorModifTwoClock='';
@@ -19,21 +16,21 @@
             $error=0;
             if(!empty($_POST['timeverif']) ||(!empty($_POST['notification']))||(!empty($_POST['clockone']))||(!empty($_POST['clocktwo']))||(!empty($_POST['clockthree']))||(!empty($_POST['clockfour']))) {
                 if(!empty($_POST['notification'])) {
-                    $verification->notification = $_POST['notification'];
+                    $notif=$_POST['notification'];
                 }
                 else {
-                    $verification->notification = $info['notification'];
+                    $notif = $info['notification'];
                 }
                 if(!empty($_POST['timeverif'])) {
-                    $verification->verification = $_POST['timeverif'];  
+                    $verif = $_POST['timeverif'];  
                 }
                 else {
-                    $verification->verification = $info['verification'];
+                    $verif = $info['verification'];
                 }
                 if(!empty($_POST['clockone'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                        $verification->oneclock = $_POST['clockone']; 
-                        $clockfirst=explode(':', $verification->oneclock);
+                        $oneclock = $_POST['clockone']; 
+                        $clockfirst=explode(':', $oneclock);
                         $firstHour = $clockfirst['0'];
                         $firstMin = $clockfirst['1'];                                        
                     }
@@ -43,15 +40,15 @@
                     }
                 }    
                 else {
-                    $verification->oneclock = $info['Heure1'];
-                    $clockfirst=explode(':', $verification->oneclock);
+                    $oneclock = $info['Heure1'];
+                    $clockfirst=explode(':', $oneclock);
                     $firstHour = $clockfirst['0'];
                     $firstMin = $clockfirst['1'];                                           
                 }                                    
                 if(!empty($_POST['clocktwo'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo'])) {                                
-                        $verification->twoclock = $_POST['clocktwo'];
-                        $clocksecond=explode(':', $verification->twoclock);
+                        $twoclock = $_POST['clocktwo'];
+                        $clocksecond=explode(':', $twoclock);
                         $secondHour = $clocksecond['0'];
                         $secondMin = $clocksecond['1'];                                        
                     }
@@ -61,9 +58,9 @@
                     }
                 }
                 else {
-                    $verification->twoclock = $info['Heure2'];
-                    if($verification->twoclock != '') {
-                       $clocksecond=explode(':', $verification->twoclock);
+                    $twoclock = $info['Heure2'];
+                    if($twoclock != '') {
+                       $clocksecond=explode(':', $twoclock);
                        $secondHour = $clocksecond['0'];
                        $secondMin = $clocksecond['1'];                                        
                     }
@@ -74,8 +71,8 @@
                 }
                 if(!empty($_POST['clockthree'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree'])) {                                
-                        $verification->threeclock = $_POST['clockthree'];
-                        $clockthree=explode(':', $verification->threeclock);
+                        $threeclock = $_POST['clockthree'];
+                        $clockthree=explode(':', $threeclock);
                         $threeHour = $clockthree['0'];
                         $threeMin = $clockthree['1'];                                        
                     }
@@ -85,9 +82,9 @@
                     }
                 }
                 else {
-                    $verification->threeclock = $info['Heure3'];
-                    if($verification->threeclock != '' ) {
-                       $clockthree=explode(':', $verification->threeclock);
+                    $threeclock = $info['Heure3'];
+                    if($threeclock != '' ) {
+                       $clockthree=explode(':', $threeclock);
                        $threeHour = $clockthree['0'];
                        $threeMin = $clockthree['1'];                                       
                     }
@@ -98,8 +95,8 @@
                 }
                 if(!empty($_POST['clockfour'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour'])) {                                                                        
-                        $verification->fourclock = $_POST['clockfour'];
-                        $clockfour=explode(':', $verification->fourclock);
+                        $fourclock = $_POST['clockfour'];
+                        $clockfour=explode(':', $fourclock);
                         $fourHour = $clockfour['0'];
                         $fourMin = $clockfour['1'];                                          
                     }
@@ -109,9 +106,9 @@
                     }                                        
                 }
                 else {
-                    $verification->fourclock = $info['Heure4'];
-                    if($verification->fourclock != '') {
-                        $clockfour=explode(':', $verification->fourclock);
+                    $fourclock = $info['Heure4'];
+                    if($fourclock != '') {
+                        $clockfour=explode(':', $fourclock);
                         $fourHour = $clockfour['0'];
                         $fourMin = $clockfour['1'];                                          
                     }
@@ -124,9 +121,9 @@
                 for($testverification=0 ; $testverification <= 4 ; $testverification++) {            
                     if($firstHour == $secondHour) {
                         if($firstMin > $secondMin) {
-                            $clocktemp = $verification->twoclock;
-                            $verification->twoclock = $verification->oneclock;
-                            $verification->oneclock = $clocktemp;
+                            $clocktemp = $twoclock;
+                            $twoclock = $oneclock;
+                            $oneclock = $clocktemp;
                             $hourtemp = $secondHour;
                             $secondHour = $firstHour;
                             $firstHour = $hourtemp;
@@ -136,9 +133,9 @@
                         }
                     }
                     if($firstHour > $secondHour) {
-                        $clocktemp = $verification->twoclock;
-                        $verification->twoclock = $verification->oneclock;
-                        $verification->oneclock = $clocktemp;
+                        $clocktemp = $twoclock;
+                        $twoclock = $oneclock;
+                        $oneclock = $clocktemp;
                         $hourtemp = $secondHour;
                         $secondHour = $firstHour;
                         $firstHour = $hourtemp;
@@ -148,9 +145,9 @@
                     }
                     if($secondHour == $threeHour) {
                         if($secondMin > $threeMin) {
-                            $clocktemp = $verification->threeclock;
-                            $verification->threeclock = $verification->twoclock;
-                            $verification->twoclock = $clocktemp;
+                            $clocktemp = $threeclock;
+                            $threeclock = $twoclock;
+                            $twoclock = $clocktemp;
                             $hourtemp = $threeHour;
                             $threeHour = $secondHour;
                             $secondHour = $hourtemp; 
@@ -160,9 +157,9 @@
                         }
                     }
                     if($secondHour > $threeHour) {
-                        $clocktemp = $verification->threeclock;
-                        $verification->threeclock = $verification->twoclock;
-                        $verification->twoclock = $clocktemp;
+                        $clocktemp = $threeclock;
+                        $threeclock = $twoclock;
+                        $twoclock = $clocktemp;
                         $hourtemp = $threeHour;
                         $threeHour = $secondHour;
                         $secondHour = $hourtemp; 
@@ -172,9 +169,9 @@
                     }
                     if($threeHour == $fourHour) {
                         if($threeMin > $fourMin) {
-                            $clocktemp = $verification->fourclock;
-                            $verification->fourclock = $verification->threeclock;
-                            $verification->threeclock = $clocktemp;
+                            $clocktemp = $fourclock;
+                            $fourclock = $threeclock;
+                            $threeclock = $clocktemp;
                             $hourtemp = $fourHour;
                             $fourHour = $threeHour;
                             $threeHour = $hourtemp;
@@ -184,9 +181,9 @@
                         }
                     }
                     if($threeHour > $fourHour) {
-                        $clocktemp = $verification->fourclock;
-                        $verification->fourclock = $verification->threeclock;
-                        $verification->threeclock = $clocktemp;
+                        $clocktemp = $fourclock;
+                        $fourclock = $threeclock;
+                        $threeclock = $clocktemp;
                         $hourtemp = $fourHour;
                         $fourHour = $threeHour;
                         $threeHour = $hourtemp;  
@@ -196,7 +193,15 @@
                     }
                 }                                
                 if($error == 0) { 
-                    $verification->updateVerification();
+                    $modifverification = $db->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
+                    $modifverification->bindValue('verif',$verif,PDO::PARAM_STR);
+                    $modifverification->bindValue('notif',$notif,PDO::PARAM_INT);
+                    $modifverification->bindValue('oneclock',$oneclock,PDO::PARAM_STR);
+                    $modifverification->bindValue('twoclock',$twoclock,PDO::PARAM_STR);
+                    $modifverification->bindValue('threeclock',$threeclock,PDO::PARAM_STR);
+                    $modifverification->bindValue('fourclock',$fourclock,PDO::PARAM_STR);
+                    $modifverification->bindValue('id',$id,PDO::PARAM_INT);
+                    $modifverification->execute();
                     $successModifMsg = 'Les modifications sont bien prises en compte !';
                 }
             }
@@ -207,12 +212,12 @@
         $errorAddTwoClock='';
         $errorAddThreeClock='';
         $errorAddFourClock='';
-// -- // Ajout des heures
+        // -- // Ajout des heures
          if(isset($_POST['valid'])) {
                     $error = 0;
                     if(!empty($_POST['timeverif']) && (!empty($_POST['time'])) && (!empty($_POST['notification'])) && (!empty($_POST['clockone']))) {
-                        $verification->verification = $_POST['timeverif'];
-                        if(preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
+                        $timeverif = $_POST['timeverif'];
+                        if(preg_match('#^[0-2]{1}[0-9]{1}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[3]{1}[0-1]{1}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
                             $time = $_POST['time'];
                             //On récupère la date
                             $verif = explode(' ', $time);
@@ -221,21 +226,21 @@
                             // On met dans le format date SQ
                             $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
                             $firstverif =  $dt->format('Y-m-d');
-                            $verification->dateverification = $firstverif.' '.$hourverif;
+                            $time = $firstverif.' '.$hourverif;
                         }
                         else {
                             $errorDateMsg= 'Le format demandé est jj/mm/YYYY hh:mm';
                             $error++;
                         }
                         if($_POST['notification'] == 'SMS') {
-                            $verification->notification = 0;
+                            $notification = 0;
                         }
                         else {
-                            $verification->notification = 1;
+                            $notification = 1;
                         }
                         if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']))) {
-                            $verification->oneclock = $_POST['clockone']; 
-                            $clockfirst=explode(':', $verification->oneclock);
+                            $oneclock = $_POST['clockone']; 
+                            $clockfirst=explode(':', $oneclock);
                             $firstHour = $clockfirst['0'];
                             $firstMin = $clockfirst['1'];     
                         }
@@ -247,8 +252,8 @@
                         }
                         if(!empty($_POST['clocktwo'])) {
                             if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clocktwo']))) {                                
-                                $verification->twoclock = $_POST['clocktwo'];
-                                $clocksecond=explode(':', $verification->twoclock);
+                                $twoclock = $_POST['clocktwo'];
+                                $clocksecond=explode(':', $twoclock);
                                 $secondHour = $clocksecond['0'];
                                 $secondMin = $clocksecond['1'];  
                         }
@@ -258,14 +263,14 @@
                             }
                         }
                         else {
-                            $verification->twoclock = '';
+                            $twoclock = '';
                             $secondHour = 24;
                             $secondMin = 59;
                         }
                         if(!empty($_POST['clockthree'])) {
                             if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockthree']))) {                                
-                                $verification->threeclock = $_POST['clockthree'];
-                                $clockthree=explode(':', $verification->threeclock);
+                                $threeclock = $_POST['clockthree'];
+                                $clockthree=explode(':', $threeclock);
                                 $threeHour = $clockthree['0'];
                                 $threeMin = $clockthree['1']; 
                             }
@@ -275,14 +280,14 @@
                             }
                         }
                         else {
-                            $verification->threeclock = '';
+                            $threeclock = '';
                             $threeHour = 24;
                             $threeMin = 59; 
                         }
                         if(!empty($_POST['clockfour'])) {
                             if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockfour']))) {                                                                        
-                                $verification->fourclock = $_POST['clockfour']; 
-                                $clockfour=explode(':', $verification->fourclock);
+                                $fourclock = $_POST['clockfour']; 
+                                $clockfour=explode(':', $fourclock);
                                 $fourHour = $clockfour['0'];
                                 $fourMin = $clockfour['1'];     
                             }
@@ -292,49 +297,31 @@
                             }
                         }
                         else {
-                            $verification->fourclock = '';
+                            $fourclock = '';
                             $fourHour = 0;
                             $fourMin = 0; 
                         }                            
-                        if($verification->oneclock > $verification->twoclock && $verification->twoclock != '') {
-                            $clocktemp = $verification->twoclock;
-                            $verification->twoclock = $verification->oneclock;
-                            $verification->oneclock = $clocktemp;
-                            $hourtemp = $secondHour;
-                            $secondHour = $firstHour;
-                            $firstHour = $hourtemp;
-                            $mintemp = $secondMin;
-                            $secondMin = $firstMin;
-                            $firstMin = $mintemp;
+                        if($oneclock > $twoclock && $twoclock != '') {
+                            $clocktemp = $twoclock;
+                            $twoclock = $oneclock;
+                            $oneclock = $clocktemp;
                         }
-                        elseif($verification->twoclock > $verification->threeclock && $verification->threeclock != '') {
-                            $clocktemp = $verification->threeclock;
-                            $verification->threeclock = $verification->twoclock;
-                            $verification->twoclock = $clocktemp;  
-                            $hourtemp = $threeHour;
-                            $threeHour = $secondHour;
-                            $secondHour = $hourtemp; 
-                            $mintemp = $threeMin;
-                            $threeMin = $secondMin;
-                            $secondMin = $mintemp;                              
+                        elseif($twoclock > $threeclock && $threeclock != '') {
+                            $clocktemp = $threeclock;
+                            $threeclock = $twoclock;
+                            $twoclock = $clocktemp;                            
                         }
-                        elseif($verification->threeclock > $verification->fourclock && $verification->fourclock != '') {
-                            $clocktemp = $verification->fourclock;
-                            $verification->fourclock = $verification->threeclock;
-                            $verification->threeclock = $clocktemp;
-                            $hourtemp = $fourHour;
-                            $fourHour = $threeHour;
-                            $threeHour = $hourtemp;
-                            $mintemp = $fourMin;
-                            $fourMin = $threeMin;
-                            $threeMin = $mintemp;                            
+                        elseif($threeclock > $fourclock && $fourclock != '') {
+                            $clocktemp = $fourclock;
+                            $fourclock = $threeclock;
+                            $threeclock = $clocktemp;                            
                         }
-                        for($testverification=0 ; $testverification <= 5 ; $testverification++) {            
+                        for($testverification=0 ; $testverification <= 4 ; $testverification++) {            
                             if($firstHour == $secondHour) {
                                 if($firstMin > $secondMin) {
-                                    $clocktemp = $verification->twoclock;
-                                    $verification->twoclock = $verification->oneclock;
-                                    $verification->oneclock = clocktemp;
+                                    $clocktemp = $twoclock;
+                                    $twoclock = $oneclock;
+                                    $oneclock = $clocktemp;
                                     $hourtemp = $secondHour;
                                     $secondHour = $firstHour;
                                     $firstHour = $hourtemp;
@@ -344,9 +331,9 @@
                                 }
                             }
                             if($firstHour > $secondHour) {
-                                $clocktemp = $verification->twoclock;
-                                $verification->twoclock = $verification->oneclock;
-                                $verification->oneclock = $clocktemp;
+                                $clocktemp = $twoclock;
+                                $twoclock = $oneclock;
+                                $oneclock = $clocktemp;
                                 $hourtemp = $secondHour;
                                 $secondHour = $firstHour;
                                 $firstHour = $hourtemp;
@@ -356,9 +343,9 @@
                             }
                             if($secondHour == $threeHour) {
                                 if($secondMin > $threeMin) {
-                                    $clocktemp = $verification->threeclock;
-                                    $verification->threeclock = $verification->twoclock;
-                                    $verification->twoclock = $clocktemp;
+                                    $clocktemp = $threeclock;
+                                    $threeclock = $twoclock;
+                                    $twoclock = $clocktemp;
                                     $hourtemp = $threeHour;
                                     $threeHour = $secondHour;
                                     $secondHour = $hourtemp; 
@@ -368,9 +355,9 @@
                                 }
                             }
                             if($secondHour > $threeHour) {
-                                $clocktemp = $verification->threeclock;
-                                $verification->threeclock = $verification->twoclock;
-                                $verification->twoclock = $clocktemp;
+                                $clocktemp = $threeclock;
+                                $threeclock = $twoclock;
+                                $twoclock = $clocktemp;
                                 $hourtemp = $threeHour;
                                 $threeHour = $secondHour;
                                 $secondHour = $hourtemp; 
@@ -380,9 +367,9 @@
                             }
                             if($threeHour == $fourHour) {
                                 if($threeMin > $fourMin) {
-                                    $clocktemp = $verification->fourclock;
-                                    $verification->fourclock = $verification->threeclock;
-                                    $verification->threeclock = $clocktemp;
+                                    $clocktemp = $fourclock;
+                                    $fourclock = $threeclock;
+                                    $threeclock = $clocktemp;
                                     $hourtemp = $fourHour;
                                     $fourHour = $threeHour;
                                     $threeHour = $hourtemp;
@@ -392,130 +379,37 @@
                                 }
                             }
                             if($threeHour > $fourHour) {
-                                $clocktemp = $verification->fourclock;
-                               $verification->fourclock = $verification->threeclock;
-                               $verification->threeclock = $clocktemp;
-                               $hourtemp = $fourHour;
-                               $fourHour = $threeHour;
-                               $threeHour = $hourtemp;  
-                               $mintemp = $fourMin;
-                               $fourMin = $threeMin;
-                               $threeMin = $mintemp;                                           
+                                $clocktemp = $fourclock;
+                                $fourclock = $threeclock;
+                                $threeclock = $clocktemp;
+                                $hourtemp = $fourHour;
+                                $fourHour = $threeHour;
+                                $threeHour = $hourtemp;  
+                                $mintemp = $fourMin;
+                                $fourMin = $threeMin;
+                                $threeMin = $mintemp;                                           
                             }
                         }                             
                         if($error == 0) {
-                            $verification->addVerificationDiabete();
+                            $requestverif = $db->prepare('INSERT INTO `verification`(`id_utilisateur`, `verification`, `Heure1`, `Heure2`, `Heure3`, `Heure4`, `notification`, `date_verification`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
+                            $requestverif->execute(array(
+                                'id' => $id,
+                                'verification' => $timeverif,
+                                'hour1' => $oneclock,
+                                'hour2' => $twoclock,
+                                'hour3' => $threeclock,
+                                'hour4' => $fourclock,
+                                'notification' => $notification,
+                                'dateverification' => $time
+                            ));
                             $succesAddmsg= 'L\'ajout sont prises en compte !';
                         }
                     }
                     else {
-                        $error = 'Les champs ne sont pas tous remplis !';
+                        ?><p><?php
+                        echo 'Les champs ne sont pas tous remplis !';
+                        ?></p><?php
                     }
                 }
-        }
-        // -- // Profil Avk
-        elseif($pathology == 3) {
-            $error = 0;
-            $succesAddmsg='';
-            $errorDateMsg='';
-            $errorAddOneClock='';
-            if(isset($_POST['valid'])) {
-                if(isset($_POST['time']) && (isset($_POST['notification'])) && (isset($_POST['clock']))) {
-                        if($_POST['notification'] == 'SMS') {
-                            $verification->notification = 0;
-                        }
-                        else {
-                            $verification->notification = 1;
-                        }
-                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                            $verification->oneclock = $_POST['clockone'];    
-                        }
-                        else {
-                            $errorAddOneClock = 'Le format demandé est hh:mm';
-                            $error++;
-                        }
-                        if(preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])){
-                            $time = $_POST['time'];
-                            //On récupère la date
-                            $verif = explode(' ', $time);
-                            $firstverif = $verif['0'];
-                            $hourverif = $verif['1'];
-                            // On met dans le format date SQ
-                            $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
-                            $firstverif =  $dt->format('Y-m-d');
-                            $verification->dateverification = $firstverif.' '.$hourverif;
-                        }
-                        else {
-                            $errorDateMsg = 'Le format demandé est jj/mm/YYYY hh:mm';
-                            $error++;
-                        }
-                        if($error == 0) {
-                            $verification->addVerificationAvk();
-                            $succesAddmsg = 'Les modifications sont prises en compte !';
-                        }
-                }
-                else {
-                    echo 'Les champs ne sont pas tous remplis !';
-                }
-            }
-            if(isset($_POST['modifverif'])) {
-                if(isset($_POST['notification']) || (isset($_POST['clock']))) {
-                    if($_POST['notification'] == 'SMS') {
-                        $verification->notification = 0;
-                    }
-                    elseif($_POST['notification'] == 'Mail') {
-                        $verification->notification = 1;
-                    }
-                    else {
-                        $verification->notification = $info['notification'];
-                    }
-                    if(!empty($_POST['clock'])) {
-                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clock']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clock']))) {
-                            $verification->oneclock = $_POST['clock'];    
-                        }
-                        else {
-                            $errorAddOneClock = 'Le format demandé est hh:mm';
-                            $error++;
-                        }  
-                    }
-                    else {
-                       $verification->oneclock = $info['Heure1']; 
-                    }
-                    if($error == 0) {
-                        $verification->updateVerificationAvk();
-                        $succesAddmsg = 'Les modifications sont prises en compte !';
-                    }
-                }
-            }
-        }
-// -- // Modification du profil
-    $successMsg = '';
-    $errorPassword = '';
-    $errorPasswordFalse = '';
-    $nbquest = 0;
-    if(isset($_POST['submitmodifpassword'])) {
-        if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
-            $recuppassword = $user->getPassword();
-            $password = sha1(md5($_POST['password']));
-            if ($password == $recuppassword['mot_de_passe']) {
-                $newpassword = sha1(md5($_POST['newpassword']));
-                $newpasswordverif = sha1(md5($_POST['passwordverif']));
-                if ($newpassword == $newpasswordverif) {
-                    $user->modifPassword();
-                    $successMsg = 'Le mot de passe a bien était modifié !';
-                }
-                else {
-                    $errorPassword = 'Les mots de passes ne sont pas identiques !';
-                }
-            }
-            else {
-                $errorPasswordFalse = 'Ce n\'est pas votre mot de passe !';
-            }
-        }
-        else {
-            echo 'Les champs ne sont pas tous remplis !';
-        }
-    }
-// -- // Recherche demande suivi    
-$requestfollow = $follow->getFollowQuest();
-
+        }    
+?>

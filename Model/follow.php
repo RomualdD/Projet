@@ -51,7 +51,7 @@ class follow extends dataBase{
      */
     public function addFollow() {
         $requestadd = $this->db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
-        $requestadd->bindValue('id',$this->id,PDO::PARAM_INT);
+        $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
         $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $requestadd->bindValue('confirm','0',PDO::PARAM_INT);
         return $requestadd->execute();
@@ -91,7 +91,10 @@ class follow extends dataBase{
         }
         return $follow;
     }
-    
+    /**
+     * Méthode permet de voir le graphique de l'utilisateur tout en vérifiant si l'utilisateur entré est bien suivi
+     * @return array
+     */
     public function getRateGraphicForDoctor() {
         $rateGraphic = array();
         $requestsearch = $this->db->prepare('SELECT DISTINCT DATE_FORMAT(`date_du_jour`,"%d/%m/%Y %H:%i") AS date_now, `resultat` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm AND `date_du_jour` BETWEEN :firstdate AND :secondedate ');  
@@ -106,7 +109,10 @@ class follow extends dataBase{
         }
         return $rateGraphic;
     }
-    
+    /**
+     * Méthode permet de voir le tableau de l'utilisateur tout en vérifiant si l'utilisateur entré est bien suivi
+     * @return array
+     */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
         $requestsearcharray = $this->db->prepare('SELECT DISTINCT `date_du_jour`,DATE_FORMAT(`date_du_jour`,"%d/%m/%Y %H:%i") AS `date_now`, `resultat`, DATE_FORMAT(`date_prochaine_verif`,"%d/%m/%Y %H:%i") AS `date_prochaine_verif` FROM `suivis` LEFT JOIN `utilisateurs` ON `suivis`.`id_utilisateur` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `nom_utilisateur` = :user AND `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm ORDER BY `date_du_jour` DESC');
@@ -119,6 +125,20 @@ class follow extends dataBase{
             $rateArray = $requestsearcharray->fetchAll(PDO::FETCH_ASSOC);
         }
         return $rateArray;
+    }
+    /**
+     * Méthode qui vérifie si il y'a déjà un suivi
+     * 
+     */
+    public function getFollowAlready() {
+        $verif = array();
+        $verifFollow = $this->db->prepare('SELECT `follow_confirm` FROM `follow` WHERE (`follow_to` = :id_to OR `follow_from` = :id_to) AND (`follow_to` = :id_from OR `follow_from` = :id_from)');
+        $verifFollow->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
+        $verifFollow->bindValue('id_from', $this->follow_from,PDO::PARAM_INT);
+        if($verifFollow->execute()) {
+            $verif = $verifFollow->fetchColumn();        
+        }
+        return $verif;
     }
     
     public function __destruct() {

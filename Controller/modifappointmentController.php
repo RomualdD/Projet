@@ -8,7 +8,7 @@
     $userId = $users->getUserId();
     $id = $userId['id'];
     $appointment = new appointments();
-    if(!empty($_POST['dayappointmentmodif']) || (!empty($_POST['nameappointmentmodif'])) || (!empty($_POST['hourappointmentmodif'])) || (!empty($_POST['infosappointmentmodif']))) {  
+    if(!empty($_POST['dayappointmentmodif']) || (!empty($_POST['nameappointmentmodif'])) || (!empty($_POST['hourappointmentmodif'])) || (!empty($_POST['infosappointmentmodif'])) && (!empty($_POST['modifappointment']))) {  
         $appointment->userId = $id;
         // Récupération des informations du rendez-vous actuel
         $appointment->nameappointment = strip_tags($_POST['name']);
@@ -78,7 +78,7 @@
         echo 'Failed';
     }  
 // -- // Notes à ajouter après rendez-vous
-    if(!empty($_POST['remarque'])) {
+    if(!empty($_POST['remarque']) && (!empty($_POST['addremarque']))) {
         // Récupération des champs du rendez-vous + Ajout de la note
         $appointment->remarqueappointment = strip_tags($_POST['remarque']);
         $appointment->nameappointment = strip_tags($_POST['name']);

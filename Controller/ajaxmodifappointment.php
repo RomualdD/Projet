@@ -10,7 +10,8 @@
                         infosappointmentmodif : $('#info<?php echo $nbmodal;?>').val(),
                         name : $('#nameappointment<?php echo $nbmodal;?>').val(),
                         hour : $('#hourappointment<?php echo $nbmodal;?>').val(),
-                        infos : $('#infoappointment<?php echo $nbmodal;?>').val()
+                        infos : $('#infoappointment<?php echo $nbmodal;?>').val(),
+                        modifappointment : 'modifappointment'
                     },
                     function(data) {
                         if(data == 'Success') {

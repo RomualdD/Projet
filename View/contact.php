@@ -1,12 +1,6 @@
 <?php
-session_start();
-if(!isset($_SESSION['user'])) {
-    include 'header.php';
-}
-else {
-    include 'header1.php';
-}
-include '../Model/mailcontact.php';
+include '../Controller/verificationconnexion.php';
+include '../Controller/contactController.php';
 ?>
 <!-- Page contact -->
   <div class="container">
@@ -53,6 +47,7 @@ include '../Model/mailcontact.php';
             </div>
             <input type="submit" value="Envoyez votre message !" class="button btn btn-default col-lg-offset-4" name="submit">
           </form>
+          <p class="successmessage"><?php echo $succesMsg; ?></p>
       </div>
     </div>
   </div>

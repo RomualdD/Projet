@@ -1,7 +1,3 @@
-<?php
-  include '../Model/bdd.php';
-?>
-
 <!-- Header non connecté -->
 <!DOCTYPE html>
 <html lang="fr">
