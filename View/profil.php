@@ -245,11 +245,11 @@
                       <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                       <input type="password" class="form-control" name="passwordverif" placeholder="Vérification nouveau mot de passe">
                     </div>
-                    <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorPassword ?></p>
+                    <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorPassword; ?></p>
                   </div>
                 <input type="submit" value="Valider !" name="submitmodifpassword" class="button btn btn-default col-lg-offset-5">
             </form>
-            <p class="successmessage"><?php echo $successMsg; ?></p>
+            <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successMsg; ?></p>
           </div>
             <div class="row">
               <form name="modifmail" method="POST" action="profil.php">
@@ -259,9 +259,11 @@
                     <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newmail" placeholder="Nouvelle adresse mail">
                   </div>
+                    <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageMail; ?></p>                   
                 </div>
                 <input type="submit" value="Modifier !" name="modificatemail" class="button btn btn-default col-lg-offset-5">
               </form>
+              <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successModifMail; ?></p>                
             </div>
             <div class="row">
                 <form name="modifnum" method="POST" action="profil.php">
@@ -271,9 +273,11 @@
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="modificatenum" placeholder="Modifier numéro de téléphone">
                   </div>
+                    <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePhone; ?></p>                
                 </div>
                 <input type="submit" value="Modifier !" name="submitmodificatenum" class="button btn btn-default col-lg-offset-5">
               </form>
+              <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successModifPhone; ?></p>                
             </div>
             <div class="row">
                 <form name="addnum" method="POST" action="profil.php">
@@ -283,9 +287,11 @@
                     <span class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" name="newnum" placeholder="Nouveau numéro de téléphone">
                   </div>
+                    <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePhone2; ?></p>                
                 </div>
                 <input type="submit" value="Ajouter !" name="addnum" class="button btn btn-default col-lg-offset-5">
               </form>
+              <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successAddPhone; ?></p>
             </div>
           </div>
         </div>
@@ -334,7 +340,7 @@
                     <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre patient :</label>                                                        
                     <div class="input-group search col-lg-offset-4">
                         <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                        <input type="text" class="form-control" name="name" placeholder="Chercher votre patient">
                     </div>
                 </div>
                 <div class="form-inline col-lg-offset-4">
@@ -344,7 +350,7 @@
             <?php  } ?>
         </div>
         <div class="col-lg-offset-3">
-    <?php if($_SESSION['role']!=0) {  ?>
+    <?php if($_SESSION['role'] != 0) {  ?>
             <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané : </h4>
             <?php }
             else { ?>

@@ -19,6 +19,7 @@ class suivis extends dataBase{
     public function __construct() {
         parent::__construct();
     }
+// -- // Ajout    
     /**
      * Méthode permettant d'ajouter le résultat du patient
      * @return bool
@@ -31,11 +32,12 @@ class suivis extends dataBase{
         $requestAddRate->bindValue('futureverif', $this->datefutureverif,PDO::PARAM_STR);
         return $requestAddRate->execute();
     }
+// -- // Sélection    
     /**
      * Méthode qui permet de trouver le résultat de l'utilisateur a une date précise
      * @return array
      */
-    public function searchResultByDateverif() {
+    public function getResultByDateverif() {
         $verifresul = array();
         $requestverifresult = $this->db->prepare('SELECT `resultat` FROM `suivis` WHERE `id_utilisateur` = :id AND `date_prochaine_verif` = :futuredate');
         $requestverifresult->bindValue('id',$this->userId,PDO::PARAM_INT);
@@ -46,21 +48,10 @@ class suivis extends dataBase{
         return $verifresult;
     }
     /**
-     * Méthode qui modifie le résultat si le résultat est différent de celui qui correspond à celui qui correspond avec la prochaine date
-     * @return bool
-     */
-    public function updateRate() {
-        $requestModifRate = $this->db->prepare('UPDATE `suivis` SET `resultat` = :result WHERE `id_utilisateur` = :id AND `date_prochaine_verif` = :futureverif');
-        $requestModifRate->bindValue('result',$this->rate,PDO::PARAM_STR);
-        $requestModifRate->bindValue('id',$this->userId,PDO::PARAM_INT);
-        $requestModifRate->bindValue('futureverif',$this->datefutureverif,PDO::PARAM_STR);
-        return $requestModifRate->execute();
-    }
-    /**
      * Méthode pour trouver la date du jour
      * @return array
      */
-    public function searchDateDay() {
+    public function getDateDay() {
         $date = array();
         $resultdate = $this->db->prepare('SELECT `date_du_jour` FROM `suivis` WHERE `id_utilisateur`= :id');
         $resultdate->bindValue('id',$this->userId,PDO::PARAM_INT);
@@ -142,7 +133,18 @@ class suivis extends dataBase{
         }
        return $graphic;
     }
-    
+// -- // Modification    
+    /**
+     * Méthode qui modifie le résultat si le résultat est différent de celui qui correspond à celui qui correspond avec la prochaine date
+     * @return bool
+     */
+    public function updateRate() {
+        $requestModifRate = $this->db->prepare('UPDATE `suivis` SET `resultat` = :result WHERE `id_utilisateur` = :id AND `date_prochaine_verif` = :futureverif');
+        $requestModifRate->bindValue('result',$this->rate,PDO::PARAM_STR);
+        $requestModifRate->bindValue('id',$this->userId,PDO::PARAM_INT);
+        $requestModifRate->bindValue('futureverif',$this->datefutureverif,PDO::PARAM_STR);
+        return $requestModifRate->execute();
+    }    
     public function __destruct() {
         parent::__destruct();
     }

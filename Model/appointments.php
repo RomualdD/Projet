@@ -19,17 +19,17 @@ class appointments extends dataBase{
     public function __construct() {
         parent::__construct();
     }
+// -- // Ajout     
     /**
-     * Méthode qui permet de vérifier si l'utilisateur a déjà un rendez-vous à la même heure
+     * Méthode pour ajouter une remarque d'un rendez-vous
      */
-    public function getVerifInformation() {
-        $verifappointment = array();
-        $searchappointment = $this->db->query('SELECT `date_rendez_vous` FROM `rendez_vous` WHERE `date_rendez_vous` = \''.$this->dayappointment.'\' AND `heure_rendez_vous` = \''.$this->hourappointment.'\' AND `id_utilisateur` = '.$this->userId);   
-        if(is_object($searchappointment)) {
-            $verifappointment = $searchappointment->fetchColumn(); 
-        }
-        return $verifappointment;
-        $searchappointment->closeCursor();        
+    public function addRemarque() {
+        $addremarqueappointment = $this->db->prepare('UPDATE `rendez_vous` SET `note` = :remarque WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos ');
+        $addremarqueappointment->bindValue(':remarque', $this->remarqueappointment, PDO::PARAM_STR);   
+        $addremarqueappointment->bindValue(':name',$this->nameappointment,PDO::PARAM_STR);
+        $addremarqueappointment->bindValue(':hour',$this->hourappointment,PDO::PARAM_STR);
+        $addremarqueappointment->bindValue(':infos',$this->infosappointment,PDO::PARAM_STR);   
+        return $addremarqueappointment->execute();
     }
     /**
      * Méthode qui permet à l'utilisateur d'ajouter un rendez-vous
@@ -43,30 +43,18 @@ class appointments extends dataBase{
         $requestappointment->bindValue('information',$this->informationappointment,PDO::PARAM_STR);
         return $requestappointment->execute();
     }
+// -- // Sélection    
     /**
-     * Méthode qui permet à l'utilisateur de modifier son rendez-vous
+     * Méthode qui permet de vérifier si l'utilisateur a déjà un rendez-vous à la même heure
      */
-    public function modifAppointment() {
-        $requestmodifappointment = $this->db->prepare('UPDATE `rendez_vous` SET `date_rendez_vous` = :newday, `nom_rendez_vous` = :newname, `heure_rendez_vous` = :newhour, `infos_complementaire` = :newinfos  WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos');
-        $requestmodifappointment->bindValue(':newday',$this->newdayappointment, PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':newname', $this->newnameappointment,PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':newhour',$this->newhourappointment,PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':newinfos',$this->newinfoappointment,PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':name',$this->nameappointment,PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':hour',$this->hourappointment,PDO::PARAM_STR);
-        $requestmodifappointment->bindValue(':infos',$this->infosappointment,PDO::PARAM_STR);
-        return $requestmodifappointment->execute(); 
-    }
-    /**
-     * Méthode pour ajouter une remarque d'un rendez-vous
-     */
-    public function addRemarque() {
-        $addremarqueappointment = $this->db->prepare('UPDATE `rendez_vous` SET `note` = :remarque WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos ');
-        $addremarqueappointment->bindValue(':remarque', $this->remarqueappointment, PDO::PARAM_STR);   
-        $addremarqueappointment->bindValue(':name',$this->nameappointment,PDO::PARAM_STR);
-        $addremarqueappointment->bindValue(':hour',$this->hourappointment,PDO::PARAM_STR);
-        $addremarqueappointment->bindValue(':infos',$this->infosappointment,PDO::PARAM_STR);   
-        return $addremarqueappointment->execute();
+    public function getVerifInformation() {
+        $verifappointment = array();
+        $searchappointment = $this->db->query('SELECT `date_rendez_vous` FROM `rendez_vous` WHERE `date_rendez_vous` = \''.$this->dayappointment.'\' AND `heure_rendez_vous` = \''.$this->hourappointment.'\' AND `id_utilisateur` = '.$this->userId);   
+        if(is_object($searchappointment)) {
+            $verifappointment = $searchappointment->fetchColumn(); 
+        }
+        return $verifappointment;
+        $searchappointment->closeCursor();        
     }
     /**
      * Méthode cherche la date d'un rendez-vous
@@ -92,13 +80,31 @@ class appointments extends dataBase{
         }
         return $appointment;
     }
-    
+// -- // Modification     
+    /**
+     * Méthode qui permet à l'utilisateur de modifier son rendez-vous
+     */
+    public function updateAppointment() {
+        $requestmodifappointment = $this->db->prepare('UPDATE `rendez_vous` SET `date_rendez_vous` = :newday, `nom_rendez_vous` = :newname, `heure_rendez_vous` = :newhour, `infos_complementaire` = :newinfos  WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos');
+        $requestmodifappointment->bindValue(':newday',$this->newdayappointment, PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':newname', $this->newnameappointment,PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':newhour',$this->newhourappointment,PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':newinfos',$this->newinfoappointment,PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':name',$this->nameappointment,PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':hour',$this->hourappointment,PDO::PARAM_STR);
+        $requestmodifappointment->bindValue(':infos',$this->infosappointment,PDO::PARAM_STR);
+        return $requestmodifappointment->execute(); 
+    }
+// -- // Suppression    
+    /**
+     * Supprimer le rendez-vous
+     */
     public function deleteAppointment() {
         $requestsupprappointment = $this->db->prepare('DELETE FROM `rendez_vous` WHERE `nom_rendez_vous` = :name AND `heure_rendez_vous` = :hour AND `infos_complementaire` = :infos');
         $requestsupprappointment->bindValue('name',$this->nameappointment,PDO::PARAM_STR);
         $requestsupprappointment->bindValue('hour',$this->hourappointment,PDO::PARAM_STR);
         $requestsupprappointment->bindValue('infos',$this->infosappointment,PDO::PARAM_STR);
-        $requestsupprappointment->execute();
+        return $requestsupprappointment->execute();
     }
     
     public function __destruct() {

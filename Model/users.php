@@ -14,7 +14,7 @@ class users extends dataBase {
     public $phone = '';
     public $phone2 = '';
     public $role = 0;
-    public $pathology = '0';
+    public $pathology = 0;
     public $cleverif = '';
     public $actif = 0;
     public $qrcodeParam = '';
@@ -22,21 +22,7 @@ class users extends dataBase {
     public function __construct() {
         parent::__construct();
     }
-    /**
-     * Méthode permet de vérifier si le nom d'utilisateur est déjà pris
-     * @return array
-     */
-    public function getUsername() {
-        $username = array();
-        $resultUsername = $this->db->prepare('SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` = :username');
-        $resultUsername->bindValue('username',$this->username,PDO::PARAM_STR);
-        if($resultUsername->execute()) {
-            if(is_object($resultUsername)) {
-                $username = $resultUsername->fetch(PDO::FETCH_ASSOC);
-            }           
-        }
-        return $username;
-    }
+// -- // Ajout  
     /**
      * Méthode permet d'ajouter un utilisateur
      */
@@ -56,6 +42,22 @@ class users extends dataBase {
         $requestAdd->bindValue('actif',$this->actif,PDO::PARAM_INT);
         $requestAdd->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
         return $requestAdd->execute();
+    }
+// -- // Récupération     
+    /**
+     * Méthode permet de vérifier si le nom d'utilisateur est déjà pris
+     * @return array
+     */
+    public function getUsername() {
+        $username = array();
+        $resultUsername = $this->db->prepare('SELECT `nom_utilisateur` FROM `utilisateurs` WHERE `nom_utilisateur` = :username');
+        $resultUsername->bindValue('username',$this->username,PDO::PARAM_STR);
+        if($resultUsername->execute()) {
+            if(is_object($resultUsername)) {
+                $username = $resultUsername->fetch(PDO::FETCH_ASSOC);
+            }           
+        }
+        return $username;
     }
     /**
      * Méthode permet de chercher l'utilisateur et son mot de passe pour la connexion
@@ -115,14 +117,6 @@ class users extends dataBase {
             $password = $recuppassword->fetch();
         }    
         return $password;    
-    }
-    /**
-     * Méthode qui modifie le mot de passe de l'utilisateur
-     */
-    public function modifPassword() {
-        $insertnewpassword = $this->db->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = '.$this->id);
-        $insertnewpassword->bindValue('password', $newpassword, PDO::PARAM_STR);
-        return $insertnewpassword->execute();        
     }
     /**
      * Méthode qui vérifie que le profil est bien actif
@@ -243,16 +237,51 @@ class users extends dataBase {
         }
         return $isCorrect;
     }
+// -- // Modification    
     /**
      * Méthode qui modifie le compte de l'utilisateur en actif
      * @return bool
      */
     public function updateActif() {
-        $modifActif = $this->db->prepare('UPDATE `utilisateurs` SET `actif` = 1 WHERE `nom_utilisateur` = :user ');
+        $modifActif = $this->db->prepare('UPDATE `utilisateurs` SET `actif` = 1 WHERE `nom_utilisateur` = :user');
         $modifActif->bindValue(':user', $this->username,PDO::PARAM_STR);
         return $modifActif->execute();
     }
-    
+    /**
+     * Méthode qui modifie le mot de passe de l'utilisateur
+     */
+    public function updatePassword() {
+        $insertnewpassword = $this->db->prepare('UPDATE `utilisateurs` SET `mot_de_passe` = :password WHERE `id` = '.$this->id);
+        $insertnewpassword->bindValue('password', $newpassword, PDO::PARAM_STR);
+        return $insertnewpassword->execute();        
+    }
+    /**
+     * Méthode qui modifie le mail de l'utilisateur
+     */
+    public function updateMail() {
+        $modifMail = $this->db->prepare('UPDATE `utilisateurs` SET `mail` = :mail WHERE `nom_utilisateur` = :user');
+        $modifMail->bindValue('mail',$this->mail,PDO::PARAM_STR);
+        $modifMail->bindValue('user',$this->username,PDO::PARAM_STR);
+        return $modifMail->execute();
+    }
+    /**
+     * Méthode qui modifie le premier numéro de l'utilisateur
+     */
+    public function updatePhone() {
+        $modifPhone = $this->db->prepare('UPDATE `utilisateurs` SET `phone` = :phone WHERE `nom_utilisateur` = :user');
+        $modifPhone->bindValue('phone',$this->phone,PDO::PARAM_STR);
+        $modifPhone->bindValue('user',$this->username,PDO::PARAM_STR);
+        return $modifPhone->execute();
+    }
+    /**
+     * Méthode qui modifie le second numéro de l'utilisateur
+     */
+    public function updateSecondPhone() {
+        $modifPhone = $this->db->prepare('UPDATE `utilisateurs` SET `phone2` = :phone WHERE `nom_utilisateur` = :user');
+        $modifPhone->bindValue('phone',$this->phone,PDO::PARAM_STR);
+        $modifPhone->bindValue('user',$this->username,PDO::PARAM_STR);
+        return $modifPhone->execute();
+    }
     public function __destruct() {
         
     }

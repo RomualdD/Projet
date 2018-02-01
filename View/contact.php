@@ -1,5 +1,20 @@
 <?php
-include '../Controller/verificationconnexion.php';
+session_start();
+if(!isset($_SESSION['user'])) {
+    include '../View/header.php';
+}
+else {    
+    include '../Model/dataBase.php';
+    include '../Model/users.php';
+    $users = new users();
+    $users->username = $_SESSION['user'];
+    $userId = $users->getUserId();
+    $id = $userId['id'];
+    $user = $_SESSION['user'];
+    $role = $_SESSION['role'];
+    $pathology = $_SESSION['pathology'];
+    include '../View/header1.php';
+}
 include '../Controller/contactController.php';
 ?>
 <!-- Page contact -->

@@ -33,7 +33,7 @@ if(isset($_SESSION['user'])) {
        else {
       ?>
          <div class="row">
-        <form action="suivimedecin.php" method="POST">
+        <form action="suivi.php" method="POST">
             <div class="suivi form-group col-lg-offset-4">
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php

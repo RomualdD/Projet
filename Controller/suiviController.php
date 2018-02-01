@@ -104,7 +104,7 @@ if($role != 0) {
               $verification->updateDateVerif();
             }
             if($suivi->datefutureverif == $dateverif) {
-                $verifresult = $suivi->searchResultByDateverif();
+                $verifresult = $suivi->getResultByDateverif();
                 $result = $verifresult['resultat'];
                 if($suivi->rate != $result) {
                     $suivi->updateRate();
@@ -126,7 +126,7 @@ if($role != 0) {
               $suivi->dateday = date('Y-m-d').' 00:00:00'; // Date du jour
               $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)
               $suivi->datefutureverif = date('Y-m-d', $nextverif); // On récupère la nouvelle date
-              $resultdate = $suivi->searchDateDay();
+              $resultdate = $suivi->getDateDay();
               $verifDateDay = '';
               foreach($resultdate as $datetime) {
                   if($suivi->dateday == $datetime['date_du_jour']) {
@@ -139,7 +139,7 @@ if($role != 0) {
                 $successAddMsg = 'Votre résultat a bien était ajouté !';
               }
               else {
-                    $requestverifresult = $suivi->searchResultByDateverif();
+                    $requestverifresult = $suivi->getResultByDateverif();
                     $result = $requestverifresult['resultat'];
                     if($suivi->rate != $result) 
                         $suivi->updateRate();
@@ -171,7 +171,7 @@ if($role != 0) {
 }
 else {
   // -- // Recherche patient 
-    $followDoctor = $follow->searchPatientByDoctor();
+    $followDoctor = $follow->getPatientByDoctor();
     if(!empty($_POST['patient'])) {
         // -- // Tableau
         $follow->username = $userPatient->username = $patient = $_POST['patient'];

@@ -4,19 +4,31 @@
  * @author romuald
  */
 class follow extends dataBase{
-    public $id;
-    public $follow_from;
-    public $follow_to;
-    public $confirm;
-    public $name;
-    public $firstname;
-    public $username;
-    public $firstDate;
-    public $secondDate;
+    public $id = 0;
+    public $follow_from = 0;
+    public $follow_to = 0;
+    public $confirm = 0;
+    public $name = '';
+    public $firstname = '';
+    public $username = '';
+    public $firstDate = '01/01/1900';
+    public $secondDate = '01/01/1900';
     
     public function __construct() {
         parent::__construct();
     }
+// -- // Ajout    
+    /**
+     * Méthode qui permet d'enregistrer la demande de suivi
+     */
+    public function addFollow() {
+        $requestadd = $this->db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
+        $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
+        $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
+        $requestadd->bindValue('confirm','0',PDO::PARAM_INT);
+        return $requestadd->execute();
+    } 
+// -- // Sélection    
     /**
      * Méthode qui renvoie les demandes avec les informations du demandeur
      * @return array
@@ -47,41 +59,10 @@ class follow extends dataBase{
         $requestadd->closeCursor(); // Fin de requete
     }
     /**
-     * Méthode qui permet d'enregistrer la demande de suivi
-     */
-    public function addFollow() {
-        $requestadd = $this->db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
-        $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
-        $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
-        $requestadd->bindValue('confirm','0',PDO::PARAM_INT);
-        return $requestadd->execute();
-    }
-    /**
-     * Méthode qui permet à l'utilisateur d'accpter la demande de suivi
-     * @return bool
-     */
-    public function updateAddFollow() {
-        $acceptFollow = $this->db->prepare('UPDATE `follow` SET `follow_confirm` = :confirm WHERE `follow_from` = :member AND `follow_to` = :id');
-        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
-        $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
-        $acceptFollow->bindValue(':id', $this->id, PDO::PARAM_INT);
-        return $acceptFollow->execute();
-    }
-    /**
-     * Méthode qui permet à l'utilisateur de refuser la demande
-     * @return bool
-     */
-    public function deleteFollow() {
-        $requestrefuse = $this->db->prepare('DELETE FROM `follow` WHERE `follow_from` = :member AND `follow_to` = :id');
-        $requestrefuse->bindValue(':member',$this->follow_from,PDO::PARAM_INT);
-        $requestrefuse->bindValue(':id',$this->id,PDO::PARAM_INT);
-        return $requestrefuse->execute();
-    }
-    /**
      * Méthode qui cherche les utilisateurs que le médecin suit
      * @return array
      */
-    public function searchPatientByDoctor() {
+    public function getPatientByDoctor() {
         $follow = array();
         $requestfollow = $this->db->prepare('SELECT DISTINCT `follow_from` = :id OR `follow_to` = :id AS `follow_id`, `nom`, `prenom`, `nom_utilisateur`,`role` FROM `follow` LEFT JOIN `utilisateurs` ON `id` = `follow_from` OR `id` = `follow_to` WHERE (`follow_from` = :id OR `follow_to` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `nom`');    
         $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
@@ -140,7 +121,29 @@ class follow extends dataBase{
         }
         return $verif;
     }
-    
+// -- // Modification     
+    /**
+     * Méthode qui permet à l'utilisateur d'accpter la demande de suivi
+     * @return bool
+     */
+    public function updateAddFollow() {
+        $acceptFollow = $this->db->prepare('UPDATE `follow` SET `follow_confirm` = :confirm WHERE `follow_from` = :member AND `follow_to` = :id');
+        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
+        $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
+        $acceptFollow->bindValue(':id', $this->id, PDO::PARAM_INT);
+        return $acceptFollow->execute();
+    }    
+// -- // Suppression   
+    /**
+     * Méthode qui permet à l'utilisateur de refuser la demande
+     * @return bool
+     */
+    public function deleteFollow() {
+        $requestrefuse = $this->db->prepare('DELETE FROM `follow` WHERE `follow_from` = :member AND `follow_to` = :id');
+        $requestrefuse->bindValue(':member',$this->follow_from,PDO::PARAM_INT);
+        $requestrefuse->bindValue(':id',$this->id,PDO::PARAM_INT);
+        return $requestrefuse->execute();
+    }
     public function __destruct() {
         parent::__destruct();
     }

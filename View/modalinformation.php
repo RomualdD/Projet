@@ -67,7 +67,6 @@
                                                             </div>
                                                         </div>
                                                     </form>
-
                                                 </div>
                                             </div>
                                           <hr>
@@ -84,7 +83,7 @@
                                                           </div>
                                                       </div>
                                                     </form>
-                                                    <?php include '../Controller/ajaxsupprapointment.php';?> 
+                                                    <?php //include '../Controller/ajaxsupprapointment.php';?> 
                                                 </div>
                                               </div>
                                           </div>
@@ -113,7 +112,6 @@
                                                                         </div>
                                                                     </div>                                                                    
                                                                 </form>
-                                                                <?php  include '../Controller/ajaxaddremarque.php';?> 
                                                             </div>
                                                         </div>    
                                                     </div><?php
@@ -127,7 +125,5 @@
                                     </div>
                                   </div>
                                     <?php 
-                                       include '../Controller/ajaxmodifappointment.php';
                                        include '../Controller/ajaxaddremarque.php';
-                                       include '../Controller/ajaxsupprapointment.php';
                                     ?>  

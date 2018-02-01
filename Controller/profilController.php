@@ -493,6 +493,7 @@
     $errorPassword = '';
     $errorPasswordFalse = '';
     $nbquest = 0;
+    // -- // Modification du mot de passe
     if(isset($_POST['submitmodifpassword'])) {
         if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
             $recuppassword = $user->getPassword();
@@ -501,7 +502,7 @@
                 $newpassword = sha1(md5($_POST['newpassword']));
                 $newpasswordverif = sha1(md5($_POST['passwordverif']));
                 if ($newpassword == $newpasswordverif) {
-                    $user->modifPassword();
+                    $user->updatePassword();
                     $successMsg = 'Le mot de passe a bien était modifié !';
                 }
                 else {
@@ -513,9 +514,51 @@
             }
         }
         else {
-            echo 'Les champs ne sont pas tous remplis !';
+            $errormessage= 'Les champs ne sont pas tous remplis !';
         }
     }
+    $successModifMail='';
+    $errorMessageMail='';
+    // -- // Modification du mail
+    if(isset($_POST['modificatemail'])) {
+        if(!empty($_POST['newmail'])) {
+            if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['newmail'])) {
+                $user->mail = strip_tags($_POST['newmail']);   
+                $user->updateMail();
+                $successModifMail = 'Le mail a bien était modifié !';
+            }
+            else {
+                $errorMessageMail = 'Le mail n\'est pas valide !';
+            }
+        }
+    }
+    $successAddPhone='';
+    $successModifPhone='';
+    $errorMessagePhone2='';
+    $errorMessagePhone='';
+    // -- // Modification du premier numéro de téléphone
+    if(isset($_POST['submitmodificatenum'])) {
+        if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['modificatenum'])) {
+            $user->phone = strip_tags($_POST['modificatenum']); 
+            $user->updatePhone();
+            $successModifPhone = 'Le numéro a bien était modifié !';
+        }
+        else {
+            $errorMessagePhone = 'Le numéro de téléphone n\'est pas valide !';
+        }   
+    }
+    // -- // Modification du second numéro de téléphone
+    if(isset($_POST['addnum'])) {
+        if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['newnum'])) {
+            $user->phone = strip_tags($_POST['newnum']);  
+            $user->updateSecondPhone();
+            $successAddPhone = 'Le numéro a bien était ajouté !';
+        }
+        else {
+            $errorMessagePhone2 = 'Le numéro de téléphone n\'est pas valide !';
+        }   
+    }
+
 // -- // Recherche demande suivi    
 $requestfollow = $follow->getFollowQuest();
 

@@ -1,8 +1,15 @@
 <?php
-    include '../Controller/verificationconnexion.php';
-    if(isset($_SESSION['user'])) {
-        include '../Model/appointments.php';
-        include '../Controller/informationController.php';
+    include '../Controller/informationController.php';
+    if(!isset($_SESSION['user'])) {
+        include 'header.php';
+        ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
+    }
+    else {
+        $user = $_SESSION['user'];
+        $role = $_SESSION['role'];
+        $pathology = $_SESSION['pathology'];
+        include '../View/header1.php';
+        
 ?>
     <div class="container">
         <div class="row">
@@ -206,9 +213,6 @@
                </tr>
            </tbody>
         </table>
-        <?php 
-          //   include '../Controller/ajaxaddremarque.php';
-        ?>
     </div>
 <?php
 }

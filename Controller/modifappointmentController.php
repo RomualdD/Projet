@@ -70,7 +70,7 @@
        // Si pas d'erreur dans les regex
         if($error == 0) {
             // Modification des champs modifiés
-           $appointment->modifAppointment();
+           $appointment->updateAppointment();
            echo 'Success';        
         }
     }

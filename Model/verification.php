@@ -4,46 +4,19 @@
  * @author romuald
  */
 class verification extends dataBase {
-    public $userId;
-    public $verification;
-    public $oneclock;
-    public $twoclock;
-    public $threeclock;
-    public $fourclock;
-    public $notification;
-    public $dateverification;
+    public $userId=0;
+    public $verification=0;
+    public $oneclock='00:00';
+    public $twoclock='00:00';
+    public $threeclock='00:00';
+    public $fourclock='00:00';
+    public $notification=0;
+    public $dateverification='01/01/1900';
     
     public function __construct() {
         parent::__construct();
     }
-    /**
-     * Méthode de vérification qu'il y'a bien des informations de vérification propre à l'utilisateur
-     * @return array
-     */
-    public function getVerification() {
-        $infoVerification = array();
-        $searchinfo = $this->db->prepare('SELECT `id_utilisateur`,`date_verification`,`verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
-        $searchinfo->bindValue('id',$this->userId,PDO::PARAM_INT);
-        if($searchinfo->execute()) {
-            $infoVerification = $searchinfo->fetch(PDO::FETCH_ASSOC);       
-        }
-        return $infoVerification;
-    }
-    /**
-     * Méthode qui permet de modifier les informations de vérifications de l'utilisateur
-     * @return bool
-     */
-    public function updateVerification() {
-        $modifverification = $this->db->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
-        $modifverification->bindValue('verif',$this->verification,PDO::PARAM_STR);
-        $modifverification->bindValue('notif',$this->notification,PDO::PARAM_INT);
-        $modifverification->bindValue('oneclock',$this->oneclock,PDO::PARAM_STR);
-        $modifverification->bindValue('twoclock',$this->twoclock,PDO::PARAM_STR);
-        $modifverification->bindValue('threeclock',$this->threeclock,PDO::PARAM_STR);
-        $modifverification->bindValue('fourclock',$this->fourclock,PDO::PARAM_STR);
-        $modifverification->bindValue('id',$this->userId,PDO::PARAM_INT);
-        return $modifverification->execute();
-    }
+// -- // Ajout     
     /**
      * Méthode permettant d'ajouter les informations de vérification de l'utilisateur diabétique
      * @return bool
@@ -73,6 +46,46 @@ class verification extends dataBase {
         $requestAddverif->bindValue('dateverification', $this->dateverification,PDO::PARAM_STR);
         return $requestAddverif->execute();     
     }
+// -- // Sélection    
+    /**
+     * Méthode de vérification qu'il y'a bien des informations de vérification propre à l'utilisateur
+     * @return array
+     */
+    public function getVerification() {
+        $infoVerification = array();
+        $searchinfo = $this->db->prepare('SELECT `id_utilisateur`,`date_verification`,`verification`,`Heure1`,`Heure2`,`Heure3`,`Heure4`,`notification` FROM `verification` WHERE `id_utilisateur` = :id');
+        $searchinfo->bindValue('id',$this->userId,PDO::PARAM_INT);
+        if($searchinfo->execute()) {
+            $infoVerification = $searchinfo->fetch(PDO::FETCH_ASSOC);       
+        }
+        return $infoVerification;
+    }
+// -- // Modification    
+    /**
+     * Méthode qui permet de modifier les informations de vérifications de l'utilisateur
+     * @return bool
+     */
+    public function updateVerification() {
+        $modifverification = $this->db->prepare('UPDATE `verification` SET `verification` = :verif,`notification` = :notif, `Heure1` = :oneclock, `Heure2` = :twoclock, `Heure3` = :threeclock, `Heure4` = :fourclock WHERE `id_utilisateur` = :id');
+        $modifverification->bindValue('verif',$this->verification,PDO::PARAM_STR);
+        $modifverification->bindValue('notif',$this->notification,PDO::PARAM_INT);
+        $modifverification->bindValue('oneclock',$this->oneclock,PDO::PARAM_STR);
+        $modifverification->bindValue('twoclock',$this->twoclock,PDO::PARAM_STR);
+        $modifverification->bindValue('threeclock',$this->threeclock,PDO::PARAM_STR);
+        $modifverification->bindValue('fourclock',$this->fourclock,PDO::PARAM_STR);
+        $modifverification->bindValue('id',$this->userId,PDO::PARAM_INT);
+        return $modifverification->execute();
+    } 
+     /**
+      * Modification de la date de vérification utile pour l'envoie de mail
+      * @return bool
+      */
+    public function updateDateVerif() {
+        $requestmodif = $this->db->prepare('UPDATE `verification` SET `date_verification` = :newdate WHERE `id_utilisateur` = :id');
+        $requestmodif->bindValue('newdate',$this->dateverification,PDO::PARAM_STR);
+        $requestmodif->bindValue('id',$this->userId,PDO::PARAM_INT);
+        return $requestmodif->execute();
+    }
     /**
      * Méthode permettant de modifier les informations de l'utilisateur sous antivitamine K
      * @return bool
@@ -83,16 +96,6 @@ class verification extends dataBase {
         $requestUpdateverif->bindValue('oneclock',$this->oneclock,PDO::PARAM_STR);
         $requestUpdateverif->bindValue('notification', $this->notification,PDO::PARAM_STR);
         return $requestUpdateverif->execute();          
-    }
-     /**
-      * Modification de la date de vérification utile pour l'envoie de mail
-      * @return bool
-      */
-    public function updateDateVerif() {
-        $requestmodif = $this->db->prepare('UPDATE `verification` SET `date_verification` = :newdate WHERE `id_utilisateur` = :id');
-        $requestmodif->bindValue('newdate',$this->dateverification,PDO::PARAM_STR);
-        $requestmodif->bindValue('id',$this->userId,PDO::PARAM_INT);
-        return $requestmodif->execute();
     }
     
     public function __destruct() {
