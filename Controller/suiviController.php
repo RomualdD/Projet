@@ -61,12 +61,12 @@ if($role != 0) {
             $hour = date('Hi');
             // Récupération de la date de vérification et des heures demandés
             $searchfuturedate = $verification->getVerification();
-            $iduser = $searchfuturedate['id_utilisateur'];
-            $dateverif = $searchfuturedate['date_verification'];
-            $oneclock = $searchfuturedate['Heure1'];
-            $twoclock = $searchfuturedate['Heure2'];
-            $threeclock = $searchfuturedate['Heure3'];
-            $fourclock = $searchfuturedate['Heure4'];  
+            $iduser = $searchfuturedate['userId'];
+            $dateverif = $searchfuturedate['verification_date'];
+            $oneclock = $searchfuturedate['onehour'];
+            $twoclock = $searchfuturedate['twohour'];
+            $threeclock = $searchfuturedate['threehour'];
+            $fourclock = $searchfuturedate['fourhour'];  
             // On ne récupère que les chiffres des heures et minutes
             $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
             $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
@@ -105,7 +105,7 @@ if($role != 0) {
             }
             if($suivi->datefutureverif == $dateverif) {
                 $verifresult = $suivi->getResultByDateverif();
-                $result = $verifresult['resultat'];
+                $result = $verifresult['result'];
                 if($suivi->rate != $result) {
                     $suivi->updateRate();
                     $successAddMsg = 'Votre résultat a bien était modifié !';
@@ -129,8 +129,8 @@ if($role != 0) {
               $resultdate = $suivi->getDateDay();
               $verifDateDay = '';
               foreach($resultdate as $datetime) {
-                  if($suivi->dateday == $datetime['date_du_jour']) {
-                      $verifDateDay = $datetime['date_du_jour'];
+                  if($suivi->dateday == $datetime['today_date']) {
+                      $verifDateDay = $datetime['today_date'];
                   }         
               }
               if($suivi->dateday != $verifDateDay) {
@@ -140,7 +140,7 @@ if($role != 0) {
               }
               else {
                     $requestverifresult = $suivi->getResultByDateverif();
-                    $result = $requestverifresult['resultat'];
+                    $result = $requestverifresult['result'];
                     if($suivi->rate != $result) 
                         $suivi->updateRate();
                         $successAddMsg = 'Votre résultat a bien était modifié !';
@@ -149,7 +149,7 @@ if($role != 0) {
               // Recherche de l'heure a laquelle il faudra envoyer le mail
 
               $searchfuturedate = $verification->getVerification();
-              $oneclock = $searchfuturedate['Heure1'];
+              $oneclock = $searchfuturedate['onehour'];
               $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
               // Modification de la prochaine vérifiacation dans la table vérification
 
@@ -164,7 +164,7 @@ if($role != 0) {
     }
     foreach($requestSearchGraphic as $result) {
         foreach($result as $resultchart) {
-            $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['resultat']);
+            $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
         }
     $nbresult++;
     } 
@@ -197,7 +197,7 @@ else {
         $requestSearchGraphic = $follow->getRateGraphicForDoctor();
         foreach($requestSearchGraphic as $result) {
             foreach($result as $resultchart) {
-                $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['resultat']);
+                $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
             }
         $nbresult++;
         } 

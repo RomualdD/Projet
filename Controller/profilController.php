@@ -7,6 +7,7 @@
 // -- // Information des résultats
     $follow->id = $id;
     $verification->userId = $id;
+    $user->id = $id;
     $info = $verification->getVerification();
 // -- // Modification vérification
     if($pathology == 1 || $pathology == 2) {
@@ -43,7 +44,7 @@
                     }
                 }    
                 else {
-                    $verification->oneclock = $info['Heure1'];
+                    $verification->oneclock = $info['onehour'];
                     $clockfirst=explode(':', $verification->oneclock);
                     $firstHour = $clockfirst['0'];
                     $firstMin = $clockfirst['1'];                                           
@@ -61,7 +62,7 @@
                     }
                 }
                 else {
-                    $verification->twoclock = $info['Heure2'];
+                    $verification->twoclock = $info['twohour'];
                     if($verification->twoclock != '') {
                        $clocksecond=explode(':', $verification->twoclock);
                        $secondHour = $clocksecond['0'];
@@ -85,7 +86,7 @@
                     }
                 }
                 else {
-                    $verification->threeclock = $info['Heure3'];
+                    $verification->threeclock = $info['threehour'];
                     if($verification->threeclock != '' ) {
                        $clockthree=explode(':', $verification->threeclock);
                        $threeHour = $clockthree['0'];
@@ -109,7 +110,7 @@
                     }                                        
                 }
                 else {
-                    $verification->fourclock = $info['Heure4'];
+                    $verification->fourclock = $info['fourhour'];
                     if($verification->fourclock != '') {
                         $clockfour=explode(':', $verification->fourclock);
                         $fourHour = $clockfour['0'];
@@ -427,14 +428,14 @@
                         else {
                             $verification->notification = 1;
                         }
-                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
-                            $verification->oneclock = $_POST['clockone'];    
+                        if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clock']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
+                            $verification->oneclock = $_POST['clock'];    
                         }
                         else {
                             $errorAddOneClock = 'Le format demandé est hh:mm';
                             $error++;
                         }
-                        if(preg_match('#^[0-9]{2}[/]{1}[0]{1}[1-9]{1}[/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])){
+                        if(preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
                             $time = $_POST['time'];
                             //On récupère la date
                             $verif = explode(' ', $time);
@@ -479,7 +480,7 @@
                         }  
                     }
                     else {
-                       $verification->oneclock = $info['Heure1']; 
+                       $verification->oneclock = $info['onehour']; 
                     }
                     if($error == 0) {
                         $verification->updateVerificationAvk();
@@ -498,10 +499,11 @@
         if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
             $recuppassword = $user->getPassword();
             $password = sha1(md5($_POST['password']));
-            if ($password == $recuppassword['mot_de_passe']) {
+            if ($password == $recuppassword['password']) {
                 $newpassword = sha1(md5($_POST['newpassword']));
                 $newpasswordverif = sha1(md5($_POST['passwordverif']));
                 if ($newpassword == $newpasswordverif) {
+                    $user->password = $newpassword;
                     $user->updatePassword();
                     $successMsg = 'Le mot de passe a bien était modifié !';
                 }
@@ -550,7 +552,7 @@
     // -- // Modification du second numéro de téléphone
     if(isset($_POST['addnum'])) {
         if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['newnum'])) {
-            $user->phone = strip_tags($_POST['newnum']);  
+            $user->phone2 = strip_tags($_POST['newnum']);  
             $user->updateSecondPhone();
             $successAddPhone = 'Le numéro a bien était ajouté !';
         }

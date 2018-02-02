@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../Model/dataBase.php';
 include '../Model/users.php';
 include '../Model/follow.php';

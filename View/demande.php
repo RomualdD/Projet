@@ -25,9 +25,9 @@ if(isset($_SESSION['user'])){
         <tbody><?php
         foreach($requestFollow as $follow) {
           ?><tr>
-              <td><?php echo stripslashes(strip_tags($follow['nom']));?></td>
-              <td><?php echo stripslashes(strip_tags($follow['prenom']));?></td>
-              <td><?php echo stripslashes(strip_tags($follow['nom_utilisateur']));?></td>
+              <td><?php echo stripslashes(strip_tags($follow['lastname']));?></td>
+              <td><?php echo stripslashes(strip_tags($follow['firstname']));?></td>
+              <td><?php echo stripslashes(strip_tags($follow['username']));?></td>
               <td><form method="POST" action="demande.php">
               <input type="hidden" name="username" value="<?php echo $follow['follow_from']; ?>">
               <input type="hidden" name="action" value="add">

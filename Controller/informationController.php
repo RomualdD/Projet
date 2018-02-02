@@ -37,14 +37,14 @@
                     $errorMessageDate = 'La date n\'est pas dans un format valide !';
                     $error++;
                 }
-                if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'-]{2,}$#i', $_POST['nameappoitment'])) {
+                if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéàûœÙğ_\'-]{2,}$#i', $_POST['nameappoitment'])) {
                     $appointment->nameappointment = strip_tags($_POST['nameappoitment']);
                 }
                 else {
                     $errorMessageName = 'Veuillez écrire votre nom de rendez-vous seulement avec des lettres !';
                     $error++;
                 }
-                if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $_POST['informationappointment'])) {
+                if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğ_\'!,;-]{2,}$#i', $_POST['informationappointment'])) {
                     $appointment->informationappointment = strip_tags($_POST['informationappointment']);                
                 }
                 else {
@@ -96,10 +96,10 @@
         $appointmentResultForId = $appointment->getAppointment();
         foreach($appointmentResultForId as $appointmentResult) {
             // Récupération des inforations
-            $nameappointment = $appointmentResult['nom_rendez_vous'];
-            $hourappointment = $appointmentResult['heure_rendez_vous'];
-            $informationappointment = $appointmentResult['infos_complementaire'];
-            $remarque = $appointmentResult['note'];
+            $nameappointment = $appointmentResult['name_appointment'];
+            $hourappointment = $appointmentResult['hour_appointment'];
+            $informationappointment = $appointmentResult['additional_informations'];
+            $remarque = $appointmentResult['remarque'];
             // On sépare le jour le mois et l'année du rendez-vous
             $dayappointment= $appointmentResult['day'];
             $monthappointment= $appointmentResult['month'];
@@ -144,7 +144,7 @@
                 }
                 else {
                      $requestdate = $appointment->getDateAppointment();
-                     $appointment->newdayappointment = $requestdate['date_rendez_vous'];
+                     $appointment->newdayappointment = $requestdate['date_appointment'];
                 }
                 if(!empty($_POST['nameappointmentmodif'])) {
                      if(!preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $_POST['nameappointmentmodif'])) {
@@ -158,7 +158,7 @@
                 else {
                     $appointment->newnameappointment = $appointment->nameappointment;
                 }  
-                if(!empty($_POST['hourappointment'])) {
+                if(!empty($_POST['hourappointmentmodif'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointmentmodif']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointmentmodif'])) {
                          $appointment->newhourappointment = $_POST['hourappointmentmodif'];
                     }
@@ -171,7 +171,7 @@
                    $appointment->newhourappointment = $appointment->hourappointment;
                } 
                if(!empty($_POST['infosappointmentmodif'])) {
-                    if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $_POST['infosappointmentmodif'])) {
+                    if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğ_\'!,;-]{2,}#i', $_POST['infosappointmentmodif'])) {
                        $appointment->newinfoappointment = $_POST['infosappointmentmodif'];        
                     }
                     else {

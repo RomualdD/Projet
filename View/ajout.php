@@ -23,10 +23,10 @@ if(isset($_SESSION['user'])) {
       <tbody>
              <?php foreach($requestresearch as $element) {
                    ?><tr>
-                        <td><?php echo $element['nom']; ?></td>
-                        <td><?php echo $element['prenom']; ?></td>
-                        <td><?php echo $element['nom_utilisateur']; ?></td>
-                    <td><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $element['nom_utilisateur'];?>"/><input type="submit" /></form></td></tr><?php
+                        <td><?php echo $element['lastname']; ?></td>
+                        <td><?php echo $element['firstname']; ?></td>
+                        <td><?php echo $element['username']; ?></td>
+                    <td><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $element['username'];?>"/><input type="submit" /></form></td></tr><?php
                   } 
                   ?>
         </tbody>

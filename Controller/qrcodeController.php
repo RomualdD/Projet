@@ -9,13 +9,13 @@
                $users->password = sha1(md5($_POST['password']));
                // Cherche le nom d'utilisateur et le mot de passe entré
                $requestUser =  $users->getUser();
-               $verifUser = $requestUser['nom_utilisateur'];
-               $verifPassword = $requestUser['mot_de_passe'];
+               $verifUser = $requestUser['username'];
+               $verifPassword = $requestUser['password'];
               // Si les champs correspondent dans la base de données
               if($verifUser == $users->username && $users->password == $verifPassword) {
                   // Vérification si le compte est bien actif
                   $verifactif = $users->getVerif();
-                  $actif = $verifactif['actif'];
+                  $actif = $verifactif['active'];
                  if($actif == '1') {
                    // Démarrage d'une session
                    session_start();
@@ -24,7 +24,7 @@
                    $_SESSION['user'] = $_POST['username'];
                    $_SESSION['password'] = $_POST['password'];
                    $_SESSION['role'] = $infosUser['role'];
-                   $_SESSION['pathology']= $infosUser['pathologie'];
+                   $_SESSION['pathology']= $infosUser['pathology'];
                  }
                }
              else {
@@ -45,7 +45,7 @@ if(isset($_SESSION['user'])) {
     $follow->follow_to = $researchidParam['id'];   
     $verif = $follow->getFollowAlready();
     if($verif == 0 && $follow->follow_to != $follow->follow_from) {
-     
+        $follow->confirm = '1';
         $follow->addFollow();
     }
 } 

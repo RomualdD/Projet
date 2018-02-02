@@ -69,7 +69,7 @@ if(isset($_POST['submit'])) {
                 if($user->password == $passwordverif) {
                     // Vérification qu'un utilisateur n'a pas le même nom
                   $verifusername = $user->getUsername();             
-                  if($user->username == $verifusername['nom_utilisateur']) {
+                  if($user->username == $verifusername['username']) {
                     $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
                   }
                   else {
@@ -90,7 +90,7 @@ if(isset($_POST['submit'])) {
                     mail($recipient, $subject,$message,$entete);
                     //Informer l'utilisateur que l'inscription est bien prise en compte
                     //Redirection vers la page de connexion
-                    header('Location:http://diavk/View/connexion.php');
+                    header('Location: http://diavk/View/connexion.php');
                     exit();
                    }
                 }

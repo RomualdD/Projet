@@ -20,7 +20,7 @@ if(isset($_SESSION['user'])) {
       <label for="text">Choisir son patient :</label>
       <select name="patient"><?php
               foreach ($followDoctor as $followPatient) {
-                ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>"><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+                ?><option value="<?php echo $followPatient['username'] ?>"><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
             }
           ?>
       </select>
@@ -38,7 +38,7 @@ if(isset($_SESSION['user'])) {
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
-                        ?><option value="<?php echo $followPatient['nom_utilisateur'] ?>" <?php if($_POST['patient'] == $followPatient['nom_utilisateur']) { echo 'selected'; } ?>><?php echo $followPatient['nom'].' '.$followPatient['prenom'];?></option><?php
+                        ?><option value="<?php echo $followPatient['username'] ?>" <?php if($_POST['patient'] == $followPatient['username']) { echo 'selected'; } ?>><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
                     }
                   ?>
               </select>
@@ -73,8 +73,8 @@ if(isset($_SESSION['user'])) {
                 foreach($requestarray as $result) { 
                 ?><tr>
                     <td><?php echo $result['date_now']; ?></td>
-                    <td><?php echo $result['resultat']; ?></td>
-                    <td><?php echo $result['date_prochaine_verif']; ?></td>
+                    <td><?php echo $result['result']; ?></td>
+                    <td><?php echo $result['next_date_check']; ?></td>
                 </tr><?php
               }
              ?>
@@ -130,9 +130,9 @@ if(isset($_SESSION['user'])) {
               <?php
                 foreach($requestarray as $result) {
                 ?><tr>
-                    <td><?php echo $result['date_du_jour'];?></td>
-                    <td><?php echo $result['resultat']; ?></td>
-                    <td><?php echo $result['date_prochaine_verif']; ?></td>
+                    <td><?php echo $result['today_date'];?></td>
+                    <td><?php echo $result['result']; ?></td>
+                    <td><?php echo $result['next_date_check']; ?></td>
                 </tr><?php
               }
              ?>
