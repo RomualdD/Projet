@@ -116,8 +116,6 @@ if($role != 0) {
                 $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
             }
         }
-        $requestarray = $suivi->getRateDiabeteInArray();
-        $requestSearchGraphic = $suivi->getRateDiabeteInGraphic();
     }
     elseif($pathology == 3) {
         if(isset($_POST['submit'])) {
@@ -147,7 +145,6 @@ if($role != 0) {
                     }
               }        
               // Recherche de l'heure a laquelle il faudra envoyer le mail
-
               $searchfuturedate = $verification->getVerification();
               $oneclock = $searchfuturedate['onehour'];
               $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
@@ -158,13 +155,13 @@ if($role != 0) {
             else {
                 $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
             }
-            // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant
-            $requestarray=$suivi->getRateAvkInArray();
-            $requestSearchGraphic = $suivi->getRateAvkInGraphic();   
     }
+    // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant 
+    $requestarray = $suivi->getRateInArray();
+    $requestSearchGraphic = $suivi->getRateInGraphic();
     foreach($requestSearchGraphic as $result) {
         foreach($result as $resultchart) {
-            $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
+            $dataPoints[$nbresult] = array('label'=>$result['today_date'], 'y'=>$result['result']);
         }
     $nbresult++;
     } 

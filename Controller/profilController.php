@@ -538,6 +538,7 @@
     $successModifPhone='';
     $errorMessagePhone2='';
     $errorMessagePhone='';
+    $successDeletePhone = '';
     // -- // Modification du premier numéro de téléphone
     if(isset($_POST['submitmodificatenum'])) {
         if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['modificatenum'])) {
@@ -560,7 +561,11 @@
             $errorMessagePhone2 = 'Le numéro de téléphone n\'est pas valide !';
         }   
     }
-
+    
+    if(isset($_POST['deletephone2'])) {
+        $user->deleteSecondPhone();
+        $successDeletePhone = 'Votre second numéro de téléphone n\'existe plus !';
+    }
 // -- // Recherche demande suivi    
 $requestfollow = $follow->getFollowQuest();
 

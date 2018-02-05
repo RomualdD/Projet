@@ -78,11 +78,12 @@ class follow extends dataBase{
      */
     public function getRateGraphicForDoctor() {
         $rateGraphic = array();
-        $requestsearch = $this->db->prepare('SELECT DISTINCT DATE_FORMAT(`today_date`,"%d/%m/%Y %H:%i") AS date_now, `result` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ');  
+        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
         $requestsearch->bindValue('idpatient',$this->follow_to, PDO::PARAM_STR);
         $requestsearch->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearch->bindValue('confirm','1', PDO::PARAM_STR);
         $requestsearch->bindValue('role','1', PDO::PARAM_STR);
+        $requestsearch->bindValue('user',$this->username, PDO::PARAM_STR);
         $requestsearch->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
         $requestsearch->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearch->execute()) {
@@ -96,12 +97,14 @@ class follow extends dataBase{
      */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
-        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,DATE_FORMAT(`today_date`,"%d/%m/%Y %H:%i") AS `date_now`, `result`, DATE_FORMAT(`next_date_check`,"%d/%m/%Y %H:%i") AS `next_date_check` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND `follow_from` = :id OR `follow_to` = :id AND `follow_confirm` = :confirm ORDER BY `today_date` DESC');
+        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result`, CASE WHEN pathology = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS `next_date_check` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm  AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
         $requestsearcharray->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearcharray->bindValue('confirm','1', PDO::PARAM_STR);
         $requestsearcharray->bindValue('role','1', PDO::PARAM_STR);
         $requestsearcharray->bindValue('idpatient',$this->follow_to, PDO::PARAM_STR);
         $requestsearcharray->bindValue('user',$this->username, PDO::PARAM_STR);
+        $requestsearcharray->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
+        $requestsearcharray->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearcharray->execute()) {
             $rateArray = $requestsearcharray->fetchAll(PDO::FETCH_ASSOC);
         }

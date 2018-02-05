@@ -292,6 +292,13 @@
                 <input type="submit" value="Ajouter !" name="addnum" class="button btn btn-default col-lg-offset-5">
               </form>
               <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successAddPhone; ?></p>
+              <form method="POST" action="profil.php">
+                <div class="form-inline">
+                    <label class="col-lg-offset-3 col-lg-9 modificateform" for="newnum">Supprimer second numéro de téléphone :</label> 
+                  <input type="submit" value="Supprimer !" name="deletephone2" class="button btn btn-default col-lg-offset-5">
+                </div>
+              </form>
+              <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successDeletePhone; ?></p>
             </div>
           </div>
         </div>

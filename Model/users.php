@@ -283,6 +283,15 @@ class users extends dataBase {
         $modifPhone->bindValue('user',$this->username,PDO::PARAM_STR);
         return $modifPhone->execute();
     }
+    /**
+     * Méthode qui supprime le second numéro de l'utilisateur
+     */
+    public function deleteSecondPhone() {
+        $deletePhone = $this->db->prepare('UPDATE `users` SET `phone2` = :phone WHERE `username` = :user');
+        $deletePhone->bindValue('phone','Pas indiqué',PDO::PARAM_STR);
+        $deletePhone->bindValue('user',$this->username,PDO::PARAM_STR);
+        return $deletePhone->execute();
+    }
     public function __destruct() {
         
     }
