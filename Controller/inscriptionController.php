@@ -31,7 +31,7 @@ if(isset($_POST['submit'])) {
             $errorMessageFirstname = 'Le prénom n\'est pas valide';
             $error++;
         }
-       $user->username = strip_tags($_POST['username']);
+        $user->username = strip_tags($_POST['username']);
         if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
             $user->mail = strip_tags($_POST['mail']);   
         }
@@ -40,8 +40,8 @@ if(isset($_POST['submit'])) {
             $error++;
         }
         // Cryptage de données mdp
-       $user->password = sha1(md5($_POST['password']));
-       $passwordverif = sha1(md5($_POST['passwordverif']));
+        $user->password = $_POST['password'];
+        $passwordverif = $_POST['passwordverif'];
         if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['birthday']) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['birthday']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['birthday'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['birthday']))) {
            $user->birthday = strip_tags($_POST['birthday']);   
         }
@@ -67,6 +67,7 @@ if(isset($_POST['submit'])) {
             if(($user->role == 1 && $user->pathology != 0) || ($user->role == 0 && $user->pathology == 0)) {
              // On vérifie que les mots de passes sont identiques
                 if($user->password == $passwordverif) {
+                  $user->password = password_hash($user->password,PASSWORD_DEFAULT);  
                     // Vérification qu'un utilisateur n'a pas le même nom
                   $verifusername = $user->getUsername();             
                   if($user->username == $verifusername['username']) {

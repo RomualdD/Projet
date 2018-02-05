@@ -196,7 +196,7 @@
     // -- //Ajax Notes à ajouter après rendez-vous
         if(isset($_POST['addremarque'])) {
             $appointment = new appointments();
-        $appointment->userId=$id;            
+            $appointment->userId=$id;            
             if(!empty($_POST['remarque'])) {
                 // Récupération des champs du rendez-vous + Ajout de la note
                 $appointment->remarqueappointment = strip_tags($_POST['remarque']);

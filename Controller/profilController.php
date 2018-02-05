@@ -498,12 +498,12 @@
     if(isset($_POST['submitmodifpassword'])) {
         if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
             $recuppassword = $user->getPassword();
-            $password = sha1(md5($_POST['password']));
-            if ($password == $recuppassword['password']) {
-                $newpassword = sha1(md5($_POST['newpassword']));
-                $newpasswordverif = sha1(md5($_POST['passwordverif']));
+            $password = $_POST['password'];
+            if (password_verify($password,$recuppassword['password'])) {
+                $newpassword = $_POST['newpassword'];
+                $newpasswordverif = $_POST['passwordverif'];
                 if ($newpassword == $newpasswordverif) {
-                    $user->password = $newpassword;
+                    $user->password = password_hash($newpassword,PASSWORD_DEFAULT);
                     $user->updatePassword();
                     $successMsg = 'Le mot de passe a bien était modifié !';
                 }

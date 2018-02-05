@@ -7,14 +7,13 @@
       // Si les champs sont remplis
       if(!empty($_POST['username']) && (!empty($_POST['password']))) {
            $user->username = $_POST['username'];
-           // Cryptage du mot de passe entré
-           $user->password = sha1(md5($_POST['password']));
+            $user->password = $_POST['password'];
            // Cherche le nom d'utilisateur et le mot de passe entré
            $requestUser =  $user->getUser();
            $verifUser = $requestUser['username'];
            $verifPassword = $requestUser['password'];
           // Si les champs correspondent dans la base de données
-          if($verifUser == $user->username && $user->password == $verifPassword) {
+          if($verifUser == $user->username && password_verify($user->password, $verifPassword)) {
               // Vérification si le compte est bien actif
               $verifactif = $user->getVerif();
               $actif = $verifactif['active'];

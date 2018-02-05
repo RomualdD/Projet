@@ -4,17 +4,17 @@
  * @author romuald
  */
 class suivis extends dataBase{
-    public $id;
-    public $userId;
-    public $dateday;
-    public $rate;
-    public $datefutureverif;
-    public $firstpage;
-    public $nbPage;
-    public $firstDate;
-    public $secondDate;
-    public $dategraphic;
-    public $resultgraphic;
+    public $id = 0;
+    public $userId = 0;
+    public $dateday = '01/01/1900';
+    public $rate = 0;
+    public $datefutureverif = '01/01/1900';
+    public $firstpage = 0;
+    public $nbPage = 0;
+    public $firstDate = '01/01/1900';
+    public $secondDate = '01/01/1900';
+    public $dategraphic = '01/01/1900';
+    public $resultgraphic = 0;
     
     public function __construct() {
         parent::__construct();
@@ -79,7 +79,7 @@ class suivis extends dataBase{
      */
     public function getRateInArray() {
         $array = array();
-        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS today_date ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id ORDER BY today_date DESC limit :firstpage, :nbpage');
+        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id ORDER BY today_date DESC limit :firstpage, :nbpage');
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('firstpage',$this->firstpage,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('nbpage', $this->nbPage, PDO::PARAM_INT);
@@ -94,7 +94,7 @@ class suivis extends dataBase{
      */
     public function getRateInGraphic() {
         $graphic = array();
-        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `today_date`,`result` FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
+        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`,`result` FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
         $requestSearchGraphic->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':firstdate',$this->firstDate,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':secondedate', $this->secondDate, PDO::PARAM_INT);

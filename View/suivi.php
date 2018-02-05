@@ -130,7 +130,7 @@ if(isset($_SESSION['user'])) {
               <?php
                 foreach($requestarray as $result) {
                 ?><tr>
-                    <td><?php echo $result['today_date'];?></td>
+                    <td><?php echo $result['date_now'];?></td>
                     <td><?php echo $result['result']; ?></td>
                     <td><?php echo $result['next_date_check']; ?></td>
                 </tr><?php

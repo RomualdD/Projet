@@ -132,7 +132,6 @@ if($role != 0) {
                   }         
               }
               if($suivi->dateday != $verifDateDay) {
-
                 $suivi->addRate();
                 $successAddMsg = 'Votre résultat a bien était ajouté !';
               }
@@ -161,7 +160,7 @@ if($role != 0) {
     $requestSearchGraphic = $suivi->getRateInGraphic();
     foreach($requestSearchGraphic as $result) {
         foreach($result as $resultchart) {
-            $dataPoints[$nbresult] = array('label'=>$result['today_date'], 'y'=>$result['result']);
+            $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
         }
     $nbresult++;
     } 

@@ -1,0 +1,7 @@
+# On suit les liens symboliques
+Options +FollowSymlinks
+# Activation du mod rewrite d'Apache
+RewriteEngine On
+RewriteBase /
+
+ErrorDocument 404 /View/404.php

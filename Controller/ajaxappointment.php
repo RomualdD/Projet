@@ -45,7 +45,6 @@
         });
         // -- // AJAX Supprimé le rendez-vous dans la page modal    
         $('#submitdelete<?php echo $nbmodal; ?>').click(function () {
-        alert("k");
             $.post(
                     '../Controller/informationController.php', {
                         name: $('#nameappointment<?php echo $nbmodal; ?>').val(),

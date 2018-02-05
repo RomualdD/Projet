@@ -21,10 +21,10 @@ class appointments extends dataBase{
     }
 // -- // Ajout     
     /**
-     * Méthode pour ajouter une remarque d'un rendez-vous
+     * Méthode pour ajouter une note d'un rendez-vous
      */
     public function addRemarque() {
-        $addremarqueappointment = $this->db->prepare('UPDATE `appointments` SET `remarque` = :remarque WHERE `name_appointments` = :name AND `hour_appointments` = :hour AND `additional_informations` = :infos ');
+        $addremarqueappointment = $this->db->prepare('UPDATE `appointments` SET `remarque` = :remarque WHERE `name_appointment` = :name AND `hour_appointment` = :hour AND `additional_informations` = :infos');
         $addremarqueappointment->bindValue(':remarque', $this->remarqueappointment, PDO::PARAM_STR);   
         $addremarqueappointment->bindValue(':name',$this->nameappointment,PDO::PARAM_STR);
         $addremarqueappointment->bindValue(':hour',$this->hourappointment,PDO::PARAM_STR);
@@ -100,7 +100,7 @@ class appointments extends dataBase{
      * Supprimer le rendez-vous
      */
     public function deleteAppointment() {
-        $requestsupprappointment = $this->db->prepare('DELETE FROM `appointments` WHERE `name_appointments` = :name AND `hour_appointments` = :hour AND `additional_informations` = :infos');
+        $requestsupprappointment = $this->db->prepare('DELETE FROM `appointments` WHERE `name_appointment` = :name AND `hour_appointment` = :hour AND `additional_informations` = :infos');
         $requestsupprappointment->bindValue('name',$this->nameappointment,PDO::PARAM_STR);
         $requestsupprappointment->bindValue('hour',$this->hourappointment,PDO::PARAM_STR);
         $requestsupprappointment->bindValue('infos',$this->infosappointment,PDO::PARAM_STR);

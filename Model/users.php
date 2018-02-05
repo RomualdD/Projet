@@ -65,7 +65,7 @@ class users extends dataBase {
      */
     public function getUser() {
            $user = array();
-           $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `users` WHERE `password` = \''.$this->password.'\' AND `username` = \''.$this->username.'\'');
+           $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `users` WHERE `username` = \''.$this->username.'\'');
            if(is_object($requestSearchUser)) {
               $user = $requestSearchUser->fetch(PDO::FETCH_ASSOC); 
            }

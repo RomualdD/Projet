@@ -63,7 +63,12 @@ p {
 
 .successmessage {
     color: green;
+
 }
+.error404 {
+    color: red;
+}
+
 .subtitle {
   font-style: italic;
   font-size: 20px;
