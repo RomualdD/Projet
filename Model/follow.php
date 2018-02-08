@@ -20,6 +20,7 @@ class follow extends dataBase{
 // -- // Ajout    
     /**
      * Méthode qui permet d'enregistrer la demande de suivi
+     * @return bool
      */
     public function addFollow() {
         $requestadd = $this->db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
@@ -97,7 +98,7 @@ class follow extends dataBase{
      */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
-        $requestsearcharray = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result`, CASE WHEN pathology = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS `next_date_check` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm  AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
+        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result`, CASE WHEN pathology = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS `next_date_check` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
         $requestsearcharray->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearcharray->bindValue('confirm','1', PDO::PARAM_STR);
         $requestsearcharray->bindValue('role','1', PDO::PARAM_STR);
@@ -112,7 +113,7 @@ class follow extends dataBase{
     }
     /**
      * Méthode qui vérifie si il y'a déjà un suivi
-     * 
+     * @return array
      */
     public function getFollowAlready() {
         $verif = array();

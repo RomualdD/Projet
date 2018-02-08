@@ -1,17 +1,15 @@
 <?php
-  include '../Controller/verificationconnexion.php';
+  include 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {  
-  include '../Model/verification.php';
-  include '../Model/suivis.php';
-  include '../Model/follow.php';
-  include '../Controller/suiviController.php';
+  include 'Model/verification.php';
+  include 'Model/suivis.php';
+  include 'Model/follow.php';
+  include 'Controller/suiviController.php';
   ?><div class="container">
         <div class="row">
             <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
         </div><?php
   if ($role==0) {
-   /* header('Location:suivimedecin.php');
-    exit();*/
        if(empty($_POST['patient'])) {
       ?>
   <div class="row">
@@ -38,7 +36,7 @@ if(isset($_SESSION['user'])) {
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
-                        ?><option value="<?php echo $followPatient['username'] ?>" <?php if($_POST['patient'] == $followPatient['username']) { echo 'selected'; } ?>><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
+                        ?><option value="<?php echo $followPatient['username'] ?>" <?php echo $_POST['patient'] == $followPatient['username'] ? 'selected': ''?>><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
                     }
                   ?>
               </select>
@@ -92,10 +90,6 @@ if(isset($_SESSION['user'])) {
     else {    
     ?>
     <!-- Page suivi patient -->
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
-      </div>
       <div class="row">
         <form name="followedrate" method="POST" action="suivi.php">
             <div class="col-lg-offset-3">
@@ -177,5 +171,5 @@ if(isset($_SESSION['user'])) {
     }
     ?></div><?php
   }  
-  include 'footer.php';
+  include 'View/footer.php';
 ?>

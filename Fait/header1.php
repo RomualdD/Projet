@@ -22,11 +22,11 @@
       </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
-            <li><a href="http://diavk/View/" class="col-lg-offset-2">Accueil</a></li>
-            <li><a href="profil.php" class="col-lg-offset-9">Profil</a></li>
-            <li><a href="information.php" class="col-lg-offset-8">Information</a></li>
-            <li><a href="suivi.php" class="col-lg-offset-9">Suivi</a></li>
-            <li><a href="contact.php" class="col-lg-offset-9">Contact</a></li>
+            <li><a href="http://diavk/" class="col-lg-offset-2">Accueil</a></li>
+            <li><a href="http://diavk/profil.php" class="col-lg-offset-9">Profil</a></li>
+            <li><a href="http://diavk/information.php" class="col-lg-offset-8">Information</a></li>
+            <li><a href="http://diavk/suivi.php" class="col-lg-offset-9">Suivi</a></li>
+            <li><a href="http://diavk/contact.php" class="col-lg-offset-9">Contact</a></li>
             <li><a href="http://diavk/Controller/deconnexion.php" class="col-lg-offset-7">Déconnexion</a></li>
           </ul>
       </div>

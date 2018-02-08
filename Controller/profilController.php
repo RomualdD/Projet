@@ -568,4 +568,7 @@
     }
 // -- // Recherche demande suivi    
 $requestfollow = $follow->getFollowQuest();
+foreach($requestfollow as $request) {
+    $nbquest++;
+}
 

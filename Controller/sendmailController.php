@@ -10,7 +10,7 @@
     $requestMail = $users->getInfoAndVerification();
     foreach($requestMail as $infoMail) {
         // On compare si c'est le moment d'envoyer le mail
-       if($day == $infoMail['date_verification']) {
+       if($day == $infoMail['verification_date']) {
         //Envoie du mail d'information pour rappel
         $recipient = $infoMail['mail'];
         $name = $infoMail['lastname'];

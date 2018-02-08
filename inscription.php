@@ -1,8 +1,6 @@
 <?php
-  include 'header.php';
-  include '../Model/dataBase.php';
-  include '../Model/users.php';
-  include '../Controller/inscriptionController.php';
+  include 'View/header.php';
+  include 'Controller/inscriptionController.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container">
@@ -104,5 +102,5 @@
     </div>
   </div>
 <?php
-    include 'footer.php';
+    include 'View/footer.php';
 ?>

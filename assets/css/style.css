@@ -24,6 +24,15 @@ header {
   background-color: #FFFFCC;
 }
 
+.connexionheader {
+    color: #337ab7;
+}    
+
+.connexionheader:hover {
+    color: #23527c;
+    cursor: pointer;
+} 
+
 footer {
   background-color: #D90404;
   color: white;
@@ -125,7 +134,7 @@ textarea {
   padding-left: 20px;
 }
 
-.profil, .formular, .modificate {
+.profil, .formular, .modificate,.demande {
   border: 1px solid;
 }
 
@@ -154,6 +163,31 @@ textarea {
 #greencolor {
     background-color: green;
     display: inline-block;
+}
+
+#infoFollow {
+    color: red;
+    background-color: white;
+    display: inline-block;   
+}
+
+.nav-tabs-dropdown,.btn-primary[disabled]:hover {
+    border: 1px solid #e3e3e3;
+    background-color: #F5F5F5;
+    color: red;    
+}    
+
+li > a {
+    color:red;
+}       
+
+li > a:hover {
+    color:black;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    background-color: red;
+    color: white;
 }
 
 .tdcalendar, .thcalendar {

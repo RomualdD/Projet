@@ -1,8 +1,8 @@
 <?php
-  include '../Model/dataBase.php';
-  include '../Model/users.php';
-  include '../Controller/validationController.php';
-  include 'header.php';
+  include 'Model/dataBase.php';
+  include 'Model/users.php';
+  include 'Controller/validationController.php';
+  include 'View/header.php';
   if(isset($_GET['log']) && (isset($_GET['cle']))) {     
     if($users->actif == 1) {
         ?><p class="errormessage col-lg-12">Votre compte est déjà actif !</p><?php
@@ -16,5 +16,5 @@
         }
     }
   } 
-  include 'footer.php';
+  include 'View/footer.php';
 ?>

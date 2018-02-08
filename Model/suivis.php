@@ -1,7 +1,6 @@
 <?php
 /**
- * Classe medical_followup
- * @author romuald
+ * Classe de la table medical_followup
  */
 class suivis extends dataBase{
     public $id = 0;

@@ -1,11 +1,11 @@
 <?php
 session_start();
+    include 'View/header.php';
 if(!isset($_SESSION['user'])) {
-    include '../View/header.php';
 }
 else {    
-    include '../Model/dataBase.php';
-    include '../Model/users.php';
+    include 'Model/dataBase.php';
+    include 'Model/users.php';
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
@@ -13,7 +13,6 @@ else {
     $user = $_SESSION['user'];
     $role = $_SESSION['role'];
     $pathology = $_SESSION['pathology'];
-    include '../View/header1.php';
 }
  ?>
 <!-- Page d'accueil -->
@@ -39,5 +38,5 @@ else {
   </div>
 
 <?php
-  include 'footer.php';
+  include 'View/footer.php';
 ?>

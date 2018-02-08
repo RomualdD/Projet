@@ -1,8 +1,8 @@
 <?php
     session_start();
-    include '../Model/dataBase.php';
-    include '../Model/appointments.php'; 
-    include '../Model/users.php';
+    include 'Model/dataBase.php';
+    include 'Model/appointments.php'; 
+    include 'Model/users.php';
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();

@@ -1,28 +1,21 @@
-angular.module('Inscription',[]).controller('inscriptioncontroller', ['$scope', function ($scope) {
-  $scope.name = {
-    model: '',
-    regex: /^[a-zA-Z -]{1,20}$/
-  };
-  $scope.firstname = {
-    model: '',
-    regex: /^[a-zA-Z -]{1,20}$/
-  };
-  $scope.mail = {
-    model: 'me@example.com',
-    regex: /^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$/
-  };
-  $scope.phone = {
-    model: '',
-    regex: /[0]{1}[0-9]{9}$/
-  };
-  $scope.birthday = {
-    model: '',
-    regex: /[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}/
-  };
-}]);
-
-angular.module('followed',[]).controller('followedcontroller', ['$scope', function ($scope) {
-  $scope.rate={
-    regex: /[0]{1}[.][0-9]{2}$/
-  }
-}]);
+$(document).ready(function() {
+    $('#connexion').click(function() {
+       $.post(
+            'Controller/connexionController.php', {
+               username: $('#username').val(),
+               password: $('#password').val(),
+               connexion:'connexion',
+               testconnexionajax: 'valider'
+            },
+            function (data) {
+                if (data == 'Success') {
+                    location.href = 'profil.php';
+                } else {
+                    alert('Il y a eu un problème lors de la connexion, Veuillez réessayer ou vérifier si vous avez bien activez votre compte!');
+                    location.href = 'connexion.php';
+                }
+            },
+            'text' // Recevoir success ou failed
+            );
+    });
+});

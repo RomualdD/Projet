@@ -4,4 +4,4 @@ Options +FollowSymlinks
 RewriteEngine On
 RewriteBase /
 
-ErrorDocument 404 /View/404.php
+ErrorDocument 404 /404.php

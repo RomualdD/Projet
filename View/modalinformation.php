@@ -9,9 +9,9 @@
                                         <div class="modal-body">
                                           <div class="row">
                                               <div class="col-lg-offset-1 col-lg-11">
-                                                <p><?php echo 'Nom du rendez-vous : ';?><input class="col-lg-offset-1 nameappointment" type="text" name="nameappointmentforModif" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
-                                                <p><?php echo 'Heure du rendez-vous : ';?><input type="text" class="col-lg-offset-1 hourappointment" name="hourappointmentforModif" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
-                                                <p><?php echo 'Informations consultation : '; ?></p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
+                                                <p>Nom du rendez-vous : <input class="col-lg-offset-1 nameappointment" type="text" name="nameappointmentforModif" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
+                                                <p>Heure du rendez-vous : <input type="text" class="col-lg-offset-1 hourappointment" name="hourappointmentforModif" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
+                                                <p>Informations complémentaires du rendez-vous : </p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
                                               </div>
                                           </div>
                                             <?php
@@ -83,7 +83,6 @@
                                                           </div>
                                                       </div>
                                                     </form>
-                                                    <?php //include '../Controller/ajaxsupprapointment.php';?> 
                                                 </div>
                                               </div>
                                           </div>
@@ -125,5 +124,5 @@
                                     </div>
                                   </div>
                                     <?php 
-                                       include '../Controller/ajaxappointment.php';
+                                       include 'Controller/ajaxappointment.php';
                                     ?>  

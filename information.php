@@ -1,15 +1,13 @@
 <?php
-    include '../Controller/informationController.php';
+    include 'Controller/informationController.php';
+        include 'View/header.php';
     if(!isset($_SESSION['user'])) {
-        include 'header.php';
         ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
     }
     else {
         $user = $_SESSION['user'];
         $role = $_SESSION['role'];
-        $pathology = $_SESSION['pathology'];
-        include '../View/header1.php';
-        
+        $pathology = $_SESSION['pathology'];       
 ?>
     <div class="container">
         <div class="row">
@@ -33,7 +31,7 @@
                             <label for="dayappointment">Jour du rendez-vous : </label>
                             <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                <input type="date" class="form-control" name="dayappointment" value="<?php echo isset($_POST['dayappointment']) ? strip_tags($_POST['dayappointment']) : ''; ?>">
+                                <input type="date" min="<?php echo date('Y-m-d'); ?>" class="form-control" name="dayappointment" value="<?php echo isset($_POST['dayappointment']) ? strip_tags($_POST['dayappointment']) : ''; ?>">
                             </div>
                             <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageDate;?></p>
                         </div> 
@@ -140,7 +138,7 @@
                     for($daysCases = 1; $daysCases <= $numberDaysInMonth + $firstWeekDayOfMonth - 1; $daysCases++) {
                         // cherche le premier jour du mois
                         if($firstWeekDayOfMonth <= $daysCases) {
-                            include '../Controller/calendarday.php';
+                            include 'Controller/calendarday.php';
                             if($day == $currentDay) {
                                 ?><td class="tdcalendar"><?php
                                 echo $currentDay;
@@ -161,7 +159,7 @@
                                     <?php
                                         }
                                     } // Affichage fenêtre modal
-                                        include 'modalinformation.php';
+                                        include 'View/modalinformation.php';
                                    }   
                                 ?></td><?php
                             }
@@ -216,5 +214,5 @@
     </div>
 <?php
 }
-include 'footer.php';
+include 'View/footer.php';
 ?>

@@ -1,25 +1,24 @@
 <?php
 session_start();
-include '../Model/dataBase.php';
-include '../Model/users.php';
-include '../Model/follow.php';
-include '../Controller/qrcodeController.php';
+include 'Model/dataBase.php';
+include 'Model/users.php';
+include 'Model/follow.php';
+include 'Controller/qrcodeController.php';
 $idFollow = $_GET['idFollow'];
 if(!isset($_SESSION['user'])) {
-    include 'header.php'; 
     ?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <script src="../assets/js/canvasjs.min.js"></script>
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <link rel="icon" href="../logo.ico" />
-    <link rel="stylesheet" href="../assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="assets/js/canvasjs.min.js"></script>
+    <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="icon" href="logo.ico" />
+    <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
         <title>Ajout!</title>
     </head>
         <body>
@@ -51,7 +50,7 @@ if(!isset($_SESSION['user'])) {
     <?php
 }
 else {
-    include 'header1.php';
+    include 'View/header.php';
     if($verif == 0 && $follow->follow_to != $follow->follow_from) {  
     ?><p>Suivi ajouté !</p><?php
     }

@@ -204,7 +204,7 @@ class users extends dataBase {
      */
     public function getInfoAndVerification() {
         $mail = array();
-        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `date_verification` FROM `users` LEFT JOIN `verification` ON `userId` = id');
+        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `users` LEFT JOIN `verification` ON `userId` = id');
         if(is_object($requestmail)) {
             $mail = $requestmail->fetchAll(PDO::FETCH_ASSOC);         
         }

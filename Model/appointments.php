@@ -3,7 +3,7 @@
  * Classe des rendez-vous
  * Visualisation dans la page information
  */
-class appointments extends dataBase{
+class appointments extends dataBase {
     public $id = 0;
     public $userId = 0;
     public $nameappointment = '';

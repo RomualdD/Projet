@@ -1,8 +1,8 @@
 <?php
-include '../Controller/verificationconnexion.php';
+include 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {
-    include '../Model/follow.php';
-    include '../Controller/ajoutController.php';
+    include 'Model/follow.php';
+    include 'Controller/ajoutController.php';
     ?>
     <div class="container">
       <div class="row">
