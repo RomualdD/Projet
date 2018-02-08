@@ -1,5 +1,9 @@
 html, body {
   height: 100%;
+  background-image: url('../img/fond.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
 }
 
 body {
@@ -30,6 +34,7 @@ header {
 
 .connexionheader:hover {
     color: #23527c;
+    text-decoration: underline;
     cursor: pointer;
 } 
 
@@ -51,6 +56,11 @@ footer a {
 body {
   margin: 0;
 }
+
+.view {
+    background-color: white;
+    opacity: 0.9;
+}   
 
 .subhead {
   margin-top: 20px;
@@ -133,11 +143,11 @@ textarea {
 .phoneup {
   padding-left: 20px;
 }
-
+/*
 .profil, .formular, .modificate,.demande {
   border: 1px solid;
 }
-
+*/
 .formular, .modificate {
   margin-top: 10px;
 }

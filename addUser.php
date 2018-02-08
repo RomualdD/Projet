@@ -22,6 +22,7 @@ if(!isset($_SESSION['user'])) {
         <title>Ajout!</title>
     </head>
         <body>
+            <div class="view"
             <h2 class="col-lg-offset-5">Ajout à partir d'un QRcode</h2>
                 <form action="addUser.php?idFollow=<?php echo $idFollow; ?>" method="POST">
                   <div class="row">

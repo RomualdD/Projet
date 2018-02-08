@@ -17,7 +17,7 @@ else {
 include 'Controller/contactController.php';
 ?>
 <!-- Page contact -->
-  <div class="container">
+  <div class="container view">
     <div class="row">
       <div class="col-lg-offset-5 col-xs-offset-4"><h2>Contact</h2></div>
     

@@ -20,7 +20,7 @@ else {
     <div class="row">
         <div class="col-lg-offset-5"><h2>Accueil</h2></div>
     </div>
-    <div class="row">
+    <div class="row view">
       <div class="welcome col-lg-offset-2"><h3>Bienvenue sur le site di-A-vk!</h3></div>
       <div class="subhead col-lg-offset-1"><h4>Pour qui est ce site?</h4></div>
       <p>Ce site est dédié aux personnes atteintes du Diabète ou de souci de santé nécessitant la prise d'anticoagulant (AVK) et utilisant principalement des appareils (par exemple coagucheck). Vous pourrez noter les résultats de vos prises de sang composant le suivi de votre diabète ou INR et ainsi observer l'évolution instantanément à chaque prise de sang.</p>

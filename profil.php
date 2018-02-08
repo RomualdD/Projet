@@ -6,7 +6,7 @@
        include 'Controller/profilController.php';
 ?>
 <!-- Page profil type -->
-    <div class="container">
+    <div class="container view">
       <div class="row">
         <div class="col-lg-offset-5"><h2>Votre profil</h2></div>
       </div>

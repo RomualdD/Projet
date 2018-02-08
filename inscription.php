@@ -3,7 +3,7 @@
   include 'Controller/inscriptionController.php';
 ?>
 <!-- Page d'inscription -->
-  <div class="container">
+  <div class="container view">
     <div class="row">
       <div class="col-lg-offset-5"><h2>Inscription</h2></div>
     </div>

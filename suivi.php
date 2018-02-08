@@ -5,7 +5,7 @@ if(isset($_SESSION['user'])) {
   include 'Model/suivis.php';
   include 'Model/follow.php';
   include 'Controller/suiviController.php';
-  ?><div class="container">
+  ?><div class="container view">
         <div class="row">
             <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
         </div><?php
