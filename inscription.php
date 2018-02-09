@@ -1,6 +1,8 @@
 <?php
-  include 'View/header.php';
+  include_once 'Model/dataBase.php';
+  include_once 'Model/users.php';
   include 'Controller/inscriptionController.php';
+  include 'View/header.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container view">

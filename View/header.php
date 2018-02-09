@@ -1,7 +1,5 @@
 <?php 
     if(!isset($_SESSION['user'])) {
-        include_once 'Model/dataBase.php';
-        include_once 'Model/users.php';
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
