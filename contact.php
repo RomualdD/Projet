@@ -1,6 +1,5 @@
 <?php
 session_start();
-    include 'View/header.php';
 if(!isset($_SESSION['user'])) {
 }
 else {    
@@ -14,6 +13,7 @@ else {
     $role = $_SESSION['role'];
     $pathology = $_SESSION['pathology'];
 }
+    include 'View/header.php';
 include 'Controller/contactController.php';
 ?>
 <!-- Page contact -->

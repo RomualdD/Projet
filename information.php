@@ -1,15 +1,16 @@
 <?php
     include 'Controller/informationController.php';
-        include 'View/header.php';
     if(!isset($_SESSION['user'])) {
+        include 'View/header.php';
         ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
     }
     else {
         $user = $_SESSION['user'];
         $role = $_SESSION['role'];
-        $pathology = $_SESSION['pathology'];       
+        $pathology = $_SESSION['pathology'];    
+        include 'View/header.php';   
 ?>
-    <div class="container">
+    <div class="container view">
         <div class="row">
             <div class="col-lg-offset-4">
                 <h2>Ajouter vos rendez-vous</h2>

@@ -1,6 +1,6 @@
 <?php
-    include 'View/header.php';
     include_once 'Controller/connexionController.php';
+    include_once 'View/header.php';
 ?>
 <!-- Page de connexion -->
   <div class="container view">
