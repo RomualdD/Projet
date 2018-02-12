@@ -39,7 +39,6 @@ if(isset($_POST['submit'])) {
             $errorMessageMail = 'Le mail n\'est pas valide !';
             $error++;
         }
-        // Cryptage de données mdp
         $user->password = $_POST['password'];
         $passwordverif = $_POST['passwordverif'];
         if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['birthday']) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['birthday']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['birthday'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['birthday']))) {
@@ -67,6 +66,7 @@ if(isset($_POST['submit'])) {
             if(($user->role == 1 && $user->pathology != 0) || ($user->role == 0 && $user->pathology == 0)) {
              // On vérifie que les mots de passes sont identiques
                 if($user->password == $passwordverif) {
+                // Cryptage de données mdp
                   $user->password = password_hash($user->password,PASSWORD_DEFAULT);  
                     // Vérification qu'un utilisateur n'a pas le même nom
                   $verifusername = $user->getUsername();             
