@@ -1,4 +1,16 @@
 <?php
+if(isset($_POST['deleteajax'])) {
+     session_start();
+    include '../Model/dataBase.php'; 
+    include '../Model/verification.php';
+    include '../Model/follow.php';
+    include '../Model/users.php'; 
+    $users = new users();
+    $users->username = $_SESSION['user'];
+    $userId = $users->getUserId();
+    $id = $userId['id'];
+    $pathology = $_SESSION['pathology'];
+}
     $verification = new verification();
     $follow = new follow();
     $user = new users();
@@ -565,6 +577,13 @@
     if(isset($_POST['deletephone2'])) {
         $user->deleteSecondPhone();
         $successDeletePhone = 'Votre second numéro de téléphone n\'existe plus !';
+    }
+    
+    if(isset($_POST['deleteajax'])) {
+        $user->deleteAccount();
+        session_unset();
+        session_destroy();
+        echo 'Success';
     }
 // -- // Recherche demande suivi    
 $requestfollow = $follow->getFollowQuest();

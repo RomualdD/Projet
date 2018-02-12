@@ -292,6 +292,14 @@ class users extends dataBase {
         $deletePhone->bindValue('user',$this->username,PDO::PARAM_STR);
         return $deletePhone->execute();
     }
+    /**
+     * Méthode qui supprime le compte
+     */
+    public function deleteAccount() {
+        $delete = $this->db->prepare('DELETE FROM `users` WHERE `username` = :user');
+        $delete->bindValue('user',$this->username,PDO::PARAM_STR);
+        return $delete->execute();
+    }
     public function __destruct() {
         
     }

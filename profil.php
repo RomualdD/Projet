@@ -7,9 +7,9 @@
 ?>
 <!-- Page profil type -->
     <div class="container view">
-      <div class="row">
-        <div class="col-lg-offset-5"><h2>Votre profil</h2></div>
-      </div>
+        <div class="row">
+          <div class="col-lg-offset-5"><h2>Votre profil</h2></div>
+        </div>
         <div class="col-lg-4">
             <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary" disabled>Menu de votre profil :</a>
             <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
@@ -19,10 +19,11 @@
               <?php } ?>
               <li><a href="#modificateInformations" data-toggle="tab">Modification du compte à modifier :</a></li>
               <li><a href="#displayFollow" data-toggle="tab">Visualiation et ajout de suivis : <span id="infoFollow"><?php echo $nbquest;?></span></a></li>
+              <li><a href="#DeleteAccount" data-toggle="tab">Se désinscrire :</a></li>            
             </ul>
         </div>
         <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="displayInformations">
+            <div role="tabpanel" class="tab-pane fade in active" id="displayInformations">
             <div class="row">
                 <div class="profil col-lg-offset-2 col-lg-5">
                         <div class="subtitle col-lg-offset-3"><h3>Vos informations :</h3></div>
@@ -344,47 +345,78 @@
                         <?php } ?></p>
                     </div>
                     <?php if($_SESSION['role'] != 0) {  ?>
-                    <form method="post" action="ajout.php">
-                        <div class="form-inline">
-                            <label class="col-lg-offset-2 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
-                            <div class="input-group search col-lg-offset-2">
-                                <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                        <form method="post" action="ajout.php">
+                            <div class="form-inline">
+                                <label class="col-lg-offset-2 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
+                                <div class="input-group search col-lg-offset-2">
+                                    <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="name" placeholder="Chercher votre médecin">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-inline col-lg-offset-2">
-                            <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
-                        </div>
-                    </form>
+                            <div class="form-inline col-lg-offset-2">
+                                <input type="submit" value="Rechercher !" name="adddoctor" class="button btn btn-default col-lg-offset-1">
+                            </div>
+                        </form>
                 <?php  }
-                else { ?>
-                    <form method="post" action="ajout.php">
-                        <div class="form-inline">
-                            <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre patient :</label>                                                        
-                            <div class="input-group search col-lg-offset-4">
-                                <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="name" placeholder="Chercher votre patient">
+                    else { ?>
+                        <form method="post" action="ajout.php">
+                            <div class="form-inline">
+                                <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre patient :</label>                                                        
+                                <div class="input-group search col-lg-offset-4">
+                                    <span class="input-group-addon"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="name" placeholder="Chercher votre patient">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-inline col-lg-offset-4">
-                                <input type="submit" value="Rechercher !" name="addpatient" class="button btn btn-default col-lg-offset-1">
-                        </div>
-                    </form>
-                    <?php  } ?>
+                            <div class="form-inline col-lg-offset-4">
+                                    <input type="submit" value="Rechercher !" name="addpatient" class="button btn btn-default col-lg-offset-1">
+                            </div>
+                        </form>
+                        <?php  } ?>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="qrcode col-lg-offset-3 col-lg-9">
-            <?php if($_SESSION['role'] != 0) {  ?>
-                <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané : </h4>
-                <?php }
-                else { ?>
-                <h4>Votre QRCode pour permettre à votre patient de le suivre : </h4>
-                <?php } ?>
-                <img src="Controller/qrcode.php" class="col-lg-offset-2">
-        </div>
+            <div role="tabpanel" class="tab-pane fade" id="DeleteAccount">
+                <div class="delete col-lg-offset-3 col-lg-5">
+                    <div class="row">
+                        <div class="subtitle col-lg-offset-1"><h3>Se désinscrire :</h3></div>
+                        <div class="delete col-lg-offset-1">
+                            <div class="form-inline">
+                                <div value="Supprimer son compte" data-toggle="modal" data-target="#DeleteModal" class="button btn btn-default">Supprimer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="qrcode col-lg-offset-3 col-lg-9">
+                    <?php if($_SESSION['role'] != 0) {  ?>
+                        <h4>Votre QRCode pour permettre à votre médecin de vous suivre instantané : </h4>
+                        <?php }
+                        else { ?>
+                        <h4>Votre QRCode pour permettre à votre patient de le suivre : </h4>
+                        <?php } ?>
+                        <img src="Controller/qrcode.php" class="col-lg-offset-2">
+                </div>
+            </div>
     </div>
+    <div class="modal fade" id="DeleteModal" role="dialog">
+        <div class="modal-dialog">
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h3 class="modal-title"> Êtes-vous sûr de supprimer votre compte :</h3>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" disabled id="username" name="username" value="<?php echo $user->username; ?>">
+                    <input type="submit" value="Supprimer !" id="delete" name="delete" class="button btn btn-default col-lg-offset-4">
+                </div>
+                <div class="modal-footer">
+                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fermer</button>
+                </div>                        
+            </div>
+        </div>            
     </div>
+<script src="assets/js/script.js"></script>
 <?php
     }
   include 'View/footer.php';

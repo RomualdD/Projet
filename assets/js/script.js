@@ -18,4 +18,20 @@ $(document).ready(function() {
             'text' // Recevoir success ou failed
             );
     });
+    $('#delete').click(function() {
+        $.post(
+            'Controller/profilController.php', {
+                deleteajax: 'delete'
+            },   
+        function (data) {
+            if (data == 'Success') {
+                location.href = 'index.php';
+            } else {
+                alert('Erreur lors de la désinscription');
+                location.href = 'profil.php';
+            }
+        }, 
+        'text'
+        );
+    });
 });
