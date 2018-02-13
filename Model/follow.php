@@ -148,6 +148,13 @@ class follow extends dataBase{
         $requestrefuse->bindValue(':id',$this->id,PDO::PARAM_INT);
         return $requestrefuse->execute();
     }
+    
+    public function deleteFollowById() {
+        $requestdelete =  $this->db->prepare('DELETE FROM `follow` WHERE `follow_from` = :id OR `follow_to` = :id');
+        $requestdelete->bindValue(':id',$this->id,PDO::PARAM_INT);
+        return $requestdelete->execute();
+    }
+    
     public function __destruct() {
         parent::__destruct();
     }

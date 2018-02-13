@@ -296,8 +296,8 @@ class users extends dataBase {
      * Méthode qui supprime le compte
      */
     public function deleteAccount() {
-        $delete = $this->db->prepare('DELETE FROM `users` WHERE `username` = :user');
-        $delete->bindValue('user',$this->username,PDO::PARAM_STR);
+        $delete = $this->db->prepare('DELETE FROM `users` WHERE `id` = :id');
+        $delete->bindValue('id',$this->id,PDO::PARAM_STR);
         return $delete->execute();
     }
     public function __destruct() {

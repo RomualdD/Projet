@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-offset-5"><h2>Inscription</h2></div>
     </div>
-    <div class="message col-lg-offset-2 col-lg-10"><p>Bonjour, afin de continuer sur le site il est obligatoire d'être inscrit, veuillez remplir les informations ci-dessous.</p>
+    <div class="message col-lg-offset-2 col-lg-10"><p>Afin de continuer sur le site il est obligatoire d'être inscrit, veuillez remplir les informations ci-dessous.</p>
     <p>Si vous êtes déjà inscrit, veuillez-vous rendre sur la page <a href="connexion.php" class="link">connexion</a>.</p></div>
     <div class="row">
       <div class="inscription col-lg-offset-3 col-lg-5">

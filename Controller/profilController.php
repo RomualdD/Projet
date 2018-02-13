@@ -580,6 +580,7 @@ if(isset($_POST['deleteajax'])) {
     }
     
     if(isset($_POST['deleteajax'])) {
+        $follow->deleteFollowById();
         $user->deleteAccount();
         session_unset();
         session_destroy();

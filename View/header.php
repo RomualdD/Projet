@@ -1,24 +1,26 @@
 <?php 
     if(!isset($_SESSION['user'])) {
+        $server= $_SERVER['DOCUMENT_ROOT'];
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <link rel="icon" href="../logo.ico" />
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <link href="../assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="../assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" href="/logo.ico"/>
+    <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
+    <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link href="/assets/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="<?php echo $server; ?>/assets/css/style.css">
     <title>di-A-vk: La santé avant tout</title>
   </head>
   <body>
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
+          <div class="logo col-lg-1"><img src="/assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
           <div class="hello col-lg-offset-1 col-lg-2"><a href="inscription.php"><p>S'inscrire</p></a></div>
           <div class="hello col-lg-2" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
@@ -57,7 +59,6 @@
             </div>
         </div>
       </div>
-      </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
             <li><a href="http://diavk/" class=" col-lg-offset-2"><i class="fas fa-home"></i> Accueil</a></li>
@@ -75,13 +76,13 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <script src="../assets/js/canvasjs.min.js"></script>
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <link rel="icon" href="../logo.ico" />
-    <link href="../assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="../assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="/assets/js/canvasjs.min.js"></script>
+    <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
+    <link rel="icon" href="/logo.ico" />
+    <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <title>di-A-vk: La santé avant tout</title>
   </head>
   <body>

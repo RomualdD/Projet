@@ -6,19 +6,18 @@
         if(!empty($_POST['username']) && (!empty($_POST['password']))) {
                $users->username = $_POST['username'];
                // Cryptage du mot de passe entré
-               $users->password = sha1(md5($_POST['password']));
+               $users->password = $_POST['password'];
                // Cherche le nom d'utilisateur et le mot de passe entré
                $requestUser =  $users->getUser();
                $verifUser = $requestUser['username'];
                $verifPassword = $requestUser['password'];
               // Si les champs correspondent dans la base de données
-              if($verifUser == $users->username && $users->password == $verifPassword) {
+              if($verifUser == $users->username && password_verify($users->password, $verifPassword)) {
                   // Vérification si le compte est bien actif
                   $verifactif = $users->getVerif();
                   $actif = $verifactif['active'];
                  if($actif == '1') {
                    // Démarrage d'une session
-                   session_start();
                    $infosUser = $users->getInfoConnexion();
                    //Enregistement dans la session:
                    $_SESSION['user'] = $_POST['username'];
