@@ -43,7 +43,7 @@ CREATE TABLE `verification` (
 	`threehour` VARCHAR(40),
 	`fourhour` VARCHAR(40),
 	`notification` INT(11),
-	`verirication_date` VARCHAR(40)
+	`verification_date` VARCHAR(40)
 );
 
 CREATE TABLE `appointments` ( 
