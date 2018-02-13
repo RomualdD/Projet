@@ -161,7 +161,7 @@ class users extends dataBase {
      */
     public function getPatientUserByName() {
         $patient = array();
-        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username` FROM `users` WHERE (`lastname like :name OR `firstname` like :firstname) AND `role` = :role');
+        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username` FROM `users` WHERE (`lastname` like :name OR `firstname` like :firstname) AND `role` = :role');
         $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
