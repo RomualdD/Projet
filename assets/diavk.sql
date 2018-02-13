@@ -20,7 +20,7 @@ CREATE TABLE `users` (
 );
 
 CREATE TABLE `medical_followup` (
-	`id` INT(11) PRIMARY KEY,
+	`id` INT(11)  PRIMARY KEY AUTO_INCREMENT,
 	`userId` INT(11),
 	`today_date` DATETIME,
 	`result` VARCHAR(10),
