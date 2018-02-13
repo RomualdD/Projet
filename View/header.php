@@ -1,6 +1,6 @@
 <?php 
     if(!isset($_SESSION['user'])) {
-        $server= $_SERVER['DOCUMENT_ROOT'];
+      $server= $_SERVER['DOCUMENT_ROOT'];
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
@@ -61,10 +61,10 @@
       </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
-            <li><a href="http://diavk/" class=" col-lg-offset-2"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="inscription.php" class="col-lg-offset-9"><i class="fas fa-user-plus"></i> Inscription</a></li>
+            <li><a href="http://diavk/" class=" col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="inscription.php" class="col-lg-offset-8"><i class="fas fa-user-plus"></i> Inscription</a></li>
             <li><a href="connexion.php" class="col-lg-offset-8"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-            <li><a href="contact.php" class="col-lg-offset-9"><i class="far fa-edit"></i> Contact</a></li>
+            <li><a href="contact.php" class="col-lg-offset-8"><i class="far fa-edit"></i> Contact</a></li>
           </ul>
       </div>
     </header>
@@ -81,7 +81,7 @@
     <link rel="icon" href="/logo.ico" />
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>di-A-vk: La santé avant tout</title>
   </head>

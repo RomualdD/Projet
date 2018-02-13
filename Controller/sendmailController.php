@@ -1,7 +1,7 @@
         <?php 
     // L'utilisation de cette page est strictement réservé au crontab (tâche automatique ! )    
-    include '../Model/dataBase.php';
-    include '../Model/users.php';
+    include '/home/romuald/www/ProjetFinal/Model/dataBase.php';
+    include '/home/romuald/www/ProjetFinal/Model/users.php';
     $users = new users();
     // Récupération de la date et l'heure du moment
     $day = date('Y-m-d H:i').':00';

@@ -21,7 +21,7 @@ h1 {
 
 .navbar-default .navbar-nav > li > a {
   color: white;
-  font-size: 20px;
+  font-size: 1.4em;
 }
 
 header {
@@ -143,11 +143,7 @@ textarea {
 .phoneup {
   padding-left: 20px;
 }
-/*
-.profil, .formular, .modificate,.demande {
-  border: 1px solid;
-}
-*/
+
 .formular, .modificate {
   margin-top: 10px;
 }
@@ -161,7 +157,7 @@ textarea {
 }
 
 #chartResult {
-  height: 370px;
+  height: 30em;
   width: 100%;
 }
 
@@ -201,13 +197,13 @@ li > a:hover {
 }
 
 .tdcalendar, .thcalendar {
-  width:80px;
-  height:100px  
+  width:6em;
+  height:7em;  
 }
 
 .thcalendar {
     text-align: center;
-    font-size: 17px;
+    font-size: 1em;
 }    
 
 .calendarchoice {
