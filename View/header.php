@@ -61,15 +61,28 @@
             </div>
         </div>
       </div>
+      <nav class="navbar navbar-default">
+	<div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://diavk/" class="col-lg-offset-8 col-lg-4"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="inscription.php" class="col-lg-offset-1 col-lg-11"><i class="fas fa-user-plus"></i> Inscription</a></li>
+                    <li><a href="connexion.php" class="col-lg-offset-7 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+      </nav>
     </header>
-      <div class="navbar navbar-default">
-          <ul class="nav navbar-nav">
-            <li><a href="http://diavk/" class="col-lg-offset-8 col-lg-4"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="inscription.php" class="col-lg-offset-1 col-lg-11"><i class="fas fa-user-plus"></i> Inscription</a></li>
-            <li><a href="connexion.php" class="col-lg-offset-7 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-            <li><a href="contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
-          </ul>
-      </div>
+
   <?php  }
   else { ?>
       <!-- Header connecté -->
@@ -97,21 +110,33 @@
           <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
         </div>
       </div>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                      <li><a href="index.php" class="col-lg-offset-8"><i class="fas fa-home"></i> Accueil</a></li>
+                      <?php if($role == 0) { ?>
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
+                      <?php }
+                      else {?>
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
+                    <?php  }?>
+                      <li><a href="information.php" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
+                      <li><a href="suivi.php" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
+                      <li><a href="contact.php" class="col-lg-offset-1"><i class="far fa-edit"></i> Contact</a></li>
+                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
-      <div class="navbar navbar-default">
-          <ul class="nav navbar-nav">
-            <li><a href="index.php" class="col-lg-offset-8"><i class="fas fa-home"></i> Accueil</a></li>
-            <?php if($role == 0) { ?>
-            <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
-            <?php }
-            else {?>
-            <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
-          <?php  }?>
-            <li><a href="information.php" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
-            <li><a href="suivi.php" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
-            <li><a href="contact.php" class="col-lg-offset-1"><i class="far fa-edit"></i> Contact</a></li>
-            <li><a href="Controller/deconnexion.php" class="col-lg-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
-          </ul>
-      </div>
   <?php }
   ?>
