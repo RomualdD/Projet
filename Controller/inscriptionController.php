@@ -7,7 +7,6 @@
     $errorMessageUser = '';
     $errorMessagePassword = '';
     $errorMessagePathology = '';
-    var_dump($_POST);
 if(isset($_POST['inscriptionusername'])) {
   include_once '../Model/dataBase.php';
   include_once '../Model/users.php';
