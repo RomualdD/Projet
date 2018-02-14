@@ -1,6 +1,6 @@
 <?php 
     if(!isset($_SESSION['user'])) {
-      $server= $_SERVER['DOCUMENT_ROOT'];
+        $server= $_SERVER['DOCUMENT_ROOT'];
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
@@ -9,6 +9,9 @@
     <meta charset="utf-8">
     <link rel="icon" href="/logo.ico"/>
     <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -61,14 +64,13 @@
       </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
-            <li><a href="http://diavk/" class=" col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="inscription.php" class="col-lg-offset-8"><i class="fas fa-user-plus"></i> Inscription</a></li>
-            <li><a href="connexion.php" class="col-lg-offset-8"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-            <li><a href="contact.php" class="col-lg-offset-8"><i class="far fa-edit"></i> Contact</a></li>
+            <li><a href="http://diavk/" class="col-lg-offset-1"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="inscription.php" class="col-lg-offset-7"><i class="fas fa-user-plus"></i> Inscription</a></li>
+            <li><a href="connexion.php" class="col-lg-offset-7"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+            <li><a href="contact.php" class="col-lg-offset-7"><i class="far fa-edit"></i> Contact</a></li>
           </ul>
       </div>
     </header>
-      <script src="assets/js/script.js"></script>
   <?php  }
   else { ?>
       <!-- Header connecté -->
@@ -77,11 +79,13 @@
   <head>
     <meta charset="utf-8">
     <script src="/assets/js/canvasjs.min.js"></script>
-    <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="icon" href="/logo.ico" />
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>di-A-vk: La santé avant tout</title>
   </head>
@@ -91,22 +95,22 @@
         <div class="row">
           <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['user']) ? strip_tags($_SESSION['user']) : ''; ?></p></div>
+          <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
         </div>
       </div>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
-            <li><a href="http://diavk/"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="index.php"><i class="fas fa-home"></i> Accueil</a></li>
             <?php if($role == 0) { ?>
-            <li><a href="http://diavk/profil.php" class="col-lg-offset-7"><i class="fas fa-user-md"></i> Profil</a></li>
+            <li><a href="profil.php" class="col-lg-offset-7"><i class="fas fa-user-md"></i> Profil</a></li>
             <?php }
             else {?>
-            <li><a href="http://diavk/profil.php" class="col-lg-offset-7"><i class="fas fa-user"></i> Profil</a></li>                
+            <li><a href="profil.php" class="col-lg-offset-7"><i class="fas fa-user"></i> Profil</a></li>                
           <?php  }?>
-            <li><a href="http://diavk/information.php" class="col-lg-offset-7"><i class="far fa-calendar-minus"></i> Information</a></li>
-            <li><a href="http://diavk/suivi.php" class="col-lg-offset-8"><i class="fas fa-stethoscope"></i> Suivi</a></li>
-            <li><a href="http://diavk/contact.php" class="col-lg-offset-8"><i class="far fa-edit"></i> Contact</a></li>
-            <li><a href="http://diavk/Controller/deconnexion.php" class="col-lg-offset-7"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
+            <li><a href="information.php" class="col-lg-offset-7"><i class="far fa-calendar-minus"></i> Information</a></li>
+            <li><a href="suivi.php" class="col-lg-offset-8"><i class="fas fa-stethoscope"></i> Suivi</a></li>
+            <li><a href="contact.php" class="col-lg-offset-8"><i class="far fa-edit"></i> Contact</a></li>
+            <li><a href="Controller/deconnexion.php" class="col-lg-offset-7"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
           </ul>
       </div>
     </header>

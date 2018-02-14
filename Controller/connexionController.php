@@ -36,6 +36,8 @@ if (isset($_POST['connexion']))
                 $infosUser = $user->getInfoConnexion();
                 //Enregistement dans la session:
                 $_SESSION['user'] = $_POST['username'];
+                $_SESSION['firstname'] = $infosUser['firstname'];
+                $_SESSION['name'] = $infosUser['lastname'];
                 $_SESSION['role'] = $infosUser['role'];
                 $_SESSION['pathology'] = $infosUser['pathology'];
                 if($infoAjax == false)

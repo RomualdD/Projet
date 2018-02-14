@@ -68,12 +68,12 @@ body {
   text-decoration: underline;
   color: red;
   font-style: italic;
-  font-size: 20px;
+  font-size: 1em;
 }
 
 p {
   margin-bottom: 10px;
-  font-size: 17px;
+  font-size: 1.2em;
 }
 
 .errormessage {
@@ -90,7 +90,7 @@ p {
 
 .subtitle {
   font-style: italic;
-  font-size: 20px;
+  font-size: 1em;
   text-decoration: underline;
 }
 
@@ -110,17 +110,13 @@ p {
   border: 1px solid;
 }
 
-.contact {
-    border: 1px solid;
-}
-
 .button {
   margin-bottom: 20px;
 }
 
 .explication p {
   font-style: italic;
-  font-size: 15px;
+  font-size: 1em;
 }
 
 .role {
@@ -157,7 +153,7 @@ textarea {
 }
 
 #chartResult {
-  height: 30em;
+  height: 370px;
   width: 100%;
 }
 
@@ -197,7 +193,7 @@ li > a:hover {
 }
 
 .tdcalendar, .thcalendar {
-  width:6em;
+  width:80px;
   height:7em;  
 }
 
@@ -207,7 +203,7 @@ li > a:hover {
 }    
 
 .calendarchoice {
-    padding-bottom: 10px;
+    padding-bottom: 1em;
 }    
 table th[class*="col-xs"] {
     display: none;
@@ -237,14 +233,14 @@ table th[class*="col-lg"] {
   font-weight: lighter;
   }  
  #pageactive {
-     font-weight: bold;
-     font-size: 1.2em;
-     color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
     background-color: red;
   } 
 .pagination > li > a{
-     font-weight: bold;
-     font-size: 1.2em;
+    font-weight: bold;
+    font-size: 1.2em;
     color: red;
 }
 

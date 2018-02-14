@@ -1,5 +1,4 @@
 <?php
-    $user = new users();
     $errorMessageName = '';
     $errorMessageFirstname = '';
     $errorMessageMail = '';
@@ -8,6 +7,21 @@
     $errorMessageUser = '';
     $errorMessagePassword = '';
     $errorMessagePathology = '';
+    var_dump($_POST);
+if(isset($_POST['inscriptionusername'])) {
+  include_once '../Model/dataBase.php';
+  include_once '../Model/users.php';
+    $user = new users();
+    $user->username = $_POST['inscriptionusername'];
+    $verifusername = $user->getUsername();    
+    if($user->username == $verifusername['username']) {
+      echo 'Failed';
+    } else {
+        echo 'Success';
+    }
+}
+    $user = new users();
+
 if(isset($_POST['submit'])) {
      // Vérification si les champs sont bien remplis
      if(!empty($_POST['name']) && (!empty($_POST['firstname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['birthday'])) && (!empty($_POST['phone'])))  {
@@ -16,7 +30,7 @@ if(isset($_POST['submit'])) {
          * Vérifications des regex
          * On évite les éléments comme balise html/php
          */
-        if(preg_match('#^[a-zA-Z]{1,20}$#', $_POST['name'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\-]{1,30}$#', $_POST['name'])) {
             // Mise en majuscule du nom
             $user->name = strtoupper(strip_tags($_POST['name']));
         }
@@ -24,7 +38,7 @@ if(isset($_POST['submit'])) {
             $errorMessageName = 'Le nom n\'est pas valide';
             $error++;
         }
-        if(preg_match('#^[a-zA-Z]{1,20}$#', $_POST['firstname'])) {
+        if(preg_match('#^[[a-zA-ZéçèàûüÛÜÉÀÇÈ\-]]{1,30}$#', $_POST['firstname'])) {
           $user->firstname = strip_tags($_POST['firstname']);     
         }
         else {
