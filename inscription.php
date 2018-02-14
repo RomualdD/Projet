@@ -37,18 +37,18 @@
             <label class="col-lg-offset-3 col-lg-9" for="birthday">Date de naissance :</label>  
             <div class="input-group birthday col-lg-offset-3">
                 <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                <input type="date" class="form-control" id="birthday" name="birthday" value="<?php echo isset($_POST['birthday']) ? strip_tags($_POST['birthday']) : ''; ?>" placeholder="<?php echo date('d/m/Y'); ?>" required>
+                <input type="date" class="form-control" max="<?php echo date('Y-m-d', strtotime('- 1 YEAR')); ?>" id="birthday" name="birthday" value="<?php echo isset($_POST['birthday']) ? strip_tags($_POST['birthday']) : ''; ?>" placeholder="<?php echo date('d/m/Y'); ?>" required>
             </div>
-            <p class="col-lg-offset-3">Format: jj/mm/aaaa</p>
             <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageBirthday; ?></p>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="username">Nom d'utilisateur :</label>
             <div class="input-group username col-lg-offset-3">
                 <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_POST['username']) ? strip_tags($_POST['username']) : ''; ?>" placeholder="Nom d'utilisateur" required>
+                <input type="text" class="form-control" name="username" id="inscriptionUsername" value="<?php echo isset($_POST['username']) ? strip_tags($_POST['username']) : ''; ?>" placeholder="Nom d'utilisateur" required>
             </div>
-            <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageUser;?></p>
+            <p id="usernameerror" class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageUser;?></p>
+            <p id="usernamesuccess" class="successmessage col-lg-offset-3 col-lg-9"></p>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="password">Mot de passe :</label>  

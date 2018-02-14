@@ -61,6 +61,7 @@
             </div>
         </div>
       </div>
+    </header>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
             <li><a href="http://diavk/" class="col-lg-offset-8 col-lg-4"><i class="fas fa-home"></i> Accueil</a></li>
@@ -69,7 +70,6 @@
             <li><a href="contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
           </ul>
       </div>
-    </header>
   <?php  }
   else { ?>
       <!-- Header connecté -->
@@ -97,6 +97,7 @@
           <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
         </div>
       </div>
+    </header>
       <div class="navbar navbar-default">
           <ul class="nav navbar-nav">
             <li><a href="index.php" class="col-lg-offset-8"><i class="fas fa-home"></i> Accueil</a></li>
@@ -112,6 +113,5 @@
             <li><a href="Controller/deconnexion.php" class="col-lg-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
           </ul>
       </div>
-    </header>
   <?php }
   ?>
