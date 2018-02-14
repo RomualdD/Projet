@@ -104,6 +104,7 @@ if(isset($_SESSION['user'])) {
         <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
       </form>
           <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
+          <p class="errormessage col-lg-offset-4 col-lg-8"><?php echo $errorResult; ?></p>
       </div>
       <div class="row">
         <div class="col-lg-offset-4"><h3>Visualisation des résultats :</h3></div>
@@ -170,6 +171,8 @@ if(isset($_SESSION['user'])) {
 <?php  
     }
     ?></div><?php
+  } else {
+    ?><p><?php echo $errorConnexion; ?></p><?php
   }  
   include 'View/footer.php';
 ?>

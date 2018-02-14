@@ -176,9 +176,9 @@
                             }
                         }
                         elseif($pathology == 3) {
-                                if($info == 0) {
+                                if($info == NULL) {
                             ?>
-                        <form name="addverif" method="POST" action="profil.php">
+                        <form name="addverif" method="POST" action="profil.php#medicalInformation">
                             <div class="form-inline">
                               <div class="input-group clock col-lg-offset-3 col-lg-6">
                                   <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
@@ -418,6 +418,8 @@
     </div>
 <script src="assets/js/script.js"></script>
 <?php
+    } else {
+        ?><p><?php echo $errorConnexion; ?></p><?php
     }
   include 'View/footer.php';
 ?>
