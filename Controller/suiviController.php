@@ -34,19 +34,27 @@ if($role != 0) {
     $nbresultat = 3;
     // Arrondit au nombre supérieur
     $suivi->nbPage = ceil($total/$nbresultat);
-    if(isset($_GET['page'])) {
-        $actuallyPage = intval($_GET['page']);
-        if($actuallyPage > $suivi->nbPage) { // Si page actuelle est supérieur à nombres de pages
-            $actuallyPage = $suivi->nbPage;
+    if($suivi->nbPage > 1) {
+        if(isset($_GET['page'])) {
+            $actuallyPage = intval($_GET['page']);
+            if($actuallyPage > $suivi->nbPage) { // Si page actuelle est supérieur à nombres de pages
+                $actuallyPage = $suivi->nbPage;
+            }
+            elseif ($actuallyPage==0) {
+               $actuallyPage = 1; 
+            }
         }
-        elseif ($actuallyPage==0) {
-           $actuallyPage = 1; 
+        else {
+           $actuallyPage = 1; // page actuelle 1
         }
+        $suivi->firstpage = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée
+        echo $suivi->nbPage.' ';
+        echo $suivi->firstpage;        
+    } else {
+       $actuallyPage = 1;
+       $nbPage = 1;
+       $suivi->nbPage = 3;
     }
-    else {
-       $actuallyPage = 1; // page actuelle 1
-    }
-    $suivi->firstpage = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée
     if($pathology == 1 || $pathology == 2) {
         if(isset($_POST['submit'])) {
             // Vérification qu'il y'a bien un taux et qu'il est écrit en chiffre.chiffre ou chiffre
@@ -130,7 +138,7 @@ if($role != 0) {
               $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)
               $suivi->datefutureverif = date('Y-m-d', $nextverif); // On récupère la nouvelle date
               $resultdate = $suivi->getDateDay();
-              if($resultdate != NULL) {
+              if($resultdate != 0) {
               $verifDateDay = '';
               foreach($resultdate as $datetime) {
                   if($suivi->dateday == $datetime['today_date']) {
@@ -151,7 +159,6 @@ if($role != 0) {
               }
               else {
                 $errorResult = 'Veuillez entrer le jour de la vérification avant d\'entrer un résultat';
-              }
               }        
               // Recherche de l'heure a laquelle il faudra envoyer le mail
               $searchfuturedate = $verification->getVerification();
@@ -165,10 +172,12 @@ if($role != 0) {
                 else {
                     $errorResult = 'Veuillez entrer vos horraires dans votre profil !';
                 }
-            }
+
+              }                
             else {
                 $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
             }
+        }            
     }
     // Récupération des valeurs date de la prise, le résultat et la date de la prochaine vérification du jour correspondant 
     $requestarray = $suivi->getRateInArray();

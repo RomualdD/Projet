@@ -17,7 +17,7 @@
               <?php if($role != 0) { ?>
               <li><a href="#medicalInformations" data-toggle="tab">Informations médicales :</a></li>                
               <?php } ?>
-              <li><a href="#modificateInformations" data-toggle="tab">Modification du compte à modifier :</a></li>
+              <li><a href="#modificateInformations" data-toggle="tab">Informations du compte à modifier :</a></li>
               <li><a href="#displayFollow" data-toggle="tab">Visualiation et ajout de suivis : <span id="infoFollow"><?php echo $nbquest;?></span></a></li>
               <li><a href="#DeleteAccount" data-toggle="tab">Se désinscrire :</a></li>            
             </ul>

@@ -9,7 +9,7 @@ if(isset($_SESSION['user'])) {
         <div class="row">
             <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
         </div><?php
-  if ($role==0) {
+  if($role==0) {
        if(empty($_POST['patient'])) {
       ?>
   <div class="row">
@@ -25,6 +25,7 @@ if(isset($_SESSION['user'])) {
     </div>
     <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
   </form>
+  </div>
   </div>
       <?php
       }
@@ -58,7 +59,7 @@ if(isset($_SESSION['user'])) {
     <div class="col-lg-offset-3">En tableau :</div>
   </div>
       <div class="row">
-        <table class="tableresult table table-bordered result col-lg-offset-1 col-lg-3">
+        <table class="tableresult table table-bordered result  col-lg-3">
           <thead>
             <tr>
               <th>Date du résultat :</th>
@@ -84,7 +85,8 @@ if(isset($_SESSION['user'])) {
   </div>
   <div class="row">
       <div id="chartResult"></div>
-  </div><?php
+  </div>
+      </div><?php
         }
     } 
     else {    
@@ -113,7 +115,7 @@ if(isset($_SESSION['user'])) {
           <div class="col-lg-offset-3"><p>En tableau :</p></div>
       </div>
       <div class="row">
-        <table class="tableresult table table-bordered result col-lg-offset-1 col-lg-3">
+        <table class="tableresult table table-bordered result col-lg-3">
           <thead>
             <tr>
               <th>Date du résultat :</th>
@@ -136,7 +138,7 @@ if(isset($_SESSION['user'])) {
         <nav class="col-lg-offset-3 col-lg-9">
             <ul class="pagination">
             <?php
-                for($numberPage=1; $numberPage<=$suivi->nbPage; $numberPage++) { 
+                for($numberPage=1; $numberPage<=$nbPage; $numberPage++) { 
                     // Vérification que le numéro de page est égal à la page voulu
                     if($numberPage == $actuallyPage) { // Si page actuelle alors on lui attribue un id pageactive
                        ?><li class="page-item"><a id="pageactive" href="suivi.php?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
@@ -170,7 +172,6 @@ if(isset($_SESSION['user'])) {
     </div>
 <?php  
     }
-    ?></div><?php
   } else {
     ?><p><?php echo $errorConnexion; ?></p><?php
   }  
