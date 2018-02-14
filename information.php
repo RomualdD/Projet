@@ -12,9 +12,12 @@
 ?>
     <div class="container view">
         <div class="row">
-            <div class="col-lg-offset-4">
+            <div class="col-lg-offset-4" id="addappointment">
                 <h2>Ajouter vos rendez-vous</h2>
             </div>
+            <a href="#calendar" id="viewcalendar">
+                <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-down"></i> Voir le calendrier !</div>
+            </a>
             <div class="col-lg-offset-3">
                 <form action="information.php" method="POST">
                     <div class="col-lg-12">
@@ -67,7 +70,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-offset-4 col-lg-8">
+            <div class="col-lg-offset-4 col-lg-8" id="calendar">
                 <h2>Calendrier de vos rendez-vous</h2>
             </div>
         </div>
@@ -103,7 +106,12 @@
             </div>
         </div>
         <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="graycolor"><i class="fa fa-check-square-o" aria-hidden="true"></i></span> Rendez-vous passé (cliquez pour ajouter une note)</p></div>
-        <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="greencolor"><i class="fa fa-book" aria-hidden="true"></i></span> Rendez-vous à venir (cliquer pour modifier ou supprimer le rendez-vous)</p></div>
+        <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="greencolor"><i class="fa fa-book" aria-hidden="true"></i></span> Rendez-vous à venir (cliquer pour modifier ou supprimer le rendez-vous)</p></div>    
+        <div class="row" id="btnaddappointment">
+            <a href="#addappointment" >
+                <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-up"></i> Ajouter un Rendez-vous !</div>
+            </a>
+        </div>    
     </div>
     <div id="tablecalendar" class="table-responsive-sm">
         <table class="calendar table table-bordered">

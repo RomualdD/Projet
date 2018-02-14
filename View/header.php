@@ -25,8 +25,7 @@
         <div class="row">
           <div class="logo col-lg-1"><img src="/assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-1 col-lg-2"><a href="inscription.php"><p>S'inscrire</p></a></div>
-          <div class="hello col-lg-2" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
+          <div class="hello col-lg-offset-3 col-lg-2" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
           <div class="modal fade" id="myModalConnexion" role="dialog">
                 <div class="modal-dialog">
                 <!-- Modal content-->
