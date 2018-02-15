@@ -1,4 +1,6 @@
 <?php 
+    $serverAdresse = $_SERVER['REQUEST_URI'];
+    $serverAdresse = str_replace('.php','',$serverAdresse);
     if(!isset($_SESSION['user'])) {
         $server= $_SERVER['DOCUMENT_ROOT'];
 ?>
@@ -16,14 +18,13 @@
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link href="/assets/css/style.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="<?php echo $server; ?>/assets/css/style.css">
     <title>di-A-vk: La santé avant tout</title>
   </head>
   <body>
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1"><img src="/assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
+          <div class="logo col-lg-1"><img src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
           <div class="hello col-lg-offset-3 col-lg-2" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
           <div class="modal fade" id="myModalConnexion" role="dialog">
@@ -73,9 +74,9 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="http://diavk/" class="col-lg-offset-8 col-lg-4"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="inscription.php" class="col-lg-offset-1 col-lg-11"><i class="fas fa-user-plus"></i> Inscription</a></li>
-                    <li><a href="connexion.php" class="col-lg-offset-7 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="/" class="col-lg-offset-7 col-lg-5"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/inscription.php" class="col-lg-offset-1 col-lg-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
+                    <li><a href="connexion.php" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
                     <li><a href="contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
                 </ul>
             </div>
@@ -105,7 +106,7 @@
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="logosite" width="70px" height="70px"/></div>
+          <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
           <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
         </div>
@@ -122,7 +123,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                      <li><a href="index.php" class="col-lg-offset-8"><i class="fas fa-home"></i> Accueil</a></li>
+                      <li><a href="index.php" class="col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
                       <?php if($role == 0) { ?>
                       <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
                       <?php }
