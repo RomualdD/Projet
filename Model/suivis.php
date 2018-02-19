@@ -24,7 +24,7 @@ class suivis extends dataBase{
      * @return bool
      */
     public function addRate() {
-        $requestAddRate = $this->db->prepare('INSERT INTO medical_followup(`userId`, `today_date`, `result`, `next_date_check`) VALUES(:id, :daydate, :result, :futureverif)');
+        $requestAddRate = $this->db->prepare('INSERT INTO `pbvhfjt_medical_followup`(`id_pbvhfjt_users`, `today_date`, `result`, `next_date_check`) VALUES(:id, :daydate, :result, :futureverif)');
         $requestAddRate->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestAddRate->bindValue('daydate',$this->dateday,PDO::PARAM_STR);
         $requestAddRate->bindValue('result',$this->rate,PDO::PARAM_STR);
@@ -38,7 +38,7 @@ class suivis extends dataBase{
      */
     public function getResultByDateverif() {
         $verifresul = array();
-        $requestverifresult = $this->db->prepare('SELECT `result` FROM `medical_followup` WHERE `userId` = :id AND `next_date_check` = :futuredate');
+        $requestverifresult = $this->db->prepare('SELECT `result` FROM `pbvhfjt_medical_followup` WHERE `id_pbvhfjt_users` = :id AND `next_date_check` = :futuredate');
         $requestverifresult->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestverifresult->bindValue('futuredate',$this->datefutureverif,PDO::PARAM_STR);
         if($requestverifresult->execute()) {
@@ -52,10 +52,10 @@ class suivis extends dataBase{
      */
     public function getDateDay() {
         $date = array();
-        $resultdate = $this->db->prepare('SELECT `today_date` FROM `medical_followup` WHERE `userId`= :id');
+        $resultdate = $this->db->prepare('SELECT `today_date` FROM `pbvhfjt_medical_followup` WHERE `id_pbvhfjt_users`= :id');
         $resultdate->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($resultdate->execute()) {
-            $date = $resultdate->fetchAll();            
+            $date = $resultdate->fetchAll(PDO::FETCH_ASSOC);            
         }
         return $date;
     }
@@ -65,7 +65,7 @@ class suivis extends dataBase{
      */
     public function countRate() {
         $total = array();
-        $researchTotal = $this->db->prepare('SELECT COUNT(*) AS total FROM `medical_followup` WHERE `userId` = :id');
+        $researchTotal = $this->db->prepare('SELECT COUNT(*) AS total FROM `pbvhfjt_medical_followup` WHERE `id_pbvhfjt_users` = :id');
         $researchTotal->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($researchTotal->execute()) {   
             $total = $researchTotal->fetch();
@@ -78,7 +78,7 @@ class suivis extends dataBase{
      */
     public function getRateInArray() {
         $array = array();
-        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id ORDER BY today_date DESC limit :firstpage, :nbpage');
+        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `pbvhfjt_medical_followup` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_users`.`id` = `id_pbvhfjt_users` WHERE `id_pbvhfjt_users` = :id ORDER BY today_date DESC limit :firstpage, :nbpage');
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('firstpage',$this->firstpage,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('nbpage', $this->nbPage, PDO::PARAM_INT);
@@ -93,7 +93,7 @@ class suivis extends dataBase{
      */
     public function getRateInGraphic() {
         $graphic = array();
-        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`,`result` FROM `medical_followup` LEFT JOIN `users` ON `users`.`id` = `userId` WHERE `userId` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
+        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`,`result` FROM `pbvhfjt_medical_followup` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_users`.`id` = `id_pbvhfjt_users` WHERE `id_pbvhfjt_users` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
         $requestSearchGraphic->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':firstdate',$this->firstDate,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':secondedate', $this->secondDate, PDO::PARAM_INT);
@@ -108,7 +108,7 @@ class suivis extends dataBase{
      * @return bool
      */
     public function updateRate() {
-        $requestModifRate = $this->db->prepare('UPDATE `medical_followup` SET `result` = :result WHERE `userId` = :id AND `next_date_check` = :futureverif');
+        $requestModifRate = $this->db->prepare('UPDATE `pbvhfjt_medical_followup` SET `result` = :result WHERE `id_pbvhfjt_users` = :id AND `next_date_check` = :futureverif');
         $requestModifRate->bindValue('result',$this->rate,PDO::PARAM_STR);
         $requestModifRate->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestModifRate->bindValue('futureverif',$this->datefutureverif,PDO::PARAM_STR);

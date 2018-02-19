@@ -8,7 +8,7 @@
     $user->username = $_SESSION['user'];
     $researchqrcode = $user->getQrCode();
     $idParam = $researchqrcode['qrcode'];
-    $codeText = 'http://diavk/View/addUser.php?idFollow='.$idParam;
+    $codeText = 'https://diavk/addUser.php?idFollow='.$idParam;
     $debugLog = ob_get_contents();
     ob_end_clean();
     QRcode::png($codeText);

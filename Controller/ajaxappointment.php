@@ -11,11 +11,11 @@
                         addremarque: 'add',
                         ajaxready: 'ajax'
                     },
-                    function (data) {
+                    function(data) {
                         if (data == 'Success') {
                             alert('Note enregistré !');
                         } else {
-                            alert('Note non enregistré !');
+                            $('#errorMessageModal').show();
                         }
                     },
                     'text' // Recevoir success ou failed
@@ -39,7 +39,7 @@
                         if (data == 'Success') {
                             alert('Rendez-vous modifié !');
                         } else {
-                            alert('Rendez-vous non modifié !');
+                            $('#errorMessageModal').show();
                         }
                     },
                     'text' // Recevoir success ou failed

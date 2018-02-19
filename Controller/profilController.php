@@ -418,7 +418,7 @@ if(isset($_POST['deleteajax'])) {
                         }                             
                         if($error == 0) {
                             $verification->addVerificationDiabete();
-                            $succesAddmsg= 'L\'ajout sont prises en compte !';
+                            $succesAddmsg= 'L\'ajout est bien prise en compte !';
                         }
                     }
                     else {
@@ -463,6 +463,7 @@ if(isset($_POST['deleteajax'])) {
                             $error++;
                         }
                         if($error == 0) {
+                            $verification->verification = 'Mois';
                             $verification->addVerificationAvk();
                             $succesAddmsg = 'Les modifications sont prises en compte !';
                         }

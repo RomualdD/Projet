@@ -30,10 +30,15 @@ else {
 if($role != 0) {
 // Pagination
     $total = $suivi->countRate();
-    $total = $total['total'];
-    $nbresultat = 3;
+    if($total != NULL) {
+        $total = $total['total'];  
+    }
+    else {
+        $total = 1;
+    }
+    $nbresultat = 2;
     // Arrondit au nombre supérieur
-    $suivi->nbPage = ceil($total/$nbresultat);
+    $nbPage = $suivi->nbPage = ceil($total/$nbresultat);
     if($suivi->nbPage > 1) {
         if(isset($_GET['page'])) {
             $actuallyPage = intval($_GET['page']);
@@ -47,13 +52,11 @@ if($role != 0) {
         else {
            $actuallyPage = 1; // page actuelle 1
         }
-        $suivi->firstpage = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée
-        echo $suivi->nbPage.' ';
-        echo $suivi->firstpage;        
+        $suivi->firstpage = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée     
     } else {
        $actuallyPage = 1;
        $nbPage = 1;
-       $suivi->nbPage = 3;
+       $suivi->nbPage = 4;
     }
     if($pathology == 1 || $pathology == 2) {
         if(isset($_POST['submit'])) {
@@ -70,7 +73,7 @@ if($role != 0) {
             // Récupération de la date de vérification et des heures demandés
             $searchfuturedate = $verification->getVerification();
             if($searchfuturedate != 0) {
-                $iduser = $searchfuturedate['userId'];
+                $iduser = $searchfuturedate['id_pbvhfjt_users'];
                 $dateverif = $searchfuturedate['verification_date'];
                 $oneclock = $searchfuturedate['onehour'];
                 $twoclock = $searchfuturedate['twohour'];

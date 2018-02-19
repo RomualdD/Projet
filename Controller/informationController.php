@@ -25,12 +25,12 @@
                      * Vérification des regex des champs à modifier
                      * Si le champ est vide, on récupère la valeur actuelle du rendez-vous
                      */
-                    if(!empty($_POST['dayappointmentmodif'])) {
+                    if(!empty($_POST['dayappointmentmodif']) && $_POST['dayappointmentmodif'] >= date('Y-m-d')) {
                         if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']))){                     
                             $appointment->newdayappointment =  $_POST['dayappointmentmodif'];
                         }
                         else {
-                            echo 'FailedDay';
+                           // echo 'Failed';
                             $error++;
                         }
                     }
@@ -39,11 +39,11 @@
                          $appointment->newdayappointment = $requestdate['date_appointment'];
                     }
                     if(!empty($_POST['nameappointmentmodif'])) {
-                         if(!preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#i', $_POST['nameappointmentmodif'])) {
+                         if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#', $_POST['nameappointmentmodif'])) {
                             $appointment->newnameappointment = $_POST['nameappointmentmodif'];        
                          }
                          else {
-                             echo 'FailedName';
+                            // echo 'Failed';
                              $error++;
                          }
                     }
@@ -55,7 +55,7 @@
                              $appointment->newhourappointment = $_POST['hourappointmentmodif'];
                         }
                         else {
-                                echo 'FailedHour'; 
+                           //     echo 'Failed'; 
                                 $error++;
                             }
                    }
@@ -67,7 +67,7 @@
                            $appointment->newinfoappointment = $_POST['infosappointmentmodif'];        
                         }
                         else {
-                            echo 'FailedInfos';
+                          //  echo 'Failed';
                             $error++;
                         }
                    }
@@ -80,6 +80,9 @@
                        $appointment->updateAppointment();
                        echo 'Success';        
                     }
+                    else {
+                        echo 'Failed';
+                    }
                 }
                 else {
                     echo 'Failed';
@@ -88,14 +91,20 @@
         // -- //Ajax Notes à ajouter après rendez-vous
             elseif(isset($_POST['addremarque'])) {          
                 if(!empty($_POST['remarque'])) {
-                    // Récupération des champs du rendez-vous + Ajout de la note
-                    $appointment->remarqueappointment = strip_tags($_POST['remarque']);
                     $appointment->nameappointment = strip_tags($_POST['name']);
                     $appointment->hourappointment = $_POST['hour'];
                     $appointment->infosappointment = strip_tags($_POST['infos']); 
-                    // On modifie la colonne note
-                    $appointment->addRemarque();
-                    echo 'Success';
+                    // Récupération des champs du rendez-vous + Ajout de la note
+                    if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#', $_POST['remarque'])) { 
+                        $appointment->remarqueappointment = strip_tags($_POST['remarque']); 
+                        // On modifie la colonne note
+                        $appointment->addRemarque();
+                        echo 'Success';
+                    }
+                    else {
+                        echo 'Failed';
+                        $error++;
+                    }
                 }
                 else {
                     echo 'Failed';
@@ -140,7 +149,6 @@
         $errorMessageAppointment = '';
         $successAppointment = '';
         if(isset($_POST['submit'])) {
-
             $error=0;
             if(!empty($_POST['nameappoitment']) && (!empty($_POST['dayappointment'])) && (!empty($_POST['hourappointment']))) {
                 if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['hourappointment']))) {
@@ -151,7 +159,12 @@
                     $error++;
                 }
                 if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']))) { 
-                    $appointment->dayappointment = strip_tags($_POST['dayappointment']);               
+                    if($_POST['dayappointment'] >= date('Y-m-d') ) {
+                        $appointment->dayappointment = strip_tags($_POST['dayappointment']);                                   
+                    }
+                    else {
+                        $errorMessageDate = 'Vous ne pouvez pas mettre de rendez-vous au date passé';                    
+                    }
                 }
                 else {
                     $errorMessageDate = 'La date n\'est pas dans un format valide !';

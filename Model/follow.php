@@ -23,7 +23,7 @@ class follow extends dataBase{
      * @return bool
      */
     public function addFollow() {
-        $requestadd = $this->db->prepare('INSERT INTO `follow`(`follow_from`, `follow_to`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
+        $requestadd = $this->db->prepare('INSERT INTO `pbvhfjt_follow`(`id_pbvhfjt_users`, `id_pbvhfjt_users_1`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
         $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
         $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $requestadd->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
@@ -36,7 +36,7 @@ class follow extends dataBase{
      */
     public function getFollowQuest() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT `follow_from`, `follow_date`,`lastname`,`firstname`,`username` FROM `follow` LEFT JOIN `users` ON `id`=`follow_from` WHERE `follow_to` = :id AND `follow_confirm` = :confirm');
+        $requestfollow = $this->db->prepare('SELECT `id_pbvhfjt_users`, `follow_date`,`lastname`,`firstname`,`username` FROM `pbvhfjt_follow` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_users`.`id`=`id_pbvhfjt_users` WHERE `id_pbvhfjt_users_1` = :id AND `follow_confirm` = :confirm');
         $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
         if($requestfollow->execute()) {
@@ -50,7 +50,7 @@ class follow extends dataBase{
      */
     public function getNbFollow() {
         $alreadyfollow = array();
-        $requestadd = $this->db->prepare('SELECT COUNT(*) AS nbfollow FROM `follow` WHERE `follow_from` = :id AND `follow_to` = :id_to');
+        $requestadd = $this->db->prepare('SELECT COUNT(*) AS nbfollow FROM `pbvhfjt_follow` WHERE `id_pbvhfjt_users` = :id AND `id_pbvhfjt_users_1` = :id_to');
         $requestadd->bindValue(':id',$this->id,PDO::PARAM_INT);
         $requestadd->bindValue(':id_to', $this->follow_to, PDO::PARAM_INT);
         if($requestadd->execute()) {
@@ -65,7 +65,7 @@ class follow extends dataBase{
      */
     public function getPatientByDoctor() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT DISTINCT `follow_from` = :id OR `follow_to` = :id AS `follow_id`, `lastname`, `firstname`, `username`,`role` FROM `follow` LEFT JOIN `users` ON `id` = `follow_from` OR `id` = `follow_to` WHERE (`follow_from` = :id OR `follow_to` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `lastname`');    
+        $requestfollow = $this->db->prepare('SELECT DISTINCT `id_pbvhfjt_users` = :id OR `id_pbvhfjt_users_1` = :id AS `follow_id`, `lastname`, `firstname`, `username`,`role` FROM `pbvhfjt_follow` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_users`.`id` = `id_pbvhfjt_users` OR `pbvhfjt_users`.`id` = `id_pbvhfjt_users_1` WHERE (`id_pbvhfjt_users` = :id OR `id_pbvhfjt_users_1` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `lastname`');    
         $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
@@ -79,7 +79,7 @@ class follow extends dataBase{
      */
     public function getRateGraphicForDoctor() {
         $rateGraphic = array();
-        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
+        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result` FROM `pbvhfjt_medical_followup` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_medical_followup`.`id_pbvhfjt_users` = :idpatient LEFT JOIN `pbvhfjt_follow` ON `role` = :role WHERE `username` = :user AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :id OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :id) AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :idpatient OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
         $requestsearch->bindValue('idpatient',$this->follow_to, PDO::PARAM_STR);
         $requestsearch->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearch->bindValue('confirm','1', PDO::PARAM_STR);
@@ -98,7 +98,7 @@ class follow extends dataBase{
      */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
-        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result`, CASE WHEN pathology = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS `next_date_check` FROM `medical_followup` LEFT JOIN `users` ON `medical_followup`.`userId` = :idpatient LEFT JOIN `follow` ON `role` = :role WHERE `username` = :user AND (`follow_from` = :id OR `follow_to` = :id) AND (`follow_from` = :idpatient OR `follow_to` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
+        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`, `result`, CASE WHEN pathology = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS `next_date_check` FROM `pbvhfjt_medical_followup` LEFT JOIN `pbvhfjt_users` ON `pbvhfjt_medical_followup`.`id_pbvhfjt_users` = :idpatient LEFT JOIN `pbvhfjt_follow` ON `role` = :role WHERE `username` = :user AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :id OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :id) AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :idpatient OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
         $requestsearcharray->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearcharray->bindValue('confirm','1', PDO::PARAM_STR);
         $requestsearcharray->bindValue('role','1', PDO::PARAM_STR);
@@ -117,7 +117,7 @@ class follow extends dataBase{
      */
     public function getFollowAlready() {
         $verif = array();
-        $verifFollow = $this->db->prepare('SELECT `follow_confirm` FROM `follow` WHERE (`follow_to` = :id_to OR `follow_from` = :id_to) AND (`follow_to` = :id_from OR `follow_from` = :id_from)');
+        $verifFollow = $this->db->prepare('SELECT `follow_confirm` FROM `pbvhfjt_follow` WHERE (`id_pbvhfjt_users_1` = :id_to OR `id_pbvhfjt_users` = :id_to) AND (`id_pbvhfjt_users_1` = :id_from OR `id_pbvhfjt_users` = :id_from)');
         $verifFollow->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $verifFollow->bindValue('id_from', $this->follow_from,PDO::PARAM_INT);
         if($verifFollow->execute()) {
@@ -131,7 +131,7 @@ class follow extends dataBase{
      * @return bool
      */
     public function updateAddFollow() {
-        $acceptFollow = $this->db->prepare('UPDATE `follow` SET `follow_confirm` = :confirm WHERE `follow_from` = :member AND `follow_to` = :id');
+        $acceptFollow = $this->db->prepare('UPDATE `pbvhfjt_follow` SET `follow_confirm` = :confirm WHERE `id_pbvhfjt_users` = :member AND `id_pbvhfjt_users_1` = :id');
         $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
         $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
         $acceptFollow->bindValue(':id', $this->id, PDO::PARAM_INT);
@@ -143,14 +143,14 @@ class follow extends dataBase{
      * @return bool
      */
     public function deleteFollow() {
-        $requestrefuse = $this->db->prepare('DELETE FROM `follow` WHERE `follow_from` = :member AND `follow_to` = :id');
+        $requestrefuse = $this->db->prepare('DELETE FROM `pbvhfjt_follow` WHERE `id_pbvhfjt_users` = :member AND `id_pbvhfjt_users_1` = :id');
         $requestrefuse->bindValue(':member',$this->follow_from,PDO::PARAM_INT);
         $requestrefuse->bindValue(':id',$this->id,PDO::PARAM_INT);
         return $requestrefuse->execute();
     }
     
     public function deleteFollowById() {
-        $requestdelete =  $this->db->prepare('DELETE FROM `follow` WHERE `follow_from` = :id OR `follow_to` = :id');
+        $requestdelete =  $this->db->prepare('DELETE FROM `pbvhfjt_follow` WHERE `id_pbvhfjt_users` = :id OR `id_pbvhfjt_users_1` = :id');
         $requestdelete->bindValue(':id',$this->id,PDO::PARAM_INT);
         return $requestdelete->execute();
     }

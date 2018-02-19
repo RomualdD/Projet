@@ -1,4 +1,16 @@
 <?php
+
+if(isset($_SESSION['user'])) {    
+    include 'Model/dataBase.php';
+    include 'Model/users.php';
+    $users = new users();
+    $users->username = $_SESSION['user'];
+    $userId = $users->getUserId();
+    $id = $userId['id'];
+    $user = $_SESSION['user'];
+    $role = $_SESSION['role'];
+    $pathology = $_SESSION['pathology'];
+}
           $error =0;
           $errorName = '';
           $errorMail = '';
