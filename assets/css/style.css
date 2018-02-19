@@ -1,18 +1,20 @@
 html, body {
   height: 100%;
-  background-image: url('../img/fond.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+  background-image: url('../img/fond.png');
 }
 
 body {
   display: flex;
   flex-direction: column;
+  font-family: 'Montserrat';
 }
 
 h1 {
   color: #63A5D4;
+  font-family: 'Poiret One';
 }
 
 .navbar {
@@ -25,7 +27,7 @@ h1 {
 }
 
 header {
-  background-image: linear-gradient(#FFFFCC, #D90404 150px);
+  background-image: linear-gradient(#FFFFCC, #D90404 100px ,white 140px);
 }
 
 .connexionheader {
@@ -59,8 +61,12 @@ body {
 
 .view {
     background-color: white;
-    opacity: 0.8;
+    opacity: 0.85;
 }   
+
+.hello{
+    color: #70A6CD;
+}
 
 .subhead {
   margin-top: 20px;
