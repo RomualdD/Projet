@@ -30,7 +30,6 @@
                             $appointment->newdayappointment =  $_POST['dayappointmentmodif'];
                         }
                         else {
-                           // echo 'Failed';
                             $error++;
                         }
                     }
@@ -43,7 +42,6 @@
                             $appointment->newnameappointment = $_POST['nameappointmentmodif'];        
                          }
                          else {
-                            // echo 'Failed';
                              $error++;
                          }
                     }
@@ -55,7 +53,6 @@
                              $appointment->newhourappointment = $_POST['hourappointmentmodif'];
                         }
                         else {
-                           //     echo 'Failed'; 
                                 $error++;
                             }
                    }
@@ -238,6 +235,7 @@
         $appointmentResultForId = $appointment->getAppointment();
         foreach($appointmentResultForId as $appointmentResult) {
             // Récupération des inforations
+            $idappointment = $appointmentResult['id'];
             $nameappointment = $appointmentResult['name_appointment'];
             $hourappointment = $appointmentResult['hour_appointment'];
             $informationappointment = $appointmentResult['additional_informations'];
@@ -247,7 +245,7 @@
             $monthappointment= $appointmentResult['month'];
             $yearappointment= $appointmentResult['year'];
             // On écrit tout dans un tableau
-            $numbercle= array('name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
+            $numbercle= array('id'=>$idappointment,'name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
             // On le push pour avoir tous les rendez-vous
             $result =  array_push($timeappoitment,$numbercle);
         }   

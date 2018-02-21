@@ -1,4 +1,4 @@
-                                    <div class="modal fade" id="myModal<?php echo $nbmodal;?>" role="dialog">
+                                    <div class="modal fade" id="modalAppointment" role="dialog">
                                       <div class="modal-dialog">
                                       <!-- Modal content-->
                                       <div class="modal-content">
@@ -9,13 +9,13 @@
                                         <div class="modal-body">
                                           <div class="row">
                                               <div class="col-lg-offset-1 col-lg-11">
-                                                <p>Nom du rendez-vous : <input class="col-lg-offset-1 nameappointment" type="text" name="nameappointmentforModif" id="nameappointment<?php echo $nbmodal;?>" value="<?php echo $informations['nameappointment'];?>" disabled></p>
-                                                <p>Heure du rendez-vous : <input type="text" class="col-lg-offset-1 hourappointment" name="hourappointmentforModif" id="hourappointment<?php echo $nbmodal;?>" value="<?php echo $informations['hour'];?>" disabled></p>
-                                                <p>Informations complémentaires du rendez-vous : </p><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment<?php echo $nbmodal;?>" disabled><?php echo $informations['infoappointment'];?></textarea> 
+                                                <p>Nom du rendez-vous : <input class="col-lg-offset-1 nameappointment" type="text" name="nameappointmentforModif" id="nameappointment" disabled></p>
+                                                <p>Heure du rendez-vous : <input type="text" class="col-lg-offset-1 hourappointment" name="hourappointmentforModif" id="hourappointment" disabled></p>
+                                                <p>Informations complémentaires du rendez-vous : </p><textarea class="form-control infoappointment" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment" disabled></textarea> 
                                               </div>
                                           </div>
                                             <?php
-                                                if($dateNow < $verifEventDay) {
+                                             if($dateNow < $verifEventDay) {
                                             ?>
                                           <hr>
                                           <div class="row">
@@ -31,7 +31,7 @@
                                                                 <label for="nameappointment">Nom du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
-                                                                    <input type="text" class="form-control" id="name<?php echo $nbmodal;?>" name="nameappoitmentmodif" placeholder="Médecin">
+                                                                    <input type="text" class="form-control" id="name" name="nameappoitmentmodif" placeholder="Médecin">
                                                                 </div>
                                                                 <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom incorrect !</p>
                                                             </div> 
@@ -41,7 +41,7 @@
                                                                 <label for="dayappointment">Jour du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                                    <input type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="day<?php echo $nbmodal;?>" name="dayappointmentmodif">
+                                                                    <input type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="day" name="dayappointmentmodif">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -50,7 +50,7 @@
                                                                 <label for="hourappointment">Horaire consultation :</label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                    <input type="time" class="form-control" id="hour<?php echo $nbmodal;?>" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
+                                                                    <input type="time" class="form-control" id="hour" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -58,13 +58,13 @@
                                                             <div class="form-inline">
                                                                 <div class="input-group subject">
                                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
-                                                                    <textarea class="form-control" id="info<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Informations supplémentaires" name="infosappointmentmodif"><?php echo $informations['infoappointment'];?></textarea>
+                                                                    <textarea class="form-control" id="info" rows="5" cols="10" placeholder="Informations supplémentaires" name="infosappointmentmodif"><?php //echo $informations['infoappointment'];?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-offset-3 col-lg-2">
                                                             <div class="form-inline">
-                                                              <input id="submitmodif<?php echo $nbmodal;?>" type="submit" value="Modifier !" class="button btn btn-default col-lg-offset-4" name="submitmodif">                        
+                                                              <input id="submitmodif" type="submit" value="Modifier !" class="button btn btn-default col-lg-offset-4" name="submitmodif">                        
                                                             </div>
                                                         </div>
                                                     </form>
@@ -77,7 +77,7 @@
                                                     <form method="POST" action="information.php">
                                                       <div class="col-lg-offset-3 col-lg-2">
                                                           <div class="form-inline">
-                                                              <input id="submitdelete<?php echo $nbmodal;?>" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4" name="submitdelete">                        
+                                                              <input id="submitdelete" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4" name="submitdelete">                        
                                                           </div>
                                                       </div>
                                                     </form>
@@ -99,13 +99,13 @@
                                                                         <div class="form-inline">
                                                                             <div class="input-group subject">
                                                                                 <label for="remarqueappointment">Note complémentaire du rendez-vous : </label>
-                                                                                <textarea class="form-control" id="remarqueappointment<?php echo $nbmodal;?>" rows="5" cols="10" placeholder="Notes complémentaire" name="remarqueappointment"><?php echo $informations['remarque']; ?></textarea>
+                                                                                <textarea class="form-control remarqueappointment" id="remarqueappointment" rows="5" cols="10" placeholder="Notes complémentaire" name="remarqueappointment"><?php// echo $informations['remarque']; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-offset-3 col-lg-2">
                                                                         <div class="form-inline">
-                                                                          <input id="submitremarqueadd<?php echo $nbmodal;?>" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submitremarqueadd">                        
+                                                                          <input id="submitremarqueadd" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submitremarqueadd">                        
                                                                         </div>
                                                                         <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom incorrect !</p>
                                                                     </div>                                                                    
@@ -122,6 +122,3 @@
                                       </div>
                                     </div>
                                   </div>
-                                    <?php 
-                                       include 'Controller/ajaxappointment.php';
-                                    ?>  

@@ -1,8 +1,5 @@
 <?php 
-    $serverAdresse = $_SERVER['REQUEST_URI'];
-    $serverAdresse = str_replace('.php','',$serverAdresse);
     if(!isset($_SESSION['user'])) {
-        $server= $_SERVER['DOCUMENT_ROOT'];
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
@@ -88,7 +85,6 @@
   <?php  }
     else { 
       include_once 'Controller/headerController.php';
-      include_once 'Controller/notificationdemande.php';
     ?>
       <!-- Header connecté -->
 <!DOCTYPE html>
@@ -130,10 +126,10 @@
                     <ul class="nav navbar-nav">
                       <li><a href="/" class="col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
                       <?php if($role == 0) { ?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil <span id="infoFollow"></span></a></li>
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
                       <?php }
                       else {?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil <span id="infoFollow"></a></li>                
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
                     <?php  }?>
                       <li><a href="information.php" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
                       <li><a href="suivi.php" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
@@ -144,5 +140,8 @@
             </div>
         </nav>
     </header>
-  <?php }
+  <?php 
+  
+      include_once 'Controller/notificationdemande.php';
+                      }
   ?>

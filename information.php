@@ -157,19 +157,18 @@
                                         $nbmodal++;
                                         $dateNow=date('Y-m-d H:i');
                                         $verifEventDay=$informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
-                                        if($dateNow>$verifEventDay) {
+                                        if($dateNow > $verifEventDay) {
                                         ?> 
-                                            <p class="appointmentup" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
+                                            <p class="appointmentup" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointment"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
                                         <?php
                                         }
                                         else {
                                         ?>
-                                    <p class="appointment" data-toggle="modal" data-target="#myModal<?php echo $nbmodal;?>"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                    <p class="appointment" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-appointment="<?php echo $informations['id']; ?>" data-target="#modalAppointment"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php
                                         }
-                                    } // Affichage fenêtre modal
-                                        include 'View/modalinformation.php';
-                                   }   
+                                    } 
+                                }   
                                 ?></td><?php
                             }
                             else { ?>
@@ -221,6 +220,10 @@
            </tbody>
         </table>
     </div>
+    <?php 
+    include 'View/modalinformation.php';
+    ?>
+<script src="assets/js/modalopen.js"></script>
 <?php
 }
 include 'View/footer.php';
