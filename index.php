@@ -1,18 +1,5 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])) {
-}
-else {    
-    include 'Model/dataBase.php';
-    include 'Model/users.php';
-    $users = new users();
-    $users->username = $_SESSION['user'];
-    $userId = $users->getUserId();
-    $id = $userId['id'];
-    $user = $_SESSION['user'];
-    $role = $_SESSION['role'];
-    $pathology = $_SESSION['pathology'];
-}
 include 'View/header.php';
  ?>
 <!-- Page d'accueil -->
@@ -36,7 +23,6 @@ include 'View/header.php';
       <p>Afin de mieux comprendre votre maladie et de vous tenir informer des recherches en cours, certaines informations apparaîtrons aux furs et à mesure. De plus une rubrique contact permet de vous mettre en relation avec nos services si vous avez des informations intéressantes ou bien des remarques et des questions sur le site, nous pourrons y répondre et si il est nécessaire au vus de plusieurs demandes du même type, d'y mettre un encart.</p>
     </div>
   </div>
-
 <?php
   include 'View/footer.php';
 ?>

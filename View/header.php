@@ -52,6 +52,7 @@
                                 </div>
                               </div>  
                               <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4">
+                              <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom d'utilisateur ou mot de passe incorrect !</p>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -76,8 +77,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/" class="col-lg-offset-7 col-lg-5"><i class="fas fa-home"></i> Accueil</a></li>
                     <li><a href="/inscription.php" class="col-lg-offset-1 col-lg-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
-                    <li><a href="connexion.php" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-                    <li><a href="contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
+                    <li><a href="/connexion.php" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="/contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -85,7 +86,10 @@
     </header>
 
   <?php  }
-  else { ?>
+    else { 
+      include_once 'Controller/headerController.php';
+      include_once 'Controller/notificationdemande.php';
+    ?>
       <!-- Header connecté -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -108,7 +112,8 @@
         <div class="row">
           <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-2 col-lg-3"><p>Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
+          <div class="hello col-lg-offset-2 col-lg-3"><p id="person">Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
+          <?php if($nbquest > 0) { ?> <div class="hello col-lg-offset-2 col-lg-3"><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div><?php } ?>
         </div>
       </div>
         <nav class="navbar navbar-default">
@@ -123,12 +128,12 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                      <li><a href="index.php" class="col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
+                      <li><a href="/" class="col-lg-offset-7"><i class="fas fa-home"></i> Accueil</a></li>
                       <?php if($role == 0) { ?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil <span id="infoFollow"></span></a></li>
                       <?php }
                       else {?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
+                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil <span id="infoFollow"></a></li>                
                     <?php  }?>
                       <li><a href="information.php" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
                       <li><a href="suivi.php" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>

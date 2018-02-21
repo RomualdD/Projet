@@ -1,9 +1,9 @@
 <?php
   include 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {  
-  include 'Model/verification.php';
-  include 'Model/suivis.php';
-  include 'Model/follow.php';
+  include_once 'Model/verification.php';
+  include_once 'Model/suivis.php';
+  include_once 'Model/follow.php';
   include 'Controller/suiviController.php';
   ?><div class="container view">
         <div class="row">
@@ -108,6 +108,8 @@ if(isset($_SESSION['user'])) {
           <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
           <p class="errormessage col-lg-offset-4 col-lg-8"><?php echo $errorResult; ?></p>
       </div>
+    <?php
+    if($total != 0) { ?>
       <div class="row">
         <div class="col-lg-offset-4"><h3>Visualisation des résultats :</h3></div>
       </div>
@@ -169,6 +171,11 @@ if(isset($_SESSION['user'])) {
       <div class="row">
           <div id="chartResult"></div>
       </div>
+      <?php 
+        } else {
+            ?><p>Aucun résultat entré !</p> <?php
+        }
+        ?>
     </div>
 <?php  
     }

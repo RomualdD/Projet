@@ -44,7 +44,9 @@ if(isset($_POST['submit'])) {
             $errorMessageFirstname = 'Le prénom n\'est pas valide';
             $error++;
         }
-        $user->username = strip_tags($_POST['username']);
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{1,30}$#', $_POST['username'])) {
+            $user->username = strip_tags($_POST['username']); 
+        }
         if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
             $user->mail = strip_tags($_POST['mail']);   
         }

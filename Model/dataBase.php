@@ -5,6 +5,7 @@
  */
 class dataBase {
     protected $db;
+    CONST prefix = 'pbvhfjt_';
     
     public function __construct()
     {

@@ -1,26 +1,12 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])) {
-}
-else {    
-    include 'Model/dataBase.php';
-    include 'Model/users.php';
-    $users = new users();
-    $users->username = $_SESSION['user'];
-    $userId = $users->getUserId();
-    $id = $userId['id'];
-    $user = $_SESSION['user'];
-    $role = $_SESSION['role'];
-    $pathology = $_SESSION['pathology'];
-}
-    include 'View/header.php';
 include 'Controller/contactController.php';
+include 'View/header.php';
 ?>
 <!-- Page contact -->
   <div class="container view">
     <div class="row">
-      <div class="col-lg-offset-5 col-xs-offset-4"><h2>Contact</h2></div>
-    
+      <div class="col-lg-offset-5 col-xs-offset-4"><h2>Contact</h2></div>   
     <div class="message col-lg-offset-2 col-lg-10 col-sm-4 col-md-4 col-xs-12">
       <p>Veuillez entrer votre Nom, Prénom et votre adresse mail pour obtenir une réponse à votre message.</p>
       <p>Des questions? Des remarques? N'hésitez pas à nous contacter.</p>

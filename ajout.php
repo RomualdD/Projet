@@ -38,18 +38,18 @@ if(isset($_SESSION['user'])) {
                 if(isset($_POST['username'])) {
 
                     if($alreadyfollow != 0) {  ?>
-                        <p>Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
+                        <p class="view">Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
                     }
                     elseif($id == $idfollow) {  ?>
-                        <p>Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
+                        <p class="view">Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
                     }
                    if($error == 0) {
 ?>
-                        <p>Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="profil.php">profil</a></p><?php
+                        <p class="view">Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="profil.php">profil</a></p><?php
                     }
                 }
                 else {
-                    ?><p>Vous n'avez pas mis un nom à rechercher. Retourner à votre <a href="profil.php">profil</a></p><?php
+                    ?><p class="view">Vous n'avez pas mis un nom à rechercher. Retourner à votre <a href="profil.php">profil</a></p><?php
                 }
             }
         }

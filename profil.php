@@ -1,9 +1,9 @@
 <?php
-  include 'Controller/verificationconnexion.php';
-   if(isset($_SESSION['user'])) { 
-       include 'Model/follow.php';
-       include 'Model/verification.php';
-       include 'Controller/profilController.php';
+    include 'Controller/verificationconnexion.php';
+    if(isset($_SESSION['user'])) { 
+       include_once 'Model/follow.php';
+       include_once 'Model/verification.php';
+       include_once 'Controller/profilController.php';
 ?>
 <!-- Page profil type -->
     <div class="container view">

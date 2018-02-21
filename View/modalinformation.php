@@ -33,6 +33,7 @@
                                                                     <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
                                                                     <input type="text" class="form-control" id="name<?php echo $nbmodal;?>" name="nameappoitmentmodif" placeholder="Médecin">
                                                                 </div>
+                                                                <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom incorrect !</p>
                                                             </div> 
                                                         </div>
                                                         <div class="col-lg-12">
@@ -40,7 +41,7 @@
                                                                 <label for="dayappointment">Jour du rendez-vous : </label>
                                                                 <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                                    <input type="date" class="form-control" id="day<?php echo $nbmodal;?>" name="dayappointmentmodif">
+                                                                    <input type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="day<?php echo $nbmodal;?>" name="dayappointmentmodif">
                                                                 </div>
                                                             </div> 
                                                         </div>
@@ -71,15 +72,12 @@
                                             </div>
                                           <hr>
                                           <div class="row">
-                                              <div class="col-lg-11">
-                                                 <h3 class="modal-title"><i class="fa fa-times" aria-hidden="true"></i> Supprimer ce rendez-vous :</h3>
-                                              </div>
                                               <div class="row">
                                                 <div class="col-lg-offset-1 col-lg-11">
                                                     <form method="POST" action="information.php">
                                                       <div class="col-lg-offset-3 col-lg-2">
                                                           <div class="form-inline">
-                                                              <input id="submitdelete<?php echo $nbmodal;?>" type="submit" value="Supprimer !" class="button btn btn-default col-lg-offset-4" name="submitdelete">                        
+                                                              <input id="submitdelete<?php echo $nbmodal;?>" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4" name="submitdelete">                        
                                                           </div>
                                                       </div>
                                                     </form>
@@ -109,6 +107,7 @@
                                                                         <div class="form-inline">
                                                                           <input id="submitremarqueadd<?php echo $nbmodal;?>" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submitremarqueadd">                        
                                                                         </div>
+                                                                        <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom incorrect !</p>
                                                                     </div>                                                                    
                                                                 </form>
                                                             </div>

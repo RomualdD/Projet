@@ -128,17 +128,21 @@
             }
         }
         else {
-            include 'Model/dataBase.php';
-            include 'Model/appointments.php'; 
-            include 'Model/users.php';  
+            include_once 'Model/dataBase.php';
+            include_once 'Model/appointments.php'; 
+            include_once 'Model/users.php';
+            include_once 'Model/follow.php';  
             $users = new users();
+            $follow = new follow();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
-            $id = $userId['id'];
+            $follow->id = $id = $userId['id'];
             $appointment = new appointments();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
             $appointment->userId=$id;
+            $requestfollow = $follow->getFollowQuest();
+            $nbquest = count($requestfollow);
         }
 
     // -- // Ajout d'un rendez-vous

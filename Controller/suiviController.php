@@ -36,7 +36,7 @@ if($role != 0) {
     else {
         $total = 1;
     }
-    $nbresultat = 2;
+    $nbresultat = 10;
     // Arrondit au nombre supérieur
     $nbPage = $suivi->nbPage = ceil($total/$nbresultat);
     if($suivi->nbPage > 1) {

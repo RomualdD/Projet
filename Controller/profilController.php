@@ -1,10 +1,10 @@
 <?php
 if(isset($_POST['deleteajax'])) {
-     session_start();
-    include '../Model/dataBase.php'; 
-    include '../Model/verification.php';
-    include '../Model/follow.php';
-    include '../Model/users.php'; 
+    session_start();
+    include_once '../Model/dataBase.php'; 
+    include_once '../Model/verification.php';
+    include_once '../Model/follow.php';
+    include_once '../Model/users.php'; 
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
@@ -234,7 +234,7 @@ if(isset($_POST['deleteajax'])) {
                             // On met dans le format date SQ
                             $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
                             $firstverif =  $dt->format('Y-m-d');
-                            $verification->dateverification = $firstverif.' '.$hourverif;
+                            $verification->dateverification = $firstverif.' '.$hourverif.':00';
                         }
                         else {
                             $errorDateMsg= 'Le format demandé est jj/mm/YYYY hh:mm';
@@ -255,7 +255,7 @@ if(isset($_POST['deleteajax'])) {
                         else {
                             $errorAddOneClock = 'Erreur Heure 1 ! Le format demandé est hh:mm !';
                             $error++;
-                            $firstHour = 24;
+                            $firstHour = 23;
                             $firstMin = 59;                             
                         }
                         if(!empty($_POST['clocktwo'])) {
@@ -272,7 +272,7 @@ if(isset($_POST['deleteajax'])) {
                         }
                         else {
                             $verification->twoclock = '';
-                            $secondHour = 24;
+                            $secondHour = 23;
                             $secondMin = 59;
                         }
                         if(!empty($_POST['clockthree'])) {
@@ -289,7 +289,7 @@ if(isset($_POST['deleteajax'])) {
                         }
                         else {
                             $verification->threeclock = '';
-                            $threeHour = 24;
+                            $threeHour = 23;
                             $threeMin = 59; 
                         }
                         if(!empty($_POST['clockfour'])) {
@@ -306,8 +306,8 @@ if(isset($_POST['deleteajax'])) {
                         }
                         else {
                             $verification->fourclock = '';
-                            $fourHour = 0;
-                            $fourMin = 0; 
+                            $fourHour = 23;
+                            $fourMin = 59; 
                         }                            
                         if($verification->oneclock > $verification->twoclock && $verification->twoclock != '') {
                             $clocktemp = $verification->twoclock;
@@ -456,7 +456,7 @@ if(isset($_POST['deleteajax'])) {
                             // On met dans le format date SQ
                             $dt = DateTime::createFromFormat('d/m/Y', $firstverif);
                             $firstverif =  $dt->format('Y-m-d');
-                            $verification->dateverification = $firstverif.' '.$hourverif;
+                            $verification->dateverification = $firstverif.' '.$hourverif.':00';
                         }
                         else {
                             $errorDateMsg = 'Le format demandé est jj/mm/YYYY hh:mm';
@@ -574,12 +574,10 @@ if(isset($_POST['deleteajax'])) {
             $errorMessagePhone2 = 'Le numéro de téléphone n\'est pas valide !';
         }   
     }
-    
     if(isset($_POST['deletephone2'])) {
         $user->deleteSecondPhone();
         $successDeletePhone = 'Votre second numéro de téléphone n\'existe plus !';
-    }
-    
+    } 
     if(isset($_POST['deleteajax'])) {
         $follow->deleteFollowById();
         $user->deleteAccount();
@@ -592,4 +590,3 @@ $requestfollow = $follow->getFollowQuest();
 foreach($requestfollow as $request) {
     $nbquest++;
 }
-
