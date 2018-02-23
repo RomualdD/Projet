@@ -52,7 +52,7 @@ if($role != 0) {
         else {
            $actuallyPage = 1; // page actuelle 1
         }
-        $suivi->firstpage = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée     
+        $suivi->offset = ($actuallyPage-1)*$nbresultat; // Calcule la première entrée     
     } else {
        $actuallyPage = 1;
        $nbPage = 1;

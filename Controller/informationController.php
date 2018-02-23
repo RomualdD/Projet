@@ -64,7 +64,6 @@
                            $appointment->newinfoappointment = $_POST['infosappointmentmodif'];        
                         }
                         else {
-                          //  echo 'Failed';
                             $error++;
                         }
                    }
@@ -76,12 +75,10 @@
                         // Modification des champs modifiés
                        $appointment->updateAppointment();
                        echo 'Success';        
-                    }
-                    else {
+                    } else {
                         echo 'Failed';
                     }
-                }
-                else {
+                } else {
                     echo 'Failed';
                 }          
             }

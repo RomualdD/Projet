@@ -586,7 +586,5 @@ if(isset($_POST['deleteajax'])) {
         echo 'Success';
     }
 // -- // Recherche demande suivi    
-$requestfollow = $follow->getFollowQuest();
-foreach($requestfollow as $request) {
-    $nbquest++;
-}
+$requestfollow = $follow->getnbFollowQuest();
+$nbquest = $requestfollow['nbFollow'];

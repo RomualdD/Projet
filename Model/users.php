@@ -59,6 +59,32 @@ class users extends dataBase {
         }
         return $username;
     }
+    public function getMailByUsername(){
+        $mail = array();
+        $resultMail = $this->db->prepare('SELECT `mail` FROM `'.self::prefix.'users` WHERE `username` = :username');
+        $resultMail->bindValue('username', $this->username,PDO::PARAM_STR);
+        if($resultMail->execute()) {
+            if(is_object($resultMail)) {
+                $mail = $resultMail->fetch(PDO::FETCH_OBJ);
+            }           
+        }
+        return $mail;
+    }
+    /**
+     * Méthode permet de vérifier si le nom d'utilisateur est déjà pris
+     * @return array
+     */
+    public function getUsernameByMail() {
+        $username = array();
+        $resultUsername = $this->db->prepare('SELECT `username`,`keyverif` FROM `'.self::prefix.'users` WHERE `mail` = :mail');
+        $resultUsername->bindValue('mail',$this->mail,PDO::PARAM_STR);
+        if($resultUsername->execute()) {
+            if(is_object($resultUsername)) {
+                $username = $resultUsername->fetch(PDO::FETCH_ASSOC);
+            }           
+        }
+        return $username;
+    }    
     /**
      * Méthode permet de chercher l'utilisateur et son mot de passe pour la connexion
      * @return array
@@ -238,7 +264,17 @@ class users extends dataBase {
         }
         return $isCorrect;
     }
-// -- // Modification    
+// -- // Modification   
+    /**
+     * Méthode qui modifie le mot de passe de l'utilisateur si oublie
+     */
+    public function updatePasswordFall() {
+        $insertnewpassword = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `password` = :password WHERE `mail` = :mail AND `username` = :username');
+        $insertnewpassword->bindValue('username',$this->username,PDO::PARAM_STR);
+        $insertnewpassword->bindValue('mail',$this->mail,PDO::PARAM_STR);
+        $insertnewpassword->bindValue('password', $this->password, PDO::PARAM_STR);
+        return $insertnewpassword->execute();        
+    }    
     /**
      * Méthode qui modifie le compte de l'utilisateur en actif
      * @return bool
@@ -247,7 +283,7 @@ class users extends dataBase {
         $modifActif = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `active` = 1 WHERE `username` = :user');
         $modifActif->bindValue(':user', $this->username,PDO::PARAM_STR);
         return $modifActif->execute();
-    }
+    } 
     /**
      * Méthode qui modifie le mot de passe de l'utilisateur
      */

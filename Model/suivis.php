@@ -8,7 +8,7 @@ class suivis extends dataBase{
     public $dateday = '01/01/1900';
     public $rate = 0;
     public $datefutureverif = '01/01/1900';
-    public $firstpage = 0;
+    public $offset = 0;
     public $nbPage = 0;
     public $firstDate = '01/01/1900';
     public $secondDate = '01/01/1900';
@@ -78,10 +78,9 @@ class suivis extends dataBase{
      */
     public function getRateInArray() {
         $array = array();
-        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id ORDER BY today_date DESC LIMIT :firstpage, :nbpage');
+        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id ORDER BY today_date DESC LIMIT 10 OFFSET :offset');
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
-        $requestSearchInfo->bindValue('firstpage',$this->firstpage,PDO::PARAM_INT);
-        $requestSearchInfo->bindValue('nbpage', $this->nbPage, PDO::PARAM_INT);
+        $requestSearchInfo->bindValue('offset',$this->offset,PDO::PARAM_INT);
         if($requestSearchInfo->execute()) {
             $array = $requestSearchInfo->fetchAll(PDO::FETCH_ASSOC);            
         }

@@ -20,7 +20,6 @@
             $user->username = $_POST['username'];
             $idfollow = $user->getUserId();
             $follow->follow_to = $idfollow['id'];
-            // $alreadyfollow = $follow->getNbFollow();
             $alreadyfollow = $follow->getFollowAlready();
             if($alreadyfollow != 0) { 
                 $error++;

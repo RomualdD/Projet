@@ -29,7 +29,20 @@ class follow extends dataBase{
         $requestadd->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
         return $requestadd->execute();
     } 
-// -- // Sélection   
+// -- // Sélection
+    /**
+     * Méthode qui compte le nombre de demande
+     */
+    public function getnbFollowQuest() {
+        $nbFollow = array();
+        $requestfollow = $this->db->prepare('SELECT COUNT(`'.self::prefix.'follow`.`id`) AS nbFollow FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
+        $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
+        $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
+        if($requestfollow->execute()) {
+            $nbFollow = $requestfollow->fetch(PDO::FETCH_ASSOC);
+        } 
+        return $nbFollow;
+    }    
     /**
      * Méthode qui renvoie les demandes avec les informations du demandeur
      * @return array
@@ -43,21 +56,6 @@ class follow extends dataBase{
             $follow = $requestfollow->fetchAll(PDO::FETCH_ASSOC);
         } 
         return $follow;
-    }
-    /**
-     * Méthode qui vérifie s'il n'y a pas déjà un suivi
-     * @return array
-     */
-    public function getNbFollow() {
-        $alreadyfollow = array();
-        $requestadd = $this->db->prepare('SELECT COUNT(*) AS nbfollow FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users` = :id AND `id_'.self::prefix.'users_1` = :id_to');
-        $requestadd->bindValue(':id',$this->id,PDO::PARAM_INT);
-        $requestadd->bindValue(':id_to', $this->follow_to, PDO::PARAM_INT);
-        if($requestadd->execute()) {
-            $alreadyfollow = $requestadd->fetchColumn();                    
-        }
-        return $alreadyfollow;
-        $requestadd->closeCursor(); // Fin de requete
     }
     /**
      * Méthode qui cherche les utilisateurs que le médecin suit
