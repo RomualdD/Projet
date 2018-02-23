@@ -1,7 +1,7 @@
 <?php
 // -- // Vérification dans calendrier
     // Vérification du jour du rendez-vous
-     foreach($timeappoitment as $appointment) {
+      foreach($timeappoitment as $appointment) {
          // Si jour du rendez-vous est le jour d'aujourd'hui alors on récupère les informations
         if($appointment['day'] == $currentDay) {
             $idappointment = $appointment['id'];
@@ -16,4 +16,5 @@
             $infocle=  array('id'=>$idappointment,'year'=>$yearDay,'month'=>$monthDay,'day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'remarque'=>$remarqueForAppointment);
             $informations = array_push($infoappointment, $infocle);
          } 
-     }
+     }   
+

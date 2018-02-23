@@ -187,10 +187,11 @@ class users extends dataBase {
      */
     public function getPatientUserByName() {
         $patient = array();
-        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username` FROM `'.self::prefix.'users` WHERE (`lastname` like :name OR `firstname` like :firstname) AND `role` = :role');
+        $requestSearchPatient = $this->db->prepare('SELECT `'.self::prefix.'users`.`id`,`lastname`, `firstname`, `username`,`follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` OR `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users_1` WHERE `lastname` LIKE :name OR `firstname` LIKE :firstname AND role = :role AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
         $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
+        $requestSearchDoctor->bindValue('id',$this->id,PDO::PARAM_INT);
         if($requestSearchPatient->execute()) {
             $patient = $requestSearchPatient->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -202,10 +203,11 @@ class users extends dataBase {
      */
     public function getDoctorUserByName() {
         $doctor = array();
-        $requestSearchDoctor = $this->db->prepare('SELECT `lastname`, `firstname`, `username` FROM `'.self::prefix.'users` WHERE (`lastname` like :name OR `firstname` like :firstname) AND `role` = :role');
+        $requestSearchDoctor = $this->db->prepare('SELECT `'.self::prefix.'users`.`id`,`lastname`, `firstname`, `username`,`follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` OR `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users_1` WHERE `lastname` LIKE :name OR `firstname` LIKE :firstname AND role = :role AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
         $requestSearchDoctor->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('role','0',PDO::PARAM_STR);
+        $requestSearchDoctor->bindValue('id',$this->id,PDO::PARAM_INT);
         if($requestSearchDoctor->execute()) {
             $doctor = $requestSearchDoctor->fetchAll(PDO::FETCH_ASSOC);
         }

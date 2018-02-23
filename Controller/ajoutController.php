@@ -1,5 +1,8 @@
 <?php
     $user = new users();
+    $follow = new follow();
+    $user->id = $id;
+    echo $user->id;
 // -- // On cherche le médecin ou le patient
     if(isset($_POST['name'])) {
         $user->name = $_POST['name'];
@@ -12,10 +15,9 @@
         }
     }
     else {
-    $follow = new follow();
-    $follow->follow_from = $id;
 // -- // Ajout du patient + vérification si on le suit déjà   
         if(isset($_POST['username'])) {
+            $follow->follow_from = $id;
             $error = 0;
             $user->username = $_POST['username'];
             $idfollow = $user->getUserId();
