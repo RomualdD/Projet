@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'Model/dataBase.php';
-include 'Model/users.php';
-include 'Model/follow.php';
-include 'Controller/qrcodeController.php';
+include_once 'Model/dataBase.php';
+include_once 'Model/users.php';
+include_once 'Model/follow.php';
+include_once 'Controller/qrcodeController.php';
 $idFollow = $_GET['idFollow'];
 if(!isset($_SESSION['user'])) {
      include 'View/header.php';

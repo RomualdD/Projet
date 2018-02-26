@@ -1,5 +1,5 @@
 <?php
-  include 'Controller/verificationconnexion.php';
+  include_once 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {  
   include_once 'Model/verification.php';
   include_once 'Model/suivis.php';
@@ -12,20 +12,20 @@ if(isset($_SESSION['user'])) {
   if($role==0) {
        if(empty($_POST['patient'])) {
       ?>
-  <div class="row">
-    <form name="followedrate" method="POST" action="suivi.php">
-    <div class="suivi form-group col-lg-offset-4">
-      <label for="text">Choisir son patient :</label>
-      <select name="patient"><?php
-              foreach ($followDoctor as $followPatient) {
-                ?><option value="<?php echo $followPatient['username'] ?>"><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
-            }
-          ?>
-      </select>
+    <div class="row">
+      <form name="followedrate" method="POST" action="suivi.php">
+          <div class="suivi form-group col-lg-offset-4">
+            <label for="text">Choisir son patient :</label>
+            <select name="patient"><?php
+                    foreach ($followDoctor as $followPatient) {
+                      ?><option value="<?php echo $followPatient['username'] ?>"><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
+                  }
+                ?>
+            </select>
+          </div>
+          <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
+      </form>
     </div>
-    <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
-  </form>
-  </div>
   </div>
       <?php
       }
@@ -59,7 +59,7 @@ if(isset($_SESSION['user'])) {
     <div class="col-lg-offset-3">En tableau :</div>
   </div>
       <div class="row">
-        <table class="tableresult table table-bordered result  col-lg-3">
+        <table class="tableresult table table-bordered result col-lg-1">
           <thead>
             <tr>
               <th>Date du résultat :</th>
@@ -86,8 +86,7 @@ if(isset($_SESSION['user'])) {
   <div class="row">
       <div id="chartResult"></div>
   </div>
-      </div><?php
-        }
+      <?php }
     } 
     else {    
     ?>

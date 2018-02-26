@@ -74,7 +74,7 @@ class appointments extends dataBase {
      */
     public function getAppointment() {
         $appointment = array();
-        $researchappoitment = $this->db->query('SELECT `id`,`name_appointment`,DATE_FORMAT(`date_appointment`,"%d") AS day,DATE_FORMAT(`date_appointment`,"%m") AS month,DATE_FORMAT(`date_appointment`,"%Y") AS year,`hour_appointment`,`additional_informations`,`remarque` FROM `'.self::prefix.'appointments` WHERE `id_'.self::prefix.'users`='.$this->userId.' ORDER BY hour_appointment');
+        $researchappoitment = $this->db->query('SELECT `id`,`name_appointment`,DATE_FORMAT(`date_appointment`,\'%d/%m/%Y\') AS date_appointment,DATE_FORMAT(`date_appointment`,\'%d\') AS day,DATE_FORMAT(`date_appointment`,\'%m\') AS month,DATE_FORMAT(`date_appointment`,\'%Y\') AS year,`hour_appointment`,`additional_informations`,`remarque` FROM `'.self::prefix.'appointments` WHERE `id_'.self::prefix.'users`='.$this->userId.' ORDER BY hour_appointment');
         if(is_object($researchappoitment)) {
             $appointment = $researchappoitment->fetchAll(PDO::FETCH_ASSOC);            
         }

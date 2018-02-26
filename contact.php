@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'Controller/contactController.php';
-include 'View/header.php';
+include_once 'Controller/contactController.php';
+include_once 'View/header.php';
 ?>
 <!-- Page contact -->
   <div class="container view">

@@ -2,7 +2,6 @@
     $user = new users();
     $follow = new follow();
     $user->id = $id;
-    echo $user->id;
 // -- // On cherche le médecin ou le patient
     if(isset($_POST['name'])) {
         $user->name = $_POST['name'];

@@ -34,7 +34,7 @@
             <input type="checkbox">Se rappeler de moi !
           </div>
           <input type="submit" value="Se connecter !" name="connexion" class="button btn btn-default col-lg-offset-4">
-          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants,<a href="">cliquez ici</a></p></div>
+          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants,<a href="/userfall.php">cliquez ici</a></p></div>
         </form>
           <p class="col-lg-offset-3 errormessage"><?php echo $errorMessageConnexionActive; ?></p>
     </div>

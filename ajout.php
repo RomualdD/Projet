@@ -1,8 +1,8 @@
 <?php
-include 'Controller/verificationconnexion.php';
+include_once 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])) {
-    include 'Model/follow.php';
-    include 'Controller/ajoutController.php';
+    include_once 'Model/follow.php';
+    include_once 'Controller/ajoutController.php';
     ?>
     <div class="container view">
       <div class="row">
@@ -26,8 +26,14 @@ if(isset($_SESSION['user'])) {
                         <td><?php echo $element['lastname']; ?></td>
                         <td><?php echo $element['firstname']; ?></td>
                         <td><?php echo $element['username']; ?></td>
-                    <td><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $element['username'];?>"/><input type="submit" /></form></td></tr><?php
-                  } 
+                        <td><?php if($element['follow_confirm'] == NULL) {
+                        ?><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $element['username'];?>"/><input type="submit" /></form>
+                            <?php } elseif($element['follow_confirm'] == 0) {
+                            ?><i class="fas fa-hourglass-half"></i>
+                            <?php } else {
+                                ?><i class="far fa-check-circle"></i></td></tr><?php
+                            }
+                        } 
                   ?>
         </tbody>
     </table>
@@ -36,15 +42,13 @@ if(isset($_SESSION['user'])) {
         }
         else {
                 if(isset($_POST['username'])) {
-
                     if($alreadyfollow != 0) {  ?>
                         <p class="view">Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
                     }
                     elseif($id == $idfollow) {  ?>
                         <p class="view">Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
                     }
-                   if($error == 0) {
-?>
+                   if($error == 0) { ?>
                         <p class="view">Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="profil.php">profil</a></p><?php
                     }
                 }
@@ -53,4 +57,6 @@ if(isset($_SESSION['user'])) {
                 }
             }
         }
+                         //   SELECT test1.firstname, test.firstname FROM `pbvhfjt_follow` LEFT JOIN `pbvhfjt_users` as test1 ON test1.`id` = `id_pbvhfjt_users` LEFT JOIN `pbvhfjt_users` AS test ON test.`id` = `id_pbvhfjt_users_1` WHERE `id_pbvhfjt_users` = 4 OR `id_pbvhfjt_users_1` = 4 
+
 ?>

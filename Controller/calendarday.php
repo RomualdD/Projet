@@ -11,9 +11,10 @@
             $infos=$appointment['infos'];
             $monthDay=$appointment['month'];
             $yearDay=$appointment['year'];
+            $dateappointment = $appointment['date'];
             $remarqueForAppointment = $appointment['remarque'];
             // On écrit pour récupéré les informations qu'on veut
-            $infocle=  array('id'=>$idappointment,'year'=>$yearDay,'month'=>$monthDay,'day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'remarque'=>$remarqueForAppointment);
+            $infocle=  array('id'=>$idappointment,'date' => $dateappointment,'year'=>$yearDay,'month'=>$monthDay,'day' => $day,'hour'=>$hour,'nameappointment'=>$name,'infoappointment'=>$infos,'remarque'=>$remarqueForAppointment);
             $informations = array_push($infoappointment, $infocle);
          } 
      }   

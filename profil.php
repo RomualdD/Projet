@@ -1,5 +1,5 @@
 <?php
-    include 'Controller/verificationconnexion.php';
+    include_once 'Controller/verificationconnexion.php';
     if(isset($_SESSION['user'])) { 
        include_once 'Model/follow.php';
        include_once 'Model/verification.php';

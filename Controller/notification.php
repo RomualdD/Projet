@@ -12,7 +12,7 @@ if(isset($_POST)) {
         $follow->id = $userId['id'];    
         $requestfollow = $follow->getnbFollowQuest();
         $nbquest = $requestfollow['nbFollow'];
-        if($nbquest > 0 && $_POST['info'] != $nbquest && $_POST['info'] < $nbquest) {
+        if($nbquest > 0 && $_POST['info'] != $nbquest && $_POST['info'] > $nbquest) {
             echo $nbquest;
         }
         else{

@@ -1,14 +1,14 @@
 <?php
-    include 'Controller/informationController.php';
+    include_once 'Controller/informationController.php';
     if(!isset($_SESSION['user'])) {
-        include 'View/header.php';
+        include_once 'View/header.php';
         ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
     }
     else {
         $user = $_SESSION['user'];
         $role = $_SESSION['role'];
         $pathology = $_SESSION['pathology'];    
-        include 'View/header.php';   
+        include_once 'View/header.php';   
 ?>
     <div class="container view">
         <div class="row">
@@ -83,9 +83,7 @@
                             foreach ($months as $monthNumber => $monthName) {
                                 ?>
                                 <option value="<?= $monthNumber ?>" <?= $month == $monthNumber ? 'selected' : '' ?>><?= $monthName ?></option>
-                                <?php
-                            }
-                            ?>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-lg-3">
@@ -94,9 +92,7 @@
                             for ($yearsList = $yearDay-1; $yearsList <= $yearDay + 100; $yearsList++) {
                                 ?>
                                 <option value="<?= $yearsList ?>" <?= $year == $yearsList ? 'selected' : '' ?>><?= $yearsList ?></option>
-                        <?php
-                            }
-                        ?>
+                        <?php } ?>
                         </select>
                     </div>
                     <div class="col-lg-2">
@@ -115,33 +111,31 @@
     </div>
     <div id="tablecalendar" class="table-responsive-sm">
         <table class="calendar table table-bordered">
-          <thead>
-            <tr>
-              <th class="thcalendar col-lg-12">Lundi</th>
-              <th class="thcalendar col-lg-12">Mardi</th>
-              <th class="thcalendar col-lg-12">Mercredi</th>
-              <th class="thcalendar col-lg-12">Jeudi</th>
-              <th class="thcalendar col-lg-12">Vendredi</th>
-              <th class="thcalendar col-lg-12">Samedi</th>
-              <th class="thcalendar col-lg-12">Dimanche</th>
-              <th class="thcalendar col-xs-12">L</th>
-              <th class="thcalendar col-xs-12">M</th>
-              <th class="thcalendar col-xs-12">M</th>
-              <th class="thcalendar col-xs-12">J</th>
-              <th class="thcalendar col-xs-12">V</th>
-              <th class="thcalendar col-xs-12">S</th>
-              <th class="thcalendar col-xs-12">D</th>
-            </tr>
-           </thead>
-           <tbody>
-              <tr>
-                <?php
-                // si rendez-vous dans le mois
+            <thead>
+                <tr>
+                    <th class="thcalendar col-lg-12">Lundi</th>
+                    <th class="thcalendar col-lg-12">Mardi</th>
+                    <th class="thcalendar col-lg-12">Mercredi</th>
+                    <th class="thcalendar col-lg-12">Jeudi</th>
+                    <th class="thcalendar col-lg-12">Vendredi</th>
+                    <th class="thcalendar col-lg-12">Samedi</th>
+                    <th class="thcalendar col-lg-12">Dimanche</th>
+                    <th class="thcalendar col-xs-12">L</th>
+                    <th class="thcalendar col-xs-12">M</th>
+                    <th class="thcalendar col-xs-12">M</th>
+                    <th class="thcalendar col-xs-12">J</th>
+                    <th class="thcalendar col-xs-12">V</th>
+                    <th class="thcalendar col-xs-12">S</th>
+                    <th class="thcalendar col-xs-12">D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <?php // si rendez-vous dans le mois
                 if($yearappointment == $year && $monthappointment == $month) {
                     // jour en cours
                     $currentDay = 1;
                     $day='';
-                    $nbmodal=0;
                     $infoappointment = array();
                     // bon nombre de cases dans le mois
                     for($daysCases = 1; $daysCases <= $numberDaysInMonth + $firstWeekDayOfMonth - 1; $daysCases++) {
@@ -154,77 +148,56 @@
                                 // on cherche si y'a un rendez-vous ou plusieurs pour le jour
                                 foreach($infoappointment as $informations) {
                                     if($informations['day'] == $currentDay && $informations['month']== $month && $informations['year']== $yearDay) {
-                                        $nbmodal++;
                                         $dateNow=date('Y-m-d H:i');
-                                        $verifEventDay=$informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
-                                        if($dateNow > $verifEventDay) {
-                                        ?> 
-                                            <p class="appointmentup" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointment"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
-                                        <?php
-                                        }
-                                        else {
-                                        ?>
-                                    <p class="appointment" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-appointment="<?php echo $informations['id']; ?>" data-target="#modalAppointment"><i class="fa fa-book" aria-hidden="true"></i></p>
-                                    <?php
-                                        }
+                                        $verifEventDay = $informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
+                                        if($dateNow > $verifEventDay) {  ?> 
+                                            <p class="appointmentup" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointmentUp"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
+                                        <?php  }
+                                        else { ?>
+                                        <p class="appointment" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-target="#modalAppointment"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                    <?php }
                                     } 
-                                }   
-                                ?></td><?php
+                                } ?></td><?php
                             }
                             else { ?>
-                                <td class="tdcalendar"><?= $currentDay ?></td><?php
+                                <td class="tdcalendar"><?php echo $currentDay; ?></td><?php
                             }
                             $currentDay++;
                         }
-                        else {
-                        ?>
+                        else { ?>
                             <td class="tdcalendar"></td>
-                        <?php
-                        }
+                        <?php }
                         // si c'est un multiple de 7 alors changement de semaines
-                        if($daysCases % 7 == 0) {
-                        ?>
+                        if($daysCases % 7 == 0) { ?>
                             </tr><tr>
-                        <?php    
-                        }
+                        <?php }
                     }
                 }
                 else {
                     // -- // Si calendrier n'a pas de rendez-vous
-                    // jour en cours
                     $currentDay = 1;
-                    // bon nombre de cases dans le mois
                     for($daysCases = 1; $daysCases <= $numberDaysInMonth + $firstWeekDayOfMonth - 1; $daysCases++) {
                         // cherche le premier jour du mois
-                        if($firstWeekDayOfMonth <= $daysCases) {
-                        ?>
-                            <td class="tdcalendar"><?= $currentDay ?></td>
+                        if($firstWeekDayOfMonth <= $daysCases) { ?>
+                            <td class="tdcalendar"><?php echo $currentDay; ?></td>
                             <?php 
                             $currentDay++;
                         }
-                        else {
-                        ?>
+                        else { ?>
                             <td class="tdcalendar"></td>
-                        <?php
-                        }
+                        <?php }
                         // si c'est un multiple de 7 alors changement de semaines
-                        if($daysCases % 7 == 0) {
-                        ?>
+                        if($daysCases % 7 == 0) { ?>
                             </tr><tr>
-                        <?php    
-                        }
+                        <?php }
                     }
-                }
-                ?>
+                }  ?>
                </tr>
            </tbody>
         </table>
     </div>
-    <?php 
-    include 'View/modalinformation.php';
-    ?>
-<script src="assets/js/modalopen.js"></script>
-<?php
-}
+    <?php include 'View/modalinformation.php';  ?>
+    <script src="assets/js/modalopen.js"></script>
+<?php }
 include 'View/footer.php';
 ?>

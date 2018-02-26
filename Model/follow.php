@@ -130,7 +130,7 @@ class follow extends dataBase{
      */
     public function updateAddFollow() {
         $acceptFollow = $this->db->prepare('UPDATE `'.self::prefix.'follow` SET `follow_confirm` = :confirm WHERE `id_'.self::prefix.'users` = :member AND `id_'.self::prefix.'users_1` = :id');
-        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
+        $acceptFollow->bindValue(':confirm','2',PDO::PARAM_INT);
         $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
         $acceptFollow->bindValue(':id', $this->id, PDO::PARAM_INT);
         return $acceptFollow->execute();

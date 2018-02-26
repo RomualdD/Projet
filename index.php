@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'View/header.php';
+include_once 'View/header.php';
  ?>
 <!-- Page d'accueil -->
   <div class="container">
@@ -24,5 +24,5 @@ include 'View/header.php';
     </div>
   </div>
 <?php
-  include 'View/footer.php';
+  include_once 'View/footer.php';
 ?>

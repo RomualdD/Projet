@@ -138,7 +138,6 @@
             $requestfollow = $follow->getFollowQuest();
             $nbquest = count($requestfollow);
         }
-
     // -- // Ajout d'un rendez-vous
         $errorMessageDate='';
         $errorMessageInfos='';
@@ -237,12 +236,13 @@
             $hourappointment = $appointmentResult['hour_appointment'];
             $informationappointment = $appointmentResult['additional_informations'];
             $remarque = $appointmentResult['remarque'];
+            $dateappointment = $appointmentResult['date_appointment'];
             // On sépare le jour le mois et l'année du rendez-vous
             $dayappointment= $appointmentResult['day'];
             $monthappointment= $appointmentResult['month'];
             $yearappointment= $appointmentResult['year'];
             // On écrit tout dans un tableau
-            $numbercle= array('id'=>$idappointment,'name'=>$nameappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
+            $numbercle= array('id'=>$idappointment,'name'=>$nameappointment,'date' => $dateappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
             // On le push pour avoir tous les rendez-vous
             $result =  array_push($timeappoitment,$numbercle);
         }   
