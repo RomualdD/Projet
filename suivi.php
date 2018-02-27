@@ -9,7 +9,7 @@ if(isset($_SESSION['user'])) {
         <div class="row">
             <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
         </div><?php
-  if($role==0) {
+    if($role == 0) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">
@@ -31,7 +31,7 @@ if(isset($_SESSION['user'])) {
       }
        else {
       ?>
-         <div class="row">
+    <div class="row suivi">
         <form action="suivi.php" method="POST">
             <div class="suivi form-group col-lg-offset-4">
               <label for="text">Choisir son patient :</label>
@@ -91,7 +91,7 @@ if(isset($_SESSION['user'])) {
     else {    
     ?>
     <!-- Page suivi patient -->
-      <div class="row">
+      <div class="row suivi">
         <form name="followedrate" method="POST" action="suivi.php">
             <div class="col-lg-offset-3">
                 <div class="form-inline">
@@ -150,12 +150,12 @@ if(isset($_SESSION['user'])) {
                 }                       
             ?>
             </ul>
-          </nav>
+        </nav>
       </div>
       <div class="row">
           <div class="col-lg-offset-3"><p>En graphique :</p></div>
       </div>
-      <div class="row">
+      <div class="row suivi">
           <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
           <form action="suivi.php" method="POST">
             <div class="col-lg-offset-3">
@@ -173,12 +173,10 @@ if(isset($_SESSION['user'])) {
       <?php 
         } else {
             ?><p>Aucun résultat entré !</p> <?php
-        }
-        ?>
-    </div>
-<?php  
-    }
-  } else {
+        }  
+    } ?>
+</div>
+ <?php } else {
     ?><p><?php echo $errorConnexion; ?></p><?php
   }  
   include 'View/footer.php';

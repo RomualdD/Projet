@@ -97,8 +97,8 @@ if(isset($_POST['submit'])) {
                     $user->addUser();
                     //Envoie du mail d'activation
                     $recipient = $user->mail;
-                    $subject = "[IMPORTANT] Activation de votre compte di-A-vk";
-                    $entete = "From: inscriptiondiavk@gmail.com";
+                    $subject = '[IMPORTANT] Activation de votre compte di-A-vk';
+                    $entete = 'From: inscriptiondiavk@gmail.com';
                     $message = 'Bienvenue sur di-A-vk,'. "\r\n"
                     .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'."\r\n"
                     .'https://diavk/validation.php?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"

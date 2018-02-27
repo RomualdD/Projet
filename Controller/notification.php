@@ -13,13 +13,13 @@ if(isset($_POST)) {
         $requestfollow = $follow->getnbFollowQuest();
         $nbquest = $requestfollow['nbFollow'];
         if($nbquest > 0 && $_POST['info'] != $nbquest) {
-            echo $nbquest;            
+            echo $nbquest;
         }
-        else{
+        else {
             echo 'Failed';
         }        
     }
-    else{
+    else {
         echo 'Failed';
     }  
 }

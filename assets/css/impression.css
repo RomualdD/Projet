@@ -1,0 +1,11 @@
+.navbar, .suivi, header  {
+    display: none;
+}
+#chartResult {
+  height: 370pt;
+  width: 100pt;
+}
+body {
+    background-color: white;
+    background-size: 100pt;
+}

@@ -1,23 +1,26 @@
-<?php 
-    if(!isset($_SESSION['user'])) {
-?>
+
 <!-- Header non connecté -->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <link rel="icon" href="/logo.ico"/>
+    <script src="/assets/js/canvasjs.min.js"></script>
     <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="icon" href="/logo.ico"/>
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link href="/assets/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/impression.css" media="print">
     <title>di-A-vk: La santé avant tout</title>
   </head>
   <body>
+      <?php 
+    if(!isset($_SESSION['user'])) {
+?>
     <header>
       <div class="container-fluid">
         <div class="row">
@@ -64,7 +67,7 @@
 	<div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                  <span class="sr-only">Toggle navigation</span>
+                  <span class="sr-only"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
@@ -81,44 +84,25 @@
         </div>
       </nav>
     </header>
-
   <?php  }
     else { 
       include_once 'Controller/headerController.php';
     ?>
       <!-- Header connecté -->
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <script src="/assets/js/canvasjs.min.js"></script>
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <link rel="icon" href="/logo.ico" />
-    <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <title>di-A-vk: La santé avant tout</title>
-  </head>
-  <body>
     <header>
       <div class="container-fluid">
         <div class="row">
           <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
           <div class="hello col-lg-offset-2 col-lg-3"><p id="person">Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
-          <?php if($nbquest > 0) { ?> <div class="hello col-lg-offset-2 col-lg-3"><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div><?php } else {
-            ?>  <div class="addQuest col-lg-offset-2 col-lg-3" hidden><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div>
-        <?php  } ?>
+          <div class="hello col-lg-offset-2 col-lg-3 addQuest" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div>
         </div>
       </div>
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                      <span class="sr-only">Toggle navigation</span>
+                      <span class="sr-only"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
@@ -143,6 +127,5 @@
         </nav>
     </header>
   <?php 
-//      include_once 'Controller/notificationdemande.php';
     }
   ?>
