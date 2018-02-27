@@ -1,4 +1,5 @@
 <?php
+$idFollow = $_GET['idFollow'];
     $follow = new follow();  
     $users = new users();
     $users->qrcodeParam = $_GET['idFollow'];
@@ -35,16 +36,21 @@
         }
     } 
 if(isset($_SESSION['user'])) {
+    $role = $_SESSION['role'];
     $user = $_SESSION['user'];
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
     $id = $userId['id'];
     $follow->follow_from = $id;
     $researchidParam = $users->getIdByQrCode();
+    $roleUser = $researchidParam['role'];
     $follow->follow_to = $researchidParam['id'];   
     $verif = $follow->getFollowAlready();
-    if($verif == 0 && $follow->follow_to != $follow->follow_from) {
+    if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
         $follow->confirm = '1';
         $follow->addFollow();
+    }
+    elseif($verif == 0 && ($follow->follow_to != $follow->follow_from && $roleUser != $role)) {
+      $follow->updateAddFollow() ; 
     }
 } 

@@ -119,7 +119,7 @@ class follow extends dataBase{
         $verifFollow->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $verifFollow->bindValue('id_from', $this->follow_from,PDO::PARAM_INT);
         if($verifFollow->execute()) {
-            $verif = $verifFollow->fetchColumn();        
+            $verif = $verifFollow->fetch(PDO::FETCH_COLUMN,0);        
         }
         return $verif;
     }
@@ -129,10 +129,10 @@ class follow extends dataBase{
      * @return bool
      */
     public function updateAddFollow() {
-        $acceptFollow = $this->db->prepare('UPDATE `'.self::prefix.'follow` SET `follow_confirm` = :confirm WHERE `id_'.self::prefix.'users` = :member AND `id_'.self::prefix.'users_1` = :id');
-        $acceptFollow->bindValue(':confirm','2',PDO::PARAM_INT);
+        $acceptFollow = $this->db->prepare('UPDATE `'.self::prefix.'follow` SET `follow_confirm` = :confirm WHERE (`id_'.self::prefix.'users` = :member OR `id_'.self::prefix.'users_1` = :member) AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
+        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
         $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
-        $acceptFollow->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $acceptFollow->bindValue(':id', $this->follow_to, PDO::PARAM_INT);
         return $acceptFollow->execute();
     }    
 // -- // Suppression   

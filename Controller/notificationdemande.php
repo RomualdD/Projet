@@ -1,26 +1,3 @@
-<?php
-/*session_start();
-    include_once '../Model/dataBase.php';
-    include_once '../Model/users.php';
-    include_once '../Model/follow.php'; 
-    $users = new users();
-    $follow = new follow();
-    $users->username = $_SESSION['user'];
-    $userId = $users->getUserId();
-    $follow->id = $id = $userId['id'];
-    $user = $_SESSION['user'];
-    $role = $_SESSION['role'];
-    $pathology = $_SESSION['pathology'];
-    $requestfollow = $follow->getFollowQuest();
-    $nbquest = count($requestfollow);*/ ?>
-<!--<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-  </head>
-  <body>-->
     <script>   
         $(document).ready(function () {
             if (!('Notification' in window)) {

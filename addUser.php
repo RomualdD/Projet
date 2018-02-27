@@ -4,9 +4,8 @@ include_once 'Model/dataBase.php';
 include_once 'Model/users.php';
 include_once 'Model/follow.php';
 include_once 'Controller/qrcodeController.php';
-$idFollow = $_GET['idFollow'];
+include 'View/header.php';
 if(!isset($_SESSION['user'])) {
-     include 'View/header.php';
     ?>
     <div class="container">
         <div class="row view">
@@ -38,16 +37,23 @@ if(!isset($_SESSION['user'])) {
         </div>
     </div>
     <?php
-    include 'View/footer.php';
 }
 else {   
-    $role = $_SESSION['role'];
-    include 'View/header.php';
-    if($verif == 0 && $follow->follow_to != $follow->follow_from) {  
+    if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {  
     ?><p>Suivi ajouté !</p><?php
+    }
+    elseif($verif == 0 && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
+        ?><p>Suivi modifié !</p><?php
+    }
+    elseif($roleUser == $role) {
+        ?><p>Vous ne pouvez pas ajouter cette personne !</p><?php  
+    }
+    elseif($follow->follow_to != $follow->follow_from) {
+        ?><p>Vous ne pouvez pas vous ajouter !</p><?php  
     }
     else {
         ?><p>Il y'a déjà un suivi !</p><?php
     }
 }
+include 'View/footer.php';
 ?>

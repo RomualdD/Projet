@@ -187,7 +187,6 @@ class users extends dataBase {
      */
     public function getPatientUserByName() {
         $patient = array();
-        //$requestSearchPatient = $this->db->prepare('SELECT `'.self::prefix.'users`.`id`,`lastname`, `firstname`, `username`,`follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` OR `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users_1` WHERE `lastname` LIKE :name OR `firstname` LIKE :firstname AND role = :role AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
         $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON (`id_'.self::prefix.'users_1` = `'.self::prefix.'users`.`id` OR `id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`) AND (`id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
         $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
@@ -220,7 +219,7 @@ class users extends dataBase {
      */
     public function getIdByQrCode() {
         $idParam = array();
-        $researchId = $this->db->prepare('SELECT `id` FROM `'.self::prefix.'users` WHERE qrcode = :qrcode');
+        $researchId = $this->db->prepare('SELECT `id`,`role` FROM `'.self::prefix.'users` WHERE qrcode = :qrcode');
         $researchId->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
         if($researchId->execute()) {
             $idParam = $researchId->fetch(PDO::FETCH_ASSOC);            
