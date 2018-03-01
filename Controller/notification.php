@@ -9,9 +9,9 @@ if(isset($_POST)) {
         $follow = new follow();
         $users->username = $_SESSION['user'];
         $userId = $users->getUserId();
-        $follow->id = $userId['id'];    
+        $follow->id = $userId->id;    
         $requestfollow = $follow->getnbFollowQuest();
-        $nbquest = $requestfollow['nbFollow'];
+        $nbquest = $requestfollow->nbFollow;
         if($nbquest > 0 && $_POST['info'] != $nbquest) {
             echo $nbquest;
         }

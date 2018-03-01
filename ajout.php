@@ -23,12 +23,12 @@ if(isset($_SESSION['user'])) {
       <tbody>
              <?php foreach($requestresearch as $element) {
                    ?><tr>
-                        <td><?php echo $element['lastname']; ?></td>
-                        <td><?php echo $element['firstname']; ?></td>
-                        <td><?php echo $element['username']; ?></td>
-                        <td><?php if($element['follow_confirm'] == NULL) {
-                        ?><form  action="ajout.php" method="post"/><input type="hidden" name="username" value="<?php echo $element['username'];?>"/><input type="submit" /></form>
-                            <?php } elseif($element['follow_confirm'] == 0) {
+                        <td><?php echo $element->lastname; ?></td>
+                        <td><?php echo $element->firstname; ?></td>
+                        <td><?php echo $element->username; ?></td>
+                        <td><?php if($element->follow_confirm == NULL) {
+                        ?><form action="ajout.php" method="post"><input type="hidden" name="username" value="<?php echo $element->username;?>"/><input type="submit"/></form>
+                            <?php } elseif($element->follow_confirm == 0) {
                             ?><i class="fas fa-hourglass-half"></i>
                             <?php } else {
                                 ?><i class="far fa-check-circle"></i></td></tr><?php
@@ -57,6 +57,4 @@ if(isset($_SESSION['user'])) {
                 }
             }
         }
-                         //   SELECT test1.firstname, test.firstname FROM `pbvhfjt_follow` LEFT JOIN `pbvhfjt_users` as test1 ON test1.`id` = `id_pbvhfjt_users` LEFT JOIN `pbvhfjt_users` AS test ON test.`id` = `id_pbvhfjt_users_1` WHERE `id_pbvhfjt_users` = 4 OR `id_pbvhfjt_users_1` = 4 
-
 ?>

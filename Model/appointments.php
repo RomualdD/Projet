@@ -43,7 +43,7 @@ class appointments extends dataBase {
         $requestappointment->bindValue('information',$this->informationappointment,PDO::PARAM_STR);
         return $requestappointment->execute();
     }
-// -- // Sélection  
+// -- // Sélection
     /**
      * Méthode qui permet de vérifier si l'utilisateur a déjà un rendez-vous à la même hour
      */
@@ -64,7 +64,7 @@ class appointments extends dataBase {
         $dateAppointment = array();
         $requestdate = $this->db->query('SELECT `date_appointment` FROM `'.self::prefix.'appointments` WHERE `name_appointment` = \''.$this->nameappointment.'\' AND `hour_appointment` = \''.$this->hourappointment.'\' AND `additional_informations` = \''.$this->infosappointment.'\' AND `id_'.self::prefix.'users` = '.$this->userId);
         if(is_object($requestdate)) {
-            $dateAppointment = $requestdate->fetch(PDO::FETCH_ASSOC);
+            $dateAppointment = $requestdate->fetch(PDO::FETCH_OBJ);
         }
         return $dateAppointment;
     }
@@ -76,7 +76,7 @@ class appointments extends dataBase {
         $appointment = array();
         $researchappoitment = $this->db->query('SELECT `id`,`name_appointment`,DATE_FORMAT(`date_appointment`,\'%d/%m/%Y\') AS date_appointment,DATE_FORMAT(`date_appointment`,\'%d\') AS day,DATE_FORMAT(`date_appointment`,\'%m\') AS month,DATE_FORMAT(`date_appointment`,\'%Y\') AS year,`hour_appointment`,`additional_informations`,`remarque` FROM `'.self::prefix.'appointments` WHERE `id_'.self::prefix.'users`='.$this->userId.' ORDER BY hour_appointment');
         if(is_object($researchappoitment)) {
-            $appointment = $researchappoitment->fetchAll(PDO::FETCH_ASSOC);            
+            $appointment = $researchappoitment->fetchAll(PDO::FETCH_OBJ);            
         }
         return $appointment;
     }

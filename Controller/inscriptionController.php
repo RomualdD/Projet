@@ -13,7 +13,7 @@ if(isset($_POST['inscriptionusername'])) {
     $user = new users();
     $user->username = $_POST['inscriptionusername'];
     $verifusername = $user->getUsername();    
-    if($user->username == $verifusername['username']) {
+    if($user->username == $verifusername->username) {
       echo 'Failed';
     } else {
         echo 'Success';
@@ -85,7 +85,7 @@ if(isset($_POST['submit'])) {
                   $user->password = password_hash($user->password,PASSWORD_DEFAULT);  
                     // Vérification qu'un utilisateur n'a pas le même nom
                   $verifusername = $user->getUsername();             
-                  if($user->username == $verifusername['username']) {
+                  if($user->username == $verifusername->username) {
                     $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
                   }
                   else {

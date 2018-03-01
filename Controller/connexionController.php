@@ -24,22 +24,22 @@ if (isset($_POST['connexion']))
         $user->password = $_POST['password'];
         // Cherche le nom d'utilisateur et le mot de passe entré
         $requestUser = $user->getUser();
-        $verifUser = $requestUser['username'];
-        $verifPassword = $requestUser['password'];
+        $verifUser = $requestUser->username;
+        $verifPassword = $requestUser->password;
         // Si les champs correspondent dans la base de données
         if ($verifUser == $user->username && password_verify($user->password, $verifPassword)) {
             // Vérification si le compte est bien actif
             $verifactif = $user->getVerif();
-            $actif = $verifactif['active'];
+            $actif = $verifactif->active;
             if ($actif == '1') {
                 session_start();
                 $infosUser = $user->getInfoConnexion();
                 //Enregistement dans la session:
                 $_SESSION['user'] = $_POST['username'];
-                $_SESSION['firstname'] = $infosUser['firstname'];
-                $_SESSION['name'] = $infosUser['lastname'];
-                $_SESSION['role'] = $infosUser['role'];
-                $_SESSION['pathology'] = $infosUser['pathology'];
+                $_SESSION['firstname'] = $infosUser->firstname;
+                $_SESSION['name'] = $infosUser->lastname;
+                $_SESSION['role'] = $infosUser->role;
+                $_SESSION['pathology'] = $infosUser->pathology;
                 if($infoAjax == false)
                 {
                     header('Location: profil.php');

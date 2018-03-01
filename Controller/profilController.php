@@ -8,7 +8,7 @@ if(isset($_POST['deleteajax'])) {
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
-    $id = $userId['id'];
+    $id = $userId->id;
     $pathology = $_SESSION['pathology'];
 }
     $verification = new verification();
@@ -35,13 +35,13 @@ if(isset($_POST['deleteajax'])) {
                     $verification->notification = $_POST['notification'];
                 }
                 else {
-                    $verification->notification = $info['notification'];
+                    $verification->notification = $info->notification;
                 }
                 if(!empty($_POST['timeverif'])) {
                     $verification->verification = $_POST['timeverif'];  
                 }
                 else {
-                    $verification->verification = $info['verification'];
+                    $verification->verification = $info->verification;
                 }
                 if(!empty($_POST['clockone'])) {
                     if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone']) || preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clockone'])) {
@@ -56,7 +56,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }    
                 else {
-                    $verification->oneclock = $info['onehour'];
+                    $verification->oneclock = $info->onehour;
                     $clockfirst=explode(':', $verification->oneclock);
                     $firstHour = $clockfirst['0'];
                     $firstMin = $clockfirst['1'];                                           
@@ -74,7 +74,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }
                 else {
-                    $verification->twoclock = $info['twohour'];
+                    $verification->twoclock = $info->twohour;
                     if($verification->twoclock != '') {
                        $clocksecond=explode(':', $verification->twoclock);
                        $secondHour = $clocksecond['0'];
@@ -98,7 +98,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }
                 else {
-                    $verification->threeclock = $info['threehour'];
+                    $verification->threeclock = $info->threehour;
                     if($verification->threeclock != '' ) {
                        $clockthree=explode(':', $verification->threeclock);
                        $threeHour = $clockthree['0'];
@@ -122,7 +122,7 @@ if(isset($_POST['deleteajax'])) {
                     }                                        
                 }
                 else {
-                    $verification->fourclock = $info['fourhour'];
+                    $verification->fourclock = $info->fourhour;
                     if($verification->fourclock != '') {
                         $clockfour=explode(':', $verification->fourclock);
                         $fourHour = $clockfour['0'];
@@ -481,7 +481,7 @@ if(isset($_POST['deleteajax'])) {
                         $verification->notification = 1;
                     }
                     else {
-                        $verification->notification = $info['notification'];
+                        $verification->notification = $info->notification;
                     }
                     if(!empty($_POST['clock'])) {
                         if(preg_match('#^[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clock']) || (preg_match('#^[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['clock']))) {
@@ -493,7 +493,7 @@ if(isset($_POST['deleteajax'])) {
                         }  
                     }
                     else {
-                       $verification->oneclock = $info['onehour']; 
+                       $verification->oneclock = $info->onehour; 
                     }
                     if($error == 0) {
                         $verification->updateVerificationAvk();
@@ -512,7 +512,7 @@ if(isset($_POST['deleteajax'])) {
         if(!empty($_POST['password']) && (!empty($_POST['newpassword'])) && (!empty($_POST['passwordverif']))) {
             $recuppassword = $user->getPassword();
             $password = $_POST['password'];
-            if (password_verify($password,$recuppassword['password'])) {
+            if (password_verify($password,$recuppassword->password)) {
                 $newpassword = $_POST['newpassword'];
                 $newpasswordverif = $_POST['passwordverif'];
                 if ($newpassword == $newpasswordverif) {
@@ -587,4 +587,4 @@ if(isset($_POST['deleteajax'])) {
     }
 // -- // Recherche demande suivi    
 $requestfollow = $follow->getnbFollowQuest();
-$nbquest = $requestfollow['nbFollow'];
+$nbquest = $requestfollow->nbFollow;

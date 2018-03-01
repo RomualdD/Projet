@@ -8,7 +8,7 @@
             $users = new users();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
-            $id = $userId['id'];
+            $id = $userId->id;
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
             $appointment = new appointments();
@@ -35,7 +35,7 @@
                     }
                     else {
                          $requestdate = $appointment->getDateAppointment();
-                         $appointment->newdayappointment = $requestdate['date_appointment'];
+                         $appointment->newdayappointment = $requestdate->date_appointment;
                     }
                     if(!empty($_POST['nameappointmentmodif'])) {
                          if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#', $_POST['nameappointmentmodif'])) {
@@ -130,7 +130,7 @@
             $follow = new follow();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
-            $follow->id = $id = $userId['id'];
+            $follow->id = $id = $userId->id;
             $appointment = new appointments();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
@@ -231,16 +231,16 @@
         $appointmentResultForId = $appointment->getAppointment();
         foreach($appointmentResultForId as $appointmentResult) {
             // Récupération des inforations
-            $idappointment = $appointmentResult['id'];
-            $nameappointment = $appointmentResult['name_appointment'];
-            $hourappointment = $appointmentResult['hour_appointment'];
-            $informationappointment = $appointmentResult['additional_informations'];
-            $remarque = $appointmentResult['remarque'];
-            $dateappointment = $appointmentResult['date_appointment'];
+            $idappointment = $appointmentResult->id;
+            $nameappointment = $appointmentResult->name_appointment;
+            $hourappointment = $appointmentResult->hour_appointment;
+            $informationappointment = $appointmentResult->additional_informations;
+            $remarque = $appointmentResult->remarque;
+            $dateappointment = $appointmentResult->date_appointment;
             // On sépare le jour le mois et l'année du rendez-vous
-            $dayappointment= $appointmentResult['day'];
-            $monthappointment= $appointmentResult['month'];
-            $yearappointment= $appointmentResult['year'];
+            $dayappointment= $appointmentResult->day;
+            $monthappointment= $appointmentResult->month;
+            $yearappointment= $appointmentResult->year;
             // On écrit tout dans un tableau
             $numbercle= array('id'=>$idappointment,'name'=>$nameappointment,'date' => $dateappointment,'day'=>$dayappointment,'month'=>$monthappointment,'year'=>$yearappointment,'hour'=>$hourappointment,'infos'=>$informationappointment,'remarque'=>$remarque);
             // On le push pour avoir tous les rendez-vous

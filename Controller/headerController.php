@@ -6,9 +6,9 @@
     $follows = new follow();
     $user = $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
-    $follows->id = $id = $userId['id'];
+    $follows->id = $id = $userId->id;
     $role = $_SESSION['role'];
     $pathology = $_SESSION['pathology'];
     $requestfollow = $follows->getnbFollowQuest();
-    $nbquest = $requestfollow['nbFollow'];
+    $nbquest = $requestfollow->nbFollow;
 

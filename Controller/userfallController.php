@@ -11,8 +11,8 @@ if(isset($_POST['fallSubmit'])) {
         $user->password = password_hash($password,PASSWORD_DEFAULT);
         $user->updatePasswordFall();
         $recupUsername = $user->getUsernameByMail();
-        $username = $recupUsername['username'];
-        $key = $recupUsername['keyverif'];
+        $username = $recupUsername->username;
+        $key = $recupUsername->keyverif;
         $recipient = $user->mail;
         $subject = "[IMPORTANT] Rappel de vos identifiants";
         $entete = "From: inscriptiondiavk@gmail.com";

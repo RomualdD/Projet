@@ -39,7 +39,7 @@ class follow extends dataBase{
         $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
         if($requestfollow->execute()) {
-            $nbFollow = $requestfollow->fetch(PDO::FETCH_ASSOC);
+            $nbFollow = $requestfollow->fetch(PDO::FETCH_OBJ);
         } 
         return $nbFollow;
     }    
@@ -53,7 +53,7 @@ class follow extends dataBase{
         $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
         if($requestfollow->execute()) {
-            $follow = $requestfollow->fetchAll(PDO::FETCH_ASSOC);
+            $follow = $requestfollow->fetchAll(PDO::FETCH_OBJ);
         } 
         return $follow;
     }
@@ -67,7 +67,7 @@ class follow extends dataBase{
         $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
-            $follow = $requestfollow->fetchAll(PDO::FETCH_ASSOC);
+            $follow = $requestfollow->fetchAll(PDO::FETCH_OBJ);
         }
         return $follow;
     }
@@ -86,7 +86,7 @@ class follow extends dataBase{
         $requestsearch->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
         $requestsearch->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearch->execute()) {
-            $rateGraphic = $requestsearch->fetchAll(PDO::FETCH_ASSOC);
+            $rateGraphic = $requestsearch->fetchAll(PDO::FETCH_OBJ);
         }
         return $rateGraphic;
     }
@@ -105,7 +105,7 @@ class follow extends dataBase{
         $requestsearcharray->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
         $requestsearcharray->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearcharray->execute()) {
-            $rateArray = $requestsearcharray->fetchAll(PDO::FETCH_ASSOC);
+            $rateArray = $requestsearcharray->fetchAll(PDO::FETCH_OBJ);
         }
         return $rateArray;
     }

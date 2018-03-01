@@ -42,7 +42,7 @@ class suivis extends dataBase{
         $requestverifresult->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestverifresult->bindValue('futuredate',$this->datefutureverif,PDO::PARAM_STR);
         if($requestverifresult->execute()) {
-            $verifresult = $requestverifresult->fetch(PDO::FETCH_ASSOC);    
+            $verifresult = $requestverifresult->fetch(PDO::FETCH_OBJ);    
         }
         return $verifresult;
     }
@@ -55,7 +55,7 @@ class suivis extends dataBase{
         $resultdate = $this->db->prepare('SELECT `today_date` FROM `'.self::prefix.'medical_followup` WHERE `id_'.self::prefix.'users`= :id');
         $resultdate->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($resultdate->execute()) {
-            $date = $resultdate->fetchAll(PDO::FETCH_ASSOC);            
+            $date = $resultdate->fetchAll(PDO::FETCH_OBJ);            
         }
         return $date;
     }
@@ -68,7 +68,7 @@ class suivis extends dataBase{
         $researchTotal = $this->db->prepare('SELECT COUNT(*) AS total FROM `'.self::prefix.'medical_followup` WHERE `id_'.self::prefix.'users` = :id');
         $researchTotal->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($researchTotal->execute()) {   
-            $total = $researchTotal->fetch();
+            $total = $researchTotal->fetch(PDO::FETCH_OBJ);
         }
         return $total;
     }
@@ -82,7 +82,7 @@ class suivis extends dataBase{
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('offset',$this->offset,PDO::PARAM_INT);
         if($requestSearchInfo->execute()) {
-            $array = $requestSearchInfo->fetchAll(PDO::FETCH_ASSOC);            
+            $array = $requestSearchInfo->fetchAll(PDO::FETCH_OBJ);            
         }
         return $array;
     }
@@ -97,7 +97,7 @@ class suivis extends dataBase{
         $requestSearchGraphic->bindValue(':firstdate',$this->firstDate,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':secondedate', $this->secondDate, PDO::PARAM_INT);
         if($requestSearchGraphic->execute()) {
-            $graphic = $requestSearchGraphic->fetchAll(PDO::FETCH_ASSOC);
+            $graphic = $requestSearchGraphic->fetchAll(PDO::FETCH_OBJ);
         }
        return $graphic;
     }

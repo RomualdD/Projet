@@ -12,6 +12,7 @@
         else {
             $requestresearch = $user->getPatientUserByName();
         }
+        var_dump($requestresearch);
     }
     else {
 // -- // Ajout du patient + vérification si on le suit déjà   
@@ -20,7 +21,7 @@
             $error = 0;
             $user->username = $_POST['username'];
             $idfollow = $user->getUserId();
-            $follow->follow_to = $idfollow['id'];
+            $follow->follow_to = $idfollow->id;
             $alreadyfollow = $follow->getFollowAlready();
             if($alreadyfollow != 0) { 
                 $error++;

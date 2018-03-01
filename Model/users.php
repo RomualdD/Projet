@@ -54,7 +54,7 @@ class users extends dataBase {
         $resultUsername->bindValue('username',$this->username,PDO::PARAM_STR);
         if($resultUsername->execute()) {
             if(is_object($resultUsername)) {
-                $username = $resultUsername->fetch(PDO::FETCH_ASSOC);
+                $username = $resultUsername->fetch(PDO::FETCH_OBJ);
             }           
         }
         return $username;
@@ -80,7 +80,7 @@ class users extends dataBase {
         $resultUsername->bindValue('mail',$this->mail,PDO::PARAM_STR);
         if($resultUsername->execute()) {
             if(is_object($resultUsername)) {
-                $username = $resultUsername->fetch(PDO::FETCH_ASSOC);
+                $username = $resultUsername->fetch(PDO::FETCH_OBJ);
             }           
         }
         return $username;
@@ -93,7 +93,7 @@ class users extends dataBase {
            $user = array();
            $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
            if(is_object($requestSearchUser)) {
-              $user = $requestSearchUser->fetch(PDO::FETCH_ASSOC); 
+              $user = $requestSearchUser->fetch(PDO::FETCH_OBJ); 
            }
            return $user;
     }
@@ -105,7 +105,7 @@ class users extends dataBase {
             $userId = array();
             $resultId = $this->db->query('SELECT `id` FROM `'.self::prefix.'users` WHERE `username` =\''.$this->username.'\'');
             if(is_object($resultId)) {
-                $userId = $resultId->fetch(PDO::FETCH_ASSOC);
+                $userId = $resultId->fetch(PDO::FETCH_OBJ);
             }
            return $userId;
     }
@@ -118,17 +118,17 @@ class users extends dataBase {
         $requestInfo = $this->db->prepare('SELECT `username`,`lastname`, `firstname`, DATE_FORMAT(`birthdate`,"%d/%m/%Y") AS `birthdate`, `mail`, `phone`, `phone2`, CASE WHEN `pathology` = 1 Then \'Diabète Type 1\' WHEN `pathology` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologyName`  FROM `'.self::prefix.'users` WHERE `username` =:username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
-            $infoUser = $requestInfo->fetch(PDO::FETCH_ASSOC); 
-            if(is_array($infoUser)) {
-                $this->name = $infoUser['lastname'];
-                $this->firstname = $infoUser['firstname'];
-                $this->birthday = $infoUser['birthdate'];
-                $this->mail = $infoUser['mail'];
-                $this->phone = $infoUser['phone'];
-                $this->phone2 = $infoUser['phone2'];
-                $this->pathology = $infoUser['pathologyName'];
-                $isCorrect = true;
-            }           
+            $infoUser = $requestInfo->fetch(PDO::FETCH_OBJ); 
+            if(is_object($infoUser)) {
+                $this->name = $infoUser->lastname;
+                $this->firstname = $infoUser->firstname;
+                $this->birthday = $infoUser->birthdate;
+                $this->mail = $infoUser->mail;
+                $this->phone = $infoUser->phone;
+                $this->phone2 = $infoUser->phone2;
+                $this->pathology = $infoUser->pathologyName;
+                $isCorrect = true;   
+            }
         }        
        return $isCorrect;
     }
@@ -141,7 +141,7 @@ class users extends dataBase {
         $recuppassword = $this->db->prepare('SELECT `password` FROM `'.self::prefix.'users` WHERE `id` = '.$this->id);
         $recuppassword->bindValue('id',$this->id,PDO::PARAM_INT);
         if($recuppassword->execute()) {
-            $password = $recuppassword->fetch(PDO::FETCH_ASSOC);
+            $password = $recuppassword->fetch(PDO::FETCH_OBJ);
         }    
         return $password;    
     }
@@ -153,7 +153,7 @@ class users extends dataBase {
         $actif = array();
         $search = $this->db->query('SELECT `active` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($search)) {
-            $actif = $search->fetch();
+            $actif = $search->fetch(PDO::FETCH_OBJ);
         }
         return $actif;
     }
@@ -165,7 +165,7 @@ class users extends dataBase {
         $infosUser = array();
         $requestInfo = $this->db->query('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($requestInfo)) {
-            $infosUser = $requestInfo->fetch(PDO::FETCH_ASSOC);
+            $infosUser = $requestInfo->fetch(PDO::FETCH_OBJ);
         }
         return $infosUser;
     }
@@ -177,7 +177,7 @@ class users extends dataBase {
         $researchqrcode = array();
         $researchqrcode = $this->db->query('SELECT `qrcode` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($researchqrcode)) {
-            $researchqrcode = $researchqrcode->fetch(PDO::FETCH_ASSOC);     
+            $researchqrcode = $researchqrcode->fetch(PDO::FETCH_OBJ);     
         }
         return $researchqrcode;
     }
@@ -193,7 +193,7 @@ class users extends dataBase {
         $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
         $requestSearchPatient->bindValue('id',$this->id,PDO::PARAM_INT);
         if($requestSearchPatient->execute()) {
-            $patient = $requestSearchPatient->fetchAll(PDO::FETCH_ASSOC);
+            $patient = $requestSearchPatient->fetchAll(PDO::FETCH_OBJ);
         }
        return $patient; 
     }
@@ -209,7 +209,7 @@ class users extends dataBase {
         $requestSearchDoctor->bindValue('role','0',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('id',$this->id,PDO::PARAM_INT);
         if($requestSearchDoctor->execute()) {
-            $doctor = $requestSearchDoctor->fetchAll(PDO::FETCH_ASSOC);
+            $doctor = $requestSearchDoctor->fetchAll(PDO::FETCH_OBJ);
         }
        return $doctor;         
     }
@@ -222,7 +222,7 @@ class users extends dataBase {
         $researchId = $this->db->prepare('SELECT `id`,`role` FROM `'.self::prefix.'users` WHERE qrcode = :qrcode');
         $researchId->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
         if($researchId->execute()) {
-            $idParam = $researchId->fetch(PDO::FETCH_ASSOC);            
+            $idParam = $researchId->fetch(PDO::FETCH_OBJ);            
         }
         return $idParam;     
     }
@@ -234,7 +234,7 @@ class users extends dataBase {
         $mail = array();
         $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'verification` ON `id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`');
         if(is_object($requestmail)) {
-            $mail = $requestmail->fetchAll(PDO::FETCH_ASSOC);         
+            $mail = $requestmail->fetchAll(PDO::FETCH_OBJ);         
         }
         return $mail;
     }
@@ -246,7 +246,7 @@ class users extends dataBase {
         $mail = array();
         $requestmailappointment = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `date_appointment`,`hour_appointment`,`name_appointment`,`additional_informations` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'appointments` ON `'.self::prefix.'appointments`.`id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`');
         if(is_object($requestmailappointment)) {
-            $mail = $requestmailappointment->fetchAll(PDO::FETCH_ASSOC);                
+            $mail = $requestmailappointment->fetchAll(PDO::FETCH_OBJ);                
         }
         return $mail;
     }
@@ -259,9 +259,9 @@ class users extends dataBase {
         $recupcle = $this->db->prepare('SELECT `keyverif`, `active` FROM `'.self::prefix.'users` WHERE `username` = :user');
         $recupcle->bindValue('user',$this->username,PDO::PARAM_STR);
         if($recupcle->execute()) {
-            $cle = $recupcle->fetch();
-            $this->cleverif = $cle['keyverif'];
-            $this->actif = $cle['active'];
+            $cle = $recupcle->fetch(PDO::FETCH_OBJ);
+            $this->cleverif = $cle->keyverif;
+            $this->actif = $cle->active;
             $isCorrect = true;
         }
         return $isCorrect;

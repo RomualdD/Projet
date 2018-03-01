@@ -39,10 +39,11 @@ class verification extends dataBase {
      * @return bool
      */
     public function addVerificationAvk() {
-        $requestAddverif = $this->db->prepare('INSERT INTO `'.self::prefix.'verification`(`id_'.self::prefix.'users`, `onehour`, `notification`, `verification_date`) VALUES (:id, :hour1, :notification, :dateverification)');
+        $requestAddverif = $this->db->prepare('INSERT INTO `'.self::prefix.'verification`(`id_'.self::prefix.'users`,`verification`, `onehour`, `notification`, `verification_date`) VALUES (:id,:verif, :hour1, :notification, :dateverification)');
         $requestAddverif->bindValue('id', $this->userId,PDO::PARAM_INT);
         $requestAddverif->bindValue('hour1',$this->oneclock,PDO::PARAM_STR);
         $requestAddverif->bindValue('notification', $this->notification,PDO::PARAM_STR);
+        $requestAddverif->bindValue('verif','Mois',PDO::PARAM_STR);
         $requestAddverif->bindValue('dateverification', $this->dateverification,PDO::PARAM_STR);
         return $requestAddverif->execute();     
     }
@@ -56,7 +57,7 @@ class verification extends dataBase {
         $searchinfo = $this->db->prepare('SELECT `id_'.self::prefix.'users`,`verification_date`,`verification`,`onehour`,`twohour`,`threehour`,`fourhour`,`notification` FROM `'.self::prefix.'verification` WHERE `id_'.self::prefix.'users` = :id');
         $searchinfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($searchinfo->execute()) {
-            $infoVerification = $searchinfo->fetch(PDO::FETCH_ASSOC);       
+            $infoVerification = $searchinfo->fetch(PDO::FETCH_OBJ);       
         }
         return $infoVerification;
     }

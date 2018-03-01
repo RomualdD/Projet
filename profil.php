@@ -86,7 +86,7 @@
                     <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
                     <?php 
                         if($pathology == 1 || $pathology == 2) {
-                            if($info != 0) {
+                            if($info != NULL) {
                     ?>
                         <form name="modifverif" method="POST" action="profil.php">
                             <div class="form-inline">

@@ -18,7 +18,7 @@ if(isset($_SESSION['user'])) {
             <label for="text">Choisir son patient :</label>
             <select name="patient"><?php
                     foreach ($followDoctor as $followPatient) {
-                      ?><option value="<?php echo $followPatient['username'] ?>"><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
+                      ?><option value="<?php echo $followPatient->username ?>"><?php echo $followPatient->lastname.' '.$followPatient->firstname;?></option><?php
                   }
                 ?>
             </select>
@@ -37,7 +37,7 @@ if(isset($_SESSION['user'])) {
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
-                        ?><option value="<?php echo $followPatient['username'] ?>" <?php echo $_POST['patient'] == $followPatient['username'] ? 'selected': ''?>><?php echo $followPatient['lastname'].' '.$followPatient['firstname'];?></option><?php
+                        ?><option value="<?php echo $followPatient->username ?>" <?php echo $_POST['patient'] == $followPatient->username ? 'selected': ''?>><?php echo $followPatient->lastname.' '.$followPatient->firstname;?></option><?php
                     }
                   ?>
               </select>
@@ -71,9 +71,9 @@ if(isset($_SESSION['user'])) {
               <?php
                 foreach($requestarray as $result) { 
                 ?><tr>
-                    <td><?php echo $result['date_now']; ?></td>
-                    <td><?php echo $result['result']; ?></td>
-                    <td><?php echo $result['next_date_check']; ?></td>
+                    <td><?php echo $result->date_now; ?></td>
+                    <td><?php echo $result->result; ?></td>
+                    <td><?php echo $result->next_date_check; ?></td>
                 </tr><?php
               }
              ?>
@@ -128,9 +128,9 @@ if(isset($_SESSION['user'])) {
               <?php
                 foreach($requestarray as $result) {
                 ?><tr>
-                    <td><?php echo $result['date_now'];?></td>
-                    <td><?php echo $result['result']; ?></td>
-                    <td><?php echo $result['next_date_check']; ?></td>
+                    <td><?php echo $result->date_now;?></td>
+                    <td><?php echo $result->result; ?></td>
+                    <td><?php echo $result->next_date_check; ?></td>
                 </tr><?php
               }
              ?>

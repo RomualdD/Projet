@@ -31,7 +31,7 @@ if($role != 0) {
 // Pagination
     $total = $suivi->countRate();
     if($total != NULL) {
-        $total = $total['total'];  
+        $total = $total->total;  
     }
     else {
         $total = 1;
@@ -72,13 +72,13 @@ if($role != 0) {
             $hour = date('Hi');
             // Récupération de la date de vérification et des heures demandés
             $searchfuturedate = $verification->getVerification();
-            if($searchfuturedate != 0) {
-                $iduser = $searchfuturedate['id_pbvhfjt_users'];
-                $dateverif = $searchfuturedate['verification_date'];
-                $oneclock = $searchfuturedate['onehour'];
-                $twoclock = $searchfuturedate['twohour'];
-                $threeclock = $searchfuturedate['threehour'];
-                $fourclock = $searchfuturedate['fourhour'];  
+            if($searchfuturedate != NULL) {
+                $iduser = $searchfuturedate->id_pbvhfjt_users;
+                $dateverif = $searchfuturedate->verification_date;
+                $oneclock = $searchfuturedate->onehour;
+                $twoclock = $searchfuturedate->twohour;
+                $threeclock = $searchfuturedate->threehour;
+                $fourclock = $searchfuturedate->fourhour;  
                 // On ne récupère que les chiffres des heures et minutes
                 $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
                 $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
@@ -117,7 +117,7 @@ if($role != 0) {
                 }
                 if($suivi->datefutureverif == $dateverif) {
                     $verifresult = $suivi->getResultByDateverif();
-                    $result = $verifresult['result'];
+                    $result = $verifresult->result;
                     if($suivi->rate != $result) {
                         $suivi->updateRate();
                         $successAddMsg = 'Votre résultat a bien était modifié !';
@@ -144,8 +144,8 @@ if($role != 0) {
               if($resultdate != 0) {
               $verifDateDay = '';
               foreach($resultdate as $datetime) {
-                  if($suivi->dateday == $datetime['today_date']) {
-                      $verifDateDay = $datetime['today_date'];
+                  if($suivi->dateday == $datetime->today_date) {
+                      $verifDateDay = $datetime->today_date;
                   }         
               }
               if($suivi->dateday != $verifDateDay) {
@@ -154,7 +154,7 @@ if($role != 0) {
               }
               else {
                     $requestverifresult = $suivi->getResultByDateverif();
-                    $result = $requestverifresult['result'];
+                    $result = $requestverifresult->result;
                     if($suivi->rate != $result) 
                         $suivi->updateRate();
                         $successAddMsg = 'Votre résultat a bien était modifié !';
@@ -166,7 +166,7 @@ if($role != 0) {
               // Recherche de l'heure a laquelle il faudra envoyer le mail
               $searchfuturedate = $verification->getVerification();
               if($searchfuturedate != NULL) {
-              $oneclock = $searchfuturedate['onehour'];
+              $oneclock = $searchfuturedate->onehour;
               $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
               // Modification de la prochaine vérifiacation dans la table vérification
 
@@ -187,7 +187,7 @@ if($role != 0) {
     $requestSearchGraphic = $suivi->getRateInGraphic();
     foreach($requestSearchGraphic as $result) {
         foreach($result as $resultchart) {
-            $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
+            $dataPoints[$nbresult] = array('label'=>$result->date_now, 'y'=>$result->result);
         }
     $nbresult++;
     } 
@@ -201,7 +201,7 @@ else {
        /* $request = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$patient.'"');
         $request = $request->fetch(); */
         $requestPatient = $userPatient->getUserId();
-        $follow->follow_to = $requestPatient['id'];
+        $follow->follow_to = $requestPatient->id;
         // Possibilité de mettre 2 dates pour voir son suivi   
         if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
           $follow->firstDate = $_POST['date1'];
@@ -220,7 +220,7 @@ else {
         $requestSearchGraphic = $follow->getRateGraphicForDoctor();
         foreach($requestSearchGraphic as $result) {
             foreach($result as $resultchart) {
-                $dataPoints[$nbresult] = array('label'=>$result['date_now'], 'y'=>$result['result']);
+                $dataPoints[$nbresult] = array('label'=>$result->date_now, 'y'=>$result->result);
             }
         $nbresult++;
         } 

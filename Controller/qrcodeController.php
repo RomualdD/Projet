@@ -10,21 +10,21 @@ $idFollow = $_GET['idFollow'];
                $users->password = $_POST['password'];
                // Cherche le nom d'utilisateur et le mot de passe entré
                $requestUser =  $users->getUser();
-               $verifUser = $requestUser['username'];
-               $verifPassword = $requestUser['password'];
+               $verifUser = $requestUser->username;
+               $verifPassword = $requestUser->password;
               // Si les champs correspondent dans la base de données
               if($verifUser == $users->username && password_verify($users->password, $verifPassword)) {
                   // Vérification si le compte est bien actif
                   $verifactif = $users->getVerif();
-                  $actif = $verifactif['active'];
+                  $actif = $verifactif->active;
                  if($actif == '1') {
                    // Démarrage d'une session
                    $infosUser = $users->getInfoConnexion();
                    //Enregistement dans la session:
                    $_SESSION['user'] = $_POST['username'];
                    $_SESSION['password'] = $_POST['password'];
-                   $_SESSION['role'] = $infosUser['role'];
-                   $_SESSION['pathology']= $infosUser['pathology'];
+                   $_SESSION['role'] = $infosUser->role;
+                   $_SESSION['pathology']= $infosUser->pathology;
                  }
                }
              else {
@@ -43,8 +43,8 @@ if(isset($_SESSION['user'])) {
     $id = $userId['id'];
     $follow->follow_from = $id;
     $researchidParam = $users->getIdByQrCode();
-    $roleUser = $researchidParam['role'];
-    $follow->follow_to = $researchidParam['id'];   
+    $roleUser = $researchidParam->role;
+    $follow->follow_to = $researchidParam->id;   
     $verif = $follow->getFollowAlready();
     if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
         $follow->confirm = '1';

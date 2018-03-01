@@ -1,7 +1,7 @@
 <?php
     $follow = new follow();
     $user = new users();
-    $follow->id = $id;
+    $follow->follow_to = $id;
 // -- //Acceptation ou Refus demande   
     $successAddMsg = '';
     $successDeniedMsg = '';
