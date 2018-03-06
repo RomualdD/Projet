@@ -83,16 +83,16 @@
           </div>
           <div class="form-group">
             <label for="role" class="col-lg-2">Rôle :</label>
-            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="0" <?php if(isset($_POST['role'])){if(($_POST['role'])==0) echo 'checked'; } ?>/> Médecin</div>
-            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="1" <?php if(isset($_POST['role'])){if(($_POST['role'])==1) echo 'checked'; } ?>/> Patient</div>
+            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="0" <?php echo ((isset($_POST['role'])) AND (($_POST['role'])==0)) ? 'checked' : '';  ?>/> Médecin</div>
+            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="1" <?php echo ((isset($_POST['role'])) AND (($_POST['role'])==1)) ? 'checked' : '';  ?>/> Patient</div>
           </div>
           <div class="form-group">
             <label for="texte">Informations de la pathologie :</label>
             <select name="pathology">
-              <option value="0" <?php if(isset($_POST['pathology'])){if(($_POST['pathology'])==0) echo 'selected'; } ?>>Pathologie..</option>
-              <option value="1" <?php if(isset($_POST['pathology'])){if(($_POST['pathology'])==1) echo 'selected'; } ?>>Diabète Type 1</option>
-              <option value="2" <?php if(isset($_POST['pathology'])){if(($_POST['pathology'])==2) echo 'selected'; } ?>>Diabète Type 2</option>
-              <option value="3" <?php if(isset($_POST['pathology'])){if(($_POST['pathology'])==3) echo 'selected'; } ?>>Anticoagulant (AVK)</option>
+              <option value="0" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>>Pathologie..</option>
+              <option value="1" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==1)) ? 'selected' : ''; ?>>Diabète Type 1</option>
+              <option value="2" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==2)) ? 'selected' : ''; ?>>Diabète Type 2</option>
+              <option value="3" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==3)) ? 'selected' : ''; ?>>Anticoagulant (AVK)</option>
             </select>
             <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePathology;?></p>
           </div>

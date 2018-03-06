@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if(isset($_SESSION['user'])) {   
@@ -7,7 +6,7 @@ if(isset($_SESSION['user'])) {
     $users = new users();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
-    $id = $userId['id'];
+    $id = $userId->id;
     $user = $_SESSION['user'];
     $role = $_SESSION['role'];
     $pathology = $_SESSION['pathology'];

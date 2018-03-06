@@ -12,6 +12,7 @@
                                                     <label for="nameappointment">Nom du rendez-vous : </label><input class="col-lg-offset-1" type="text" name="nameappointmentforModif" id="nameappointment" disabled>
                                                     <label for="hourappointment">Horaire consultation :</label><input type="text" class="col-lg-offset-1" name="hourappointmentforModif" id="hourappointment" disabled>
                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointment" disabled></textarea> 
+                                                    <input type="text" class="col-lg-offset-1" id="id" disabled hidden>
                                                   </div>
                                               </div>
                                               <hr>
@@ -102,6 +103,7 @@
                                                     <label for="nameappointment">Nom du rendez-vous : </label><input class="col-lg-offset-1" type="text" name="nameappointmentforModif" id="nameappointmentUp" disabled>
                                                     <label for="hourappointment">Horaire consultation :</label><input type="text" class="col-lg-offset-1" name="hourappointmentforModif" id="hourappointmentUp" disabled>
                                                     <label for="informationappointment">Informations complémentaires du rendez-vous : </label><textarea class="form-control" rows="5" cols="10" type="text" name="infoappointmentforModif" id="infoappointmentUp" disabled></textarea> 
+                                                    <input type="text" class="col-lg-offset-1" name="idforModif" id="id" disabled hidden>                                                  
                                                   </div>
                                               </div>
                                                 <div class="row">

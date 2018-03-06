@@ -28,12 +28,12 @@ if(isset($_SESSION['user'])){
               <td><?php echo stripslashes(strip_tags($follow->firstname));?></td>
               <td><?php echo stripslashes(strip_tags($follow->username));?></td>
               <td><form method="POST" action="demande.php">
-              <input type="hidden" name="username" value="<?php echo $follow->id_pbvhfjt_users; ?>">
+              <input type="hidden" name="username" value="<?php echo $follow->follow_to; ?>">
               <input type="hidden" name="action" value="add">
               <input type="submit" value="Accepter">
               </form></td>
               <td><form method="POST" action="demande.php">
-              <input type="hidden" name="username" value="<?php echo $follow->id_pbvhfjt_users; ?>">
+              <input type="hidden" name="username" value="<?php echo $follow->follow_to; ?>">
               <input type="hidden" name="action" value="delete">
               <input type="submit" value="X"/>
           </form></td>

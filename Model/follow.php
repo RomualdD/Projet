@@ -26,7 +26,7 @@ class follow extends dataBase{
         $requestadd = $this->db->prepare('INSERT INTO `'.self::prefix.'follow`(`id_'.self::prefix.'users`, `id_'.self::prefix.'users_1`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
         $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
         $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
-        $requestadd->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
+        $requestadd->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         return $requestadd->execute();
     } 
 // -- // Sélection
@@ -37,7 +37,7 @@ class follow extends dataBase{
         $nbFollow = array();
         $requestfollow = $this->db->prepare('SELECT COUNT(`'.self::prefix.'follow`.`id`) AS nbFollow FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
         $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
-        $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
+        $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         if($requestfollow->execute()) {
             $nbFollow = $requestfollow->fetch(PDO::FETCH_OBJ);
         } 
@@ -49,9 +49,9 @@ class follow extends dataBase{
      */
     public function getFollowQuest() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT `id_'.self::prefix.'users`, `follow_date`,`lastname`,`firstname`,`username` FROM `'.self::prefix.'follow` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id`=`id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
-        $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
-        $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_INT);
+        $requestfollow = $this->db->prepare('SELECT `id_'.self::prefix.'users` AS follow_to, `follow_date`,`lastname`,`firstname`,`username` FROM `'.self::prefix.'follow` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id`=`id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
+        $requestfollow->bindValue('id',$this->follow_to,PDO::PARAM_INT);
+        $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         if($requestfollow->execute()) {
             $follow = $requestfollow->fetchAll(PDO::FETCH_OBJ);
         } 
@@ -64,7 +64,7 @@ class follow extends dataBase{
     public function getPatientByDoctor() {
         $follow = array();
         $requestfollow = $this->db->prepare('SELECT DISTINCT `id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id AS `follow_id`, `lastname`, `firstname`, `username`,`role` FROM `'.self::prefix.'follow` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` OR `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users_1` WHERE (`id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `lastname`');    
-        $requestfollow->bindValue('confirm','1', PDO::PARAM_INT);
+        $requestfollow->bindValue('confirm','1', PDO::PARAM_STR);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
             $follow = $requestfollow->fetchAll(PDO::FETCH_OBJ);
@@ -130,7 +130,7 @@ class follow extends dataBase{
      */
     public function updateAddFollow() {
         $acceptFollow = $this->db->prepare('UPDATE `'.self::prefix.'follow` SET `follow_confirm` = :confirm WHERE (`id_'.self::prefix.'users` = :member OR `id_'.self::prefix.'users_1` = :member) AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
-        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_INT);
+        $acceptFollow->bindValue(':confirm','1',PDO::PARAM_STR);
         $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
         $acceptFollow->bindValue(':id', $this->follow_to, PDO::PARAM_INT);
         return $acceptFollow->execute();

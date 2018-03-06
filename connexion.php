@@ -31,10 +31,10 @@
             <p class="col-lg-offset-2 errormessage"><?php echo $errorMessageConnexionUser; ?></p>
           </div>
           <div class="form-group col-lg-offset-7">
-            <input type="checkbox">Se rappeler de moi !
+            <input type="checkbox" name="cookie">Se rappeler de moi !
           </div>
           <input type="submit" value="Se connecter !" name="connexion" class="button btn btn-default col-lg-offset-4">
-          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants,<a href="/userfall.php">cliquez ici</a></p></div>
+          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="/userfall.php">cliquez ici</a></p></div>
         </form>
           <p class="col-lg-offset-3 errormessage"><?php echo $errorMessageConnexionActive; ?></p>
     </div>

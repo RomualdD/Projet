@@ -1,4 +1,11 @@
 <?php
+    if(isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user']; 
+        $_SESSION['role'] = $_COOKIE['role'];
+        $_SESSION['pathology'] = $_COOKIE['pathology'];
+        $_SESSION['firstname'] = $_COOKIE['firstname'];
+        $_SESSION['name'] = $_COOKIE['name'];  
+    }
           $error =0;
           $errorName = '';
           $errorMail = '';
@@ -12,28 +19,28 @@
                     }
                     else {
                         $error++;
-                        $errorName = 'Le nom n\'est pas valide !';                        
+                        $errorName = 'Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg';                        
                     }
                     if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
                        $mail = strip_tags($_POST['mail']);
                     }
                     else {
                         $error++;
-                        $errorMail = 'Le mail n\'est pas valide !';
+                        $errorMail = 'Le mail n\'est pas valide ! Il doit ressembler à exemple@mail.fr';
                     }
-                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{5,50}$#',$_POST['subject'])) {
+                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,50}$#',$_POST['subject'])) {
                        $subject = strip_tags($_POST['subject']); 
                     }
                      else {
                         $error++;
-                        $errorSubject = 'Le sujet n\'est pas valide !';
+                        $errorSubject = 'Le sujet n\'est pas valide ! Il doit être entre 5 et 50 caractères.';
                     }
-                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{5,}$#',$_POST['message'])) {
+                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,}$#',$_POST['message'])) {
                        $subject = strip_tags($_POST['message']); 
                     }
                      else {
                         $error++;
-                        $errorMessage = 'Le message n\'est pas valide !';
+                        $errorMessage = 'Le message n\'est pas valide ! Il doit avoir un minimum de 5 caractères';
                     }
                     
                     if($error == 0) {

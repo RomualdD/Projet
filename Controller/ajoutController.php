@@ -12,7 +12,6 @@
         else {
             $requestresearch = $user->getPatientUserByName();
         }
-        var_dump($requestresearch);
     }
     else {
 // -- // Ajout du patient + vérification si on le suit déjà   

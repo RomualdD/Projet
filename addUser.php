@@ -4,7 +4,7 @@ include_once 'Model/dataBase.php';
 include_once 'Model/users.php';
 include_once 'Model/follow.php';
 include_once 'Controller/qrcodeController.php';
-include 'View/header.php';
+include_once 'View/header.php';
 if(!isset($_SESSION['user'])) {
     ?>
     <div class="container">

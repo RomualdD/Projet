@@ -2,6 +2,7 @@
 $(document).ready(function () {
     $('#modalAppointment').on('show.bs.modal', function(event) {
         var appointment = $(event.relatedTarget)
+        var idappointment = appointment.data('idappointment')
         var remarque = appointment.data('remarque')
         var recipient = appointment.data('nameappointment')
         var hour = appointment.data('hourappointment')
@@ -10,9 +11,11 @@ $(document).ready(function () {
         modal.find('#nameappointment').val(recipient)
         modal.find('#hourappointment').val(hour)
         modal.find('#infoappointment').val(info)
+        modal.find('#id').val(idappointment)
     });
     $('#modalAppointmentUp').on('show.bs.modal', function(event) {
         var appointment = $(event.relatedTarget)
+        var idappointment = appointment.data('idappointment')
         var remarque = appointment.data('remarque')
         var recipient = appointment.data('nameappointment')
         var hour = appointment.data('hourappointment')
@@ -22,6 +25,7 @@ $(document).ready(function () {
         modal.find('#hourappointmentUp').val(hour)
         modal.find('#infoappointmentUp').val(info)
         modal.find('#remarqueappointment').val(remarque)
+        modal.find('#id').val(idappointment)
     });
     $('#submitremarqueadd').click(function() {
         $.post(
@@ -30,6 +34,7 @@ $(document).ready(function () {
                 name: $('#nameappointmentUp').val(),
                 hour: $('#hourappointmentUp').val(),
                 infos: $('#infoappointmentUp').val(),
+                id: $('#id').val,
                 addremarque: 'add',
                 ajaxready: 'ajax'
             },
@@ -51,6 +56,7 @@ $(document).ready(function () {
                 nameappointmentmodif: $('#name').val(),
                 hourappointmentmodif: $('#hour').val(),
                 infosappointmentmodif: $('#info').val(),
+                id: $('#id').val,
                 name: $('#nameappointment').val(),
                 hour: $('#hourappointment').val(),
                 infos: $('#infoappointment').val(),
@@ -75,6 +81,7 @@ $(document).ready(function () {
                 name: $('#nameappointment').val(),
                 hour: $('#hourappointment').val(),
                 infos: $('#infoappointment').val(),
+                id: $('#id').val,
                 suppr: 'Supprimer',
                 ajaxready: 'ajax'
             },

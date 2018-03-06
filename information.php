@@ -5,9 +5,6 @@
         ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
     }
     else {
-        $user = $_SESSION['user'];
-        $role = $_SESSION['role'];
-        $pathology = $_SESSION['pathology'];    
         include_once 'View/header.php';   
 ?>
     <div class="container view">
@@ -151,10 +148,10 @@
                                         $dateNow=date('Y-m-d H:i');
                                         $verifEventDay = $informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
                                         if($dateNow > $verifEventDay) {  ?> 
-                                            <p class="appointmentup" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointmentUp"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
+                                            <p class="appointmentup" data-toggle="modal" data-idappointment="<?php echo $informations['id']; ?>" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointmentUp"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
                                         <?php  }
                                         else { ?>
-                                        <p class="appointment" data-toggle="modal" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-target="#modalAppointment"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                        <p class="appointment" data-toggle="modal" data-idappointment="<?php echo $informations['id']; ?>" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-target="#modalAppointment"><i class="fa fa-book" aria-hidden="true"></i></p>
                                     <?php }
                                     } 
                                 } ?></td><?php

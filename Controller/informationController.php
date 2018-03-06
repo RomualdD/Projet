@@ -1,6 +1,16 @@
 <?php
     session_start();
+    if(isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user']; 
+        $_SESSION['role'] = $_COOKIE['role'];
+        $_SESSION['pathology'] = $_COOKIE['pathology'];
+        $_SESSION['firstname'] = $_COOKIE['firstname'];
+        $_SESSION['name'] = $_COOKIE['name'];  
+    }
     if(isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+        $role = $_SESSION['role'];
+        $pathology = $_SESSION['pathology'];    
         if(isset($_POST['ajaxready'])) {
             include '../Model/dataBase.php';
             include '../Model/appointments.php'; 
@@ -20,7 +30,8 @@
                     // Récupération des informations du rendez-vous actuel
                     $appointment->nameappointment = strip_tags($_POST['name']);
                     $appointment->hourappointment = $_POST['hour'];
-                    $appointment->infosappointment = strip_tags($_POST['infos']);  
+                    $appointment->infosappointment = strip_tags($_POST['infos']);
+                    $appointment->id = $_POST['id'];
                     /* Recherche du champ à modifier
                      * Vérification des regex des champs à modifier
                      * Si le champ est vide, on récupère la valeur actuelle du rendez-vous
@@ -78,8 +89,6 @@
                     } else {
                         echo 'Failed';
                     }
-                } else {
-                    echo 'Failed';
                 }          
             }
         // -- //Ajax Notes à ajouter après rendez-vous
@@ -87,7 +96,8 @@
                 if(!empty($_POST['remarque'])) {
                     $appointment->nameappointment = strip_tags($_POST['name']);
                     $appointment->hourappointment = $_POST['hour'];
-                    $appointment->infosappointment = strip_tags($_POST['infos']); 
+                    $appointment->infosappointment = strip_tags($_POST['infos']);
+                    $appointment->id = $_POST['id'];
                     // Récupération des champs du rendez-vous + Ajout de la note
                     if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#', $_POST['remarque'])) { 
                         $appointment->remarqueappointment = strip_tags($_POST['remarque']); 
@@ -99,18 +109,16 @@
                         echo 'Failed';
                         $error++;
                     }
-                }
-                else {
-                    echo 'Failed';
-                }        
+                }       
             }
         //--//Ajax Suppression    
             elseif(isset($_POST['suppr'])) {
-                if(!empty($_POST['name']) && (!empty($_POST['hour'])) && (!empty($_POST['infos']))) {
+                if(!empty($_POST['name']) && (!empty($_POST['hour'])) && (!empty($_POST['id']))) {
                     // Récupération des données du rendez-vous
                     $appointment->nameappointment = $_POST['name'];
                     $appointment->hourappointment = $_POST['hour'];
                     $appointment->infosappointment = $_POST['infos'];
+                    $appointment->id = $_POST['id'];
                     // Requête pour supprimer le rendez-vous
                     $appointment->deleteAppointment();
                     // Permet de dire à l'AJAX que l'opération est effectué

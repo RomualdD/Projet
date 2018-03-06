@@ -41,7 +41,7 @@
                                 <label class="col-lg-offset-3 col-lg-9" for="username">Nom d'utilisateur :</label>
                                 <div class="input-group username col-lg-offset-3">
                                     <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <input type="text" id="username" class="form-control" name="username" placeholder="Nom d'utilisateur ou mail" required>
+                                    <input type="text" id="username" class="form-control" name="username" placeholder="Nom d'utilisateur" required>
                                 </div>
                               </div>
                               <div class="form-inline">
@@ -50,7 +50,11 @@
                                     <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                                     <input type="password" id="password" class="form-control" name="password" placeholder="Mot de passe" required>
                                 </div>
-                              </div>  
+                              </div>
+                              <div class="form-group col-lg-offset-7">
+                                <input type="checkbox" id="cookie" name="cookie">Se rappeler de moi !
+                              </div>
+                              <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="/userfall.php">cliquez ici</a></p></div>
                               <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4">
                               <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom d'utilisateur ou mot de passe incorrect !</p>
                             </div>
