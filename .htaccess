@@ -1,11 +1,21 @@
-<IfModule mod_rewrite>
 # On suit les liens symboliques
-Options +FollowSymlinks
+Options +FollowSymlinks +MultiViews
 # Activation du mod rewrite d'Apache
 RewriteEngine On
-</IfModule>
+#----------------- Redirection https ---------------------------#
 # Contient le protocole de la requête Si c'est en http alors
 RewriteCond %{REQUEST_SCHEME} =http
 # Alors on redirige vers l'https
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+#----------------- Réécriture URL ---------------------------#
+#RewriteRule ^ajout-rapide$ addUser.php?idFollow=$1 [L]
+RewriteRule ^ajout$ /add.php [L]
+RewriteRule ^demande$ /quest.php [L]
+RewriteRule ^suivis$ /suivi.php [L]
+RewriteRule ^rendez-vous$ /information.php [L]
+RewriteRule ^votre-profil$ /profil.php [L]
+RewriteRule ^contactez-nous$ /contact.php [L]
+RewriteRule ^inscription$ /register.php [L]
+RewriteRule ^connexion$ /connection.php [L]
+RewriteRule ^mentions-legales$ /mentionslegales.php [L]
 ErrorDocument 404 /404.php

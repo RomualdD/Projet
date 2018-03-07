@@ -80,9 +80,9 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/" class="col-lg-offset-7 col-lg-5"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="/inscription.php" class="col-lg-offset-1 col-lg-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
-                    <li><a href="/connexion.php" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-                    <li><a href="/contact.php" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
+                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
+                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -116,14 +116,14 @@
                     <ul class="nav navbar-nav">
                       <li><a href="/" class="col-lg-offset-6"><i class="fas fa-home"></i> Accueil</a></li>
                       <?php if($role == 0) { ?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
+                      <li><a href="votre-profil" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
                       <?php }
                       else {?>
-                      <li><a href="profil.php" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
+                      <li><a href="votre-profil" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
                     <?php  }?>
-                      <li><a href="information.php" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
-                      <li><a href="suivi.php" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
-                      <li><a href="contact.php" class="col-lg-offset-1"><i class="far fa-edit"></i> Contact</a></li>
+                      <li><a href="rendez-vous" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
+                      <li><a href="suivis" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
+                      <li><a href="contactez-nous" class="col-lg-offset-1"><i class="far fa-edit"></i> Contact</a></li>
                       <li><a href="Controller/deconnexion.php" class="col-lg-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
                     </ul>
                 </div>

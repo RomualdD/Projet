@@ -10,13 +10,13 @@
       <div class="col-lg-offset-5"><h2>Inscription</h2></div>
     </div>
     <div class="message col-lg-offset-2 col-lg-10"><p>Afin de continuer sur le site il est obligatoire d'être inscrit, veuillez remplir les informations ci-dessous.</p>
-    <p>Si vous êtes déjà inscrit, veuillez-vous rendre sur la page <a href="connexion.php" class="link">connexion</a>.</p></div>
+    <p>Si vous êtes déjà inscrit, veuillez-vous rendre sur la page <a href="connexion" class="link">connexion</a>.</p></div>
     <div class="row">
       <div class="inscription col-lg-offset-3 col-lg-5">
         <div class="row">
           <div class="subtitle col-lg-offset-3"><h3>Informations à renseigner :</h3></div>
         </div>
-        <form method="POST" action="inscription.php" name="inscription">
+        <form method="POST" action="register.php" name="inscription">
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="name">Nom de famille :</label>
             <div class="input-group name col-lg-offset-3">

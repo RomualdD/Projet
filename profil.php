@@ -178,7 +178,7 @@
                         elseif($pathology == 3) {
                                 if($info == NULL) {
                             ?>
-                        <form name="addverif" method="POST" action="profil.php#medicalInformation">
+                        <form name="addverif" method="POST" action="profil.php">
                             <div class="form-inline">
                               <div class="input-group clock col-lg-offset-3 col-lg-6">
                                   <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
@@ -338,14 +338,14 @@
                                   echo 'Vous avez '.$nbquest.' demande.';
                               } ?>
                             <div class="form-inline">
-                                <form method="post" action="demande.php">
+                                <form method="post" action="demande">
                                     <input type="submit" value="Voir les demandes" name="answerdoctor" class="button btn btn-default col-lg-offset-1">
                                 </form>
                             </div>
                         <?php } ?></p>
                     </div>
                     <?php if($_SESSION['role'] != 0) {  ?>
-                        <form method="post" action="ajout.php">
+                        <form method="post" action="ajout">
                             <div class="form-inline">
                                 <label class="col-lg-offset-2 col-lg-8 modificateform" for="namedoctor">Chercher votre médecin :</label>                                                        
                                 <div class="input-group search col-lg-offset-2">
@@ -359,7 +359,7 @@
                         </form>
                 <?php  }
                     else { ?>
-                        <form method="post" action="ajout.php">
+                        <form method="post" action="ajout">
                             <div class="form-inline">
                                 <label class="col-lg-offset-4 col-lg-8 modificateform" for="namedoctor">Chercher votre patient :</label>                                                        
                                 <div class="input-group search col-lg-offset-4">

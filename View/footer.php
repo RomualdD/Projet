@@ -1,7 +1,7 @@
     <footer>
           <div class="col-lg-offset-1 col-lg-2">di-A-vk</div>
           <div class="col-lg-offset-2 col-lg-4"><i class="far fa-copyright"></i> Copyright 2018</div>
-          <div class="col-lg-offset-1 col-lg-2"><a href="contact.php">Contact</a></div>
+          <div class="col-lg-offset-1 col-lg-2"><a href="contactez-nous">Contact</a></div>
     </footer>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/cookie.js"></script>

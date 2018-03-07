@@ -8,10 +8,10 @@
       <div class="col-lg-offset-5"><h2>Connexion</h2></div>
     </div>
     <div class="message col-lg-offset-2"><p>Veuillez entrer votre Nom d'utilisateur et votre de mot de passe afin de continuer sur le site.</p>
-    <p>Si vous n'êtes pas inscrit, veuillez-vous rendre sur la page <a href="inscription.php" class="link">inscription</a>.</p></div>
+    <p>Si vous n'êtes pas inscrit, veuillez-vous rendre sur la page <a href="inscription" class="link">inscription</a>.</p></div>
     <div class="row">
       <div class="connexion col-lg-offset-3 col-lg-5">
-        <form action="connexion.php" method="post">
+        <form action="connection.php" method="post">
           <div class="row">
             <div class="subtitle col-lg-offset-3"><h3>Informations de connexion :</h3></div>
           </div>

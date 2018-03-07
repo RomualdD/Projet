@@ -106,7 +106,7 @@ if(isset($_POST['submit'])) {
                     mail($recipient, $subject,$message,$entete);
                     //Informer l'utilisateur que l'inscription est bien prise en compte
                     //Redirection vers la page de connexion
-                    header('Location: connexion.php');
+                    header('Location: connexion');
                     exit();
                    }
                 }
