@@ -1,7 +1,7 @@
 <?php
   include_once 'Model/dataBase.php';
   include_once 'Model/users.php';
-  include_once 'Controller/inscriptionController.php';
+  include_once 'Controller/registerController.php';
   include_once 'View/header.php';
 ?>
 <!-- Page d'inscription -->

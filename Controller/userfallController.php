@@ -17,7 +17,7 @@ if(isset($_POST['fallSubmit'])) {
         $subject = "[IMPORTANT] Rappel de vos identifiants";
         $entete = "From: inscriptiondiavk@gmail.com";
         $message = 'Votre nom d\'utilisateur est '.$username."\r\n"
-                .'https://diavk/changepassword.php?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
+                .'https://diavk/changer-mot-de-passe?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
         .'Ne pas répondre à ce message.';
         mail($recipient, $subject,$message,$entete);
     }

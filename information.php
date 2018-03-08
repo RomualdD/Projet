@@ -16,7 +16,7 @@
                 <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-down"></i> Voir le calendrier !</div>
             </a>
             <div class="col-lg-offset-3">
-                <form action="information.php" method="POST">
+                <form action="rendez-vous" method="POST">
                     <div class="col-lg-12">
                         <div class="form-inline">
                             <label for="nameappointment">Nom du rendez-vous : </label>
@@ -73,7 +73,7 @@
         </div>
         <div class="row">
             <div class="col-lg-offset-3 calendarchoice">
-                <form action="information.php" method="POST">
+                <form action="rendez-vous" method="POST">
                     <div class="col-lg-3">
                         <select class="form-control" name="months">
                             <?php

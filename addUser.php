@@ -38,21 +38,26 @@ if(!isset($_SESSION['user'])) {
     </div>
     <?php
 }
-else {   
-    if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {  
-    ?><p>Suivi ajouté !</p><?php
-    }
-    elseif($verif == 0 && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
-        ?><p>Suivi modifié !</p><?php
-    }
-    elseif($roleUser == $role) {
-        ?><p>Vous ne pouvez pas ajouter cette personne !</p><?php  
-    }
-    elseif($follow->follow_to != $follow->follow_from) {
-        ?><p>Vous ne pouvez pas vous ajouter !</p><?php  
+else { 
+    if($researchidParam != FALSE) {
+        if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {  
+            ?><p>Suivi ajouté !</p><?php
+        }
+        elseif($verif == 0 && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
+            ?><p>Suivi modifié !</p><?php
+        }
+        elseif($roleUser == $role) {
+            ?><p>Vous ne pouvez pas ajouter cette personne !</p><?php  
+        }
+        elseif($follow->follow_to == $follow->follow_from) {
+            ?><p>Vous ne pouvez pas vous ajouter !</p><?php  
+        }
+        else {
+            ?><p>Il y'a déjà un suivi !</p><?php
+        }   
     }
     else {
-        ?><p>Il y'a déjà un suivi !</p><?php
+        ?><p>Le paramètre est incorrect !</p><?php
     }
 }
 include 'View/footer.php';

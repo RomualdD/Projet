@@ -1,5 +1,5 @@
 <?php
-    include_once 'Controller/connexionController.php';
+    include_once 'Controller/connectionController.php';
     include_once 'View/header.php';
 ?>
 <!-- Page de connexion -->
@@ -34,7 +34,7 @@
             <input type="checkbox" name="cookie">Se rappeler de moi !
           </div>
           <input type="submit" value="Se connecter !" name="connexion" class="button btn btn-default col-lg-offset-4">
-          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="/userfall.php">cliquez ici</a></p></div>
+          <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="mot-de-passe-oublier">cliquez ici</a></p></div>
         </form>
           <p class="col-lg-offset-3 errormessage"><?php echo $errorMessageConnexionActive; ?></p>
     </div>

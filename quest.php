@@ -2,7 +2,7 @@
 include_once 'Controller/verificationconnexion.php';
 if(isset($_SESSION['user'])){
         include_once 'Model/follow.php';
-        include_once 'Controller/demandeController.php';
+        include_once 'Controller/questController.php';
     ?>
     <div class="container">
       <div class="row view">

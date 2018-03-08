@@ -1,8 +1,10 @@
 <?php
-$idFollow = $_GET['idFollow'];
+    $idFollow = $_GET['idFollow'];
     $follow = new follow();  
     $users = new users();
+    // Récupération du paramètre
     $users->qrcodeParam = $_GET['idFollow'];
+    // Si on est pas directement connecté
     if(isset($_POST['connexion'])) {
         if(!empty($_POST['username']) && (!empty($_POST['password']))) {
                $users->username = $_POST['username'];
@@ -35,22 +37,29 @@ $idFollow = $_GET['idFollow'];
            echo 'Tous les champs n\'ont pas était remplis !';
         }
     } 
-if(isset($_SESSION['user'])) {
-    $role = $_SESSION['role'];
-    $user = $_SESSION['user'];
-    $users->username = $_SESSION['user'];
-    $userId = $users->getUserId();
-    $id = $userId['id'];
-    $follow->follow_from = $id;
-    $researchidParam = $users->getIdByQrCode();
-    $roleUser = $researchidParam->role;
-    $follow->follow_to = $researchidParam->id;   
-    $verif = $follow->getFollowAlready();
-    if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
-        $follow->confirm = '1';
-        $follow->addFollow();
-    }
-    elseif($verif == 0 && ($follow->follow_to != $follow->follow_from && $roleUser != $role)) {
-      $follow->updateAddFollow() ; 
-    }
-} 
+    // Si on est connecté
+    if(isset($_SESSION['user'])) {
+        $role = $_SESSION['role'];
+        $user = $_SESSION['user'];
+        $users->username = $_SESSION['user'];
+        $userId = $users->getUserId();
+        $id = $userId->id;
+        $follow->follow_from = $id;
+        // On recherche si y'a un utilisateur qui correspond au qrcode
+        $researchidParam = $users->getIdByQrCode();
+        // Si oui, on vérifie le suivi entre les deux personnes
+        if($researchidParam != FALSE) {
+            $roleUser = $researchidParam->role;
+            $follow->follow_to = $researchidParam->id;   
+            $verif = $follow->getFollowAlready();
+            // Si il n'y a pas de suivi alors on l'ajoute
+            if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
+                $follow->confirm = '1';
+                $follow->addFollow();
+            }
+            // Si il y'a une demande alors on fait une modification
+            elseif($verif == 0 && ($follow->follow_to != $follow->follow_from && $roleUser != $role)) {
+              $follow->updateAddFollow() ; 
+            }        
+        } 
+    } 

@@ -13,7 +13,7 @@ if(isset($_SESSION['user'])) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">
-      <form name="followedrate" method="POST" action="suivi.php">
+      <form name="followedrate" method="POST" action="suivis">
           <div class="suivi form-group col-lg-offset-4">
             <label for="text">Choisir son patient :</label>
             <select name="patient"><?php
@@ -32,7 +32,7 @@ if(isset($_SESSION['user'])) {
        else {
       ?>
     <div class="row suivi">
-        <form action="suivi.php" method="POST">
+        <form action="suivis" method="POST">
             <div class="suivi form-group col-lg-offset-4">
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
@@ -92,7 +92,7 @@ if(isset($_SESSION['user'])) {
     ?>
     <!-- Page suivi patient -->
       <div class="row suivi">
-        <form name="followedrate" method="POST" action="suivi.php">
+        <form name="followedrate" method="POST" action="suivis">
             <div class="col-lg-offset-3">
                 <div class="form-inline">
                     <label for="rate">Résultats de la prise de sang : </label>
@@ -142,10 +142,10 @@ if(isset($_SESSION['user'])) {
                 for($numberPage=1; $numberPage<=$nbPage; $numberPage++) { 
                     // Vérification que le numéro de page est égal à la page voulu
                     if($numberPage == $actuallyPage) { // Si page actuelle alors on lui attribue un id pageactive
-                       ?><li class="page-item"><a id="pageactive" href="suivi.php?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
+                       ?><li class="page-item"><a id="pageactive" href="suivis?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
                     }	
                     else { // Sinon on écrit juste le nombre en rouge
-                        ?><li class="page-item"><a href="suivi.php?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
+                        ?><li class="page-item"><a href="suivis?page=<?php echo $numberPage;?>"><?php echo $numberPage; ?></a></li><?php
                     }
                 }                       
             ?>
@@ -157,7 +157,7 @@ if(isset($_SESSION['user'])) {
       </div>
       <div class="row suivi">
           <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
-          <form action="suivi.php" method="POST">
+          <form action="suivis" method="POST">
             <div class="col-lg-offset-3">
                 <label for="firstDate">Première date :</label>
                 <input type="date" name="date1">

@@ -44,8 +44,11 @@ if(isset($_POST['submit'])) {
             $errorMessageFirstname = 'Le prénom n\'est pas valide';
             $error++;
         }
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{1,30}$#', $_POST['username'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ0-9\- ]{1,30}$#', $_POST['username'])) {
             $user->username = strip_tags($_POST['username']); 
+        }
+        else  {
+            $errorMessageUser = 'Nom d\'utilisateur non valide';
         }
         if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
             $user->mail = strip_tags($_POST['mail']);   
@@ -63,7 +66,7 @@ if(isset($_POST['submit'])) {
             $errorMessageBirthday = 'La date n\'est pas valide';
             $error++;
         }
-        if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) {
+        if(preg_match("#^0[1-678]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) {
             $user->phone = strip_tags($_POST['phone']);      
         }
         else {
@@ -84,9 +87,11 @@ if(isset($_POST['submit'])) {
                 // Cryptage de données mdp
                   $user->password = password_hash($user->password,PASSWORD_DEFAULT);  
                     // Vérification qu'un utilisateur n'a pas le même nom
-                  $verifusername = $user->getUsername();             
-                  if($user->username == $verifusername->username) {
-                    $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
+                  $verifusername = $user->getUsername();
+                  if($verifusername != FALSE) {
+                    if($user->username == $verifusername->username) {
+                        $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
+                    }
                   }
                   else {
                     // Clé généré aléatoirement
@@ -101,7 +106,7 @@ if(isset($_POST['submit'])) {
                     $entete = 'From: inscriptiondiavk@gmail.com';
                     $message = 'Bienvenue sur di-A-vk,'. "\r\n"
                     .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'."\r\n"
-                    .'https://diavk/validation.php?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"
+                    .'https://diavk/compte-validation?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"
                     .'Ne pas répondre à ce message.';
                     mail($recipient, $subject,$message,$entete);
                     //Informer l'utilisateur que l'inscription est bien prise en compte

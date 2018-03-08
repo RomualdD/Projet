@@ -4,7 +4,7 @@ $(document).ready(function () {
             var cookie = 1
         };
         $.post(
-            'Controller/connexionController.php', {
+            'Controller/connectionController.php', {
                 username: $('#username').val(),
                 password: $('#password').val(),
                 cookie: cookie,
@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
     $('#inscriptionUsername').keyup(function () {
         $.post(
-            '../../Controller/inscriptionController.php', {
+            '../../Controller/registerController.php', {
                 inscriptionusername: $('#inscriptionUsername').val()
             },
             function (data) {
@@ -60,5 +60,5 @@ $(document).ready(function () {
             },
             'text'
         );
-    });
+    });    
 });

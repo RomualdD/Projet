@@ -23,7 +23,7 @@
                                               </div>
                                                 <div class="row">
                                                     <div class="col-lg-offset-1">
-                                                        <form action="information.php" method="POST">
+                                                        <form action="rendez-vous" method="POST">
                                                             <div class="col-lg-12">
                                                                 <div class="form-inline">
                                                                     <label for="nameappointment">Nom du rendez-vous : </label>
@@ -72,7 +72,7 @@
                                               <div class="row">
                                                   <div class="row">
                                                     <div class="col-lg-offset-1 col-lg-11">
-                                                        <form method="POST" action="information.php">
+                                                        <form method="POST" action="rendez-vous">
                                                           <div class="col-lg-offset-3 col-lg-2">
                                                               <div class="form-inline">
                                                                   <input id="submitdelete" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4" name="submitdelete">                        
@@ -112,7 +112,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-offset-1 col-lg-11">
-                                                            <form method="POST" action="information.php">
+                                                            <form method="POST" action="rendez-vous">
                                                                 <div class="col-lg-12">
                                                                     <div class="form-inline">
                                                                         <div class="input-group subject">

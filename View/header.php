@@ -4,11 +4,14 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
     <script src="/assets/js/canvasjs.min.js"></script>
     <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/jquery.mobile.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/scriptmobile.js"></script>
+    <script src="assets/js/script.js"></script>
     <link rel="icon" href="/logo.ico"/>
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
@@ -79,10 +82,10 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="/" class="col-lg-offset-7 col-lg-5"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
-                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-                    <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12"><i class="far fa-edit"></i> Contact</a></li>
+                    <li><a href="/" class="col-lg-offset-7 col-lg-5 col-sm-offset-7 col-sm-5"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
+                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6 col-sm-offset-6 col-sm-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-11"><i class="far fa-edit"></i> Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -114,17 +117,17 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                      <li><a href="/" class="col-lg-offset-6"><i class="fas fa-home"></i> Accueil</a></li>
+                      <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> Accueil</a></li>
                       <?php if($role == 0) { ?>
-                      <li><a href="votre-profil" class="col-lg-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
+                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
                       <?php }
                       else {?>
-                      <li><a href="votre-profil" class="col-lg-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
+                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
                     <?php  }?>
-                      <li><a href="rendez-vous" class="col-lg-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
-                      <li><a href="suivis" class="col-lg-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
-                      <li><a href="contactez-nous" class="col-lg-offset-1"><i class="far fa-edit"></i> Contact</a></li>
-                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
+                      <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
+                      <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
+                      <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> Contact</a></li>
+                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
                     </ul>
                 </div>
             </div>

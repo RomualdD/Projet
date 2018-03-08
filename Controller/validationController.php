@@ -1,12 +1,14 @@
 <?php
   $users = new users();
-  if(isset($_GET['log']) && (isset($_GET['cle']))) {     
+  if(!empty($_GET['log']) && (!empty($_GET['cle']))) {     
     $users->username = $_GET['log'];
     $clebdd = $_GET['cle'];
     $recupcle = $users->getCleVerifActif();
-    if($users->actif == 0) {
-        if($users->cleverif == $clebdd) {
-            $users->updateActif();
-        }
+    if($recupcle != FALSE) {
+        if($users->actif == 0) {
+            if($users->cleverif == $clebdd) {
+                $users->updateActif();
+            }
+        }   
     }
  }
