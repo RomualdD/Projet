@@ -8,7 +8,10 @@ RewriteCond %{REQUEST_SCHEME} =http
 # Alors on redirige vers l'https
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 #----------------- Réécriture URL ---------------------------#
-#RewriteRule ^ajout-rapide$ addUser.php?idFollow=$1 [L]
+RewriteRule ^changer-mot-de-passe$ changepassword.php [L]
+RewriteRule ^compte-validation$ validation.php [L]
+RewriteRule ^mot-de-passe-oublier$ userfall.php [L]
+RewriteRule ^idFollow=([a-z0-9]+)$ addUser.php?idFollow=$1 [L]
 RewriteRule ^ajout$ /add.php [L]
 RewriteRule ^demande$ /quest.php [L]
 RewriteRule ^suivis$ /suivi.php [L]
