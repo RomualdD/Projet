@@ -34,11 +34,11 @@ if (isset($_POST['connexion'])) {
                     $infosUser = $user->getInfoConnexion();
                     //Enregistement dans la session:
                     if(isset($_POST['cookie'])) {                     
-                        setcookie('user',$user->username,time()+ 365*24*3600,'/','diavk',0,1);
-                        setcookie('firstname',$infosUser->firstname,time()+365*24*3600,'/','diavk',0,1);
-                        setcookie('name',$infosUser->lastname,time()+365*24*3600,'/','diavk',0,1);
-                        setcookie('role',$infosUser->role,time()+ 365*24*3600,'/','diavk',0,1);
-                        setcookie('pathology',$infosUser->pathology,time()+ 365*24*3600,'/','diavk',0,1);
+                        setcookie('user',$user->username,time()+ 365*24*3600,'/',null,0,1);
+                        setcookie('firstname',$infosUser->firstname,time()+365*24*3600,'/',null,0,1);
+                        setcookie('name',$infosUser->lastname,time()+365*24*3600,'/',null,0,1);
+                        setcookie('role',$infosUser->role,time()+ 365*24*3600,'/',null,0,1);
+                        setcookie('pathology',$infosUser->pathology,time()+ 365*24*3600,'/',null,0,1);
                     }
                     $_SESSION['user'] = $_POST['username'];
                     $_SESSION['firstname'] = $infosUser->firstname;
