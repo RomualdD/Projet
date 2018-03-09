@@ -22,6 +22,10 @@ h1 {
   font-family: 'Poiret One';
 }
 
+h3 {
+   font-size: 2em;
+}
+
 .navbar {
   background-color: #D90404;
 }
@@ -74,7 +78,7 @@ body {
 }
 
 .addQuest {
-    color: white;
+    color: black;
 }
 .subhead {
   margin-top: 20px;
@@ -182,8 +186,7 @@ textarea {
 }
 
 #infoFollow {
-    color: red;
-    background-color: white;
+    color: black;
     display: inline-block;   
 }
 

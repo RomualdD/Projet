@@ -1,26 +1,16 @@
 <?php
-    session_start();
-    if(isset($_COOKIE['user'])) {
-        $_SESSION['user'] = $_COOKIE['user']; 
-        $_SESSION['role'] = $_COOKIE['role'];
-        $_SESSION['pathology'] = $_COOKIE['pathology'];
-        $_SESSION['firstname'] = $_COOKIE['firstname'];
-        $_SESSION['name'] = $_COOKIE['name'];  
-    }
-    if(isset($_SESSION['user'])) {
-        $user = $_SESSION['user'];
-        $role = $_SESSION['role'];
-        $pathology = $_SESSION['pathology'];    
         if(isset($_POST['ajaxready'])) {
+            $error = 0;
+            session_start();
             include '../Model/dataBase.php';
             include '../Model/appointments.php'; 
             include '../Model/users.php';
             $users = new users();
+            $role = $_SESSION['role'];
+            $pathology = $_SESSION['pathology'];    
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
             $id = $userId->id;
-            $users->username = $_SESSION['user'];
-            $userId = $users->getUserId();
             $appointment = new appointments();
             $appointment->userId=$id;
                 // Ajax Modifier
@@ -36,11 +26,12 @@
                      * Vérification des regex des champs à modifier
                      * Si le champ est vide, on récupère la valeur actuelle du rendez-vous
                      */
-                    if(!empty($_POST['dayappointmentmodif']) && $_POST['dayappointmentmodif'] >= date('Y-m-d')) {
+                    if(!empty($_POST['dayappointmentmodif']) && $_POST['dayappointmentmodif'] > date('Y-m-d')) {
                         if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']))){                     
                             $appointment->newdayappointment =  $_POST['dayappointmentmodif'];
                         }
                         else {
+                            echo 'FailedDay';
                             $error++;
                         }
                     }
@@ -53,6 +44,7 @@
                             $appointment->newnameappointment = $_POST['nameappointmentmodif'];        
                          }
                          else {
+                             echo 'FailedName';
                              $error++;
                          }
                     }
@@ -64,6 +56,7 @@
                              $appointment->newhourappointment = $_POST['hourappointmentmodif'];
                         }
                         else {
+                                echo 'FailedHour';
                                 $error++;
                             }
                    }
@@ -75,6 +68,7 @@
                            $appointment->newinfoappointment = $_POST['infosappointmentmodif'];        
                         }
                         else {
+                            echo 'FailedInfo';
                             $error++;
                         }
                    }
@@ -86,9 +80,7 @@
                         // Modification des champs modifiés
                        $appointment->updateAppointment();
                        echo 'Success';        
-                    } else {
-                        echo 'Failed';
-                    }
+                    } 
                 }          
             }
         // -- //Ajax Notes à ajouter après rendez-vous
@@ -128,8 +120,8 @@
                     echo 'Failed';
                 }         
             }
-        }
-        else {
+        }   
+    if(isset($_SESSION['user'])) {
             include_once 'Model/dataBase.php';
             include_once 'Model/appointments.php'; 
             include_once 'Model/users.php';
@@ -145,7 +137,6 @@
             $appointment->userId=$id;
             $requestfollow = $follow->getFollowQuest();
             $nbquest = count($requestfollow);
-        }
     // -- // Ajout d'un rendez-vous
         $errorMessageDate='';
         $errorMessageInfos='';
@@ -265,7 +256,6 @@
             }
         } 
     }
-
             
 
     

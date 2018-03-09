@@ -52,7 +52,7 @@ class suivis extends dataBase{
      */
     public function getDateDay() {
         $date = array();
-        $resultdate = $this->db->prepare('SELECT `today_date` FROM `'.self::prefix.'medical_followup` WHERE `id_'.self::prefix.'users`= :id');
+        $resultdate = $this->db->prepare('SELECT `today_date` FROM `'.self::prefix.'verification` WHERE `id_'.self::prefix.'users`= :id');
         $resultdate->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($resultdate->execute()) {
             $date = $resultdate->fetchAll(PDO::FETCH_OBJ);            
@@ -78,7 +78,7 @@ class suivis extends dataBase{
      */
     public function getRateInArray() {
         $array = array();
-        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS date_now ,`result`, CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') END AS next_date_check FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id ORDER BY today_date DESC LIMIT 10 OFFSET :offset');
+        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS date_now ,`result`, CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS next_date_check FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id ORDER BY today_date DESC LIMIT 10 OFFSET :offset');
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('offset',$this->offset,PDO::PARAM_INT);
         if($requestSearchInfo->execute()) {
@@ -92,7 +92,7 @@ class suivis extends dataBase{
      */
     public function getRateInGraphic() {
         $graphic = array();
-        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 3 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') END AS `date_now`,`result` FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
+        $requestSearchGraphic = $this->db->prepare('SELECT CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`,`result` FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users` = :id AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date`');        
         $requestSearchGraphic->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':firstdate',$this->firstDate,PDO::PARAM_INT);
         $requestSearchGraphic->bindValue(':secondedate', $this->secondDate, PDO::PARAM_INT);

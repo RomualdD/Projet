@@ -10,5 +10,4 @@ session_start();
 if(!isset($_SESSION['user'])) {
     $errorConnexion = 'Vous n\'êtes pas connecté pour accéder au contenu';
 }
-    include 'View/header.php';
     

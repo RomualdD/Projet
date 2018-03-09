@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once 'View/header.php';
  ?>
 <!-- Page d'accueil -->

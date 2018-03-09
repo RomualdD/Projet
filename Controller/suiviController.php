@@ -19,7 +19,7 @@ if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
   $suivi->secondDate = date('Y-m-d', strtotime($dateSecond.' +1 DAY'));
 }
 else { 
-    if ($pathology == 3) {
+    if ($pathology == 2 || $pathology == 3) {
         $suivi->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -3 MONTH'));    
     }
     else {
@@ -58,125 +58,129 @@ if($role != 0) {
        $nbPage = 1;
        $suivi->nbPage = 4;
     }
-    if($pathology == 1 || $pathology == 2) {
+    if($pathology == 1) {
         if(isset($_POST['submit'])) {
             // Vérification qu'il y'a bien un taux et qu'il est écrit en chiffre.chiffre ou chiffre
-          if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]{2}$#',$_POST['rate']))){
+            if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]{2}$#',$_POST['rate']))){
               // Récupération du taux
-            $suivi->rate= strip_tags($_POST['rate']);
-            // Date du jour avec heure
-            $suivi->dateday = date('Y-m-d H:i'); 
-            // Date du jour
-            $dateday = date('Y-m-d');
-            // Horraire du jour afin de faire une comparaison
-            $hour = date('Hi');
-            // Récupération de la date de vérification et des heures demandés
-            $searchfuturedate = $verification->getVerification();
-            if($searchfuturedate != NULL) {
-                $iduser = $searchfuturedate->id_pbvhfjt_users;
-                $dateverif = $searchfuturedate->verification_date;
-                $oneclock = $searchfuturedate->onehour;
-                $twoclock = $searchfuturedate->twohour;
-                $threeclock = $searchfuturedate->threehour;
-                $fourclock = $searchfuturedate->fourhour;  
-                // On ne récupère que les chiffres des heures et minutes
-                $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
-                $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
-                $threehour = substr($threeclock,0,2).substr($threeclock,3,4);
-                $fourhour = substr($fourclock,0,2).substr($fourclock,3,4);
-                // Vérification de quelle date est la prochaine
-                if($hour > $onehour && $hour < $twohour) {
-                    $futurehour = $twoclock;  
-                    $futuredate = $dateday;
-                }
-                elseif($hour > $twohour && $hour < $threehour) {
-                    $futurehour = $threeclock;      
-                    $futuredate = $dateday;
-                }
-                elseif($hour > $threehour && $hour < $fourhour) {
-                    $futurehour = $fourclock;
-                    $futuredate = $dateday;
-                }
-                elseif($hour < $onehour) {
-                        $futurehour = $oneclock;
+                $suivi->rate= strip_tags($_POST['rate']);
+                // Date du jour avec heure
+                $suivi->dateday = date('Y-m-d H:i'); 
+                // Date du jour
+                $dateday = date('Y-m-d');
+                // Horraire du jour afin de faire une comparaison
+                $hour = date('Hi');
+                // Récupération de la date de vérification et des heures demandés
+                $searchfuturedate = $verification->getVerification();
+                if($searchfuturedate != NULL) {
+                    $iduser = $searchfuturedate->id_pbvhfjt_users;
+                    $dateverif = $searchfuturedate->verification_date;
+                    $oneclock = $searchfuturedate->onehour;
+                    $twoclock = $searchfuturedate->twohour;
+                    $threeclock = $searchfuturedate->threehour;
+                    $fourclock = $searchfuturedate->fourhour;  
+                    // On ne récupère que les chiffres des heures et minutes
+                    $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
+                    $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
+                    $threehour = substr($threeclock,0,2).substr($threeclock,3,4);
+                    $fourhour = substr($fourclock,0,2).substr($fourclock,3,4);
+                    // Vérification de quelle date est la prochaine
+                    if($hour > $onehour && $hour < $twohour) {
+                        $futurehour = $twoclock;  
                         $futuredate = $dateday;
-                }
-                else {   
-                        $futurehour = $oneclock;
-                        $tomorrow = time() + (24*60*60); // calcul d'une journée
-                        $futuredate = date('Y-m-d', $tomorrow); // intégration pour passer au lendemain 
-                }
-                // Concaténation de la prochaine date avec l'heure correspondante
-                $verification->dateverification = $suivi->datefutureverif = $futuredate.' '.$futurehour.':00';
-                if(($suivi->datefutureverif != $dateverif) && ($suivi->userId == $iduser )) {
-                  // Ajout dans la table suivis pour récupéré ensuite les valeurs  
-                  $suivi->addRate();  
-                  $successAddMsg = 'Votre résultat a bien était ajouté !';
-                  // Modification de la prochaine vérifiacation dans la table vérification
-                  $verification->updateDateVerif();
-                }
-                if($suivi->datefutureverif == $dateverif) {
-                    $verifresult = $suivi->getResultByDateverif();
-                    $result = $verifresult->result;
-                    if($suivi->rate != $result) {
-                        $suivi->updateRate();
-                        $successAddMsg = 'Votre résultat a bien était modifié !';
+                    }
+                    elseif($hour > $twohour && $hour < $threehour) {
+                        $futurehour = $threeclock;      
+                        $futuredate = $dateday;
+                    }
+                    elseif($hour > $threehour && $hour < $fourhour) {
+                        $futurehour = $fourclock;
+                        $futuredate = $dateday;
+                    }
+                    elseif($hour < $onehour) {
+                            $futurehour = $oneclock;
+                            $futuredate = $dateday;
+                    }
+                    else {   
+                            $futurehour = $oneclock;
+                            $tomorrow = time() + (24*60*60); // calcul d'une journée
+                            $futuredate = date('Y-m-d', $tomorrow); // intégration pour passer au lendemain 
+                    }
+                    // Concaténation de la prochaine date avec l'heure correspondante
+                    $verification->dateverification = $suivi->datefutureverif = $futuredate.' '.$futurehour.':00';
+                    if(($suivi->datefutureverif != $dateverif) && ($suivi->userId == $iduser )) {
+                      // Ajout dans la table suivis pour récupéré ensuite les valeurs  
+                      $suivi->addRate();  
+                      $successAddMsg = 'Votre résultat a bien était ajouté !';
+                      // Modification de la prochaine vérifiacation dans la table vérification
+                      $verification->updateDateVerif();
+                    }
+                    if($suivi->datefutureverif == $dateverif) {
+                        $verifresult = $suivi->getResultByDateverif();
+                        $result = $verifresult->result;
+                        if($suivi->rate != $result) {
+                            $suivi->updateRate();
+                            $successAddMsg = 'Votre résultat a bien était modifié !';
+                        }
                     }
                 }
+                else {
+                    $errorResult = 'Veuillez entrer une date de vérification avant d\'entrer un résultat.';
+                }
             }
-            else {
-                $errorResult = 'Veuillez entrer une date de vérification avant d\'entrer un résultat.';
-            }
-          }
             else {
                 $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
             }
         }
     }
-    elseif($pathology == 3) {
+    elseif($pathology == 2 || $pathology == 3) {
         if(isset($_POST['submit'])) {
             if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))) {
-              $suivi->rate=$_POST['rate'];
-              $suivi->dateday = date('Y-m-d').' 00:00:00'; // Date du jour
-              $nextverif = time() + (21 * 24 * 60 * 60); //On lui demande de calculer la date dans 21jours (3semaines)
-              $suivi->datefutureverif = date('Y-m-d', $nextverif); // On récupère la nouvelle date
-              $resultdate = $suivi->getDateDay();
-              if($resultdate != 0) {
-              $verifDateDay = '';
-              foreach($resultdate as $datetime) {
-                  if($suivi->dateday == $datetime->today_date) {
-                      $verifDateDay = $datetime->today_date;
-                  }         
-              }
-              if($suivi->dateday != $verifDateDay) {
-                $suivi->addRate();
-                $successAddMsg = 'Votre résultat a bien était ajouté !';
-              }
-              else {
-                    $requestverifresult = $suivi->getResultByDateverif();
-                    $result = $requestverifresult->result;
-                    if($suivi->rate != $result) 
-                        $suivi->updateRate();
-                        $successAddMsg = 'Votre résultat a bien était modifié !';
+                $searchfuturedate = $verification->getVerification();
+                if($searchfuturedate != NULL) {                
+                    $suivi->rate=$_POST['rate'];
+                    $suivi->dateday = date('Y-m-d').' 00:00:00'; // Date du jour
+                    $date = date('Y-m-d');
+                    if($pathology == 3) {
+                        $suivi->datefutureverif = $nextverif = date('Y-m-d', strtotime($date.' + 21 day')); //On lui demande de calculer la date dans 21jours (3semaines)
                     }
-              }
-              else {
-                $errorResult = 'Veuillez entrer le jour de la vérification avant d\'entrer un résultat';
-              }        
-              // Recherche de l'heure a laquelle il faudra envoyer le mail
-              $searchfuturedate = $verification->getVerification();
-              if($searchfuturedate != NULL) {
-              $oneclock = $searchfuturedate->onehour;
-              $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
-              // Modification de la prochaine vérifiacation dans la table vérification
-
-              $verification->updateDateVerif();
-              }
+                    else {
+                        $suivi->datefutureverif = $nextverif = date('Y-m-d', strtotime($date.' + 3 month'));
+                    }
+                    $resultdate = $suivi->getDateDay();
+                    if($resultdate != NULL) {
+                        $verifDateDay = '';
+                        foreach($resultdate as $datetime) {
+                            if($suivi->dateday == $datetime->today_date) {
+                                $verifDateDay = $datetime->today_date;
+                            }         
+                        }           
+                    } 
+                    else {
+                        $verifDateDay = '';
+                    }
+                        if($suivi->dateday != $verifDateDay) {
+                            $suivi->addRate();
+                            $successAddMsg = 'Votre résultat a bien était ajouté !';
+                        }
+                        
+                        else {
+                            $requestverifresult = $suivi->getResultByDateverif();
+                            $result = $requestverifresult->result;
+                            if($suivi->rate != $result) {
+                                $suivi->updateRate();
+                                $successAddMsg = 'Votre résultat a bien était modifié !';  
+                            }
+                        }      
+                    $oneclock = $searchfuturedate->onehour;
+                    $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
+                    // Modification de la prochaine vérifiacation dans la table vérification
+                    $verification->updateDateVerif();
+                }
                 else {
                     $errorResult = 'Veuillez entrer vos horraires dans votre profil !';
                 }
-
-              }                
+            }                
             else {
                 $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
             }

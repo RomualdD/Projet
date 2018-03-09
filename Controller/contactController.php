@@ -1,11 +1,4 @@
 <?php
-    if(isset($_COOKIE['user'])) {
-        $_SESSION['user'] = $_COOKIE['user']; 
-        $_SESSION['role'] = $_COOKIE['role'];
-        $_SESSION['pathology'] = $_COOKIE['pathology'];
-        $_SESSION['firstname'] = $_COOKIE['firstname'];
-        $_SESSION['name'] = $_COOKIE['name'];  
-    }
           $error =0;
           $errorName = '';
           $errorMail = '';

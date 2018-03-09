@@ -1,11 +1,10 @@
 <?php
+    include_once 'View/header.php';
     include_once 'Controller/informationController.php';
     if(!isset($_SESSION['user'])) {
-        include_once 'View/header.php';
         ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
     }
     else {
-        include_once 'View/header.php';   
 ?>
     <div class="container view">
         <div class="row">

@@ -1,5 +1,5 @@
 <?php
-include_once 'Controller/verificationconnexion.php';
+    include 'View/header.php';
 if(isset($_SESSION['user'])) {
     include_once 'Model/follow.php';
     include_once 'Controller/addController.php';
@@ -27,7 +27,7 @@ if(isset($_SESSION['user'])) {
                         <td><?php echo $element->firstname; ?></td>
                         <td><?php echo $element->username; ?></td>
                         <td><?php if($element->follow_confirm == NULL) {
-                        ?><form action="ajout.php" method="post"><input type="hidden" name="username" value="<?php echo $element->username;?>"/><input type="submit"/></form>
+                            ?><form action="ajout" method="post"><input type="hidden" name="username" value="<?php echo $element->username;?>"/><button type="submit"><i class="fas fa-user-plus"></i></button></form>
                             <?php } elseif($element->follow_confirm == 0) {
                             ?><i class="fas fa-hourglass-half"></i>
                             <?php } else {
@@ -43,13 +43,13 @@ if(isset($_SESSION['user'])) {
         else {
                 if(isset($_POST['username'])) {
                     if($alreadyfollow != 0) {  ?>
-                        <p class="view">Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
+                        <p class="view">Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="votre-profil">Cliquez ici !</a></p><?php
                     }
                     elseif($id == $idfollow) {  ?>
-                        <p class="view">Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="profil.php">Cliquez ici !</a></p><?php
+                        <p class="view">Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="votre-profil">Cliquez ici !</a></p><?php
                     }
                    if($error == 0) { ?>
-                        <p class="view">Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="profil.php">profil</a></p><?php
+                        <p class="view">Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="votre-profil">profil</a></p><?php
                     }
                 }
                 else {

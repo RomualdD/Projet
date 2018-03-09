@@ -1,5 +1,5 @@
 <?php
-    include_once 'Controller/verificationconnexion.php';
+    include 'View/header.php';
     if(isset($_SESSION['user'])) { 
        include_once 'Model/follow.php';
        include_once 'Model/verification.php';
@@ -69,7 +69,7 @@
                               <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $user->phone2; ?>">
                           </div>
                         </div>
-                        <?php if($_SESSION['role']!=0) { ?>
+                        <?php if($_SESSION['role'] != 0) { ?>
                         <div class="form-inline">
                           <div class="input-group pathology col-lg-offset-3">
                               <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
@@ -80,12 +80,12 @@
                     </div>
                 </div>
           </div>
-            <?php if($_SESSION['role']!=0) { ?>
+            <?php if($_SESSION['role'] != 0) { ?>
             <div role="tabpanel" class="tab-pane fade" id="medicalInformations">  
                 <div class="formular col-lg-offset-3 col-lg-5">            
                     <div class="subtitle col-lg-offset-1"><h3>Formulaire d'informations médicales :</h3></div>
                     <?php 
-                        if($pathology == 1 || $pathology == 2) {
+                        if($pathology == 1) {
                             if($info != NULL) {
                     ?>
                         <form name="modifverif" method="POST" action="profil.php">
@@ -175,7 +175,7 @@
                         <?php 
                             }
                         }
-                        elseif($pathology == 3) {
+                        elseif($pathology == 2 || $pathology == 3) {
                                 if($info == NULL) {
                             ?>
                         <form name="addverif" method="POST" action="profil.php">

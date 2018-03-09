@@ -1,5 +1,5 @@
 <?php
-include_once 'Controller/verificationconnexion.php';
+    include 'View/header.php';
 if(isset($_SESSION['user'])){
         include_once 'Model/follow.php';
         include_once 'Controller/questController.php';
@@ -27,12 +27,12 @@ if(isset($_SESSION['user'])){
               <td><?php echo stripslashes(strip_tags($follow->lastname));?></td>
               <td><?php echo stripslashes(strip_tags($follow->firstname));?></td>
               <td><?php echo stripslashes(strip_tags($follow->username));?></td>
-              <td><form method="POST" action="demande.php">
+              <td><form method="POST" action="demande">
               <input type="hidden" name="username" value="<?php echo $follow->follow_to; ?>">
               <input type="hidden" name="action" value="add">
-              <input type="submit" value="Accepter">
+              <button type="submit"><i class="fas fa-user-plus"></i></button>
               </form></td>
-              <td><form method="POST" action="demande.php">
+              <td><form method="POST" action="demande">
               <input type="hidden" name="username" value="<?php echo $follow->follow_to; ?>">
               <input type="hidden" name="action" value="delete">
               <input type="submit" value="X"/>

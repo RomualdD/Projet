@@ -20,7 +20,7 @@ if(isset($_POST['deleteajax'])) {
     $user->id = $verification->userId = $follow->id = $id;
     $info = $verification->getVerification();
 // -- // Modification vérification
-    if($pathology == 1 || $pathology == 2) {
+    if($pathology == 1) {
         $successModifMsg='';
         $errorModifOneClock='';
         $errorModifTwoClock='';
@@ -425,7 +425,7 @@ if(isset($_POST['deleteajax'])) {
                 }
         }
         // -- // Profil Avk
-        elseif($pathology == 3) {
+        elseif($pathology == 2 || $pathology == 3) {
             $error = 0;
             $succesAddmsg='';
             $errorDateMsg='';
@@ -461,7 +461,12 @@ if(isset($_POST['deleteajax'])) {
                             $error++;
                         }
                         if($error == 0) {
-                            $verification->verification = 'Mois';
+                            if($pathology == 3) {
+                                $verification->verification = 'Mois';
+                            }
+                            else {
+                                $verification->verification = '3 Mois';
+                            }    
                             $verification->addVerificationAvk();
                             $succesAddmsg = 'Les modifications sont prises en compte !';
                         }

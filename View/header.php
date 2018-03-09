@@ -1,4 +1,4 @@
-
+<?php include_once 'Controller/headerController.php'; ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -93,7 +93,6 @@
     </header>
   <?php  }
     else { 
-      include_once 'Controller/headerController.php';
     ?>
       <!-- Header connecté -->
     <header>

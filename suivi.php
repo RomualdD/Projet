@@ -1,5 +1,5 @@
 <?php
-  include_once 'Controller/verificationconnexion.php';
+    include 'View/header.php';
 if(isset($_SESSION['user'])) {  
   include_once 'Model/verification.php';
   include_once 'Model/suivis.php';

@@ -17,7 +17,7 @@ $errorMessageConnexionActive = '';
 if (isset($_POST['connexion'])) {
     // Si les champs sont remplis
     if (!empty($_POST['username']) && (!empty($_POST['password']))) {
-        $user->username = $_POST['username'];
+        $user->username = strip_tags($_POST['username']);
         $user->password = $_POST['password'];
         // Cherche le nom d'utilisateur et le mot de passe entré
         $requestUser = $user->getUser();
