@@ -5,18 +5,17 @@
  */
 class dataBase {
     protected $db;
-    CONST prefix = 'pbvhfjt_';
     
-    public function __construct()
+    protected function __construct()
     {
         try {
-            $this->db = new PDO('mysql:host=localhost;dbname=diavk;charset=utf8', 'project', 'projetdiavk');
+            $this->db = new PDO('mysql:host='.HOST.';dbname='.DBNAME.';charset=utf8', LOGIN, PASSWORD);
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         } 
     }
     
-    public function __destruct() {
+    protected function __destruct() {
      $this->db = NULL;
     }
 }

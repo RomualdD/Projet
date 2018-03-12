@@ -2,6 +2,7 @@
 if(isset($_POST)) {
     session_start();
     if(isset($_SESSION['user'])) {
+        include_once '../configuration.php';
         include_once '../Model/dataBase.php';
         include_once '../Model/users.php';
         include_once '../Model/follow.php';

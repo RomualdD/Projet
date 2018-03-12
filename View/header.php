@@ -10,8 +10,6 @@
     <script src="/assets/js/jquery.mobile.min.js"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/scriptmobile.js"></script>
-    <script src="assets/js/script.js"></script>
     <link rel="icon" href="/logo.ico"/>
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
@@ -59,7 +57,6 @@
                               </div>
                               <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="/userfall.php">cliquez ici</a></p></div>
                               <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4">
-                              <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom d'utilisateur ou mot de passe incorrect !</p>
                             </div>
                         </div>
                         <div class="modal-footer">

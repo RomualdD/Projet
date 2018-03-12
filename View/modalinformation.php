@@ -27,48 +27,44 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-inline">
                                                                     <label for="nameappointment">Nom du rendez-vous : </label>
-                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10" id="name">
                                                                         <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
-                                                                        <input type="text" class="form-control" id="name" name="nameappoitmentmodif" placeholder="Médecin">
+                                                                        <input type="text" class="form-control" id="newnameappointment" name="nameappoitmentmodif" placeholder="Médecin">
                                                                     </div>
-                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorNomMessageModal" hidden>Nom incorrect !</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-inline">
                                                                     <label for="dayappointment">Jour du rendez-vous : </label>
-                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10" id="date">
                                                                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                                                         <input type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="day" name="dayappointmentmodif">
                                                                     </div>
-                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorDayMessageModal" hidden>Date incorrecte !</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-inline">
                                                                     <label for="hourappointment">Horaire consultation :</label>
-                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10">
+                                                                    <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10" id="hour">
                                                                         <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                                                         <input type="time" class="form-control" id="hour" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
                                                                     </div>
-                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorHourMessageModal" hidden>Heure incorrecte !</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-inline">
-                                                                    <div class="input-group subject">
+                                                                    <div class="input-group" id="subject">
                                                                         <label for="informationappointment">Informations complémentaires du rendez-vous : </label>
                                                                         <textarea class="form-control" id="info" rows="5" cols="10" placeholder="Informations supplémentaires" name="infosappointmentmodif"><?php //echo $informations['infoappointment'];?></textarea>
                                                                     </div>
-                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorInfoMessageModal" hidden>Informations incorrects !</p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-offset-3 col-lg-2">
+                                                            <div class="col-lg-offset-3 col-lg-2" id="modifButton">
                                                                 <div class="form-inline">
                                                                   <input id="submitmodif" type="button" value="Modifier !" class="button btn btn-default col-lg-offset-4" >                        
                                                                 </div>
-                                                                <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Plusieurs informations sont incorrectes !</p>
                                                             </div>
+                                                           <!-- <p class="errormessage col-lg-offset-1 col-lg-9" id="errorMessageModal" hidden>Plusieurs informations sont incorrectes !</p>-->
                                                         </form>
                                                     </div>
                                                 </div>

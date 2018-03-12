@@ -1,9 +1,16 @@
-.navbar, .suivi, header  {
+@page{
+    margin: 1%;
+}
+
+.navbar, .suivi, header, footer, .pagination > li, #cookieChoiceInfo  {
     display: none;
 }
-#chartResult {
-  height: 370pt;
-  width: 100pt;
+.canvasjs-chart-container, #chartResult{
+    position: absolute;
+    padding-right: 75%;
+    cursor: none;
+    width: 500pt;
+    height: 2pt;
 }
 body {
     background-color: white;

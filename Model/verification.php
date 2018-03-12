@@ -12,6 +12,7 @@ class verification extends dataBase {
     public $fourclock='00:00';
     public $notification=0;
     public $dateverification='01/01/1900';
+    private $prefix = PREFIX ;
     
     public function __construct() {
         parent::__construct();
@@ -22,7 +23,7 @@ class verification extends dataBase {
      * @return bool
      */
     public function addVerificationDiabete() {
-        $requestverif = $this->db->prepare('INSERT INTO `'.self::prefix.'verification`(`id_'.self::prefix.'users`, `verification`, `onehour`, `twohour`, `threehour`, `fourhour`, `notification`, `verification_date`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
+        $requestverif = $this->db->prepare('INSERT INTO `'.$this->prefix.'verification`(`id_'.$this->prefix.'users`, `verification`, `onehour`, `twohour`, `threehour`, `fourhour`, `notification`, `verification_date`) VALUES (:id, :verification, :hour1, :hour2, :hour3, :hour4, :notification, :dateverification)');
         $requestverif->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestverif->bindValue('verification',$this->verification,PDO::PARAM_STR);
         $requestverif->bindValue('hour1',$this->oneclock,PDO::PARAM_STR);
@@ -39,7 +40,7 @@ class verification extends dataBase {
      * @return bool
      */
     public function addVerificationAvk() {
-        $requestAddverif = $this->db->prepare('INSERT INTO `'.self::prefix.'verification`(`id_'.self::prefix.'users`,`verification`, `onehour`, `notification`, `verification_date`) VALUES (:id,:verif, :hour1, :notification, :dateverification)');
+        $requestAddverif = $this->db->prepare('INSERT INTO `'.$this->prefix.'verification`(`id_'.$this->prefix.'users`,`verification`, `onehour`, `notification`, `verification_date`) VALUES (:id,:verif, :hour1, :notification, :dateverification)');
         $requestAddverif->bindValue('id', $this->userId,PDO::PARAM_INT);
         $requestAddverif->bindValue('hour1',$this->oneclock,PDO::PARAM_STR);
         $requestAddverif->bindValue('notification', $this->notification,PDO::PARAM_STR);
@@ -54,7 +55,7 @@ class verification extends dataBase {
      */
     public function getVerification() {
         $infoVerification = array();
-        $searchinfo = $this->db->prepare('SELECT `id_'.self::prefix.'users`,`verification_date`,`verification`,`onehour`,`twohour`,`threehour`,`fourhour`,`notification` FROM `'.self::prefix.'verification` WHERE `id_'.self::prefix.'users` = :id');
+        $searchinfo = $this->db->prepare('SELECT `id_'.$this->prefix.'users`,`verification_date`,`verification`,`onehour`,`twohour`,`threehour`,`fourhour`,`notification` FROM `'.$this->prefix.'verification` WHERE `id_'.$this->prefix.'users` = :id');
         $searchinfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         if($searchinfo->execute()) {
             $infoVerification = $searchinfo->fetch(PDO::FETCH_OBJ);       
@@ -67,7 +68,7 @@ class verification extends dataBase {
      * @return bool
      */
     public function updateVerification() {
-        $modifverification = $this->db->prepare('UPDATE `'.self::prefix.'verification` SET `verification` = :verif,`notification` = :notif, `onehour` = :oneclock, `twohour` = :twoclock, `threehour` = :threeclock, `fourhour` = :fourclock WHERE `id_'.self::prefix.'users` = :id');
+        $modifverification = $this->db->prepare('UPDATE `'.$this->prefix.'verification` SET `verification` = :verif,`notification` = :notif, `onehour` = :oneclock, `twohour` = :twoclock, `threehour` = :threeclock, `fourhour` = :fourclock WHERE `id_'.$this->prefix.'users` = :id');
         $modifverification->bindValue('verif',$this->verification,PDO::PARAM_STR);
         $modifverification->bindValue('notif',$this->notification,PDO::PARAM_INT);
         $modifverification->bindValue('oneclock',$this->oneclock,PDO::PARAM_STR);
@@ -82,7 +83,7 @@ class verification extends dataBase {
       * @return bool
       */
     public function updateDateVerif() {
-        $requestmodif = $this->db->prepare('UPDATE `'.self::prefix.'verification` SET `verification_date` = :newdate WHERE `id_'.self::prefix.'users` = :id');
+        $requestmodif = $this->db->prepare('UPDATE `'.$this->prefix.'verification` SET `verification_date` = :newdate WHERE `id_'.$this->prefix.'users` = :id');
         $requestmodif->bindValue('newdate',$this->dateverification,PDO::PARAM_STR);
         $requestmodif->bindValue('id',$this->userId,PDO::PARAM_INT);
         return $requestmodif->execute();
@@ -92,7 +93,7 @@ class verification extends dataBase {
      * @return bool
      */
     public function updateVerificationAvk() {
-        $requestUpdateverif = $this->db->prepare('UPDATE `'.self::prefix.'verification` SET `onehour` = :oneclock, `notification` = :notification WHERE `id_'.self::prefix.'users` = :id');
+        $requestUpdateverif = $this->db->prepare('UPDATE `'.$this->prefix.'verification` SET `onehour` = :oneclock, `notification` = :notification WHERE `id_'.$this->prefix.'users` = :id');
         $requestUpdateverif->bindValue('id', $this->userId,PDO::PARAM_INT);
         $requestUpdateverif->bindValue('oneclock',$this->oneclock,PDO::PARAM_STR);
         $requestUpdateverif->bindValue('notification', $this->notification,PDO::PARAM_STR);

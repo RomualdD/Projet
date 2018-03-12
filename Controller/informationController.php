@@ -2,16 +2,17 @@
         if(isset($_POST['ajaxready'])) {
             $error = 0;
             session_start();
-            include '../Model/dataBase.php';
-            include '../Model/appointments.php'; 
-            include '../Model/users.php';
+            include_once '../configuration.php';
+            include_once '../Model/dataBase.php';
+            include_once '../Model/appointments.php'; 
+            include_once '../Model/users.php';
             $users = new users();
+            $appointment = new appointments();
             $role = $_SESSION['role'];
             $pathology = $_SESSION['pathology'];    
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
             $id = $userId->id;
-            $appointment = new appointments();
             $appointment->userId=$id;
                 // Ajax Modifier
             if(!empty($_POST['modifappointment'])) {
@@ -112,31 +113,27 @@
                     $appointment->infosappointment = $_POST['infos'];
                     $appointment->id = $_POST['id'];
                     // Requête pour supprimer le rendez-vous
-                    $appointment->deleteAppointment();
-                    // Permet de dire à l'AJAX que l'opération est effectué
-                    echo 'Success';
+                    if($appointment->deleteAppointment()) {
+                        // Permet de dire à l'AJAX que l'opération est effectué
+                        echo 'Success';                        
+                    }
                 }
                 else {
                     echo 'Failed';
                 }         
             }
-        }   
-    if(isset($_SESSION['user'])) {
+        } else {
+            if(isset($_SESSION['user'])) {
+            include_once 'configuration.php';
             include_once 'Model/dataBase.php';
             include_once 'Model/appointments.php'; 
             include_once 'Model/users.php';
-            include_once 'Model/follow.php';  
             $users = new users();
-            $follow = new follow();
-            $users->username = $_SESSION['user'];
-            $userId = $users->getUserId();
-            $follow->id = $id = $userId->id;
             $appointment = new appointments();
             $users->username = $_SESSION['user'];
             $userId = $users->getUserId();
-            $appointment->userId=$id;
-            $requestfollow = $follow->getFollowQuest();
-            $nbquest = count($requestfollow);
+            $appointment->userId = $id = $userId->id;
+            $users->username = $_SESSION['user'];
     // -- // Ajout d'un rendez-vous
         $errorMessageDate='';
         $errorMessageInfos='';
@@ -188,12 +185,13 @@
                 if($error==0) {
                     $appointmentInTime = $appointment->getVerifInformation();
                     if($appointmentInTime == 0) {
-                        $appointment->addAppointment();
-                        $_POST['hourappointment'] = '';
-                        $_POST['dayappointment'] = '';
-                        $_POST['nameappointment'] = '';
-                        $_POST['informationappointment'] = '';
-                        $successAppointment = 'Enregistrement de votre rendez-vous effectué avec succès !';
+                        if($appointment->addAppointment()) {
+                            $_POST['hourappointment'] = '';
+                            $_POST['dayappointment'] = '';
+                            $_POST['nameappointment'] = '';
+                            $_POST['informationappointment'] = '';
+                            $successAppointment = 'Enregistrement de votre rendez-vous effectué avec succès !';   
+                        }
                     }
                     else {
                         $errorMessageAppointment = 'Vous avez déjà un rendez-vous ce jour là à la même heure !';
@@ -256,6 +254,7 @@
             }
         } 
     }
+}   
             
 
     

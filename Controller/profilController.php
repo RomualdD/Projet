@@ -1,6 +1,7 @@
 <?php
 if(isset($_POST['deleteajax'])) {
     session_start();
+    include_once '../configuration.php';
     include_once '../Model/dataBase.php'; 
     include_once '../Model/verification.php';
     include_once '../Model/follow.php';

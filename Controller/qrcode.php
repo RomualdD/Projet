@@ -3,6 +3,7 @@
  * Création du QRCode
  * appel de la bibliotheque qrlib
  */
+    include_once '../configuration.php';
     include '../Model/dataBase.php';
     include '../Model/users.php';
     include '../assets/phpqrcode/qrlib.php';

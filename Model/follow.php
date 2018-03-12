@@ -13,6 +13,7 @@ class follow extends dataBase{
     public $username = '';
     public $firstDate = '01/01/1900';
     public $secondDate = '01/01/1900';
+    private $prefix = PREFIX ;
     
     public function __construct() {
         parent::__construct();
@@ -23,7 +24,7 @@ class follow extends dataBase{
      * @return bool
      */
     public function addFollow() {
-        $requestadd = $this->db->prepare('INSERT INTO `'.self::prefix.'follow`(`id_'.self::prefix.'users`, `id_'.self::prefix.'users_1`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
+        $requestadd = $this->db->prepare('INSERT INTO `'.$this->prefix.'follow`(`id_'.$this->prefix.'users`, `id_'.$this->prefix.'users_1`, `follow_confirm`, `follow_date`)VALUES(:id,:id_to,:confirm,NOW())');
         $requestadd->bindValue('id',$this->follow_from,PDO::PARAM_INT);
         $requestadd->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $requestadd->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
@@ -35,7 +36,7 @@ class follow extends dataBase{
      */
     public function getnbFollowQuest() {
         $nbFollow = array();
-        $requestfollow = $this->db->prepare('SELECT COUNT(`'.self::prefix.'follow`.`id`) AS nbFollow FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
+        $requestfollow = $this->db->prepare('SELECT COUNT(`'.$this->prefix.'follow`.`id`) AS nbFollow FROM `'.$this->prefix.'follow` WHERE `id_'.$this->prefix.'users_1` = :id AND `follow_confirm` = :confirm');
         $requestfollow->bindValue('id',$this->id,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         if($requestfollow->execute()) {
@@ -49,7 +50,7 @@ class follow extends dataBase{
      */
     public function getFollowQuest() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT `id_'.self::prefix.'users` AS follow_to, `follow_date`,`lastname`,`firstname`,`username` FROM `'.self::prefix.'follow` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id`=`id_'.self::prefix.'users` WHERE `id_'.self::prefix.'users_1` = :id AND `follow_confirm` = :confirm');
+        $requestfollow = $this->db->prepare('SELECT `id_'.$this->prefix.'users` AS follow_to, `follow_date`,`lastname`,`firstname`,`username` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id`=`id_'.$this->prefix.'users` WHERE `id_'.$this->prefix.'users_1` = :id AND `follow_confirm` = :confirm');
         $requestfollow->bindValue('id',$this->follow_to,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         if($requestfollow->execute()) {
@@ -63,7 +64,7 @@ class follow extends dataBase{
      */
     public function getPatientByDoctor() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT DISTINCT `id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id AS `follow_id`, `lastname`, `firstname`, `username`,`role` FROM `'.self::prefix.'follow` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users` OR `'.self::prefix.'users`.`id` = `id_'.self::prefix.'users_1` WHERE (`id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `lastname`');    
+        $requestfollow = $this->db->prepare('SELECT DISTINCT `id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id AS `follow_id`, `lastname`, `firstname`, `username`,`role` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` OR `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users_1` WHERE (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) AND `follow_confirm` = :confirm AND `role` = 1 ORDER BY `lastname`');    
         $requestfollow->bindValue('confirm','1', PDO::PARAM_STR);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
@@ -77,7 +78,7 @@ class follow extends dataBase{
      */
     public function getRateGraphicForDoctor() {
         $rateGraphic = array();
-        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result` FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'medical_followup`.`id_'.self::prefix.'users` = :idpatient LEFT JOIN `'.self::prefix.'follow` ON `role` = :role WHERE `username` = :user AND (`'.self::prefix.'follow`.`id_'.self::prefix.'users` = :id OR `'.self::prefix.'follow`.`id_'.self::prefix.'users_1` = :id) AND (`'.self::prefix.'follow`.`id_'.self::prefix.'users` = :idpatient OR `'.self::prefix.'follow`.`id_'.self::prefix.'users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
+        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result` FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'medical_followup`.`id_'.$this->prefix.'users` = :idpatient LEFT JOIN `'.$this->prefix.'follow` ON `role` = :role WHERE `username` = :user AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :id OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :id) AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :idpatient OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
         $requestsearch->bindValue('idpatient',$this->follow_to, PDO::PARAM_STR);
         $requestsearch->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearch->bindValue('confirm','1', PDO::PARAM_STR);
@@ -96,7 +97,7 @@ class follow extends dataBase{
      */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
-        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result`, CASE WHEN pathology = 1 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS `next_date_check` FROM `'.self::prefix.'medical_followup` LEFT JOIN `'.self::prefix.'users` ON `'.self::prefix.'medical_followup`.`id_'.self::prefix.'users` = :idpatient LEFT JOIN `'.self::prefix.'follow` ON `role` = :role WHERE `username` = :user AND (`'.self::prefix.'follow`.`id_'.self::prefix.'users` = :id OR `'.self::prefix.'follow`.`id_'.self::prefix.'users_1` = :id) AND (`'.self::prefix.'follow`.`id_'.self::prefix.'users` = :idpatient OR `'.self::prefix.'follow`.`id_'.self::prefix.'users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
+        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result`, CASE WHEN pathology = 1 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS `next_date_check` FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'medical_followup`.`id_'.$this->prefix.'users` = :idpatient LEFT JOIN `'.$this->prefix.'follow` ON `role` = :role WHERE `username` = :user AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :id OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :id) AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :idpatient OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :idpatient) AND follow_confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
         $requestsearcharray->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearcharray->bindValue('confirm','1', PDO::PARAM_STR);
         $requestsearcharray->bindValue('role','1', PDO::PARAM_STR);
@@ -115,7 +116,7 @@ class follow extends dataBase{
      */
     public function getFollowAlready() {
         $verif = array();
-        $verifFollow = $this->db->prepare('SELECT `follow_confirm` FROM `'.self::prefix.'follow` WHERE (`id_'.self::prefix.'users_1` = :id_to OR `id_'.self::prefix.'users` = :id_to) AND (`id_'.self::prefix.'users_1` = :id_from OR `id_'.self::prefix.'users` = :id_from)');
+        $verifFollow = $this->db->prepare('SELECT `follow_confirm` FROM `'.$this->prefix.'follow` WHERE (`id_'.$this->prefix.'users_1` = :id_to OR `id_'.$this->prefix.'users` = :id_to) AND (`id_'.$this->prefix.'users_1` = :id_from OR `id_'.$this->prefix.'users` = :id_from)');
         $verifFollow->bindValue('id_to',$this->follow_to,PDO::PARAM_INT);
         $verifFollow->bindValue('id_from', $this->follow_from,PDO::PARAM_INT);
         if($verifFollow->execute()) {
@@ -129,7 +130,7 @@ class follow extends dataBase{
      * @return bool
      */
     public function updateAddFollow() {
-        $acceptFollow = $this->db->prepare('UPDATE `'.self::prefix.'follow` SET `follow_confirm` = :confirm WHERE (`id_'.self::prefix.'users` = :member OR `id_'.self::prefix.'users_1` = :member) AND (`id_'.self::prefix.'users_1` = :id OR `id_'.self::prefix.'users` = :id)');
+        $acceptFollow = $this->db->prepare('UPDATE `'.$this->prefix.'follow` SET `follow_confirm` = :confirm WHERE (`id_'.$this->prefix.'users` = :member OR `id_'.$this->prefix.'users_1` = :member) AND (`id_'.$this->prefix.'users_1` = :id OR `id_'.$this->prefix.'users` = :id)');
         $acceptFollow->bindValue(':confirm','1',PDO::PARAM_STR);
         $acceptFollow->bindValue(':member',$this->follow_from, PDO::PARAM_INT);
         $acceptFollow->bindValue(':id', $this->follow_to, PDO::PARAM_INT);
@@ -141,14 +142,14 @@ class follow extends dataBase{
      * @return bool
      */
     public function deleteFollow() {
-        $requestrefuse = $this->db->prepare('DELETE FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users` = :member AND `id_'.self::prefix.'users_1` = :id');
+        $requestrefuse = $this->db->prepare('DELETE FROM `'.$this->prefix.'follow` WHERE `id_'.$this->prefix.'users` = :member AND `id_'.$this->prefix.'users_1` = :id');
         $requestrefuse->bindValue(':member',$this->follow_from,PDO::PARAM_INT);
         $requestrefuse->bindValue(':id',$this->id,PDO::PARAM_INT);
         return $requestrefuse->execute();
     }
     
     public function deleteFollowById() {
-        $requestdelete =  $this->db->prepare('DELETE FROM `'.self::prefix.'follow` WHERE `id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id');
+        $requestdelete =  $this->db->prepare('DELETE FROM `'.$this->prefix.'follow` WHERE `id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id');
         $requestdelete->bindValue(':id',$this->id,PDO::PARAM_INT);
         return $requestdelete->execute();
     }

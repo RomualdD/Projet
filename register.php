@@ -1,8 +1,9 @@
 <?php
-  include_once 'Model/dataBase.php';
-  include_once 'Model/users.php';
-  include_once 'Controller/registerController.php';
-  include_once 'View/header.php';
+    include_once 'configuration.php';
+    include_once 'Model/dataBase.php';
+    include_once 'Model/users.php';
+    include_once 'Controller/registerController.php';
+    include_once 'View/header.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container view">
@@ -48,7 +49,6 @@
                 <input type="text" class="form-control" name="username" id="inscriptionUsername" value="<?php echo isset($_POST['username']) ? strip_tags($_POST['username']) : ''; ?>" placeholder="Nom d'utilisateur" required>
             </div>
             <p id="usernameerror" class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageUser;?></p>
-            <p id="usernamesuccess" class="successmessage col-lg-offset-3 col-lg-9"></p>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="password">Mot de passe :</label>  

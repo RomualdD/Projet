@@ -14,7 +14,7 @@
                         $error++;
                         $errorName = 'Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg';                        
                     }
-                    if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
+                    if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
                        $mail = strip_tags($_POST['mail']);
                     }
                     else {

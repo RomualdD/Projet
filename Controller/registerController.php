@@ -8,10 +8,11 @@
     $errorMessagePassword = '';
     $errorMessagePathology = '';
 if(isset($_POST['inscriptionusername'])) {
+  include_once '../configuration.php';
   include_once '../Model/dataBase.php';
   include_once '../Model/users.php';
     $user = new users();
-    $user->username = $_POST['inscriptionusername'];
+    $user->username = strip_tags($_POST['inscriptionusername']);
     $verifusername = $user->getUsername();    
     if($user->username == $verifusername->username) {
       echo 'Failed';
@@ -50,7 +51,7 @@ if(isset($_POST['submit'])) {
         else  {
             $errorMessageUser = 'Nom d\'utilisateur non valide';
         }
-        if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['mail'])) {
+        if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
             $user->mail = strip_tags($_POST['mail']);   
         }
         else {

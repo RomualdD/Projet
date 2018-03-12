@@ -18,6 +18,7 @@ class users extends dataBase {
     public $cleverif = '';
     public $actif = 0;
     public $qrcodeParam = '';
+    private $prefix = PREFIX ;
     
     public function __construct() {
         parent::__construct();
@@ -27,7 +28,7 @@ class users extends dataBase {
      * Méthode permet d'ajouter un utilisateur
      */
     public function addUser() {
-        $requestAdd = $this->db->prepare('INSERT INTO `'.self::prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `role`, `pathology`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif,:qrcode)');
+        $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `role`, `pathology`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif,:qrcode)');
         $requestAdd->bindValue('name',$this->name,PDO::PARAM_STR);
         $requestAdd->bindValue('firstname',$this->firstname,PDO::PARAM_STR);
         $requestAdd->bindValue('username',$this->username,PDO::PARAM_STR);
@@ -50,7 +51,7 @@ class users extends dataBase {
      */
     public function getUsername() {
         $username = array();
-        $resultUsername = $this->db->prepare('SELECT `username` FROM `'.self::prefix.'users` WHERE `username` = :username');
+        $resultUsername = $this->db->prepare('SELECT `username` FROM `'.$this->prefix.'users` WHERE `username` = :username');
         $resultUsername->bindValue('username',$this->username,PDO::PARAM_STR);
         if($resultUsername->execute()) {
             if(is_object($resultUsername)) {
@@ -61,7 +62,7 @@ class users extends dataBase {
     }
     public function getMailByUsername(){
         $mail = array();
-        $resultMail = $this->db->prepare('SELECT `mail` FROM `'.self::prefix.'users` WHERE `username` = :username');
+        $resultMail = $this->db->prepare('SELECT `mail` FROM `'.$this->prefix.'users` WHERE `username` = :username');
         $resultMail->bindValue('username', $this->username,PDO::PARAM_STR);
         if($resultMail->execute()) {
             if(is_object($resultMail)) {
@@ -76,7 +77,7 @@ class users extends dataBase {
      */
     public function getUsernameByMail() {
         $username = array();
-        $resultUsername = $this->db->prepare('SELECT `username`,`keyverif` FROM `'.self::prefix.'users` WHERE `mail` = :mail');
+        $resultUsername = $this->db->prepare('SELECT `username`,`keyverif` FROM `'.$this->prefix.'users` WHERE `mail` = :mail');
         $resultUsername->bindValue('mail',$this->mail,PDO::PARAM_STR);
         if($resultUsername->execute()) {
             if(is_object($resultUsername)) {
@@ -91,7 +92,7 @@ class users extends dataBase {
      */
     public function getUser() {
            $user = array();
-           $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
+           $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
            if(is_object($requestSearchUser)) {
               $user = $requestSearchUser->fetch(PDO::FETCH_OBJ); 
            }
@@ -103,7 +104,7 @@ class users extends dataBase {
      */
     public function getUserId() {
             $userId = array();
-            $resultId = $this->db->query('SELECT `id` FROM `'.self::prefix.'users` WHERE `username` =\''.$this->username.'\'');
+            $resultId = $this->db->query('SELECT `id` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
             if(is_object($resultId)) {
                 $userId = $resultId->fetch(PDO::FETCH_OBJ);
             }
@@ -115,7 +116,7 @@ class users extends dataBase {
      */
     public function getUserInfo() {
         $isCorrect = false;
-        $requestInfo = $this->db->prepare('SELECT `username`,`lastname`, `firstname`, DATE_FORMAT(`birthdate`,"%d/%m/%Y") AS `birthdate`, `mail`, `phone`, `phone2`, CASE WHEN `pathology` = 1 Then \'Diabète Type 1\' WHEN `pathology` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologyName`  FROM `'.self::prefix.'users` WHERE `username` =:username');
+        $requestInfo = $this->db->prepare('SELECT `username`,`lastname`, `firstname`, DATE_FORMAT(`birthdate`,"%d/%m/%Y") AS `birthdate`, `mail`, `phone`, `phone2`, CASE WHEN `pathology` = 1 Then \'Diabète Type 1\' WHEN `pathology` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologyName`  FROM `'.$this->prefix.'users` WHERE `username` =:username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
             $infoUser = $requestInfo->fetch(PDO::FETCH_OBJ); 
@@ -138,7 +139,7 @@ class users extends dataBase {
      */
     public function getPassword() {
         $password = array();
-        $recuppassword = $this->db->prepare('SELECT `password` FROM `'.self::prefix.'users` WHERE `id` = '.$this->id);
+        $recuppassword = $this->db->prepare('SELECT `password` FROM `'.$this->prefix.'users` WHERE `id` = '.$this->id);
         $recuppassword->bindValue('id',$this->id,PDO::PARAM_INT);
         if($recuppassword->execute()) {
             $password = $recuppassword->fetch(PDO::FETCH_OBJ);
@@ -151,7 +152,7 @@ class users extends dataBase {
      */
     public function getVerif() {
         $actif = array();
-        $search = $this->db->query('SELECT `active` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
+        $search = $this->db->query('SELECT `active` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($search)) {
             $actif = $search->fetch(PDO::FETCH_OBJ);
         }
@@ -163,7 +164,7 @@ class users extends dataBase {
      */
     public function getInfoConnexion() {
         $infosUser = array();
-        $requestInfo = $this->db->query('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
+        $requestInfo = $this->db->query('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($requestInfo)) {
             $infosUser = $requestInfo->fetch(PDO::FETCH_OBJ);
         }
@@ -175,7 +176,7 @@ class users extends dataBase {
      */
     public function getQrCode() {
         $researchqrcode = array();
-        $researchqrcode = $this->db->query('SELECT `qrcode` FROM `'.self::prefix.'users` WHERE `username` = \''.$this->username.'\'');
+        $researchqrcode = $this->db->query('SELECT `qrcode` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
         if(is_object($researchqrcode)) {
             $researchqrcode = $researchqrcode->fetch(PDO::FETCH_OBJ);     
         }
@@ -187,7 +188,7 @@ class users extends dataBase {
      */
     public function getPatientUserByName() {
         $patient = array();
-        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON (`id_'.self::prefix.'users_1` = `'.self::prefix.'users`.`id` OR `id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`) AND (`id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
+        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
         $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
@@ -203,7 +204,7 @@ class users extends dataBase {
      */
     public function getDoctorUserByName() {
         $doctor = array();
-        $requestSearchDoctor = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'follow` ON (`id_'.self::prefix.'users_1` = `'.self::prefix.'users`.`id` OR `id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`) AND (`id_'.self::prefix.'users` = :id OR `id_'.self::prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
+        $requestSearchDoctor = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
         $requestSearchDoctor->bindValue('name','%'.$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('firstname','%'.$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('role','0',PDO::PARAM_STR);
@@ -219,7 +220,7 @@ class users extends dataBase {
      */
     public function getIdByQrCode() {
         $idParam = array();
-        $researchId = $this->db->prepare('SELECT `id`,`role` FROM `'.self::prefix.'users` WHERE qrcode = :qrcode');
+        $researchId = $this->db->prepare('SELECT `id`,`role` FROM `'.$this->prefix.'users` WHERE qrcode = :qrcode');
         $researchId->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
         if($researchId->execute()) {
             $idParam = $researchId->fetch(PDO::FETCH_OBJ);            
@@ -232,7 +233,7 @@ class users extends dataBase {
      */
     public function getInfoAndVerification() {
         $mail = array();
-        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'verification` ON `id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`');
+        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'verification` ON `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
         if(is_object($requestmail)) {
             $mail = $requestmail->fetchAll(PDO::FETCH_OBJ);         
         }
@@ -244,7 +245,7 @@ class users extends dataBase {
      */
     public function getInfoAndAppointment() {
         $mail = array();
-        $requestmailappointment = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `date_appointment`,`hour_appointment`,`name_appointment`,`additional_informations` FROM `'.self::prefix.'users` LEFT JOIN `'.self::prefix.'appointments` ON `'.self::prefix.'appointments`.`id_'.self::prefix.'users` = `'.self::prefix.'users`.`id`');
+        $requestmailappointment = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `date_appointment`,`hour_appointment`,`name_appointment`,`additional_informations` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'appointments` ON `'.$this->prefix.'appointments`.`id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
         if(is_object($requestmailappointment)) {
             $mail = $requestmailappointment->fetchAll(PDO::FETCH_OBJ);                
         }
@@ -256,7 +257,7 @@ class users extends dataBase {
      */
     public function getCleVerifActif() {
         $isCorrect = false;
-        $recupcle = $this->db->prepare('SELECT `keyverif`, `active` FROM `'.self::prefix.'users` WHERE `username` = :user');
+        $recupcle = $this->db->prepare('SELECT `keyverif`, `active` FROM `'.$this->prefix.'users` WHERE `username` = :user');
         $recupcle->bindValue('user',$this->username,PDO::PARAM_STR);
         if($recupcle->execute()) {
             $cle = $recupcle->fetch(PDO::FETCH_OBJ);
@@ -271,7 +272,7 @@ class users extends dataBase {
      * Méthode qui modifie le mot de passe de l'utilisateur si oublie
      */
     public function updatePasswordFall() {
-        $insertnewpassword = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `password` = :password WHERE `mail` = :mail AND `username` = :username');
+        $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `mail` = :mail AND `username` = :username');
         $insertnewpassword->bindValue('username',$this->username,PDO::PARAM_STR);
         $insertnewpassword->bindValue('mail',$this->mail,PDO::PARAM_STR);
         $insertnewpassword->bindValue('password', $this->password, PDO::PARAM_STR);
@@ -282,7 +283,7 @@ class users extends dataBase {
      * @return bool
      */
     public function updateActif() {
-        $modifActif = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `active` = 1 WHERE `username` = :user');
+        $modifActif = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `active` = 1 WHERE `username` = :user');
         $modifActif->bindValue(':user', $this->username,PDO::PARAM_STR);
         return $modifActif->execute();
     } 
@@ -290,7 +291,7 @@ class users extends dataBase {
      * Méthode qui modifie le mot de passe de l'utilisateur
      */
     public function updatePassword() {
-        $insertnewpassword = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `password` = :password WHERE `id` = '.$this->id);
+        $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `id` = '.$this->id);
         $insertnewpassword->bindValue('password', $this->password, PDO::PARAM_STR);
         return $insertnewpassword->execute();        
     }
@@ -298,7 +299,7 @@ class users extends dataBase {
      * Méthode qui modifie le mail de l'utilisateur
      */
     public function updateMail() {
-        $modifMail = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `mail` = :mail WHERE `username` = :user');
+        $modifMail = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `mail` = :mail WHERE `username` = :user');
         $modifMail->bindValue('mail',$this->mail,PDO::PARAM_STR);
         $modifMail->bindValue('user',$this->username,PDO::PARAM_STR);
         return $modifMail->execute();
@@ -307,7 +308,7 @@ class users extends dataBase {
      * Méthode qui modifie le premier numéro de l'utilisateur
      */
     public function updatePhone() {
-        $modifPhone = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `phone` = :phone WHERE `username` = :user');
+        $modifPhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone` = :phone WHERE `username` = :user');
         $modifPhone->bindValue('phone',$this->phone,PDO::PARAM_STR);
         $modifPhone->bindValue('user',$this->username,PDO::PARAM_STR);
         return $modifPhone->execute();
@@ -316,7 +317,7 @@ class users extends dataBase {
      * Méthode qui modifie le second numéro de l'utilisateur
      */
     public function updateSecondPhone() {
-        $modifPhone = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
+        $modifPhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
         $modifPhone->bindValue('phone',$this->phone2,PDO::PARAM_STR);
         $modifPhone->bindValue('user',$this->username,PDO::PARAM_STR);
         return $modifPhone->execute();
@@ -325,7 +326,7 @@ class users extends dataBase {
      * Méthode qui supprime le second numéro de l'utilisateur
      */
     public function deleteSecondPhone() {
-        $deletePhone = $this->db->prepare('UPDATE `'.self::prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
+        $deletePhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
         $deletePhone->bindValue('phone','Pas indiqué',PDO::PARAM_STR);
         $deletePhone->bindValue('user',$this->username,PDO::PARAM_STR);
         return $deletePhone->execute();
@@ -334,7 +335,7 @@ class users extends dataBase {
      * Méthode qui supprime le compte
      */
     public function deleteAccount() {
-        $delete = $this->db->prepare('DELETE FROM `'.self::prefix.'users` WHERE `id` = :id');
+        $delete = $this->db->prepare('DELETE FROM `'.$this->prefix.'users` WHERE `id` = :id');
         $delete->bindValue('id',$this->id,PDO::PARAM_STR);
         return $delete->execute();
     }

@@ -54,7 +54,7 @@ $(document).ready(function () {
         $.post(
             '../Controller/informationController.php', {
                 dayappointmentmodif: $('#day').val(),
-                nameappointmentmodif: $('#name').val(),
+                nameappointmentmodif: $('#newnameappointment').val(),
                 hourappointmentmodif: $('#hour').val(),
                 infosappointmentmodif: $('#info').val(),
                 id: $('#id').val(),
@@ -70,19 +70,39 @@ $(document).ready(function () {
                     location.reload(true);
                 }
                 else if(data == 'FailedName') {
-                    $('#errorNomMessageModal').show();
+                    $('#errorDayMessageModal').css('display','none');
+                    $('#errorHourMessageModal').css('display','none');
+                    $('#errorInfoMessageModal').css('display','none');
+                    $('#totalerror').css('display','none');
+                    $('#name').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorNomMessageModal">Nom incorrect !</p>');
                 }
                 else if(data == 'FailedDay') {
-                    $('#errorDayMessageModal').show();
+                    $('#errorNomMessageModal').css('display','none');
+                    $('#errorHourMessageModal').css('display','none');
+                    $('#errorInfoMessageModal').css('display','none');
+                    $('#totalerror').css('display','none');                    
+                    $('#date').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorDayMessageModal">Date incorrecte !</p>');
                 }
                 else if(data == 'FailedHour') {
-                    $('#errorHourMessageModal').show();
+                    $('#errorNomMessageModal').css('display','none');
+                    $('#errorDayMessageModal').css('display','none');
+                    $('#errorInfoMessageModal').css('display','none');
+                    $('#totalerror').css('display','none');                    
+                    $('#hour').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorHourMessageModal">Heure incorrecte !</p>');
                 }
                 else if(data == 'FailedInfo') {
-                    $('#errorInfoMessageModal').show();
+                    $('#errorNomMessageModal').css('display','none');
+                    $('#errorDayMessageModal').css('display','none');
+                    $('#errorHourMessageModal').css('display','none');
+                    $('#totalerror').css('display','none');                     
+                    $('#subject').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorInfoMessageModal">Informations incorrects !</p>');
                 }                
                 else {
-                    $('#errorMessageModal').show();
+                    $('#errorNomMessageModal').css('display','none');
+                    $('#errorDayMessageModal').css('display','none');
+                    $('#errorHourMessageModal').css('display','none');
+                    $('#errorInfoMessageModal').css('display','none');                     
+                    $('#modifButton').after('<p class="errormessage col-lg-offset-1 col-lg-9" id="totalerror">Plusieurs informations sont incorrectes !</p>');
                 }
             }, 
         );

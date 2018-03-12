@@ -1,11 +1,13 @@
 <?php
 $infoAjax = false;
 if (isset($_POST['testconnexionajax'])) {
+    include_once '../configuration.php';
     include_once '../Model/dataBase.php';
     include_once '../Model/users.php';
     $infoAjax = true;
 }
 else {
+    include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
 }

@@ -15,7 +15,7 @@ $(document).ready(function () {
                 if (data == 'Success') {
                     location.href = 'profil.php';
                 } else {
-                    $('#errorMessageModal').show();
+                    $('#connexion').after('<p class="errormessage col-lg-offset-1 col-lg-9" id="errorMessageModal">Nom d\'utilisateur ou mot de passe incorrect !</p>');
                 }
             },
             'text' // Recevoir success ou failed
@@ -39,22 +39,19 @@ $(document).ready(function () {
     });
     $('#inscriptionUsername').keyup(function () {
         $.post(
-            '../../Controller/registerController.php', {
+            'Controller/registerController.php', {
                 inscriptionusername: $('#inscriptionUsername').val()
             },
             function (data) {
                 if (data.indexOf('Failed') >= 0) {
                     if($('#inscriptionUsername').val() != '') {
-                        $('#usernameerror').text('Nom d\'utilisateur déjà pris !');
-                        $('#usernamesuccess').text('');                                
+                        $('#usernameerror').text('Nom d\'utilisateur déjà pris !');                         
                     }
-                    else {
-                        $('#usernamesuccess').text('');   
+                    else {   
                         $('#usernameerror').text('');
                     }
                 }
                 else {
-                    $('#usernamesuccess').text('Nom d\'utiisateur non pris !');
                     $('#usernameerror').text('');
                 }
             },
