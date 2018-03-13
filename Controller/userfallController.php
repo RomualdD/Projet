@@ -1,5 +1,5 @@
 <?php
-include_once '../configuration.php';
+include_once 'configuration.php';
 include_once 'Model/dataBase.php';
 include_once 'Model/users.php';
 $user = new users();

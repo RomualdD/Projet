@@ -1,9 +1,8 @@
 <?php
-session_start();
 include_once 'View/header.php';
  ?>
 <div class="container view">
-    <h1>Utilisation de cookies sur diavk</h1>
+    <h1 class="col-lg-offset-3 col-sm-offset-2">Utilisation de cookies sur diavk</h1>
     <div class="row">
         <h2>Qu’est-ce qu’un cookie ?</h2>
         <p>Un cookie est un petit fichier texte envoyé à votre navigateur via le site Web consulté. Grâce à ce cookie, des informations sur votre visite, notamment votre langue de prédilection et d'autres paramètres, sont enregistrées sur le site Web. Cela peut faciliter votre visite suivante sur ce site et renforcer l'utilité de ce dernier pour vous. Les cookies jouent un rôle important. Sans les cookies, l'utilisation du Web pourrait s'avérer beaucoup plus frustrante.</p>

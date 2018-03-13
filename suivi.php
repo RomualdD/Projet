@@ -7,14 +7,14 @@ if(isset($_SESSION['user'])) {
   include 'Controller/suiviController.php';
   ?><div class="container view">
         <div class="row">
-            <div class="col-lg-offset-5"><h2> Suivi du patient</h2></div>
+            <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6"><h2> Suivi du patient</h2></div>
         </div><?php
     if($role == 0) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">
       <form name="followedrate" method="POST" action="suivis">
-          <div class="suivi form-group col-lg-offset-4">
+          <div class="suivi form-group col-lg-offset-4 col-sm-offset-2">
             <label for="text">Choisir son patient :</label>
             <select name="patient"><?php
                     foreach ($followDoctor as $followPatient) {
@@ -23,7 +23,7 @@ if(isset($_SESSION['user'])) {
                 ?>
             </select>
           </div>
-          <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult"/>
+          <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
       </form>
     </div>
   </div>
@@ -33,7 +33,7 @@ if(isset($_SESSION['user'])) {
       ?>
     <div class="row suivi">
         <form action="suivis" method="POST">
-            <div class="suivi form-group col-lg-offset-4">
+            <div class="suivi form-group col-lg-offset-4 col-xs-offset-1">
               <label for="text">Choisir son patient :</label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
@@ -43,27 +43,27 @@ if(isset($_SESSION['user'])) {
               </select>
             </div>       
             <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
-            <div class="col-lg-offset-4">
+            <div class="col-lg-offset-4 col-xs-offset-1">
               <label for="firstDate">Première date :</label>
               <input type="date" name="date1">
               <label for="secondeDate">Seconde date :</label>
               <input type="date" name="date2">
           </div>  
-          <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult"/>
+          <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
         </form>
     </div>
   <div class="row">
-    <div class="col-lg-offset-4"><h3>Visualisations des résultats :</h3></div>
+    <div class="col-lg-offset-4 col-sm-offset-3 col-sm-9"><h3>Visualisations des résultats :</h3></div>
   </div>
   <div class="row">
     <div class="col-lg-offset-3">En tableau :</div>
   </div>
       <div class="row">
-        <table class="tableresult table table-bordered result col-lg-1">
+        <table class="tableresult table table-bordered result col-lg-1 col-xs-1">
           <thead>
             <tr>
               <th>Date du résultat :</th>
-              <th>Résultat :</th>
+              <th class=" col-xs-3">Résultat :</th>
               <th>Date de la prochaine analyse :</th>
             </tr>
           </thead>
@@ -93,7 +93,7 @@ if(isset($_SESSION['user'])) {
     <!-- Page suivi patient -->
       <div class="row suivi">
         <form name="followedrate" method="POST" action="suivis">
-            <div class="col-lg-offset-3">
+            <div class="col-lg-offset-3 col-sm-offset-3">
                 <div class="form-inline">
                     <label for="rate">Résultats de la prise de sang : </label>
                     <div class="input-group subject col-lg-offset-1 col-lg-3 col-sm-4 col-md-4 col-xs-10">
@@ -102,7 +102,7 @@ if(isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-        <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult"/>
+        <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult col-sm-offset-5"/>
       </form>
           <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
           <p class="errormessage col-lg-offset-4 col-lg-8"><?php echo $errorResult; ?></p>

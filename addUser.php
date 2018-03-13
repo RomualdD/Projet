@@ -38,6 +38,7 @@ if(!isset($_SESSION['user'])) {
     <?php
 }
 else { 
+    ?><div class="view"><?php
     if($researchidParam != FALSE) {
         if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {  
             ?><p>Suivi ajouté !</p><?php
@@ -57,7 +58,7 @@ else {
     }
     else {
         ?><p>Le paramètre est incorrect !</p><?php
-    }
+        }?></div><?php
 }
 include 'View/footer.php';
 ?>

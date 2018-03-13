@@ -11,7 +11,7 @@
       <div class="connexion col-lg-offset-3 col-lg-5">
         <form action="userfall.php" method="post">
           <div class="row">
-            <div class="subtitle col-lg-offset-3"><h3>Informations de l'utilisateur :</h3></div>
+            <div class="subtitle col-lg-offset-3 col-sm-offset-3"><h3>Informations de l'utilisateur :</h3></div>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="username">Mail :</label>

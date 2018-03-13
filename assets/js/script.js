@@ -57,5 +57,16 @@ $(document).ready(function () {
             },
             'text'
         );
-    });    
+    }); 
+    
+    $('#passwordverif').blur(function () {
+        var passwordverif = $('#passwordverif').val();
+        var password = $('#passwordregister').val();
+        if(password != passwordverif) {
+            $('#errorPassword').text('Les mots de passe ne sont pas identiques !');
+        } 
+        else {
+           $('#errorPassword').text(''); 
+        }
+    });
 });

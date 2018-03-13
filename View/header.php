@@ -1,22 +1,23 @@
-<?php include_once 'Controller/headerController.php'; ?>
+<?php include_once 'Controller/headerController.php'; 
+    include_once 'assets/lang/FR_FR.php';
+?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="/assets/js/canvasjs.min.js"></script>
     <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="/assets/js/jquery.mobile.min.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="icon" href="/logo.ico"/>
     <link href="/assets/css/fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link href="/assets/css/style.css" rel="stylesheet"/>
+    <link href="/assets/lang/FR_FR.php">
     <link rel="stylesheet" href="/assets/css/impression.css" media="print">
-    <title>di-A-vk: La santé avant tout</title>
+    <title><?php echo TITLE; ?></title>
   </head>
   <body>
       <?php 
@@ -25,42 +26,42 @@
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1"><img src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-3 col-lg-2" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
+          <div class="logo col-lg-1 col-xs-1"><img src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo HEADERTITLE; ?></h1></div>
+          <div class="hello col-lg-offset-3 col-lg-2 col-sm-offset-1" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
           <div class="modal fade" id="myModalConnexion" role="dialog">
                 <div class="modal-dialog">
                 <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title"> Connexion :</h3>
+                          <h3 class="modal-title"> <?php echo CONNECT; ?></h3>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                               <div class="form-inline">
-                                <label class="col-lg-offset-3 col-lg-9" for="username">Nom d'utilisateur :</label>
-                                <div class="input-group username col-lg-offset-3">
+                                <label class="col-lg-offset-3 col-lg-9 col-sm-offset-3 col-sm-9" for="username"><?php echo USERNAME; ?></label>
+                                <div class="input-group username col-lg-offset-3 col-sm-offset-3">
                                     <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
                                     <input type="text" id="username" class="form-control" name="username" placeholder="Nom d'utilisateur" required>
                                 </div>
                               </div>
                               <div class="form-inline">
-                                <label class="col-lg-offset-3 col-lg-9" for="password">Mot de passe :</label>  
-                                <div class="input-group password col-lg-offset-3">
+                                <label class="col-lg-offset-3 col-lg-9 col-sm-offset-3 col-sm-9" for="password"><?php echo PASSWORDCONNECT; ?></label>  
+                                <div class="input-group password col-lg-offset-3 col-sm-offset-3">
                                     <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                                     <input type="password" id="password" class="form-control" name="password" placeholder="Mot de passe" required>
                                 </div>
                               </div>
-                              <div class="form-group col-lg-offset-7">
-                                <input type="checkbox" id="cookie" name="cookie">Se rappeler de moi !
+                              <div class="form-group col-lg-offset-7 col-sm-offset-7">
+                                <input type="checkbox" id="cookie" name="cookie"><?php echo RECALL; ?>
                               </div>
-                              <div class="explication col-lg-offset-5"><p>J'ai perdu mes identifiants, <a href="/userfall.php">cliquez ici</a></p></div>
-                              <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4">
+                              <div class="explication col-lg-offset-5 col-sm-offset-4"><p><?php echo LOOSEIDENT; ?> <a href="/userfall.php"><?php echo CLICK; ?></a></p></div>
+                              <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4 col-sm-offset-4">
                             </div>
                         </div>
                         <div class="modal-footer">
-                         <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fermer</button>
+                         <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <?php echo CLOSE; ?></button>
                         </div>                        
                     </div>
                 </div>
@@ -79,10 +80,10 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="/" class="col-lg-offset-7 col-lg-5 col-sm-offset-7 col-sm-5"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="fas fa-user-plus"></i> Inscription</a></li>
-                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6 col-sm-offset-6 col-sm-6"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
-                    <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-11"><i class="far fa-edit"></i> Contact</a></li>
+                    <li><a href="/" class="col-lg-offset-7 col-lg-5 col-md-offset-7 col-sm-offset-3 col-sm-9"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
+                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="fas fa-user-plus"></i> <?php echo REGISTER; ?></a></li>
+                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6 col-sm-offset-6 col-sm-6"><i class="fas fa-sign-in-alt"></i> <?php echo CONNECTION; ?></a></li>
+                    <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
                 </ul>
             </div>
         </div>
@@ -95,9 +96,9 @@
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2"><h1>di-A-vk</h1></div>
-          <div class="hello col-lg-offset-2 col-lg-3"><p id="person">Bonjour <?php echo isset($_SESSION['firstname']) ? strip_tags($_SESSION['firstname']).' '.strip_tags($_SESSION['name']) : ''; ?></p></div>
+          <div class="logo col-lg-1 col-xs-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo HEADERTITLE; ?></h1></div>
+          <div class="hello col-lg-offset-2 col-lg-3 col-sm-2"><p id="person"><?php echo HELLO.' '.$_SESSION['firstname'].' '.$_SESSION['name']; ?></p></div>
           <div class="hello col-lg-offset-2 col-lg-3 addQuest" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div>
         </div>
       </div>
@@ -113,17 +114,17 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                      <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> Accueil</a></li>
+                      <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
                       <?php if($role == 0) { ?>
-                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> Profil</a></li>
+                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> <?php echo PROFILE; ?></a></li>
                       <?php }
                       else {?>
-                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> Profil</a></li>                
+                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> <?php echo PROFILE; ?></a></li>                
                     <?php  }?>
-                      <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> Information</a></li>
-                      <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> Suivi</a></li>
-                      <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> Contact</a></li>
-                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> Déconnexion</a></li>
+                      <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> <?php echo INFORMATION; ?></a></li>
+                      <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> <?php echo FOLLOWED; ?></a></li>
+                      <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
+                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> <?php echo DISCONNECT; ?></a></li>
                     </ul>
                 </div>
             </div>

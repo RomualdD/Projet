@@ -61,10 +61,9 @@
                                                             </div>
                                                             <div class="col-lg-offset-3 col-lg-2" id="modifButton">
                                                                 <div class="form-inline">
-                                                                  <input id="submitmodif" type="button" value="Modifier !" class="button btn btn-default col-lg-offset-4" >                        
+                                                                  <input id="submitmodif" type="button" value="Modifier !" class="button btn btn-default col-lg-offset-4 col-xs-offset-4">                        
                                                                 </div>
                                                             </div>
-                                                           <!-- <p class="errormessage col-lg-offset-1 col-lg-9" id="errorMessageModal" hidden>Plusieurs informations sont incorrectes !</p>-->
                                                         </form>
                                                     </div>
                                                 </div>
@@ -75,7 +74,7 @@
                                                         <form method="POST" action="rendez-vous">
                                                           <div class="col-lg-offset-3 col-lg-2">
                                                               <div class="form-inline">
-                                                                  <input id="submitdelete" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4" name="submitdelete">                        
+                                                                  <input id="submitdelete" type="submit" value="Supprimer !" class="button btn btn-danger col-lg-offset-4 col-xs-offset-4" name="submitdelete">                        
                                                               </div>
                                                           </div>
                                                         </form>
@@ -123,7 +122,7 @@
                                                                 </div>
                                                                 <div class="col-lg-offset-3 col-lg-2">
                                                                      <div class="form-inline">
-                                                                        <input id="submitremarqueadd" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4" name="submitremarqueadd">                        
+                                                                        <input id="submitremarqueadd" type="submit" value="Ajouter !" class="button btn btn-default col-lg-offset-4 col-xs-offset-4" name="submitremarqueadd">                        
                                                                     </div>
                                                                     <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden>Nom incorrect !</p>
                                                                 </div>                                                                    

@@ -9,7 +9,7 @@
     <div class="container view">
         <div class="row">
             <div class="col-lg-offset-4" id="addappointment">
-                <h2>Ajouter vos rendez-vous</h2>
+                <h2><?php echo ADDAPPOINTMENT; ?></h2>
             </div>
             <a href="#calendar" id="viewcalendar">
                 <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-down"></i> Voir le calendrier !</div>
