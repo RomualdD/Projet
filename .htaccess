@@ -1,3 +1,4 @@
+<IfModule mod_rewrite.c>
 # On suit les liens symboliques
 Options +FollowSymlinks +MultiViews
 # Activation du mod rewrite d'Apache
@@ -22,3 +23,4 @@ RewriteRule ^inscription$ /register.php [L]
 RewriteRule ^connexion$ /connection.php [L]
 RewriteRule ^mentions-legales$ /mentionslegales.php [L]
 ErrorDocument 404 /404.php
+</IfModule>

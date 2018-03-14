@@ -15,7 +15,7 @@ if(isset($_SESSION['user'])) {
     <div class="row">
       <form name="followedrate" method="POST" action="suivis">
           <div class="suivi form-group col-lg-offset-4 col-sm-offset-2">
-            <label for="text">Choisir son patient :</label>
+            <label for="text"><?php echo CHOOSEPATIENT; ?></label>
             <select name="patient"><?php
                     foreach ($followDoctor as $followPatient) {
                       ?><option value="<?php echo $followPatient->username ?>"><?php echo $followPatient->lastname.' '.$followPatient->firstname;?></option><?php
@@ -34,7 +34,7 @@ if(isset($_SESSION['user'])) {
     <div class="row suivi">
         <form action="suivis" method="POST">
             <div class="suivi form-group col-lg-offset-4 col-xs-offset-1">
-              <label for="text">Choisir son patient :</label>
+              <label for="text"><?php echo CHOOSEPATIENT; ?></label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
                         ?><option value="<?php echo $followPatient->username ?>" <?php echo $_POST['patient'] == $followPatient->username ? 'selected': ''?>><?php echo $followPatient->lastname.' '.$followPatient->firstname;?></option><?php
@@ -42,29 +42,29 @@ if(isset($_SESSION['user'])) {
                   ?>
               </select>
             </div>       
-            <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
+            <div class="col-lg-offset-4"><p><?php echo CHOOSEDATE; ?></p></div>
             <div class="col-lg-offset-4 col-xs-offset-1">
-              <label for="firstDate">Première date :</label>
+              <label for="firstDate"><?php echo FIRSTDATE; ?></label>
               <input type="date" name="date1">
-              <label for="secondeDate">Seconde date :</label>
+              <label for="secondeDate"><?php echo SECONDDATE; ?></label>
               <input type="date" name="date2">
           </div>  
           <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
         </form>
     </div>
   <div class="row">
-    <div class="col-lg-offset-4 col-sm-offset-3 col-sm-9"><h3>Visualisations des résultats :</h3></div>
+    <div class="col-lg-offset-4 col-sm-offset-3 col-sm-9"><h3><?php echo VIEWRESULT; ?></h3></div>
   </div>
   <div class="row">
-    <div class="col-lg-offset-3">En tableau :</div>
+    <div class="col-lg-offset-3"><?php echo INARRAY; ?></div>
   </div>
       <div class="row">
         <table class="tableresult table table-bordered result col-lg-1 col-xs-1">
           <thead>
             <tr>
-              <th>Date du résultat :</th>
-              <th class=" col-xs-3">Résultat :</th>
-              <th>Date de la prochaine analyse :</th>
+              <th><?php echo RESULTDAY; ?></th>
+              <th class=" col-xs-3"><?php echo RESULT; ?></th>
+              <th><?php echo FUTUREDAY; ?></th>
             </tr>
           </thead>
           <tbody>

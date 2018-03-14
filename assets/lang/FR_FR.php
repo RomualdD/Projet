@@ -119,15 +119,43 @@ define('QRCODEMESSAGEDOCTOR','Votre QRCode pour permettre à votre patient de vo
 define('DELETEMESSAGEACCOUNT','Êtes-vous sûr de supprimer votre compte :');
 // --- // INFORMATIONS
 define('ADDAPPOINTMENT','Ajouter vos rendez-vous');
-/*define('ASKS','demandes');
-define('ASK','demande');define('QUESTHAVE','Vous avez');
-define('ASKS','demandes');
-define('ASK','demande');define('QUESTHAVE','Vous avez');
-define('ASKS','demandes');
-define('ASK','demande');define('QUESTHAVE','Vous avez');
-define('ASKS','demandes');
-define('ASK','demande');define('QUESTHAVE','Vous avez');
-define('ASKS','demandes');
-define('ASK','demande');define('QUESTHAVE','Vous avez');
-define('ASKS','demandes');
-define('ASK','demande');*/
+define('SHOWCALENDAR','Voir le calendrier !');
+define('NAMEAPPOINTMENT','Nom du rendez-vous :');
+define('NAMEAPPOINTMENTPLACEHOLDER','Rendez-vous');
+define('DAYAPPOINTMENT','Jour du rendez-vous :');
+define('HOURAPPOINTMENT','Horaire consultation :');
+define('INFORMATIONAPPOINTMENT','Informations complémentaires du rendez-vous :');
+define('INFORMATIONAPPOINTMENTPLACEHOLDER','Informations supplémentaires');
+define('CALENDARAPPOINTMENT','Calendrier de vos rendez-vous');
+define('PASTAPPOINTMENT','Rendez-vous passé (cliquez pour ajouter une note)');
+define('FUTUREAPPOINTMENT','Rendez-vous à venir (cliquer pour modifier ou supprimer le rendez-vous)');
+define('MONDAY','Lundi');
+define('TUESDAY','Mardi');
+define('WEDNESDAY','Mercredi');
+define('THURSDAY','Jeudi');
+define('FRIDAY','Vendredi');
+define('SATURDAY','Samedi');
+define('SUNDAY','Dimanche');
+define('INITIALEMONDAY','L');
+define('INITIALETUESDAY','M');
+define('INITIALEWEDNESDAY','M');
+define('INITIALETHURSDAY','J');
+define('INITIALEFRIDAY','V');
+define('INITIALESATURDAY','S');
+define('MODALTITLEAPPOINTMENT','Informations de ce rendez-vous :');
+define('EDITMODALAPPOINTMENT','Modifier ce rendez-vous :');
+define('ADDREMARQUEAPPOINTMENT','Ajouter une note à ce rendez-vous :');
+define('REMARQUEAPPOINTMENT','Note complémentaire du rendez-vous :');
+define('REMARQUEAPPOINTMENTPLACEHOLDER','Notes complémentaire');
+// --- // SUIVI
+define('CHOOSEPATIENT','Choisir son patient :');
+define('CHOOSEDATE','Entrez les dates pour voir le suivi d\'une période :');
+define('FIRSTDATE','Première date :');
+define('SECONDDATE','Seconde date :');
+define('VIEWRESULT','Visualisations des résultats :');
+define('INARRAY','En tableau :');
+define('RESULTDAY','Date du résultat :');
+define('RESULT','Résultat :');
+define('FUTUREDAY','Date de la prochaine analyse :');
+// --- // ERREUR
+define('INCORRECTNAME','Nom incorrect !');
