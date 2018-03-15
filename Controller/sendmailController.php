@@ -16,11 +16,11 @@
         $recipient = $infoMail->mail;
         $name = $infoMail->lastname;
         $firstname = $infoMail->firstname;
-        $subject = '[IMPORTANT] Prise de sang à faire';
-        $entete = 'From: inscriptiondiavk@gmail.com';
-        $message = 'Bonjour '.$firstname.' '.$name.",\r\n"
-        .'Il est l\'heure de faire votre vérification !'."\r\n"
-        .'N\'oubliez pas de mettre le résultat dans le tableau afin de garder en mémoire votre résultat';
+        $subject = BLOODTESTSUBJECT;
+        $entete = BLOODTESTHEADING;
+        $message = HELLO.' '.$firstname.' '.$name.",\r\n"
+        .BLOODTESTMESSAGE."\r\n"
+        .BLOODTESTMESSAGETWO;
         mail($recipient, $subject,$message,$entete);
        }
     }
@@ -41,11 +41,11 @@
         $recipient = $informationAppointment->mail;
         $name = $informationAppointment->lastname;
         $firstname = $informationAppointment->firstname;
-        $subject = '[IMPORTANT] Rendez-vous du lendemain';
-        $entete = 'From: inscriptiondiavk@gmail.com';
-        $message = 'Bonjour '.$firstname.' '.$name.",\r\n"
-        .'Votre rendez-vous "'.$nameappointment.'" est demain à '.$hourappointment." !\r\n"
-        .'Les informations complémentaire que vous avez écrites sont "'.$infosappointment.'"';
+        $subject = APPOINTMENTSUBJECT;
+        $entete = APPOINTMENTHEADING;
+        $message = HELLO.' '.$firstname.' '.$name.",\r\n"
+        .APPOINTMENTMAILMESSAGEONE.'"'.$nameappointment.'"'.APPOINTMENTMAILMESSAGETWO.$hourappointment." !\r\n"
+        .APPOINTMENTMAILMESSAGETHREE.'"'.$infosappointment.'"';
         mail($recipient, $subject,$message,$entete);
        }
     }

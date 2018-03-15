@@ -13,29 +13,29 @@
                         $newpasswordverif = $_POST['passwordverif'];
                         if ($newpassword == $newpasswordverif) {
                             $user->password = password_hash($newpassword,PASSWORD_DEFAULT);
-                            $successMsg = 'Le mot de passe a bien était modifié !';
+                            $successMsg = PASSWORDMODIFICATESUCCESS;
                             $recupMail = $user->getMailByUsername();
                             $user->mail = $recupMail->mail; 
                             $user->updatePasswordFall();
                             $recupUsername = $user->getUsernameByMail();
                             $key = $recupUsername['keyverif'];
                             $recipient = $user->mail;
-                            $subject = "[IMPORTANT] Rappel de vos identifiants";
-                            $entete = "From: inscriptiondiavk@gmail.com";
-                            $message = 'Vous avez bien changé de mot de passe '."\r\n"
-                            .'Ne pas répondre à ce message.';
+                            $subject = PASSWORDMODIFSUBJECTMAIL;
+                            $entete = PASSWORDMODIFHEADING;
+                            $message = PASSWORDMODIFMESSAGE ."\r\n"
+                            .NOTREPLYMESSAGE;
                             mail($recipient, $subject,$message,$entete);
                         }
                         else {
-                            $errorPassword = 'Les mots de passes ne sont pas identiques !';
+                            $errorPassword = PASSWORDIDENTICERROR;
                         }
                     }
                     else {
-                        $errorPasswordFalse = 'Ce n\'est pas votre mot de passe !';
+                        $errorPasswordFalse = PASSWORDNOTGOOD;
                     }
                 }
                 else {
-                    $errormessage= 'Les champs ne sont pas tous remplis !';
+                    $errormessage= ERRORINPUT;
                 }
             }
         }

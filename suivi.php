@@ -7,7 +7,7 @@ if(isset($_SESSION['user'])) {
   include 'Controller/suiviController.php';
   ?><div class="container view">
         <div class="row">
-            <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6"><h2> Suivi du patient</h2></div>
+            <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
         </div><?php
     if($role == 0) {
        if(empty($_POST['patient'])) {
@@ -23,7 +23,7 @@ if(isset($_SESSION['user'])) {
                 ?>
             </select>
           </div>
-          <input type="submit" value="Valider !" name="valider" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
+          <input type="submit" value="<?php echo VALID; ?>" name="valider" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
       </form>
     </div>
   </div>
@@ -49,7 +49,7 @@ if(isset($_SESSION['user'])) {
               <label for="secondeDate"><?php echo SECONDDATE; ?></label>
               <input type="date" name="date2">
           </div>  
-          <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
+          <input type="submit" value="<?php echo VALID; ?>" name="addDate" class="btn btn-default col-lg-offset-5 addresult col-xs-offset-4"/>
         </form>
     </div>
   <div class="row">
@@ -81,7 +81,7 @@ if(isset($_SESSION['user'])) {
         </table>
       </div>
   <div class="row">
-      <div class="col-lg-offset-3">En graphique :</div>
+      <div class="col-lg-offset-3"><?php echo INGRAPHIC; ?></div>
   </div>
   <div class="row">
       <div id="chartResult"></div>
@@ -95,14 +95,14 @@ if(isset($_SESSION['user'])) {
         <form name="followedrate" method="POST" action="suivis">
             <div class="col-lg-offset-3 col-sm-offset-3">
                 <div class="form-inline">
-                    <label for="rate">Résultats de la prise de sang : </label>
+                    <label for="rate"><?php echo RESULTBLOODTEST; ?> </label>
                     <div class="input-group subject col-lg-offset-1 col-lg-3 col-sm-4 col-md-4 col-xs-10">
                         <span class="input-group-addon"><i class="fa fa-medkit" aria-hidden="true"></i></span>
-                        <input type="text" name="rate" placeholder="Taux obtenus" class="form-control" id="result"/>
+                        <input type="text" name="rate" placeholder="<?php echo BLOODTESTPLACEHOLDER; ?>" class="form-control" id="result"/>
                     </div>
                 </div>
             </div>
-        <input type="submit" value="Valider !" name="submit" class="btn btn-default col-lg-offset-5 addresult col-sm-offset-5"/>
+        <input type="submit" value="<?php echo VALID; ?>" name="submit" class="btn btn-default col-lg-offset-5 addresult col-sm-offset-5"/>
       </form>
           <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
           <p class="errormessage col-lg-offset-4 col-lg-8"><?php echo $errorResult; ?></p>
@@ -110,18 +110,18 @@ if(isset($_SESSION['user'])) {
     <?php
     if($total != 0) { ?>
       <div class="row">
-        <div class="col-lg-offset-4"><h3>Visualisation des résultats :</h3></div>
+        <div class="col-lg-offset-4"><h3><?php echo VIEWRESULT; ?></h3></div>
       </div>
       <div class="row">
-          <div class="col-lg-offset-3"><p>En tableau :</p></div>
+          <div class="col-lg-offset-3"><p><?php echo INARRAY; ?></p></div>
       </div>
       <div class="row">
         <table class="tableresult table table-bordered result col-lg-3">
           <thead>
             <tr>
-              <th>Date du résultat :</th>
-              <th>Résultat :</th>
-              <th>Date de la prochaine analyse :</th>
+              <th><?php echo RESULTDAY; ?></th>
+              <th><?php echo RESULT; ?></th>
+              <th><?php echo FUTUREDAY; ?></th>
             </tr>
           </thead>
           <tbody>
@@ -153,18 +153,18 @@ if(isset($_SESSION['user'])) {
         </nav>
       </div>
       <div class="row">
-          <div class="col-lg-offset-3"><p>En graphique :</p></div>
+          <div class="col-lg-offset-3"><p><?php echo INGRAPHIC; ?></p></div>
       </div>
       <div class="row suivi">
-          <div class="col-lg-offset-4"><p>Entrez les dates pour voir le suivi d'une période :</p></div>
+          <div class="col-lg-offset-4"><p><?php echo CHOOSEDATE; ?></p></div>
           <form action="suivis" method="POST">
             <div class="col-lg-offset-3">
-                <label for="firstDate">Première date :</label>
+                <label for="firstDate"><?php echo FIRSTDATE; ?></label>
                 <input type="date" name="date1">
-                <label for="secondeDate" class="col-lg-offset-1">Seconde date :</label>
+                <label for="secondeDate" class="col-lg-offset-1"><?php echo SECONDDATE; ?></label>
                 <input type="date" name="date2">
             </div>  
-            <input type="submit" value="Valider !" name="addDate" class="btn btn-default col-lg-offset-5"/>
+            <input type="submit" value="<?php echo VALID; ?>" name="addDate" class="btn btn-default col-lg-offset-5"/>
           </form>
       </div>
       <div class="row">
@@ -172,7 +172,7 @@ if(isset($_SESSION['user'])) {
       </div>
       <?php 
         } else {
-            ?><p>Aucun résultat entré !</p> <?php
+            ?><p><?php echo NORESULT; ?></p> <?php
         }  
     } ?>
 </div>

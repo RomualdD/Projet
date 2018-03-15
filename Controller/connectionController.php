@@ -56,21 +56,21 @@ if (isset($_POST['connexion'])) {
                     }
                 }
                 else {
-                    $errorMessageConnexionActive = 'Veuillez activez votre compte !';
+                    $errorMessageConnexionActive = ACCOUNTNOTACTIVATE;
                     $error++;
                 }
             }
             else {
-                $errorMessageConnexionUser = 'Utilisateur ou mot de passe incorrect !';
+                $errorMessageConnexionUser = INCORRECTLOGIN;
                 $error++;
             }   
         }
         else {
-            $errorMessageConnexionUser = 'Utilisateur ou mot de passe incorrect !';
+            $errorMessageConnexionUser = INCORRECTLOGIN;
         }
     }
     else {
-        echo 'Tous les champs n\'ont pas était remplis !';
+        echo ERRORINPUT;
         $error++;
     }
     if ($error > 0 && $infoAjax == true) {

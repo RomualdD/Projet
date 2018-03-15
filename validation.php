@@ -6,22 +6,22 @@
   include_once 'View/header.php';
   if(!empty($_GET['log']) && (!empty($_GET['cle']))) {     
     if($users->actif == 1) {
-        ?><p class="errormessage col-lg-12">Votre compte est déjà actif !</p><?php
+        ?><p class="errormessage col-lg-12"><?php echo ALREADYACTIVATEDACCOUNT; ?></p><?php
     }
   else {
         if($users->cleverif == $clebdd) {
-            ?><p class="col-lg-12">Votre compte a bien été activé.</p><?php
+            ?><p class="col-lg-12"><?php echo ACTIVATEDACCOUNT; ?></p><?php
         }
         elseif($users->cleverif != $clebdd) {
-           ?><p class="errormessage col-lg-12">Clé non correspondante.</p><?php 
+           ?><p class="errormessage col-lg-12"><?php echo ERRORKEY; ?></p><?php 
         }
         else {
-            ?><p class="errormessage">Erreur ! Votre compte ne peut être activé...</p><?php
+            ?><p class="errormessage"><?php echo NOTPOSSIBLEACTIVATE; ?></p><?php
         }
     }
   }
   else {
-      ?><p class="errormessage">Erreur ! Il n'y a pas de paramètre.</p><?php
+      ?><p class="errormessage"><?php echo MISSPARAMETER; ?></p><?php
   }
   include 'View/footer.php';
 ?>

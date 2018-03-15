@@ -9,16 +9,16 @@
         $follow->follow_from = (int)$_POST['username'];
         $follow->updateAddFollow();
         if($role == 1) {
-            $successAddMsg = 'Votre médecin vous suit désormais !';
+            $successAddMsg = SUCCESSADDPATIENT;
         }
         else {
-            $successAddMsg = 'Votre patient vous suit désormais !';
+            $successAddMsg = SUCCESSADDDOCTOR;
         }
     }
     elseif(isset($_POST['username']) && (($_POST['action']) == 'delete')) {
         $follow->follow_from = (int)$_POST['username'];
         $follow->deleteFollow();
-        $successDeniedMsg = 'Refus enregistré';
+        $successDeniedMsg = REFUSEFOLLOW;
     }
 // -- // Recherche demande ami    
     $requestFollow = $follow->getFollowQuest();

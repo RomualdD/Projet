@@ -2,8 +2,8 @@
     include 'View/header.php';   
 ?>
 <div class="container view">
-    <h2 class="error404">Attention ! Erreur 404</h2>
-    <p>Cette page n'existe pas ! Afin de continuer votre poursuite du suite, veuillez cliquer <a href='View/index.php'>ici pour aller à l'accueil</a> !</p>
+    <h2 class="error404"><?php echo SUBTITLENOTFOUND; ?></h2>
+    <p><?php echo MESSAGENOTFOUND; ?> <a href='View/index.php'><?php echo REDIRECTHOME; ?></a> !</p>
 </div>
     <?php
 include 'View/footer.php';

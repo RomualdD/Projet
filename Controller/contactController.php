@@ -12,28 +12,28 @@
                     }
                     else {
                         $error++;
-                        $errorName = 'Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg';                        
+                        $errorName = ERRORNAMECONTACT;                        
                     }
                     if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
                        $mail = strip_tags($_POST['mail']);
                     }
                     else {
                         $error++;
-                        $errorMail = 'Le mail n\'est pas valide ! Il doit ressembler à exemple@mail.fr';
+                        $errorMail = ERRORMAILCONTACT;
                     }
                     if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,50}$#',$_POST['subject'])) {
                        $subject = strip_tags($_POST['subject']); 
                     }
                      else {
                         $error++;
-                        $errorSubject = 'Le sujet n\'est pas valide ! Il doit être entre 5 et 50 caractères.';
+                        $errorSubject = ERRORSUBJECTCONTACT;
                     }
                     if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,}$#',$_POST['message'])) {
                        $subject = strip_tags($_POST['message']); 
                     }
                      else {
                         $error++;
-                        $errorMessage = 'Le message n\'est pas valide ! Il doit avoir un minimum de 5 caractères';
+                        $errorMessage = ERRORMESSAGECONTACT;
                     }
                     
                     if($error == 0) {
@@ -44,7 +44,7 @@
                                     .' Adresse mail : '.$mail."\r\n"
                                     .' Message :'.$message;
                         mail($recipient, $subject,$message,$entete);
-                        $succesMsg = 'Le mail a bien était envoyé, vous aurez bientôt une réponse.'; 
+                        $succesMsg = CONTACTSUCCESS; 
                         $_POST['name'] = '';
                         $_POST['mail'] = '';
                         $_POST['subject'] = '';
@@ -52,7 +52,7 @@
                     }  
                 }
                 else {
-                    echo 'Les champs ne sont pas tous remplis !';
+                    echo ERRORINPUT;
                 }
             }
           ?>

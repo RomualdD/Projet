@@ -111,7 +111,7 @@ if($role != 0) {
                     if(($suivi->datefutureverif != $dateverif) && ($suivi->userId == $iduser )) {
                       // Ajout dans la table suivis pour récupéré ensuite les valeurs  
                       $suivi->addRate();  
-                      $successAddMsg = 'Votre résultat a bien était ajouté !';
+                      $successAddMsg = RESULTADD;
                       // Modification de la prochaine vérifiacation dans la table vérification
                       $verification->updateDateVerif();
                     }
@@ -120,16 +120,16 @@ if($role != 0) {
                         $result = $verifresult->result;
                         if($suivi->rate != $result) {
                             $suivi->updateRate();
-                            $successAddMsg = 'Votre résultat a bien était modifié !';
+                            $successAddMsg = MODIFICATERESULT;
                         }
                     }
                 }
                 else {
-                    $errorResult = 'Veuillez entrer une date de vérification avant d\'entrer un résultat.';
+                    $errorResult = VERIFICATIONERRORRESULT;
                 }
             }
             else {
-                $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
+                $errorResult = ERRORRESULT;
             }
         }
     }

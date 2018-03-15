@@ -1,11 +1,12 @@
 <?php
 // -- // HEADER
 define('TITLE','di-A-vk: La santé avant tout');
-define('HEADERTITLE','di-A-vk');
+define('WEBSITETITLE','di-A-vk');
+define('MODALCONNECT','Se connecter');
 define('USERNAME','Nom d\'utilisateur :');
 define('PASSWORDCONNECT','Mot de passe :');
 define('RECALL','Se rappeler de moi !');
-define('LOOSEIDENT','J\'ai perdu mes identifiants,');
+define('LOOSELOGIN','J\'ai perdu mes identifiants,');
 define('CLICK','cliquez ici');
 define('CONNECT','Connexion :');
 define('CLOSE','Fermer');
@@ -18,6 +19,8 @@ define('PROFILE','Profil');
 define('INFORMATION','Information');
 define('FOLLOWED','Suivi');
 define('DISCONNECT','Deconnexion');
+// --- // FOOTER
+define('COPYRIGHT','Copyright 2018');
 // --- // INDEX
 define('HOMEMESSAGE','Bienvenue sur le site di-A-vk!');
 define('WHO','Pour qui est ce site?');
@@ -57,6 +60,11 @@ define('TYPEONE','Diabète Type 1');
 define('TYPETWO','Diabète Type 2');
 define('AVK','Anticoagulant (AVK)');
 define('REGISTERBUTTON','S\'inscrire !');
+// --- // VALIDATION
+define('ALREADYACTIVATEDACCOUNT','Votre compte est déjà actif !');
+define('ACTIVATEDACCOUNT','Votre compte a bien été activé.');
+define('ERRORKEY','Clé non correspondante.');
+define('NOTPOSSIBLEACTIVATE','Erreur ! Votre compte ne peut être activé...');
 // --- // CONNEXION
 define('CONNEXIONMESSAGE','Veuillez entrer votre Nom d\'utilisateur et votre de mot de passe afin de continuer sur le site.');
 define('CONNEXIONMESSAGETWO','Si vous n\'êtes pas inscrit, veuillez-vous rendre sur la page');
@@ -157,5 +165,115 @@ define('INARRAY','En tableau :');
 define('RESULTDAY','Date du résultat :');
 define('RESULT','Résultat :');
 define('FUTUREDAY','Date de la prochaine analyse :');
+define('INGRAPHIC','En graphique :');
+define('RESULTBLOODTEST','Résultats de la prise de sang :');
+define('BLOODTESTPLACEHOLDER','Taux obtenus');
+define('NORESULT','Aucun résultat entré !');
+define('FOLLOWEDTITLE','Suivi du patient');
+// --- // AJOUT FOLLOW
+define('SUBTITLEADDFOLLOW','Gestions de suivis');
+define('NAMEFOLLOW','Nom :');
+define('ADD','Ajouter :');
+define('ALREADYFOLLOW','Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande,');
+define('NOTPOSSIBLEFOLLOW','Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande,');
+define('SUCCESSFOLLOW','Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre profil,');
+define('NAMENULL','Vous n\'avez pas mis un nom à rechercher. Retourner à votre profil,');
+define('CLICKHERE','Cliquez ici !');
+// --- // AJOUT QRCODE
+define('SUBTITLEQRCODE','Ajout à partir d\'un QRcode');
+define('SUCCESSQRCODE','Suivi ajouté !');
+define('MODIFICATESUCCESSQRCODE','Suivi modifié !');
+define('NOTPOSSIBLEQRCODE','Vous ne pouvez pas ajouter cette personne !');
+define('IDENTICNAME','Vous ne pouvez pas vous ajouter !');
+define('ALREADYQRCODE','Il y\'a déjà un suivi !');
+define('PARAMETERERROR','Le paramètre est incorrect !');
+// --- // DEMANDE
+define('SUBTITLEQUEST','Demande de suivis');
+define('DENIED','Refuser :');
+// --- // IDENTIFIANT OUBLIER
+define('FALLLOGIN','Identifiant oublié');
+define('USERINFORMATION','Informations de l\'utilisateur :');
+// --- // CHANGER MDP
+define('NEWPASSWORDPLACEHOLDER','Nouveau mot de passe');
+define('VERIFICATIONPASSWORDPLACEHOLDER','Vérification nouveau mot de passe');
+define('MESSAGERETURNPAGE','Retourner à la page');
+define('PARAMETERSERROR','Un des paramètres est faux !');
+define('MISSPARAMETER','Il manque un paramètre !');
+// --- // COOKIE
+define('SUBTITLECOOKIE','Utilisation de cookies sur diavk');
+define('COOKIEWHAT','Qu\’est-ce qu’un cookie ?');
+define('COOKIEWHATEXPLAIN','Un cookie est un petit fichier texte envoyé à votre navigateur via le site Web consulté. Grâce à ce cookie, des informations sur votre visite, notamment votre langue de prédilection et d\'autres paramètres, sont enregistrées sur le site Web. Cela peut faciliter votre visite suivante sur ce site et renforcer l\'utilité de ce dernier pour vous. Les cookies jouent un rôle important. Sans les cookies, l\'utilisation du Web pourrait s\'avérer beaucoup plus frustrante.');
+define('COOKIETYPE','Types de cookies');
+define('COOKIETYPEEXPLAIN','Nous utilisons les cookies à diverses fins. Nous les employons, pour mémoriser vos préférences.');
+define('SESSIONCOOKIE','Cookies de session');
+define('SESSIONCOOKIEEXPLAIN','Les cookies de session sont stockés temporairement dans votre navigateur pendant votre session de navigation et sont effacés une fois votre session expirée.');
+define('ANALYPTICCOOKIE','Cookies anonymes d’analytique');
+define('ANALYPTICCOOKIEEXPLAIN','Google Analytics utilise un cookie à des fins de statistiques (analyse et mesure du trafic vers le site).');
+define('DISABLEDCOOKIE','Comment désactiver / activer des cookies?');
+define('DISABLEDCOOKIEEXPLAIN','Vous pouvez accepter ou refuser des cookies en modifiant les paramètres de votre navigateur, ou faire en sorte que votre navigateur vous demande confirmation avant d’accepter un cookie de la part des sites Web que vous visitez. Sachez que, si vous choisissez de désactiver complètement les cookies, il se peut que vous ne puissiez pas utiliser toutes nos fonctionnalités.');
+// --- // PAGE 404
+define('SUBTITLENOTFOUND','Attention ! Erreur 404');
+define('MESSAGENOTFOUND','Cette page n\'existe pas ! Afin de continuer votre poursuite du suite, veuillez cliquer');
+define('REDIRECTHOME','ici pour aller à l\'accueil');
 // --- // ERREUR
 define('INCORRECTNAME','Nom incorrect !');
+define('NOTCONNECT','Vous n\'êtes pas connecté pour accéder au contenu');
+// --- // PASSWORD CHANGE
+define('PASSWORDMODIFICATESUCCESS','Le mot de passe a bien était modifié !');
+define('PASSWORDMODIFSUBJECTMAIL','[IMPORTANT] Rappel de vos identifiants');
+define('PASSWORDMODIFHEADING','From: inscriptiondiavk@gmail.com');
+define('PASSWORDMODIFMESSAGE','Vous avez bien changé de mot de passe');
+define('NOTREPLYMESSAGE','Ne pas répondre à ce message.');
+define('PASSWORDIDENTICERROR','Les mots de passes ne sont pas identiques !');
+define('PASSWORDNOTGOOD','Ce n\'est pas votre mot de passe !');
+define('ERRORINPUT','Les champs ne sont pas tous remplis !');
+// --- // CONNECTION ERROR
+define('ACCOUNTNOTACTIVATE','Veuillez activez votre compte !');
+define('INCORRECTLOGIN','Utilisateur ou mot de passe incorrect !');
+// --- // CONTACT CONTROLLER
+define('ERRORNAMECONTACT','Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg');
+define('ERRORMAILCONTACT','Le mail n\'est pas valide ! Il doit ressembler à exemple@mail.fr');
+define('ERRORSUBJECTCONTACT','Le sujet n\'est pas valide ! Il doit être entre 5 et 50 caractères.');
+define('ERRORMESSAGECONTACT','Le message n\'est pas valide ! Il doit avoir un minimum de 5 caractères');
+define('CONTACTSUCCESS','Le mail a bien était envoyé, vous aurez bientôt une réponse.');
+// --- // INFORMATION CONTROLLER
+define('ERRORHOURINFORMATION','L\'heure n\'est pas dans un format valide (ex:00:00)!');
+define('ERRORPAST','Vous ne pouvez pas mettre de rendez-vous au date passé');
+define('INVALIDDATE','La date n\'est pas dans un format valide !');
+define('ERRORNAMEINFORMATION','Veuillez écrire votre nom de rendez-vous seulement avec des lettres !');
+define('ERRORCOMPLEMENTARYINFORMATION','Veuillez écrire vos informations complémentaires seulement avec des lettres et des chiffres ayant plus de 2 caractères !');
+define('INFORMATIONSUCCESS','Enregistrement de votre rendez-vous effectué avec succès !');
+define('ERRORDATEAPPOINTMENT','Vous avez déjà un rendez-vous ce jour là à la même heure !');
+// --- // QUEST CONTROLLER
+define('SUCCESSADDPATIENT','Votre médecin vous suit désormais !');
+define('SUCCESSADDDOCTOR','Vous suivez désormais votre patient !');
+define('REFUSEFOLLOW','Refus enregistré');
+// --- // REGISTER CONTROLLER
+define('ERRORNAME','Le nom n\'est pas valide');
+define('ERRORFIRSTNAME','Le prénom n\'est pas valide');
+define('ERRORUSERNAME','Nom d\'utilisateur non valide');
+define('ERRORMAIL','Le mail n\'est pas valide !');
+define('ERRORDATE','Le format de date ne correspond pas au format demandé');
+define('ERRORPHONE','Le numéro de téléphone n\'est pas valide !');
+define('ERRORUSERNAMEALREADY','Nom d\'utilisateur déjà utilisé!');
+define('REGISTERSUBJECTMAIL','[IMPORTANT] Activation de votre compte di-A-vk');
+define('REGISTERHEADINGMAIL','From: inscriptiondiavk@gmail.com');
+define('REGISTERFIRSTMESSAGEMAIL','Bienvenue sur di-A-vk,');
+define('REGISTERSECONDMESSAGEMAIL','Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:');
+define('ERRORPASSWORDEXACT','Mots de passe différents');
+define('ERRORPATHOLOGY','Veuillez choisir votre pathologie !');
+// --- // SENDMAIL CONTROLLER
+define('BLOODTESTSUBJECT','[IMPORTANT] Prise de sang à faire');
+define('BLOODTESTHEADING','From: inscriptiondiavk@gmail.com');
+define('BLOODTESTMESSAGE','Il est l\'heure de faire votre vérification !');
+define('BLOODTESTMESSAGETWO','N\'oubliez pas de mettre le résultat dans le tableau afin de garder en mémoire votre résultat');
+define('APPOINTMENTSUBJECT','[IMPORTANT] Rendez-vous du lendemain');
+define('APPOINTMENTHEADING','From: inscriptiondiavk@gmail.com');
+define('APPOINTMENTMAILMESSAGEONE','Votre rendez-vous ');
+define('APPOINTMENTMAILMESSAGETWO',' est demain à ');
+define('APPOINTMENTMAILMESSAGETHREE','Les informations complémentaire que vous avez écrites sont ');
+// --- // SUIVI CONTROLLER
+define('RESULTADD','Votre résultat a bien était ajouté !');
+define('MODIFICATERESULT','Votre résultat a bien était modifié !');
+define('VERIFICATIONERRORRESULT','Veuillez entrer une date de vérification avant d\'entrer un résultat.');
+define('ERRORRESULT','Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11');

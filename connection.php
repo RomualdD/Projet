@@ -34,7 +34,7 @@
             <input type="checkbox" name="cookie"><?php echo RECALL; ?>
           </div>
           <input type="submit" value="<?php echo CONNECTBUTTON; ?>" name="connexion" class="button btn btn-default col-lg-offset-4">
-          <div class="explication col-lg-offset-5"><p><?php echo LOOSEIDENT; ?> <a href="mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
+          <div class="explication col-lg-offset-5"><p><?php echo LOOSELOGIN; ?> <a href="mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
         </form>
           <p class="col-lg-offset-3 errormessage"><?php echo $errorMessageConnexionActive; ?></p>
     </div>

@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])){
     ?>
     <div class="container">
       <div class="row view">
-          <div class="col-lg-offset-5"><h2> Demande de suivis</h2></div>
+          <div class="col-lg-offset-5"><h2><?php echo SUBTITLEQUEST; ?></h2></div>
       </div>     
     </div>
     <p class="col-lg-12"><?php echo $successAddMsg.' '.$successDeniedMsg ?></p>
@@ -14,11 +14,11 @@ if(isset($_SESSION['user'])){
     <table class="tablename table table-bordered result view">
         <thead>
           <tr>
-            <th class="col-lg-1">Nom :</th>
-            <th class="col-lg-1">Prénom :</th>
-            <th class="col-lg-1">Nom d'utilisateur :</th>
-            <th class="col-lg-1">Accepter :</th>
-            <th class="col-lg-1">Refuser :</th>
+            <th class="col-lg-1"><?php echo LASTNAME ?></th>
+            <th class="col-lg-1"><?php echo FIRSTNAME; ?></th>
+            <th class="col-lg-1"><?php echo USERNAME; ?></th>
+            <th class="col-lg-1"><?php echo ADD; ?></th>
+            <th class="col-lg-1"><?php echo DENIED; ?></th>
           </tr>
         </thead>
         <tbody><?php

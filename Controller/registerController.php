@@ -35,27 +35,27 @@ if(isset($_POST['submit'])) {
             $user->name = strtoupper(strip_tags($_POST['name']));
         }
         else {
-            $errorMessageName = 'Le nom n\'est pas valide';
+            $errorMessageName = ERRORNAME;
             $error++;
         }
         if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{1,30}$#', $_POST['firstname'])) {
           $user->firstname = strip_tags($_POST['firstname']);     
         }
         else {
-            $errorMessageFirstname = 'Le prénom n\'est pas valide';
+            $errorMessageFirstname = ERRORFIRSTNAME;
             $error++;
         }
         if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ0-9\- ]{1,30}$#', $_POST['username'])) {
             $user->username = strip_tags($_POST['username']); 
         }
         else  {
-            $errorMessageUser = 'Nom d\'utilisateur non valide';
+            $errorMessageUser = ERRORUSERNAME;
         }
         if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
             $user->mail = strip_tags($_POST['mail']);   
         }
         else {
-            $errorMessageMail = 'Le mail n\'est pas valide !';
+            $errorMessageMail = ERRORMAIL;
             $error++;
         }
         $user->password = $_POST['password'];
@@ -64,14 +64,14 @@ if(isset($_POST['submit'])) {
            $user->birthday = strip_tags($_POST['birthday']);   
         }
         else {
-            $errorMessageBirthday = 'La date n\'est pas valide';
+            $errorMessageBirthday = ERRORDATE;
             $error++;
         }
         if(preg_match("#^0[1-678]([-. ]?[0-9]{2}){4}$#", $_POST['phone'])) {
             $user->phone = strip_tags($_POST['phone']);      
         }
         else {
-            $errorMessagePhone = 'Le numéro de téléphone n\'est pas valide !';
+            $errorMessagePhone = ERRORPHONE;
             $error++;
         }
        $user->role = $_POST['role'];
@@ -91,7 +91,7 @@ if(isset($_POST['submit'])) {
                   $verifusername = $user->getUsername();
                   if($verifusername != FALSE) {
                     if($user->username == $verifusername->username) {
-                        $errorMessageUser = 'Nom d\'utilisateur déjà utilisé!';
+                        $errorMessageUser = ERRORUSERNAMEALREADY;
                     }
                   }
                   else {
@@ -103,12 +103,12 @@ if(isset($_POST['submit'])) {
                     $user->addUser();
                     //Envoie du mail d'activation
                     $recipient = $user->mail;
-                    $subject = '[IMPORTANT] Activation de votre compte di-A-vk';
-                    $entete = 'From: inscriptiondiavk@gmail.com';
-                    $message = 'Bienvenue sur di-A-vk,'. "\r\n"
-                    .'Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:'."\r\n"
+                    $subject = REGISTERSUBJECTMAIL;
+                    $entete = REGISTERHEADINGMAIL;
+                    $message = REGISTERFIRSTMESSAGEMAIL."\r\n"
+                    .REGISTERSECONDMESSAGEMAIL."\r\n"
                     .'https://diavk/compte-validation?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"
-                    .'Ne pas répondre à ce message.';
+                    .NOTREPLYMESSAGE;
                     mail($recipient, $subject,$message,$entete);
                     //Informer l'utilisateur que l'inscription est bien prise en compte
                     //Redirection vers la page de connexion
@@ -117,15 +117,15 @@ if(isset($_POST['submit'])) {
                    }
                 }
                 else {
-                  $errorMessagePassword = 'Mot de passe différent';
+                  $errorMessagePassword = ERRORPASSWORDEXACT;
                 }
             }
             else {
-             $errorMessagePathology = 'Veuillez choisir votre pathologie !';
+             $errorMessagePathology = ERRORPATHOLOGY;
             }
         }
      }
     else {
-        echo  'Les champs ne sont pas remplis.';
+        echo ERRORINPUT;
     }
   }

@@ -34,7 +34,7 @@
               }
            }
         else {
-           echo 'Tous les champs n\'ont pas était remplis !';
+           echo ERRORINPUT;
         }
     } 
     // Si on est connecté

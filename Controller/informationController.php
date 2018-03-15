@@ -148,7 +148,7 @@
                     $appointment->hourappointment = $_POST['hourappointment'];
                 }
                 else {
-                    $errorMessageHour= 'L\'heure n\'est pas dans un format valide (ex:00:00)!';                            
+                    $errorMessageHour= ERRORHOURINFORMATION;                            
                     $error++;
                 }
                 if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']) || preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointment'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointment']))) { 
@@ -156,18 +156,18 @@
                         $appointment->dayappointment = strip_tags($_POST['dayappointment']);                                   
                     }
                     else {
-                        $errorMessageDate = 'Vous ne pouvez pas mettre de rendez-vous au date passé';                    
+                        $errorMessageDate = ERRORPAST;                    
                     }
                 }
                 else {
-                    $errorMessageDate = 'La date n\'est pas dans un format valide !';
+                    $errorMessageDate = INVALIDDATE;
                     $error++;
                 }
                 if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéàûœÙğ_\'-]{2,}$#i', $_POST['nameappoitment'])) {
                     $appointment->nameappointment = strip_tags($_POST['nameappoitment']);
                 }
                 else {
-                    $errorMessageName = 'Veuillez écrire votre nom de rendez-vous seulement avec des lettres !';
+                    $errorMessageName = ERRORNAMEINFORMATION;
                     $error++;
                 }
                 if((!empty($_POST['informationappointment']))) {
@@ -175,7 +175,7 @@
                         $appointment->informationappointment = strip_tags($_POST['informationappointment']);                
                     }
                     else {
-                        $errorMessageInfos = 'Veuillez écrire vos informations complémentaires seulement avec des lettres !';
+                        $errorMessageInfos = ERRORCOMPLEMENTARYINFORMATION;
                         $error++;
                     }   
                 }
@@ -190,16 +190,16 @@
                             $_POST['dayappointment'] = '';
                             $_POST['nameappointment'] = '';
                             $_POST['informationappointment'] = '';
-                            $successAppointment = 'Enregistrement de votre rendez-vous effectué avec succès !';   
+                            $successAppointment = INFORMATIONSUCCESS;   
                         }
                     }
                     else {
-                        $errorMessageAppointment = 'Vous avez déjà un rendez-vous ce jour là à la même heure !';
+                        $errorMessageAppointment = ERRORDATEAPPOINTMENT;
                     }
                 }
             }
             else {
-                echo 'Les champs ne sont pas tous remplis !';
+                echo ERRORINPUT;
             }
         }
     // -- // Calendrier

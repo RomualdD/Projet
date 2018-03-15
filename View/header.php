@@ -27,8 +27,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="logo col-lg-1 col-xs-1"><img src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo HEADERTITLE; ?></h1></div>
-          <div class="hello col-lg-offset-3 col-lg-2 col-sm-offset-1" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader">Se connecter</p></div>        
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo WEBSITETITLE; ?></h1></div>
+          <div class="hello col-lg-offset-3 col-lg-2 col-sm-offset-1" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader"><?php echo MODALCONNECT; ?></p></div>        
           <div class="modal fade" id="myModalConnexion" role="dialog">
                 <div class="modal-dialog">
                 <!-- Modal content-->
@@ -43,20 +43,20 @@
                                 <label class="col-lg-offset-3 col-lg-9 col-sm-offset-3 col-sm-9" for="username"><?php echo USERNAME; ?></label>
                                 <div class="input-group username col-lg-offset-3 col-sm-offset-3">
                                     <span class="input-group-addon up"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <input type="text" id="username" class="form-control" name="username" placeholder="Nom d'utilisateur" required>
+                                    <input type="text" id="username" class="form-control" name="username" placeholder="<?php echo USERNAMEPLACEHOLDER; ?>" required>
                                 </div>
                               </div>
                               <div class="form-inline">
                                 <label class="col-lg-offset-3 col-lg-9 col-sm-offset-3 col-sm-9" for="password"><?php echo PASSWORDCONNECT; ?></label>  
                                 <div class="input-group password col-lg-offset-3 col-sm-offset-3">
                                     <span class="input-group-addon up"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="Mot de passe" required>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="<?php echo PASSWORDPLACEHOLDER; ?>" required>
                                 </div>
                               </div>
                               <div class="form-group col-lg-offset-7 col-sm-offset-7">
                                 <input type="checkbox" id="cookie" name="cookie"><?php echo RECALL; ?>
                               </div>
-                              <div class="explication col-lg-offset-5 col-sm-offset-4"><p><?php echo LOOSEIDENT; ?> <a href="/userfall.php"><?php echo CLICK; ?></a></p></div>
+                              <div class="explication col-lg-offset-5 col-sm-offset-4"><p><?php echo LOOSELOGIN; ?> <a href="/userfall.php"><?php echo CLICK; ?></a></p></div>
                               <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4 col-sm-offset-4">
                             </div>
                         </div>
@@ -97,7 +97,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="logo col-lg-1 col-xs-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo HEADERTITLE; ?></h1></div>
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo WEBSITETITLE; ?></h1></div>
           <div class="hello col-lg-offset-2 col-lg-3 col-sm-2"><p id="person"><?php echo HELLO.' '.$_SESSION['firstname'].' '.$_SESSION['name']; ?></p></div>
           <div class="hello col-lg-offset-2 col-lg-3 addQuest" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div>
         </div>

@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])) {
     ?>
     <div class="container view">
       <div class="row">
-          <div class="col-lg-offset-5"><h2>Gestions de suivis</h2></div>
+          <div class="col-lg-offset-5"><h2><?php echo SUBTITLEADDFOLLOW; ?></h2></div>
       </div>
     </div>
     <?php if(isset($_POST['name'])) { ?>
@@ -14,10 +14,10 @@ if(isset($_SESSION['user'])) {
     <table class="tablename table table-bordered result view">
       <thead>
         <tr>
-          <th class="col-lg-1">Nom :</th>
-          <th class="col-lg-1">Prénom :</th>
-          <th class="col-lg-1">Nom d'utilisateur :</th>
-          <th class="col-lg-1">Ajouter :</th>
+          <th class="col-lg-1"><?php echo NAMEFOLLOW; ?></th>
+          <th class="col-lg-1"><?php echo FIRSTNAME; ?></th>
+          <th class="col-lg-1"><?php echo USERNAME; ?></th>
+          <th class="col-lg-1"><?php echo ADD; ?></th>
         </tr>
       </thead>
       <tbody>
@@ -43,17 +43,17 @@ if(isset($_SESSION['user'])) {
         else {
                 if(isset($_POST['username'])) {
                     if($alreadyfollow != 0) {  ?>
-                        <p class="view">Il y a déjà un suivi avec ce membre ! Retournez à votre profil pour faire une autre demande <a href="votre-profil">Cliquez ici !</a></p><?php
+                        <p class="view"><?php echo ALREADYFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
                     }
                     elseif($id == $idfollow) {  ?>
-                        <p class="view">Vous ne pouvez pas vous ajoutez ! Retournez à votre profil pour faire une autre demande <a href="votre-profil">Cliquez ici !</a></p><?php
+                        <p class="view"><?php echo NOTPOSSIBLEFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
                     }
                    if($error == 0) { ?>
-                        <p class="view">Ajout réussi, la personne demandé va recevoir votre demande pour la valider. Retourner à votre <a href="votre-profil">profil</a></p><?php
+                        <p class="view"><?php echo SUCCESSFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
                     }
                 }
                 else {
-                    ?><p class="view">Vous n'avez pas mis un nom à rechercher. Retourner à votre <a href="profil.php">profil</a></p><?php
+                    ?><p class="view"><?php echo NAMENULL; ?> <a href="profil.php"><?php echo CLICKHERE; ?></a></p><?php
                 }
             }
         }

@@ -169,7 +169,7 @@
                                   </select>
                               </div>
                             </div>
-                            <input type="submit" value="VALID" name="valid" class="button btn btn-default col-lg-offset-5 col-sm-offset-2">
+                            <input type="submit" value="<?php echo VALID; ?>" name="valid" class="button btn btn-default col-lg-offset-5 col-sm-offset-2">
                         </form>
                         <p class="successmessage"><?php echo $succesAddmsg; ?></p>
                         <?php 
@@ -230,7 +230,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <input type="submit" value="<?php echo VALID; ?>" name="modifverif" class="button btn btn-default col-lg-offset-5 col-sm-offset-2">
+                                <input type="submit" value="<?php echo EDIT; ?>" name="modifverif" class="button btn btn-default col-lg-offset-5 col-sm-offset-2">
                             </form>
                         <?php }
                         }
