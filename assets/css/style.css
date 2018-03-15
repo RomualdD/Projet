@@ -269,7 +269,9 @@ table th[class*="col-lg"] {
 .navbar-default .navbar-nav > li > a:hover{
     color: #63A5D4;
 }
-
+#remarqueTitle {
+    font-size: 1.8em;
+}
 @media screen and (max-width: 1280px) {
     table th[class*="col-lg"] {
         display: none;

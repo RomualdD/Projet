@@ -1,6 +1,6 @@
     <footer>
           <div class="col-lg-offset-1 col-lg-2 col-xs-3"><?php echo WEBSITETITLE; ?></div>
-          <div class="col-lg-offset-2 col-lg-4 col-xs-5"><i class="far fa-copyright"></i> <?php COPYRIGHT; ?></div>
+          <div class="col-lg-offset-2 col-lg-4 col-xs-5"><i class="far fa-copyright"></i> <?php echo COPYRIGHT; ?></div>
           <div class="col-lg-offset-1 col-lg-2 col-xs-1"><a href="contactez-nous"><?php echo CONTACT; ?></a></div>
     </footer>
     <script src="/assets/js/jquery.mobile.min.js"></script>

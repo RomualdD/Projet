@@ -24,10 +24,8 @@ if (isset($_POST['connexion'])) {
         // Cherche le nom d'utilisateur et le mot de passe entré
         $requestUser = $user->getUser();
         if($requestUser != NULL) {
-            $verifUser = $requestUser->username;
-            $verifPassword = $requestUser->password;
             // Si les champs correspondent dans la base de données
-            if ($verifUser == $user->username && password_verify($user->password, $verifPassword)) {
+            if ($requestUser->username == $user->username && password_verify($user->password, $requestUser->password)) {
                 // Vérification si le compte est bien actif
                 $verifactif = $user->getVerif();
                 $actif = $verifactif->active;
@@ -42,7 +40,7 @@ if (isset($_POST['connexion'])) {
                         setcookie('role',$infosUser->role,time()+ 365*24*3600,'/',null,0,1);
                         setcookie('pathology',$infosUser->pathology,time()+ 365*24*3600,'/',null,0,1);
                     }
-                    $_SESSION['user'] = $_POST['username'];
+                    $_SESSION['user'] = $user->username;
                     $_SESSION['firstname'] = $infosUser->firstname;
                     $_SESSION['name'] = $infosUser->lastname;
                     $_SESSION['role'] = $infosUser->role;

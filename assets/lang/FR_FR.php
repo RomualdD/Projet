@@ -150,6 +150,7 @@ define('INITIALEWEDNESDAY','M');
 define('INITIALETHURSDAY','J');
 define('INITIALEFRIDAY','V');
 define('INITIALESATURDAY','S');
+define('INITIALESUNDAY','D');
 define('MODALTITLEAPPOINTMENT','Informations de ce rendez-vous :');
 define('EDITMODALAPPOINTMENT','Modifier ce rendez-vous :');
 define('ADDREMARQUEAPPOINTMENT','Ajouter une note à ce rendez-vous :');

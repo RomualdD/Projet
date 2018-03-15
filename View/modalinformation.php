@@ -107,7 +107,7 @@
                                               </div>
                                                 <div class="row">
                                                     <div class="col-lg-11">
-                                                        <h3 class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <?php echo ADDREMARQUEAPPOINTMENT; ?></h3>
+                                                        <h3 id="remarqueTitle" class="modal-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <?php echo ADDREMARQUEAPPOINTMENT; ?></h3>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-offset-1 col-lg-11">
