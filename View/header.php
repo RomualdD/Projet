@@ -1,5 +1,6 @@
-<?php include_once 'Controller/headerController.php'; 
-    include_once 'assets/lang/FR_FR.php';
+<?php 
+    include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
+    include_once 'Controller/headerController.php'; 
 ?>
 <!-- Header non connecté -->
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="/assets/js/canvasjs.min.js"></script>
     <script src="/assets/js/jquery-3.2.1.slim.min.js"></script>
     <link rel="icon" href="/logo.ico"/>

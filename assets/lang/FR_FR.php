@@ -273,7 +273,13 @@ define('APPOINTMENTMAILMESSAGEONE','Votre rendez-vous ');
 define('APPOINTMENTMAILMESSAGETWO',' est demain à ');
 define('APPOINTMENTMAILMESSAGETHREE','Les informations complémentaire que vous avez écrites sont ');
 // --- // SUIVI CONTROLLER
+define('VERIFICATIONDATE','Date de la vérification');
+define('RESULTANALYSES','Résultats de vos analyses');
 define('RESULTADD','Votre résultat a bien était ajouté !');
 define('MODIFICATERESULT','Votre résultat a bien était modifié !');
 define('VERIFICATIONERRORRESULT','Veuillez entrer une date de vérification avant d\'entrer un résultat.');
 define('ERRORRESULT','Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11');
+// --- // MOT DE PASSE OUBLIER
+define('USERFALLMAILSUBJECT','[IMPORTANT] Rappel de vos identifiants');
+define('USERFALLMAILHEADING','From: inscriptiondiavk@gmail.com');
+define('USERFALLMAILMESSAGEONE','Votre nom d\'utilisateur est');

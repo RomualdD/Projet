@@ -12,7 +12,7 @@
        $_SESSION['name'] = $_COOKIE['name'];
     }
     if(!isset($_SESSION['user'])) {
-        $errorConnexion = 'Vous n\'êtes pas connecté pour accéder au contenu';
+            $errorConnexion = NOTCONNECT;
     } 
     else {
         $users = new users();

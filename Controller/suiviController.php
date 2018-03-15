@@ -161,7 +161,7 @@ if($role != 0) {
                     }
                         if($suivi->dateday != $verifDateDay) {
                             $suivi->addRate();
-                            $successAddMsg = 'Votre résultat a bien était ajouté !';
+                            $successAddMsg = RESULTADD;
                         }
                         
                         else {
@@ -169,7 +169,7 @@ if($role != 0) {
                             $result = $requestverifresult->result;
                             if($suivi->rate != $result) {
                                 $suivi->updateRate();
-                                $successAddMsg = 'Votre résultat a bien était modifié !';  
+                                $successAddMsg = MODIFICATERESULT;  
                             }
                         }      
                     $oneclock = $searchfuturedate->onehour;
@@ -178,11 +178,11 @@ if($role != 0) {
                     $verification->updateDateVerif();
                 }
                 else {
-                    $errorResult = 'Veuillez entrer vos horraires dans votre profil !';
+                    $errorResult = VERIFICATIONERRORRESULT;
                 }
             }                
             else {
-                $errorResult = 'Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11';
+                $errorResult = ERRORRESULT;
             }
         }            
     }
@@ -234,16 +234,16 @@ else {
     <script>
 // -- // Graphique
         $(window).on('load', function() {
-            var chart = new CanvasJS.Chart("chartResult", {
-                theme: "light2",
+            var chart = new CanvasJS.Chart('chartResult', {
+                theme: 'light2',
                 zoomEnabled: true,
                 animationEnabled: true,
                 title: {
-                    text: "Résultats de vos analyses"
+                    text: '<?php echo RESULTANALYSES; ?>'
                 },
                 axisX: {
                   includeZero: false,
-                  title:'Date de la vérification',  // Titre de l'axe X
+                  title: '<?php echo VERIFICATIONDATE; ?>',  // Titre de l'axe X
                 },
                 axisY:{
                   title:'Résultats',  // Titre de l'axe Y
@@ -251,7 +251,7 @@ else {
                 },
                   data: [
                   {
-                      type: "line",
+                      type: 'line',
 
                       dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
                   }

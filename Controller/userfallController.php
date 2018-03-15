@@ -15,11 +15,11 @@ if(isset($_POST['fallSubmit'])) {
         $username = $recupUsername->username;
         $key = $recupUsername->keyverif;
         $recipient = $user->mail;
-        $subject = "[IMPORTANT] Rappel de vos identifiants";
-        $entete = "From: inscriptiondiavk@gmail.com";
-        $message = 'Votre nom d\'utilisateur est '.$username."\r\n"
+        $subject = USERFALLMAILSUBJECT;
+        $entete = USERFALLMAILHEADING;
+        $message = USERFALLMAILMESSAGEONE.$username."\r\n"
                 .'https://diavk/changer-mot-de-passe?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
-        .'Ne pas répondre à ce message.';
+        .NOTREPLYMESSAGE;
         mail($recipient, $subject,$message,$entete);
     }
 }
