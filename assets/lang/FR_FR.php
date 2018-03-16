@@ -156,6 +156,10 @@ define('EDITMODALAPPOINTMENT','Modifier ce rendez-vous :');
 define('ADDREMARQUEAPPOINTMENT','Ajouter une note à ce rendez-vous :');
 define('REMARQUEAPPOINTMENT','Note complémentaire du rendez-vous :');
 define('REMARQUEAPPOINTMENTPLACEHOLDER','Notes complémentaire');
+define('ERRORINFORMATIONS','Plusieurs informations sont incorrectes !');
+define('ERRORCOMPLEMENTARYINFORMATIONS','Informations incorrects !');
+define('ERRORHOURAPPOINTMENT','Heure incorrecte !');
+define('INCORRECTDATE','Date incorrecte !');
 // --- // SUIVI
 define('CHOOSEPATIENT','Choisir son patient :');
 define('CHOOSEDATE','Entrez les dates pour voir le suivi d\'une période :');

@@ -91,24 +91,30 @@ class users extends dataBase {
      * @return array
      */
     public function getUser() {
-           $user = array();
-           $requestSearchUser = $this->db->query('SELECT `username`,`password` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
-           if(is_object($requestSearchUser)) {
-              $user = $requestSearchUser->fetch(PDO::FETCH_OBJ); 
-           }
-           return $user;
+        $user = array();
+        $requestSearchUser = $this->db->prepare('SELECT `username`,`password` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $requestSearchUser->bindValue(':username',$this->username,PDO::PARAM_STR);
+        if($requestSearchUser->execute()) {
+            if(is_object($requestSearchUser)) {
+                $user = $requestSearchUser->fetch(PDO::FETCH_OBJ); 
+            }       
+        }
+        return $user;
     }
     /**
      * Récupère l'id de l'utilisateur
      * @return array
      */
     public function getUserId() {
-            $userId = array();
-            $resultId = $this->db->query('SELECT `id` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
+        $userId = array();
+        $resultId = $this->db->prepare('SELECT `id` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $resultId->bindValue('username',$this->username,PDO::PARAM_STR);
+        if($resultId->execute()) {
             if(is_object($resultId)) {
                 $userId = $resultId->fetch(PDO::FETCH_OBJ);
-            }
-           return $userId;
+            }    
+        }
+        return $userId;
     }
     /**
      * Méthode qui récupère les informations de l'utilisateur 
@@ -139,7 +145,7 @@ class users extends dataBase {
      */
     public function getPassword() {
         $password = array();
-        $recuppassword = $this->db->prepare('SELECT `password` FROM `'.$this->prefix.'users` WHERE `id` = '.$this->id);
+        $recuppassword = $this->db->prepare('SELECT `password` FROM `'.$this->prefix.'users` WHERE `id` = :id');
         $recuppassword->bindValue('id',$this->id,PDO::PARAM_INT);
         if($recuppassword->execute()) {
             $password = $recuppassword->fetch(PDO::FETCH_OBJ);
@@ -152,9 +158,12 @@ class users extends dataBase {
      */
     public function getVerif() {
         $actif = array();
-        $search = $this->db->query('SELECT `active` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
-        if(is_object($search)) {
-            $actif = $search->fetch(PDO::FETCH_OBJ);
+        $search = $this->db->prepare('SELECT `active` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $search->bindValue('username',$this->username,PDO::PARAM_STR);
+        if($search->execute()) {
+            if(is_object($search)) {
+                $actif = $search->fetch(PDO::FETCH_OBJ);
+            }            
         }
         return $actif;
     }
@@ -164,9 +173,12 @@ class users extends dataBase {
      */
     public function getInfoConnexion() {
         $infosUser = array();
-        $requestInfo = $this->db->query('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
-        if(is_object($requestInfo)) {
-            $infosUser = $requestInfo->fetch(PDO::FETCH_OBJ);
+        $requestInfo = $this->db->prepare('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
+        if($requestInfo->execute()) {
+            if(is_object($requestInfo)) {
+                $infosUser = $requestInfo->fetch(PDO::FETCH_OBJ);
+            }            
         }
         return $infosUser;
     }
@@ -176,9 +188,12 @@ class users extends dataBase {
      */
     public function getQrCode() {
         $researchqrcode = array();
-        $researchqrcode = $this->db->query('SELECT `qrcode` FROM `'.$this->prefix.'users` WHERE `username` = \''.$this->username.'\'');
-        if(is_object($researchqrcode)) {
-            $researchqrcode = $researchqrcode->fetch(PDO::FETCH_OBJ);     
+        $researchqrcode = $this->db->prepare('SELECT `qrcode` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $researchqrcode->bindValue('',$this->username,PDO::PARAM_STR);
+        if($researchqrcode->execute()) {
+            if(is_object($researchqrcode)) {
+                $researchqrcode = $researchqrcode->fetch(PDO::FETCH_OBJ);     
+            }            
         }
         return $researchqrcode;
     }
@@ -233,7 +248,7 @@ class users extends dataBase {
      */
     public function getInfoAndVerification() {
         $mail = array();
-        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'verification` ON `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
+        $requestmail = $this->db->prepare('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'verification` ON `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
         if(is_object($requestmail)) {
             $mail = $requestmail->fetchAll(PDO::FETCH_OBJ);         
         }
@@ -291,8 +306,9 @@ class users extends dataBase {
      * Méthode qui modifie le mot de passe de l'utilisateur
      */
     public function updatePassword() {
-        $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `id` = '.$this->id);
+        $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `id` = :id');
         $insertnewpassword->bindValue('password', $this->password, PDO::PARAM_STR);
+        $insertnewpassword->bindValue('id', $this->id, PDO::PARAM_INT);
         return $insertnewpassword->execute();        
     }
     /**

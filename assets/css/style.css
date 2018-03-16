@@ -95,6 +95,7 @@ p {
 
 .errormessage {
     color: red;
+    display: none;
 }
 
 .successmessage {

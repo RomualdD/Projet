@@ -31,6 +31,7 @@
                                                                         <span class="input-group-addon"><i class="fa fa-address-book-o" aria-hidden="true"></i></span>
                                                                         <input type="text" class="form-control" id="newnameappointment" name="nameappoitmentmodif" placeholder="<?php echo NAMEAPPOINTMENTPLACEHOLDER; ?>">
                                                                     </div>
+                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorNomMessageModal"><?php echo INCORRECTNAME; ?></p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
@@ -40,6 +41,7 @@
                                                                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                                                         <input type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="day" name="dayappointmentmodif">
                                                                     </div>
+                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorDayMessageModal"><?php echo INCORRECTDATE; ?></p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
@@ -49,6 +51,7 @@
                                                                         <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                                                         <input type="time" class="form-control" id="hour" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
                                                                     </div>
+                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorHourMessageModal"><?php echo ERRORHOURAPPOINTMENT; ?></p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-12">
@@ -57,6 +60,7 @@
                                                                         <label for="informationappointment"><?php echo INFORMATIONAPPOINTMENT; ?> </label>
                                                                         <textarea class="form-control" id="info" rows="5" cols="10" placeholder="<?php echo INFORMATIONAPPOINTMENTPLACEHOLDER; ?>" name="infosappointmentmodif"><?php //echo $informations['infoappointment'];?></textarea>
                                                                     </div>
+                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorInfoMessageModal"><?php echo ERRORCOMPLEMENTARYINFORMATIONS; ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-offset-3 col-lg-2" id="modifButton">
@@ -64,6 +68,7 @@
                                                                   <input id="submitmodif" type="button" value="<?php echo EDIT; ?>" class="button btn btn-default col-lg-offset-4 col-xs-offset-4">                        
                                                                 </div>
                                                             </div>
+                                                            <p class="errormessage col-lg-offset-1 col-lg-9" id="totalerror"><?php echo ERRORINFORMATIONS; ?></p>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -124,7 +129,7 @@
                                                                      <div class="form-inline">
                                                                         <input id="submitremarqueadd" type="submit" value="<?php echo ADDBUTTON; ?>" class="button btn btn-default col-lg-offset-4 col-xs-offset-4" name="submitremarqueadd">                        
                                                                     </div>
-                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal" hidden><?php echo INCORRECTNAME; ?></p>
+                                                                    <p class="errormessage col-lg-offset-3 col-lg-9" id="errorMessageModal"><?php echo INCORRECTNAME; ?></p>
                                                                 </div>                                                                    
                                                             </form>
                                                         </div>

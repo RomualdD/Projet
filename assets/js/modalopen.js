@@ -43,7 +43,7 @@ $(document).ready(function () {
                     alert('Note enregistré !');
                     location.reload(true);
                 } else {
-                    $('#errorMessageModal').show();
+                    $('#errorMessageModal').css('display','block');
                 }
             },
             'text' // Recevoir success ou failed
@@ -74,35 +74,35 @@ $(document).ready(function () {
                     $('#errorHourMessageModal').css('display','none');
                     $('#errorInfoMessageModal').css('display','none');
                     $('#totalerror').css('display','none');
-                    $('#name').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorNomMessageModal">Nom incorrect !</p>');
+                    $('#errorNomMessageModal').css('display','block');
                 }
                 else if(data == 'FailedDay') {
                     $('#errorNomMessageModal').css('display','none');
                     $('#errorHourMessageModal').css('display','none');
                     $('#errorInfoMessageModal').css('display','none');
                     $('#totalerror').css('display','none');                    
-                    $('#date').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorDayMessageModal">Date incorrecte !</p>');
+                    $('#errorDayMessageModal').css('display','block');
                 }
                 else if(data == 'FailedHour') {
                     $('#errorNomMessageModal').css('display','none');
                     $('#errorDayMessageModal').css('display','none');
                     $('#errorInfoMessageModal').css('display','none');
                     $('#totalerror').css('display','none');                    
-                    $('#hour').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorHourMessageModal">Heure incorrecte !</p>');
+                    $('#errorHourMessageModal').css('display','block');
                 }
                 else if(data == 'FailedInfo') {
                     $('#errorNomMessageModal').css('display','none');
                     $('#errorDayMessageModal').css('display','none');
                     $('#errorHourMessageModal').css('display','none');
                     $('#totalerror').css('display','none');                     
-                    $('#subject').after('<p class="errormessage col-lg-offset-3 col-lg-9" id="errorInfoMessageModal">Informations incorrects !</p>');
+                    $('#errorInfoMessageModal').css('display','block');
                 }                
                 else {
                     $('#errorNomMessageModal').css('display','none');
                     $('#errorDayMessageModal').css('display','none');
                     $('#errorHourMessageModal').css('display','none');
                     $('#errorInfoMessageModal').css('display','none');                     
-                    $('#modifButton').after('<p class="errormessage col-lg-offset-1 col-lg-9" id="totalerror">Plusieurs informations sont incorrectes !</p>');
+                    $('#totalerror').css('display','block');
                 }
             }, 
         );

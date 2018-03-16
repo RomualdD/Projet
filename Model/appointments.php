@@ -51,11 +51,16 @@ class appointments extends dataBase {
      */
     public function getVerifInformation() {
         $verifappointment = array();
-        $searchappointment = $this->db->query('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `date_appointment` = \''.$this->dayappointment.'\' AND `hour_appointment` = \''.$this->hourappointment.'\' AND `id_'.$this->prefix.'users` = '.$this->userId);   
-        if(is_object($searchappointment)) {
-            $verifappointment = $searchappointment->fetchColumn(); 
-        }
-        $searchappointment->closeCursor();   
+        $searchappointment = $this->db->prepare('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `date_appointment` = :dayappointment AND `hour_appointment` = :hourappointment AND `id_'.$this->prefix.'users` = :idUser');   
+        $searchappointment->bindValue('dayappointment',$this->dayappointment,PDO::PARAM_STR);
+        $searchappointment->bindValue('hourappointment',$this->hourappointment,PDO::PARAM_STR);
+        $searchappointment->bindValue('idUser',$this->userId,PDO::PARAM_INT);
+        if($searchappointment->execute()) {
+            if(is_object($searchappointment)) {
+                $verifappointment = $searchappointment->fetchColumn(); 
+            }
+            $searchappointment->closeCursor();  
+        } 
         return $verifappointment;     
     }
     /**
@@ -64,9 +69,15 @@ class appointments extends dataBase {
      */
     public function getDateAppointment() {
         $dateAppointment = array();
-        $requestdate = $this->db->query('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `name_appointment` = \''.$this->nameappointment.'\' AND `hour_appointment` = \''.$this->hourappointment.'\' AND `additional_informations` = \''.$this->infosappointment.'\' AND `id_'.$this->prefix.'users` = '.$this->userId);
-        if(is_object($requestdate)) {
-            $dateAppointment = $requestdate->fetch(PDO::FETCH_OBJ);
+        $requestdate = $this->db->prepare('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `name_appointment` = :nameappointment AND `hour_appointment` = :hourappointment AND `additional_informations` = :infosappointment AND `id_'.$this->prefix.'users` = userId');
+        $requestdate->bindValue('nameappointment',$this->nameappointment,PDO::PARAM_STR);
+        $requestdate->bindValue('hourappointment',$this->hourappointment,PDO::PARAM_STR);
+        $requestdate->bindValue('infosappointment',$this->infosappointment,PDO::PARAM_STR);
+        $requestdate->bindValue('userId',$this->userId,PDO::PARAM_INT);
+        if($requestdate->execute()) {
+            if(is_object($requestdate)) {
+                $dateAppointment = $requestdate->fetch(PDO::FETCH_OBJ);
+            }            
         }
         return $dateAppointment;
     }
@@ -76,9 +87,12 @@ class appointments extends dataBase {
      */
     public function getAppointment() {
         $appointment = array();
-        $researchappoitment = $this->db->query('SELECT `id`,`name_appointment`,DATE_FORMAT(`date_appointment`,\'%d/%m/%Y\') AS date_appointment,DATE_FORMAT(`date_appointment`,\'%d\') AS day,DATE_FORMAT(`date_appointment`,\'%m\') AS month,DATE_FORMAT(`date_appointment`,\'%Y\') AS year,`hour_appointment`,`additional_informations`,`remarque` FROM `'.$this->prefix.'appointments` WHERE `id_'.$this->prefix.'users`='.$this->userId.' ORDER BY hour_appointment');
-        if(is_object($researchappoitment)) {
-            $appointment = $researchappoitment->fetchAll(PDO::FETCH_OBJ);            
+        $researchappoitment = $this->db->prepare('SELECT `id`,`name_appointment`,DATE_FORMAT(`date_appointment`,\'%d/%m/%Y\') AS date_appointment,DATE_FORMAT(`date_appointment`,\'%d\') AS day,DATE_FORMAT(`date_appointment`,\'%m\') AS month,DATE_FORMAT(`date_appointment`,\'%Y\') AS year,`hour_appointment`,`additional_informations`,`remarque` FROM `'.$this->prefix.'appointments` WHERE `id_'.$this->prefix.'users`= :userId ORDER BY hour_appointment');
+        $researchappoitment->bindValue('userId',$this->userId,PDO::PARAM_INT);
+       if($researchappoitment->execute()) {
+            if(is_object($researchappoitment)) {
+                $appointment = $researchappoitment->fetchAll(PDO::FETCH_OBJ);            
+            }
         }
         return $appointment;
     }

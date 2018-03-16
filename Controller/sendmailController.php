@@ -1,5 +1,6 @@
     <?php 
     // L'utilisation de cette page est strictement réservé au crontab (tâche automatique ! ) 
+    include '/home/romuald/www/ProjetFinal/assets/lang/FR_FR.php';
     include '/home/romuald/www/ProjetFinal/configuration.php';
     include '/home/romuald/www/ProjetFinal/Model/dataBase.php';
     include '/home/romuald/www/ProjetFinal/Model/users.php';
