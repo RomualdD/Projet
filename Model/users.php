@@ -189,7 +189,7 @@ class users extends dataBase {
     public function getQrCode() {
         $researchqrcode = array();
         $researchqrcode = $this->db->prepare('SELECT `qrcode` FROM `'.$this->prefix.'users` WHERE `username` = :username');
-        $researchqrcode->bindValue('',$this->username,PDO::PARAM_STR);
+        $researchqrcode->bindValue('username',$this->username,PDO::PARAM_STR);
         if($researchqrcode->execute()) {
             if(is_object($researchqrcode)) {
                 $researchqrcode = $researchqrcode->fetch(PDO::FETCH_OBJ);     
@@ -248,7 +248,7 @@ class users extends dataBase {
      */
     public function getInfoAndVerification() {
         $mail = array();
-        $requestmail = $this->db->prepare('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'verification` ON `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
+        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `pbvhfjt_users` LEFT JOIN `pbvhfjt_verification` ON `id_pbvhfjt_users` = `pbvhfjt_users`.`id`');
         if(is_object($requestmail)) {
             $mail = $requestmail->fetchAll(PDO::FETCH_OBJ);         
         }

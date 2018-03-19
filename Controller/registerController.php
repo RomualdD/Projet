@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
          * Vérifications des regex
          * On évite les éléments comme balise html/php
          */
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{1,30}$#', $_POST['name'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,30}$#', $_POST['name'])) {
             // Mise en majuscule du nom
             $user->name = strtoupper(strip_tags($_POST['name']));
         }
@@ -38,14 +38,14 @@ if(isset($_POST['submit'])) {
             $errorMessageName = ERRORNAME;
             $error++;
         }
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{1,30}$#', $_POST['firstname'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,30}$#', $_POST['firstname'])) {
           $user->firstname = strip_tags($_POST['firstname']);     
         }
         else {
             $errorMessageFirstname = ERRORFIRSTNAME;
             $error++;
         }
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ0-9\- ]{1,30}$#', $_POST['username'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ0-9@$!.\- ]{2,30}$#', $_POST['username'])) {
             $user->username = strip_tags($_POST['username']); 
         }
         else  {
@@ -117,7 +117,7 @@ if(isset($_POST['submit'])) {
                    }
                 }
                 else {
-                  $errorMessagePassword = ERRORPASSWORDEXACT;
+                  $errorMessagePassword = PASSWORDIDENTICERROR;
                 }
             }
             else {

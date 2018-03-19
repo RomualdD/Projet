@@ -95,6 +95,9 @@ p {
 
 .errormessage {
     color: red;
+}
+
+.errormessagemodal {
     display: none;
 }
 

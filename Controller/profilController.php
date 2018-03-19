@@ -50,7 +50,7 @@ if(isset($_POST['deleteajax'])) {
                         $firstMin = $clockfirst['1'];                                        
                     }
                     else {
-                        $errorModifOneClock= 'Erreur Heure 1 ! Le format demandé est hh:mm !';
+                        $errorModifOneClock= HOURONE;
                         $error++;
                     }
                 }    
@@ -68,7 +68,7 @@ if(isset($_POST['deleteajax'])) {
                         $secondMin = $clocksecond['1'];                                        
                     }
                     else {
-                        $errorModifTwoClock= 'Erreur Heure 2 ! Le format demandé est hh:mm !';
+                        $errorModifTwoClock= HOURTWO;
                         $error++;
                     }
                 }
@@ -92,7 +92,7 @@ if(isset($_POST['deleteajax'])) {
                         $threeMin = $clockthree['1'];                                        
                     }
                     else {
-                       $errorModifThreeClock= 'Erreur Heure 3 ! Le format demandé est hh:mm !';
+                       $errorModifThreeClock= HOURTHREE;
                        $error++;
                     }
                 }
@@ -116,7 +116,7 @@ if(isset($_POST['deleteajax'])) {
                         $fourMin = $clockfour['1'];                                          
                     }
                     else {
-                       $errorModifFourClock= 'Erreur Heure 4 ! Le format demandé est hh:mm !'; 
+                       $errorModifFourClock= HOURFOUR; 
                         $error++;
                     }                                        
                 }
@@ -209,7 +209,7 @@ if(isset($_POST['deleteajax'])) {
                 }                                
                 if($error == 0) { 
                     $verification->updateVerification();
-                    $successModifMsg = 'Les modifications sont bien prises en compte !';
+                    $successModifMsg = MODIFICATEHOUR;
                 }
             }
         }
@@ -236,7 +236,7 @@ if(isset($_POST['deleteajax'])) {
                             $verification->dateverification = $firstverif.' '.$hourverif.':00';
                         }
                         else {
-                            $errorDateMsg= 'Le format demandé est jj/mm/YYYY hh:mm';
+                            $errorDateMsg= FORMATHOUR;
                             $error++;
                         }
                         if($_POST['notification'] == 'SMS') {
@@ -252,7 +252,7 @@ if(isset($_POST['deleteajax'])) {
                             $firstMin = $clockfirst['1'];     
                         }
                         else {
-                            $errorAddOneClock = 'Erreur Heure 1 ! Le format demandé est hh:mm !';
+                            $errorAddOneClock = HOURONE;
                             $error++;
                             $firstHour = 23;
                             $firstMin = 59;                             
@@ -265,7 +265,7 @@ if(isset($_POST['deleteajax'])) {
                                 $secondMin = $clocksecond['1'];  
                         }
                             else {
-                                $errorAddTwoClock = 'Erreur Heure 2 ! Le format demandé est hh:mm !';
+                                $errorAddTwoClock = HOURTWO;
                                 $error++;
                             }
                         }
@@ -282,7 +282,7 @@ if(isset($_POST['deleteajax'])) {
                                 $threeMin = $clockthree['1']; 
                             }
                             else {
-                               $errorAddThreeClock = 'Erreur Heure 3 ! Le format demandé est hh:mm ! ';
+                               $errorAddThreeClock = HOURTHREE;
                                $error++;
                             }
                         }
@@ -299,7 +299,7 @@ if(isset($_POST['deleteajax'])) {
                                 $fourMin = $clockfour['1'];     
                             }
                             else {
-                               $errorAddFourClock = 'Erreur Heure 4 ! Le format demandé est hh:mm !'; 
+                               $errorAddFourClock = HOURFOUR; 
                                $error++;
                             }
                         }
@@ -417,11 +417,11 @@ if(isset($_POST['deleteajax'])) {
                         }                             
                         if($error == 0) {
                             $verification->addVerificationDiabete();
-                            $succesAddmsg= 'L\'ajout est bien prise en compte !';
+                            $succesAddmsg= SUCCESSADDHOUR;
                         }
                     }
                     else {
-                        $error = 'Les champs ne sont pas tous remplis !';
+                        $error = ERRORINPUT;
                     }
                 }
         }
@@ -443,7 +443,7 @@ if(isset($_POST['deleteajax'])) {
                             $verification->oneclock = $_POST['clock'];    
                         }
                         else {
-                            $errorAddOneClock = 'Le format demandé est hh:mm';
+                            $errorAddOneClock = FORMATTIME;
                             $error++;
                         }
                         if(preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
@@ -458,7 +458,7 @@ if(isset($_POST['deleteajax'])) {
                             $verification->dateverification = $firstverif.' '.$hourverif.':00';
                         }
                         else {
-                            $errorDateMsg = 'Le format demandé est jj/mm/YYYY hh:mm';
+                            $errorDateMsg = FORMATHOUR;
                             $error++;
                         }
                         if($error == 0) {
@@ -469,11 +469,11 @@ if(isset($_POST['deleteajax'])) {
                                 $verification->verification = '3 Mois';
                             }    
                             $verification->addVerificationAvk();
-                            $succesAddmsg = 'Les modifications sont prises en compte !';
+                            $succesAddmsg = MODIFICATEHOUR;
                         }
                 }
                 else {
-                    echo 'Les champs ne sont pas tous remplis !';
+                    echo ERRORINPUT;
                 }
             }
             if(isset($_POST['modifverif'])) {
@@ -492,7 +492,7 @@ if(isset($_POST['deleteajax'])) {
                             $verification->oneclock = $_POST['clock'];    
                         }
                         else {
-                            $errorAddOneClock = 'Le format demandé est hh:mm';
+                            $errorAddOneClock = FORMATTIME;
                             $error++;
                         }  
                     }
@@ -501,7 +501,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                     if($error == 0) {
                         $verification->updateVerificationAvk();
-                        $succesAddmsg = 'Les modifications sont prises en compte !';
+                        $succesAddmsg = MODIFICATEHOUR;
                     }
                 }
             }
@@ -522,18 +522,18 @@ if(isset($_POST['deleteajax'])) {
                 if ($newpassword == $newpasswordverif) {
                     $user->password = password_hash($newpassword,PASSWORD_DEFAULT);
                     $user->updatePassword();
-                    $successMsg = 'Le mot de passe a bien était modifié !';
+                    $successMsg = PASSWORDMODIFICATESUCCESS;
                 }
                 else {
-                    $errorPassword = 'Les mots de passes ne sont pas identiques !';
+                    $errorPassword = PASSWORDIDENTICERROR;
                 }
             }
             else {
-                $errorPasswordFalse = 'Ce n\'est pas votre mot de passe !';
+                $errorPasswordFalse = PASSWORDNOTGOOD;
             }
         }
         else {
-            $errormessage= 'Les champs ne sont pas tous remplis !';
+            $errormessage= ERRORINPUT;
         }
     }
     $successModifMail='';
@@ -544,10 +544,10 @@ if(isset($_POST['deleteajax'])) {
             if(preg_match('#^[\w\-\.]+[a-z0-9]@[\w\-\.]+[a-z0-9]\.[a-z]{2,}$#',$_POST['newmail'])) {
                 $user->mail = strip_tags($_POST['newmail']);   
                 $user->updateMail();
-                $successModifMail = 'Le mail a bien était modifié !';
+                $successModifMail = SUCCESSMODIFICATEMAIL;
             }
             else {
-                $errorMessageMail = 'Le mail n\'est pas valide !';
+                $errorMessageMail = ERRORMAIL;
             }
         }
     }
@@ -561,10 +561,10 @@ if(isset($_POST['deleteajax'])) {
         if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['modificatenum'])) {
             $user->phone = strip_tags($_POST['modificatenum']); 
             $user->updatePhone();
-            $successModifPhone = 'Le numéro a bien était modifié !';
+            $successModifPhone = SUCCESSMODIFICATEPHONE;
         }
         else {
-            $errorMessagePhone = 'Le numéro de téléphone n\'est pas valide !';
+            $errorMessagePhone = ERRORPHONE;
         }   
     }
     // -- // Modification du second numéro de téléphone
@@ -575,12 +575,12 @@ if(isset($_POST['deleteajax'])) {
             $successAddPhone = 'Le numéro a bien était ajouté !';
         }
         else {
-            $errorMessagePhone2 = 'Le numéro de téléphone n\'est pas valide !';
+            $errorMessagePhone2 = ERRORPHONE;
         }   
     }
     if(isset($_POST['deletephone2'])) {
         $user->deleteSecondPhone();
-        $successDeletePhone = 'Votre second numéro de téléphone n\'existe plus !';
+        $successDeletePhone = DELETEPHONE;
     } 
     if(isset($_POST['deleteajax'])) {
         $follow->deleteFollowById();

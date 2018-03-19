@@ -21,14 +21,14 @@
                         $error++;
                         $errorMail = ERRORMAILCONTACT;
                     }
-                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,50}$#',$_POST['subject'])) {
+                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœéèêôàïîüÙğ_\'\"!,;-]{5,50}$#',$_POST['subject'])) {
                        $subject = strip_tags($_POST['subject']); 
                     }
                      else {
                         $error++;
                         $errorSubject = ERRORSUBJECTCONTACT;
                     }
-                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{5,}$#',$_POST['message'])) {
+                    if(preg_match('#^[a-zA-Z ÂÊéÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğéèêôàïîü_\'\"!,;-]{5,}$#',$_POST['message'])) {
                        $subject = strip_tags($_POST['message']); 
                     }
                      else {

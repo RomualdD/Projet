@@ -1,4 +1,5 @@
 <?php
+include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
     include_once 'Controller/connectionController.php';
     include_once 'View/header.php';
 ?>

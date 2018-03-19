@@ -63,7 +63,8 @@
                         </div>
                         <div class="modal-footer">
                          <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <?php echo CLOSE; ?></button>
-                        </div>                        
+                        </div>
+                        <p class="errormessage col-lg-offset-1 col-lg-9 errormessagemodal" id="errorMessageModal"><?php echo INCORRECTLOGIN; ?></p>                        
                     </div>
                 </div>
             </div>

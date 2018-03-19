@@ -15,7 +15,7 @@ $(document).ready(function () {
                 if (data == 'Success') {
                     location.href = 'profil.php';
                 } else {
-                    $('#connexion').after('<p class="errormessage col-lg-offset-1 col-lg-9" id="errorMessageModal">Nom d\'utilisateur ou mot de passe incorrect !</p>');
+                    $('#errorMessageModal').css('display','block');
                 }
             },
             'text' // Recevoir success ou failed
@@ -30,7 +30,11 @@ $(document).ready(function () {
                 if (data == 'Success') {
                     location.href = 'index.php';
                 } else {
-                    alert('Erreur lors de la désinscription');
+                    if(navigator.language != 'fr') {
+                        alert('Error during unsubscribe !');
+                    } else {
+                        alert('Erreur lors de la désinscription');
+                    }
                     location.href = 'profil.php';
                 }
             },
@@ -45,14 +49,14 @@ $(document).ready(function () {
             function (data) {
                 if (data.indexOf('Failed') >= 0) {
                     if($('#inscriptionUsername').val() != '') {
-                        $('#usernameerror').text('Nom d\'utilisateur déjà pris !');                         
+                        $('#allreadyusernameerror').css('display','block');                         
                     }
                     else {   
-                        $('#usernameerror').text('');
+                        $('#allreadyusernameerror').css('display','none');
                     }
                 }
                 else {
-                    $('#usernameerror').text('');
+                    $('#allreadyusernameerror').css('display','none');
                 }
             },
             'text'
@@ -63,10 +67,10 @@ $(document).ready(function () {
         var passwordverif = $('#passwordverif').val();
         var password = $('#passwordregister').val();
         if(password != passwordverif) {
-            $('#errorPassword').text('Les mots de passe ne sont pas identiques !');
+            $('#errorPasswordIdentic').css('display','block'); 
         } 
         else {
-           $('#errorPassword').text(''); 
+           $('#errorPasswordIdentic').css('display','none');
         }
     });
 });

@@ -1,9 +1,9 @@
-<?php
+<?php 
     include_once 'configuration.php';
-  include_once 'Model/dataBase.php';
-  include_once 'Model/users.php';
-  include_once 'Controller/validationController.php';
-  include_once 'View/header.php';
+    include_once 'View/header.php';
+    include_once 'Model/dataBase.php';
+    include_once 'Model/users.php';
+    include_once 'Controller/validationController.php';
   if(!empty($_GET['log']) && (!empty($_GET['cle']))) {     
     if($users->actif == 1) {
         ?><p class="errormessage col-lg-12"><?php echo ALREADYACTIVATEDACCOUNT; ?></p><?php

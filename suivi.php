@@ -7,14 +7,14 @@ if(isset($_SESSION['user'])) {
   include 'Controller/suiviController.php';
   ?><div class="container view">
         <div class="row">
-            <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
+            <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6 col-xs-offset-2"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
         </div><?php
     if($role == 0) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">
       <form name="followedrate" method="POST" action="suivis">
-          <div class="suivi form-group col-lg-offset-4 col-sm-offset-2">
+          <div class="suivi form-group col-lg-offset-4 col-sm-offset-2 col-xs-offset-3">
             <label for="text"><?php echo CHOOSEPATIENT; ?></label>
             <select name="patient"><?php
                     foreach ($followDoctor as $followPatient) {
@@ -33,7 +33,7 @@ if(isset($_SESSION['user'])) {
       ?>
     <div class="row suivi">
         <form action="suivis" method="POST">
-            <div class="suivi form-group col-lg-offset-4 col-xs-offset-1">
+            <div class="suivi form-group col-lg-offset-4 col-xs-offset-4">
               <label for="text"><?php echo CHOOSEPATIENT; ?></label>
               <select name="patient"><?php
                       foreach($followDoctor as $followPatient) {
@@ -93,7 +93,7 @@ if(isset($_SESSION['user'])) {
     <!-- Page suivi patient -->
       <div class="row suivi">
         <form name="followedrate" method="POST" action="suivis">
-            <div class="col-lg-offset-3 col-sm-offset-3">
+            <div class="col-lg-offset-3 col-sm-offset-3 col-xs-offset-1">
                 <div class="form-inline">
                     <label for="rate"><?php echo RESULTBLOODTEST; ?> </label>
                     <div class="input-group subject col-lg-offset-1 col-lg-3 col-sm-4 col-md-4 col-xs-10">
@@ -102,25 +102,25 @@ if(isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-        <input type="submit" value="<?php echo VALID; ?>" name="submit" class="btn btn-default col-lg-offset-5 addresult col-sm-offset-5"/>
+        <input type="submit" value="<?php echo VALID; ?>" name="submit" class="btn btn-default col-lg-offset-5 addresult col-sm-offset-5 col-xs-offset-3"/>
       </form>
-          <p class="successmessage col-lg-offset-4 col-lg-8"><?php echo $successAddMsg; ?></p>
-          <p class="errormessage col-lg-offset-4 col-lg-8"><?php echo $errorResult; ?></p>
+          <p class="successmessage col-lg-offset-4 col-lg-8 col-xs-offset-4"><?php echo $successAddMsg; ?></p>
+          <p class="errormessage col-lg-offset-4 col-lg-8 col-xs-offset-4"><?php echo $errorResult; ?></p>
       </div>
     <?php
     if($total != 0) { ?>
       <div class="row">
-        <div class="col-lg-offset-4"><h3><?php echo VIEWRESULT; ?></h3></div>
+        <div class="col-lg-offset-4 col-xs-offset-1"><h3><?php echo VIEWRESULT; ?></h3></div>
       </div>
       <div class="row">
           <div class="col-lg-offset-3"><p><?php echo INARRAY; ?></p></div>
       </div>
       <div class="row">
-        <table class="tableresult table table-bordered result col-lg-3">
+        <table class="tableresult table table-bordered result col-lg-3 col-xs-1">
           <thead>
             <tr>
               <th><?php echo RESULTDAY; ?></th>
-              <th><?php echo RESULT; ?></th>
+              <th class=" col-xs-3"><?php echo RESULT; ?></th>
               <th><?php echo FUTUREDAY; ?></th>
             </tr>
           </thead>
@@ -136,7 +136,7 @@ if(isset($_SESSION['user'])) {
              ?>
           </tbody>
         </table>
-        <nav class="col-lg-offset-3 col-lg-9">
+        <nav class="col-lg-offset-3 col-lg-9 col-xs-offset-3">
             <ul class="pagination">
             <?php
                 for($numberPage=1; $numberPage<=$nbPage; $numberPage++) { 
@@ -153,18 +153,18 @@ if(isset($_SESSION['user'])) {
         </nav>
       </div>
       <div class="row">
-          <div class="col-lg-offset-3"><p><?php echo INGRAPHIC; ?></p></div>
+          <div class="col-lg-offset-3 col-xs-offset-1"><p><?php echo INGRAPHIC; ?></p></div>
       </div>
       <div class="row suivi">
-          <div class="col-lg-offset-4"><p><?php echo CHOOSEDATE; ?></p></div>
+          <div class="col-lg-offset-4 "><p><?php echo CHOOSEDATE; ?></p></div>
           <form action="suivis" method="POST">
             <div class="col-lg-offset-3">
-                <label for="firstDate"><?php echo FIRSTDATE; ?></label>
+                <label for="firstDate" class="col-xs-offset-1"><?php echo FIRSTDATE; ?></label>
                 <input type="date" name="date1">
-                <label for="secondeDate" class="col-lg-offset-1"><?php echo SECONDDATE; ?></label>
+                <label for="secondeDate" class="col-lg-offset-1 col-xs-offset-1"><?php echo SECONDDATE; ?></label>
                 <input type="date" name="date2">
             </div>  
-            <input type="submit" value="<?php echo VALID; ?>" name="addDate" class="btn btn-default col-lg-offset-5"/>
+            <input type="submit" value="<?php echo VALID; ?>" name="addDate" class="btn btn-default col-lg-offset-5 col-xs-offset-3"/>
           </form>
       </div>
       <div class="row">

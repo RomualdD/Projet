@@ -389,12 +389,12 @@
             </div>
                 <div class="qrcode col-lg-offset-3 col-lg-9 col-sm-offset-1">
                     <?php if($_SESSION['role'] != 0) {  ?>
-                        <h4><?php echo QRCODEMESSAGEPATIENT; ?> </h4>
+                        <h4><?php echo QRCODEMESSAGEPATIENT; ?></h4>
                         <?php }
                         else { ?>
-                        <h4><?php echo QRCODEMESSAGEDOCTOR; ?> </h4>
+                        <h4><?php echo QRCODEMESSAGEDOCTOR; ?></h4>
                         <?php } ?>
-                        <img src="Controller/qrcode.php" class="col-lg-offset-2 col-sm-offset-4 col-xs-offset-4">
+                    <img src="Controller/qrcode.php" class="col-lg-offset-2 col-sm-offset-4 col-xs-offset-4">
                 </div>
             </div>
     </div>

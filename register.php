@@ -1,9 +1,9 @@
 <?php
     include_once 'configuration.php';
+    include_once 'View/header.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
     include_once 'Controller/registerController.php';
-    include_once 'View/header.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container view">
@@ -49,6 +49,7 @@
                 <input type="text" class="form-control" name="username" id="inscriptionUsername" value="<?php echo isset($_POST['username']) ? strip_tags($_POST['username']) : ''; ?>" placeholder="<?php echo USERNAMEPLACEHOLDER; ?>" required>
             </div>
             <p id="usernameerror" class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessageUser;?></p>
+            <p id="allreadyusernameerror" class="errormessage col-lg-offset-3 col-lg-9 errormessagemodal"><?php echo ERRORUSERNAMEALREADY; ?></p>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="password"><?php echo PASSWORDCONNECT; ?></label>  
@@ -64,6 +65,7 @@
                 <input type="password" class="form-control" name="passwordverif" id="passwordverif" placeholder="<?php echo PASSWORDVERIFPLACEHOLDER; ?>" required>
             </div>
             <p class="errormessage col-lg-offset-3 col-lg-9" id="errorPassword"><?php echo $errorMessagePassword; ?></p>
+            <p id="errorPasswordIdentic" class="errormessagemodal errormessage col-lg-offset-3 col-lg-9"><?php echo PASSWORDIDENTICERROR; ?></p>
           </div>
           <div class="form-inline">
             <label class="col-lg-offset-3 col-lg-9" for="mail"><?php echo MAIL; ?></label>  

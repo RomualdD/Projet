@@ -265,7 +265,6 @@ define('REGISTERSUBJECTMAIL','[IMPORTANT] Activation de votre compte di-A-vk');
 define('REGISTERHEADINGMAIL','From: inscriptiondiavk@gmail.com');
 define('REGISTERFIRSTMESSAGEMAIL','Bienvenue sur di-A-vk,');
 define('REGISTERSECONDMESSAGEMAIL','Afin de continuer sur le site veuillez activer votre compte en cliquant sur ce lien:');
-define('ERRORPASSWORDEXACT','Mots de passe différents');
 define('ERRORPATHOLOGY','Veuillez choisir votre pathologie !');
 // --- // SENDMAIL CONTROLLER
 define('BLOODTESTSUBJECT','[IMPORTANT] Prise de sang à faire');
@@ -284,6 +283,17 @@ define('RESULTADD','Votre résultat a bien était ajouté !');
 define('MODIFICATERESULT','Votre résultat a bien était modifié !');
 define('VERIFICATIONERRORRESULT','Veuillez entrer une date de vérification avant d\'entrer un résultat.');
 define('ERRORRESULT','Votre résultat ne correspond pas au résultat attendus. Veuillez entrez votre résultat sous le format comme l\'exemple: 1 ou 1.1 ou 1.11');
+// --- // PROFIL CONTROLLER
+define('MODIFICATEHOUR','Les modifications sont bien prises en compte !');
+define('FORMATHOUR','Le format demandé est jj/mm/YYYY hh:mm');
+define('HOURFOUR','Erreur Heure 4 ! Le format demandé est hh:mm !');
+define('HOURTHREE','Erreur Heure 3 ! Le format demandé est hh:mm !');
+define('HOURTWO','Erreur Heure 2 ! Le format demandé est hh:mm !');
+define('HOURONE','Erreur Heure 1 ! Le format demandé est hh:mm !');
+define('SUCCESSADDHOUR','L\'ajout est bien prise en compte !');
+define('FORMATTIME','Le format demandé est hh:mm');
+define('SUCCESSMODIFICATEMAIL','Le mail a bien était modifié !');
+define('SUCCESSMODIFICATEPHONE','Le numéro a bien était modifié !');
 // --- // MOT DE PASSE OUBLIER
 define('USERFALLMAILSUBJECT','[IMPORTANT] Rappel de vos identifiants');
 define('USERFALLMAILHEADING','From: inscriptiondiavk@gmail.com');

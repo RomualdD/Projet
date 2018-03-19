@@ -41,7 +41,7 @@
                          $appointment->newdayappointment = $requestdate->date_appointment;
                     }
                     if(!empty($_POST['nameappointmentmodif'])) {
-                         if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'!,;-]{2,}$#', $_POST['nameappointmentmodif'])) {
+                         if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéëêèàùüûœÙğ_\'!,;-]{2,}$#', $_POST['nameappointmentmodif'])) {
                             $appointment->newnameappointment = $_POST['nameappointmentmodif'];        
                          }
                          else {
@@ -65,7 +65,7 @@
                        $appointment->newhourappointment = $appointment->hourappointment;
                    } 
                    if(!empty($_POST['infosappointmentmodif'])) {
-                        if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğ_\'\"!,;-]{2,}#i', $_POST['infosappointmentmodif'])) {
+                        if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğéëêèàùüû_\'\"!,;-]{2,}#i', $_POST['infosappointmentmodif'])) {
                            $appointment->newinfoappointment = $_POST['infosappointmentmodif'];        
                         }
                         else {
@@ -92,7 +92,7 @@
                     $appointment->infosappointment = strip_tags($_POST['infos']);
                     $appointment->id = $_POST['id'];
                     // Récupération des champs du rendez-vous + Ajout de la note
-                    if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğ_\'\"!,;-]{2,}$#', $_POST['remarque'])) { 
+                    if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒœÙğéëêèàùüû@&?._\'\"!,;-]{2,}$#', $_POST['remarque'])) { 
                         $appointment->remarqueappointment = strip_tags($_POST['remarque']); 
                         // On modifie la colonne note
                         $appointment->addRemarque();
@@ -163,7 +163,7 @@
                     $errorMessageDate = INVALIDDATE;
                     $error++;
                 }
-                if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéàûœÙğ_\'-]{2,}$#i', $_POST['nameappoitment'])) {
+                if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéàûœÙğéëêèàùüû@&?._\'-]{2,}$#i', $_POST['nameappoitment'])) {
                     $appointment->nameappointment = strip_tags($_POST['nameappoitment']);
                 }
                 else {
@@ -171,7 +171,7 @@
                     $error++;
                 }
                 if((!empty($_POST['informationappointment']))) {
-                    if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğ_\'\"!,;-]{2,}$#i', $_POST['informationappointment'])) {
+                    if(preg_match('#^[a-zA-Z 0-9 ÂÊÎÔÛÄËÏÖÜÀÆêûôâèæÇÉÈéàŒœÙğéëêèàùüû@&?._\'\"!,;-]{2,}$#i', $_POST['informationappointment'])) {
                         $appointment->informationappointment = strip_tags($_POST['informationappointment']);                
                     }
                     else {

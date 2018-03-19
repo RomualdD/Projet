@@ -40,7 +40,11 @@ $(document).ready(function () {
             },
             function(data) {
                 if (data == 'Success') {
-                    alert('Note enregistré !');
+                    if(navigator.language != 'fr') {
+                        alert('Registered note !');
+                    } else {
+                        alert('Note enregistré !');
+                    }
                     location.reload(true);
                 } else {
                     $('#errorMessageModal').css('display','block');
@@ -66,7 +70,11 @@ $(document).ready(function () {
             }, 
             function(data) {
                 if (data == 'Success') {
-                    alert('Rendez-vous modifié !');
+                    if(navigator.language != 'fr') {
+                        alert('Appointment modified !');
+                    }else {
+                        alert('Rendez-vous modifié !');
+                    }
                     location.reload(true);
                 }
                 else if(data == 'FailedName') {
@@ -120,11 +128,20 @@ $(document).ready(function () {
                 ajaxready: 'ajax'
             },
             function(data) {
-                if(data == 'Success') {
-                    alert('Rendez-vous supprimé !');
-                    location.reload(true);
+                if(navigator.language != 'fr') {
+                    if(data == 'Success') {
+                        alert('Appointment deleted!');
+                        location.reload(true);
+                    } else {
+                        alert('Appointment not deleted!');
+                    }                     
                 } else {
-                    alert('Rendez-vous non supprimé !');
+                    if(data == 'Success') {
+                        alert('Rendez-vous supprimé !');
+                        location.reload(true);
+                    } else {
+                        alert('Rendez-vous non supprimé !');
+                    }        
                 }
             },
             // Recevoir success ou failed
