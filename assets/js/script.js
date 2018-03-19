@@ -28,6 +28,11 @@ $(document).ready(function () {
             },
             function (data) {
                 if (data == 'Success') {
+                    if(navigator.language != 'fr') {
+                        alert('Error during unsubscribe !');
+                    } else {
+                        alert('You are now unregistered ');
+                    }
                     location.href = 'index.php';
                 } else {
                     if(navigator.language != 'fr') {
