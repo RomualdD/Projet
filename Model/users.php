@@ -29,7 +29,7 @@ class users extends dataBase {
      * Méthode permet d'ajouter un utilisateur
      */
     public function addUser() {
-        $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `role`, `pathology`,`language`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:language,:cleverif,:actif,:qrcode)');
+        $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `id_pbvhfjt_role`, `id_pbvhfjt_pathology `,`language`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:language,:cleverif,:actif,:qrcode)');
         $requestAdd->bindValue('name',$this->name,PDO::PARAM_STR);
         $requestAdd->bindValue('firstname',$this->firstname,PDO::PARAM_STR);
         $requestAdd->bindValue('username',$this->username,PDO::PARAM_STR);
@@ -124,7 +124,7 @@ class users extends dataBase {
      */
     public function getUserInfo() {
         $isCorrect = false;
-        $requestInfo = $this->db->prepare('SELECT `username`,`lastname`, `firstname`, DATE_FORMAT(`birthdate`,"%d/%m/%Y") AS `birthdate`, `mail`, `phone`, `phone2`, CASE WHEN `pathology` = 1 Then \'Diabète Type 1\' WHEN `pathology` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologyName`  FROM `'.$this->prefix.'users` WHERE `username` =:username');
+        $requestInfo = $this->db->prepare('SELECT `username`,`lastname`, `firstname`, DATE_FORMAT(`birthdate`,"%d/%m/%Y") AS `birthdate`, `mail`, `phone`, `phone2`, CASE WHEN `id_pbvhfjt_pathology` = 1 Then \'Diabète Type 1\' WHEN `id_pbvhfjt_pathology` = 2 Then \'Diabète Type 2\' ELSE \'Anticoagulant (AVK)\' END AS `pathologyName`  FROM `'.$this->prefix.'users` WHERE `username` =:username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
             $infoUser = $requestInfo->fetch(PDO::FETCH_OBJ); 
@@ -175,7 +175,7 @@ class users extends dataBase {
      */
     public function getInfoConnexion() {
         $infosUser = array();
-        $requestInfo = $this->db->prepare('SELECT `firstname`,`lastname`,`role`,`pathology` FROM `'.$this->prefix.'users` WHERE `username` = :username');
+        $requestInfo = $this->db->prepare('SELECT `firstname`,`lastname`,`id_pbvhfjt_role` AS role,`id_pbvhfjt_pathology` AS role FROM `'.$this->prefix.'users` WHERE `username` = :username');
         $requestInfo->bindValue('username',$this->username,PDO::PARAM_STR);
         if($requestInfo->execute()) {
             if(is_object($requestInfo)) {
@@ -205,7 +205,7 @@ class users extends dataBase {
      */
     public function getPatientUserByName() {
         $patient = array();
-        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
+        $requestSearchPatient = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `id_pbvhfjt_role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
         $requestSearchPatient->bindValue('name',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('firstname',$this->name.'%',PDO::PARAM_STR);
         $requestSearchPatient->bindValue('role','1',PDO::PARAM_INT);
@@ -221,7 +221,7 @@ class users extends dataBase {
      */
     public function getDoctorUserByName() {
         $doctor = array();
-        $requestSearchDoctor = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
+        $requestSearchDoctor = $this->db->prepare('SELECT `lastname`, `firstname`, `username`, `follow_confirm` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'follow` ON (`id_'.$this->prefix.'users_1` = `'.$this->prefix.'users`.`id` OR `id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`) AND (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) WHERE `id_pbvhfjt_role` = :role AND (`lastname` LIKE :name OR `firstname` LIKE :firstname)');
         $requestSearchDoctor->bindValue('name','%'.$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('firstname','%'.$this->name.'%',PDO::PARAM_STR);
         $requestSearchDoctor->bindValue('role','0',PDO::PARAM_STR);
@@ -237,7 +237,7 @@ class users extends dataBase {
      */
     public function getIdByQrCode() {
         $idParam = array();
-        $researchId = $this->db->prepare('SELECT `id`,`role` FROM `'.$this->prefix.'users` WHERE qrcode = :qrcode');
+        $researchId = $this->db->prepare('SELECT `id`,`id_pbvhfjt_role` FROM `'.$this->prefix.'users` WHERE qrcode = :qrcode');
         $researchId->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
         if($researchId->execute()) {
             $idParam = $researchId->fetch(PDO::FETCH_OBJ);            

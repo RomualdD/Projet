@@ -1,5 +1,4 @@
 <?php 
-   // include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
     include_once 'Controller/headerController.php'; 
 ?>
 <!-- Header non connecté -->
@@ -114,21 +113,31 @@
                       <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="nav navbar-nav">
-                      <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
-                      <?php if($role == 0) { ?>
-                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> <?php echo PROFILE; ?></a></li>
-                      <?php }
-                      else {?>
-                      <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> <?php echo PROFILE; ?></a></li>                
-                    <?php  }?>
-                      <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> <?php echo INFORMATION; ?></a></li>
-                      <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> <?php echo FOLLOWED; ?></a></li>
-                      <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
-                      <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> <?php echo DISCONNECT; ?></a></li>
-                    </ul>
-                </div>
+                <?php if($role != 1) { ?>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                          <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
+                          <?php if($role == 2) { ?>
+                          <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> <?php echo PROFILE; ?></a></li>
+                          <?php }
+                          else {?>
+                          <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> <?php echo PROFILE; ?></a></li>                
+                        <?php  }?>
+                          <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> <?php echo INFORMATION; ?></a></li>
+                          <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> <?php echo FOLLOWED; ?></a></li>
+                          <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
+                          <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> <?php echo DISCONNECT; ?></a></li>
+                        </ul>
+                    </div>                    
+               <?php } else { ?>
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="nav navbar-nav">
+                              <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
+                              <li><a href="administratorpage.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fab fa-adn"></i></i>Administration</a></li>
+                              <li><a href="Controller/deconnexion.php" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-times-circle"></i> <?php echo DISCONNECT; ?></a></li>
+                            </ul>
+                        </div>                       
+              <?php } ?>
             </div>
         </nav>
     </header>

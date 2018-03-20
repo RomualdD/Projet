@@ -2,6 +2,8 @@
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
+    include_once 'Model/pathology.php';
+    include_once 'Model/role.php';
     include_once 'Controller/registerController.php';
     include_once 'View/header.php';
 ?>
@@ -83,21 +85,24 @@
             </div>
             <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePhone; ?></p>
           </div>
-          <div class="form-group">
-            <label for="role" class="col-lg-2"><?php echo ROLE; ?></label>
-            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="0" <?php echo ((isset($_POST['role'])) AND (($_POST['role'])==0)) ? 'checked' : '';  ?>/> <?php echo MEDICALROLE; ?></div>
-            <div class="role col-lg-offset-1 col-lg-3"><input type="radio" name="role" value="1" <?php echo ((isset($_POST['role'])) AND (($_POST['role'])==1)) ? 'checked' : '';  ?>/> <?php echo SICKROLE;?></div>
-          </div>
-          <div class="form-group">
-            <label for="texte"><?php echo PATHOLOGY; ?></label>
-            <select name="pathology">
-              <option value="0" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo PATHOLOGYSELECT; ?></option>
-              <option value="1" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==1)) ? 'selected' : ''; ?>><?php echo TYPEONE; ?></option>
-              <option value="2" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==2)) ? 'selected' : ''; ?>><?php echo TYPETWO; ?></option>
-              <option value="3" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==3)) ? 'selected' : ''; ?>><?php echo AVK; ?></option>
+          <div class="form-group col-lg-offset-3">
+            <label for="texte"><?php echo ROLE; ?></label>
+            <select name="role">
+                <?php foreach($roleinfos as $role) { ?>
+                <option value="<?php echo $role->id; ?>" <?php echo ((isset($_POST['role'])) && (($_POST['role'])==0)) ? 'selected' : '';  ?>><?php echo $role->name; ?></option>
+                <?php } ?>
             </select>
-            <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePathology;?></p>
-          </div>
+            </div>
+            <div class="form-group">
+                <label for="texte"><?php echo PATHOLOGY; ?></label>
+                <select name="pathology">
+                    <option value="0" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo PATHOLOGYSELECT; ?></option>
+                <?php foreach($pathologyinfos as $pathology) { ?>
+                <option value="<?php echo $pathology->id; ?>" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo $pathology->name; ?></option>
+                <?php } ?>
+                </select>
+                <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePathology;?></p>
+            </div>
           <div>
             <label for="submit" class="col-lg-offset-3 col-xs-offset-4"><input type="submit" name="submit" value="<?php echo REGISTERBUTTON; ?>" class="button btn btn-default col-lg-offset-4"></label>
           </div>

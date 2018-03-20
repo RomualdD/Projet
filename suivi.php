@@ -9,7 +9,7 @@ if(isset($_SESSION['user'])) {
         <div class="row">
             <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6 col-xs-offset-2"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
         </div><?php
-    if($role == 0) {
+    if($role == 2) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">

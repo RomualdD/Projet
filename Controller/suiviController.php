@@ -27,7 +27,7 @@ else {
     }
         $suivi->secondDate = date('Y-m-d', strtotime(date('Y-m-d').' +1 DAY'));    
 }
-if($role != 0) {
+if($role == 3) {
 // Pagination
     $total = $suivi->countRate();
     if($total != NULL) {

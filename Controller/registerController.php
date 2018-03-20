@@ -7,6 +7,10 @@
     $errorMessageUser = '';
     $errorMessagePassword = '';
     $errorMessagePathology = '';
+    $pathology = new pathology();
+    $role = new role();
+    $pathologyinfos = $pathology->getPathology();
+    $roleinfos = $role->getRole();
 if(isset($_POST['inscriptionusername'])) {
   include_once '../configuration.php';
   include_once '../Model/dataBase.php';
@@ -89,11 +93,11 @@ if(isset($_POST['submit'])) {
        $user->pathology = $_POST['pathology'];
        $user->phone2 = 'Pas indiqué';
        $user->qrcodeParam = md5(microtime(TRUE)*100000);
-       if($user->role == 0) {
-         $user->pathology = 0;
+       if($user->role == 2) {
+         $user->pathology = 1;
        }
         if($error == 0) {
-            if(($user->role == 1 && $user->pathology != 0) || ($user->role == 0 && $user->pathology == 0)) {
+            if(($user->role == 2 && $user->pathology != 1) || ($user->role == 2 && $user->pathology == 1)) {
              // On vérifie que les mots de passes sont identiques
                 if($user->password == $passwordverif) {
                 // Cryptage de données mdp
