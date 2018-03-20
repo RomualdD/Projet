@@ -58,6 +58,7 @@ CREATE TABLE pbvhfjt_users(
         phone2    Varchar (12) ,
         role      Int ,
         pathology Int ,
+	language  Char (5),
         keyverif  Varchar (32) ,
         active    Int ,
         qrcode    Varchar (60) ,
