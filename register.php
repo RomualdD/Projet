@@ -1,14 +1,14 @@
 <?php
     include_once 'configuration.php';
-    include_once 'View/header.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
     include_once 'Controller/registerController.php';
+    include_once 'View/header.php';
 ?>
 <!-- Page d'inscription -->
   <div class="container view">
     <div class="row">
-      <div class="col-lg-offset-5"><h2><?php echo REGISTER; ?></h2></div>
+      <div class="col-lg-offset-5 col-xs-offset-4"><h2><?php echo REGISTER; ?></h2></div>
     </div>
     <div class="message col-lg-offset-2 col-lg-10"><p><?php echo REGISTERMESSAGE; ?></p>
     <p><?php echo REGISTERMESSAGETWO; ?> <a href="connexion" class="link"><?php echo CONNECTION; ?></a>.</p></div>
@@ -99,7 +99,7 @@
             <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePathology;?></p>
           </div>
           <div>
-            <label for="submit" class="col-lg-offset-3"><input type="submit" name="submit" value="<?php echo REGISTERBUTTON; ?>" class="button btn btn-default col-lg-offset-4"></label>
+            <label for="submit" class="col-lg-offset-3 col-xs-offset-4"><input type="submit" name="submit" value="<?php echo REGISTERBUTTON; ?>" class="button btn btn-default col-lg-offset-4"></label>
           </div>
         </form>
       </div>

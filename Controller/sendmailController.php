@@ -1,6 +1,5 @@
     <?php 
     // L'utilisation de cette page est strictement réservé au crontab (tâche automatique ! ) 
-    include '/home/romuald/www/ProjetFinal/assets/lang/FR_FR.php';
     include '/home/romuald/www/ProjetFinal/configuration.php';
     include '/home/romuald/www/ProjetFinal/Model/dataBase.php';
     include '/home/romuald/www/ProjetFinal/Model/users.php';
@@ -13,6 +12,19 @@
     foreach($requestMail as $infoMail) {
         // On compare si c'est le moment d'envoyer le mail
        if($day == $infoMail->verification_date) {
+        switch ($infoMail->language) {
+            case 'fr':
+            case 'fr-fr':
+                include_once '/home/romuald/www/ProjetFinal//assets/lang/FR_FR.php';
+            break;
+            case 'en':
+            case 'en-us':
+                include_once '/home/romuald/www/ProjetFinal//assets/lang/EN_EN.php';
+            break;
+            default:
+                include_once '/home/romuald/www/ProjetFinal/assets/lang/EN_EN.php';
+            break;
+        }   
         //Envoie du mail d'information pour rappel
         $recipient = $infoMail->mail;
         $name = $infoMail->lastname;
@@ -21,7 +33,8 @@
         $entete = BLOODTESTHEADING;
         $message = HELLO.' '.$firstname.' '.$name.",\r\n"
         .BLOODTESTMESSAGE."\r\n"
-        .BLOODTESTMESSAGETWO;
+        .BLOODTESTMESSAGETWO."\r\n"
+        .NOTREPLYMESSAGE;
         mail($recipient, $subject,$message,$entete);
        }
     }
@@ -36,9 +49,27 @@
         $dayappointment = date('Y-m-d', strtotime($date.' - 1 DAY'));
         // Comparaison si c'est le moment d'envoyer le mail
        if($day == $dayappointment.' '.$hourappointment) {
+            switch ($infoMail->language) {
+                case 'fr':
+                case 'fr-fr':
+                    include_once '/home/romuald/www/ProjetFinal//assets/lang/FR_FR.php';
+                break;
+                case 'en':
+                case 'en-us':
+                    include_once '/home/romuald/www/ProjetFinal//assets/lang/EN_EN.php';
+                break;
+                default:
+                    include_once '/home/romuald/www/ProjetFinal/assets/lang/EN_EN.php';
+                break;
+            }   
         // Envoie du mail d'information pour informer           
         $nameappointment = $informationAppointment->name_appointment;
-        $infosappointment = $informationAppointment->additional_informations;
+        if($informationAppointment->additional_informations) {
+            $infosappointment = $informationAppointment->additional_informations; 
+            $messageinfosappointment = APPOINTMENTMAILMESSAGETHREE.'"'.$infosappointment.'"';
+        } else {
+            $messageinfosappointment = '';
+        }
         $recipient = $informationAppointment->mail;
         $name = $informationAppointment->lastname;
         $firstname = $informationAppointment->firstname;
@@ -46,7 +77,8 @@
         $entete = APPOINTMENTHEADING;
         $message = HELLO.' '.$firstname.' '.$name.",\r\n"
         .APPOINTMENTMAILMESSAGEONE.'"'.$nameappointment.'"'.APPOINTMENTMAILMESSAGETWO.$hourappointment." !\r\n"
-        .APPOINTMENTMAILMESSAGETHREE.'"'.$infosappointment.'"';
+        .$messageinfosappointment."\r\n"
+        .NOTREPLYMESSAGE;
         mail($recipient, $subject,$message,$entete);
        }
     }

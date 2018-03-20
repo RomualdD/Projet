@@ -44,7 +44,7 @@ include_once 'Controller/contactController.php';
                 </div>
                 <p class="errormessage col-lg-offset-1 col-lg-11"><?php echo $errorMessage; ?></p>
             </div>
-            <input type="submit" value="Envoyez votre message !" class="button btn btn-default col-lg-offset-4" name="submit">
+            <input type="submit" value="<?php echo SENDMESSAGEMAIL; ?>" class="button btn btn-default col-lg-offset-4" name="submit">
           </form>
           <p class="successmessage"><?php echo $succesMsg; ?></p>
       </div>

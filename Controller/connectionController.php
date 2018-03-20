@@ -4,12 +4,37 @@ if (isset($_POST['testconnexionajax'])) {
     include_once '../configuration.php';
     include_once '../Model/dataBase.php';
     include_once '../Model/users.php';
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    switch ($lang) {
+        case 'fr':
+        case 'fr-fr':
+            include_once '../assets/lang/FR_FR.php';
+        break;
+        case 'en':
+            include_once '../assets/lang/EN_EN.php';
+        break;
+        default:
+            include_once 'assets/lang/EN_EN.php';
+        break;
+    }
     $infoAjax = true;
 }
 else {
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    switch ($lang) {
+        case 'fr':
+            include_once 'assets/lang/FR_FR.php';
+        break;
+        case 'en':
+            include_once 'assets/lang/EN_EN.php';
+        break;
+        default:
+            include_once 'assets/lang/EN_EN.php';
+        break;
+    }    
 }
 $user = new users();
 // Variable d'erreur

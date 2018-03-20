@@ -6,6 +6,20 @@
             include_once '../Model/dataBase.php';
             include_once '../Model/appointments.php'; 
             include_once '../Model/users.php';
+            $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+            switch ($lang) {
+                case 'fr':
+                case 'fr-fr':
+                    include_once '../assets/lang/FR_FR.php';
+                break;
+                case 'en':
+                case 'en-us':
+                    include_once '../assets/lang/EN_EN.php';
+                break;
+                default:
+                    include_once 'assets/lang/EN_EN.php';
+                break;
+            }
             $users = new users();
             $appointment = new appointments();
             $role = $_SESSION['role'];
@@ -17,7 +31,6 @@
                 // Ajax Modifier
             if(!empty($_POST['modifappointment'])) {
                 if(!empty($_POST['dayappointmentmodif']) || (!empty($_POST['nameappointmentmodif'])) || (!empty($_POST['hourappointmentmodif'])) || (!empty($_POST['infosappointmentmodif'])) ) {  
-                    $appointment->userId = $id;
                     // Récupération des informations du rendez-vous actuel
                     $appointment->nameappointment = strip_tags($_POST['name']);
                     $appointment->hourappointment = $_POST['hour'];
@@ -205,7 +218,7 @@
     // -- // Calendrier
         $yearDay = date('Y');
         // Récupération des mois avec leur numéro
-        $months = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre');
+        $months = array(1 => JANUARY, 2 => FEBRUAR, 3 => MARCH, 4 => APRIL, 5 => MAY, 6 => JUNE, 7 => JULY, 8 => AUGUST, 9 => SEPTEMBER, 10 => OCTOBER, 11 => NOVEMBER, 12 => DECEMBER);
         // Vérification si on a choisi un mois et une année
         if(isset($_POST['months']) && isset($_POST['years'])) {
             $month = $_POST['months'];

@@ -69,7 +69,7 @@ class appointments extends dataBase {
      */
     public function getDateAppointment() {
         $dateAppointment = array();
-        $requestdate = $this->db->prepare('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `name_appointment` = :nameappointment AND `hour_appointment` = :hourappointment AND `additional_informations` = :infosappointment AND `id_'.$this->prefix.'users` = userId');
+        $requestdate = $this->db->prepare('SELECT `date_appointment` FROM `'.$this->prefix.'appointments` WHERE `name_appointment` = :nameappointment AND `hour_appointment` = :hourappointment AND `additional_informations` = :infosappointment AND `id_'.$this->prefix.'users` = :userId');
         $requestdate->bindValue('nameappointment',$this->nameappointment,PDO::PARAM_STR);
         $requestdate->bindValue('hourappointment',$this->hourappointment,PDO::PARAM_STR);
         $requestdate->bindValue('infosappointment',$this->infosappointment,PDO::PARAM_STR);

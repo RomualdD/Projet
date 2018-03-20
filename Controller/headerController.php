@@ -1,9 +1,24 @@
 <?php
+
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
     include_once 'Model/follow.php';
     session_start();
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    switch ($lang) {
+        case 'fr':
+        case 'fr-fr':
+            include_once 'assets/lang/FR_FR.php';
+        break;
+        case 'en':
+        case 'en-en':
+            include_once 'assets/lang/EN_EN.php';
+        break;
+        default:
+            include_once 'assets/lang/EN_EN.php';
+        break;
+    }
     if(isset($_COOKIE['user'])) {
        $_SESSION['user'] = $_COOKIE['user']; 
        $_SESSION['role'] = $_COOKIE['role'];
@@ -25,5 +40,4 @@
         $requestfollow = $follows->getnbFollowQuest();
         $nbquest = $requestfollow->nbFollow; 
     }
-
 

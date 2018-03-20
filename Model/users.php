@@ -15,6 +15,7 @@ class users extends dataBase {
     public $phone2 = '';
     public $role = 0;
     public $pathology = 0;
+    public $language = 'fr';
     public $cleverif = '';
     public $actif = 0;
     public $qrcodeParam = '';
@@ -28,7 +29,7 @@ class users extends dataBase {
      * Méthode permet d'ajouter un utilisateur
      */
     public function addUser() {
-        $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `role`, `pathology`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:cleverif,:actif,:qrcode)');
+        $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `role`, `pathology`,`language`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:language,:cleverif,:actif,:qrcode)');
         $requestAdd->bindValue('name',$this->name,PDO::PARAM_STR);
         $requestAdd->bindValue('firstname',$this->firstname,PDO::PARAM_STR);
         $requestAdd->bindValue('username',$this->username,PDO::PARAM_STR);
@@ -39,6 +40,7 @@ class users extends dataBase {
         $requestAdd->bindValue('phone2',$this->phone2,PDO::PARAM_STR);
         $requestAdd->bindValue('role',$this->role,PDO::PARAM_INT);
         $requestAdd->bindValue('pathology',$this->pathology,PDO::PARAM_INT);
+        $requestAdd->bindValue('language',$this->language,PDO::PARAM_STR);
         $requestAdd->bindValue('cleverif',$this->cleverif,PDO::PARAM_STR);
         $requestAdd->bindValue('actif',$this->actif,PDO::PARAM_INT);
         $requestAdd->bindValue('qrcode',$this->qrcodeParam,PDO::PARAM_STR);
@@ -248,7 +250,7 @@ class users extends dataBase {
      */
     public function getInfoAndVerification() {
         $mail = array();
-        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date` FROM `pbvhfjt_users` LEFT JOIN `pbvhfjt_verification` ON `id_pbvhfjt_users` = `pbvhfjt_users`.`id`');
+        $requestmail = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `verification_date`,`language` FROM `pbvhfjt_users` LEFT JOIN `pbvhfjt_verification` ON `id_pbvhfjt_users` = `pbvhfjt_users`.`id`');
         if(is_object($requestmail)) {
             $mail = $requestmail->fetchAll(PDO::FETCH_OBJ);         
         }
@@ -260,7 +262,7 @@ class users extends dataBase {
      */
     public function getInfoAndAppointment() {
         $mail = array();
-        $requestmailappointment = $this->db->query('SELECT `lastname`, `firstname`, `mail`, `date_appointment`,`hour_appointment`,`name_appointment`,`additional_informations` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'appointments` ON `'.$this->prefix.'appointments`.`id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
+        $requestmailappointment = $this->db->query('SELECT `lastname`, `firstname`, `mail`,`language`, `date_appointment`,`hour_appointment`,`name_appointment`,`additional_informations` FROM `'.$this->prefix.'users` LEFT JOIN `'.$this->prefix.'appointments` ON `'.$this->prefix.'appointments`.`id_'.$this->prefix.'users` = `'.$this->prefix.'users`.`id`');
         if(is_object($requestmailappointment)) {
             $mail = $requestmailappointment->fetchAll(PDO::FETCH_OBJ);                
         }

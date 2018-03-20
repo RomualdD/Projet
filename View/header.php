@@ -1,5 +1,5 @@
 <?php 
-    include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
+   // include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
     include_once 'Controller/headerController.php'; 
 ?>
 <!-- Header non connecté -->
@@ -54,15 +54,15 @@
                                     <input type="password" id="password" class="form-control" name="password" placeholder="<?php echo PASSWORDPLACEHOLDER; ?>" required>
                                 </div>
                               </div>
-                              <div class="form-group col-lg-offset-7 col-sm-offset-7">
+                              <div class="form-group col-lg-offset-7 col-sm-offset-7 col-xs-offset-6">
                                 <input type="checkbox" id="cookie" name="cookie"><?php echo RECALL; ?>
                               </div>
-                              <div class="explication col-lg-offset-5 col-sm-offset-4"><p><?php echo LOOSELOGIN; ?> <a href="/userfall.php"><?php echo CLICK; ?></a></p></div>
-                              <input type="submit" value="Se connecter !" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4 col-sm-offset-4">
+                              <div class="explication col-lg-offset-5 col-sm-offset-4 col-xs-offset-3"><p><?php echo LOOSELOGIN; ?> <a href="/mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
+                              <input type="submit" value="<?php echo CONNECTBUTTON; ?>" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4 col-sm-offset-4 col-xs-offset-4">
                             </div>
                         </div>
                         <div class="modal-footer">
-                         <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <?php echo CLOSE; ?></button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <?php echo CLOSE; ?></button>
                         </div>
                         <p class="errormessage col-lg-offset-1 col-lg-9 errormessagemodal" id="errorMessageModal"><?php echo INCORRECTLOGIN; ?></p>                        
                     </div>

@@ -5,7 +5,7 @@
 <!-- Page de connexion -->
   <div class="container view">
     <div class="row">
-      <div class="col-lg-offset-5"><h2><?php echo FALLLOGIN; ?></h2></div>
+      <div class="col-lg-offset-4"><h2><?php echo FALLLOGIN; ?></h2></div>
     </div>
     <div class="row">
       <div class="connexion col-lg-offset-3 col-lg-5">

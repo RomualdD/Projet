@@ -21,8 +21,19 @@ if(isset($_POST['inscriptionusername'])) {
     }
 }
     $user = new users();
-
 if(isset($_POST['submit'])) {
+        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        switch ($lang) {
+            case 'fr':
+                include_once 'assets/lang/FR_FR.php';
+            break;
+            case 'en':
+                include_once 'assets/lang/EN_EN.php';
+            break;
+            default:
+                include_once 'assets/lang/EN_EN.php';
+            break;
+        }  
      // Vérification si les champs sont bien remplis
      if(!empty($_POST['name']) && (!empty($_POST['firstname'])) && (!empty($_POST['password'])) && (!empty($_POST['passwordverif'])) && (!empty($_POST['mail'])) && (!empty($_POST['birthday'])) && (!empty($_POST['phone'])))  {
         $error = 0;
@@ -95,6 +106,7 @@ if(isset($_POST['submit'])) {
                     }
                   }
                   else {
+                    $user->language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);;  
                     // Clé généré aléatoirement
                     $user->cleverif = md5(microtime(TRUE)*100000);
                     // Indique qu'il faut le vérifier

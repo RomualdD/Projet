@@ -381,7 +381,7 @@
                         <div class="subtitle col-lg-offset-1 col-xs-offset-2"><h3><?php echo UNSUSCRIBE; ?></h3></div>
                         <div class="delete col-lg-offset-1 col-sm-offset-1 col-xs-offset-3">
                             <div class="form-inline">
-                                <div value="<?php echo DELETEACCOUNT; ?>" data-toggle="modal" data-target="#DeleteModal" class="button btn btn-default col-sm-offset-2">Supprimer</div>
+                                <div value="<?php echo DELETEACCOUNT; ?>" data-toggle="modal" data-target="#DeleteModal" class="button btn btn-default col-sm-offset-2"><?php echo DELETE; ?></div>
                             </div>
                         </div>
                     </div>

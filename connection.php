@@ -1,12 +1,12 @@
 <?php
-include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
+    //include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php';
     include_once 'Controller/connectionController.php';
     include_once 'View/header.php';
 ?>
 <!-- Page de connexion -->
   <div class="container view">
     <div class="row">
-      <div class="col-lg-offset-5"><h2><?php echo CONNECTION; ?></h2></div>
+      <div class="col-lg-offset-5 col-xs-offset-4"><h2><?php echo CONNECTION; ?></h2></div>
     </div>
     <div class="message col-lg-offset-2"><p><?php echo CONNEXIONMESSAGE; ?></p>
     <p><?php echo CONNEXIONMESSAGETWO; ?> <a href="inscription" class="link"><?php echo REGISTER; ?></a>.</p></div>
@@ -31,11 +31,11 @@ include_once 'assets/lang/'.(isset($_GET['lang'])? $_GET['lang']: 'FR_FR').'.php
             </div>
             <p class="col-lg-offset-2 errormessage"><?php echo $errorMessageConnexionUser; ?></p>
           </div>
-          <div class="form-group col-lg-offset-7">
+          <div class="form-group col-lg-offset-7 col-xs-offset-6">
             <input type="checkbox" name="cookie"><?php echo RECALL; ?>
           </div>
-          <input type="submit" value="<?php echo CONNECTBUTTON; ?>" name="connexion" class="button btn btn-default col-lg-offset-4">
-          <div class="explication col-lg-offset-5"><p><?php echo LOOSELOGIN; ?> <a href="mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
+          <input type="submit" value="<?php echo CONNECTBUTTON; ?>" name="connexion" class="button btn btn-default col-lg-offset-4 col-xs-offset-4">
+          <div class="explication col-lg-offset-5 col-xs-offset-3"><p><?php echo LOOSELOGIN; ?> <a href="mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
         </form>
           <p class="col-lg-offset-3 errormessage"><?php echo $errorMessageConnexionActive; ?></p>
     </div>

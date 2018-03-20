@@ -32,7 +32,7 @@ define('WHATEXPLAINONE','Lors de l\'inscription, il est nécessaire d\'indiquer 
 define('WHATEXPLAINTWO','Afin de faciliter l\'utilisation du site, le patient a besoin d\'ajouter uniquement le taux obtenu. La date de la prochaine vérification est automatiquement mise à jour et sera envoyé par sms ou mail. Il peut également compléter par les rendez-vous médicaux afin d\'en être informés.');
 define('WHATEXPLAINTHREE','L\'utilisateur peut ajouter son médecin traitant de deux façons différentes. La première manière est de faire une recherche du médecin et de l\'ajouter pour être suivi ou bien le médecin fait une demande pour pouvoir suivre le patient et il doit être accepté. La rubrique pour ajouter se situe tout en bas de votre profil, il est possible de voir quel médecin vous suit.');
 define('WHY','Pourquoi?');
-define('WHYEXPLAIN','De plus en plus de personne sont atteintes de ces maladies et il arrive que l\'on peut oublier de surveiller à cause d\'activité professionnelle ou privée. Le suivi est aussi plus pratique et écologique que d\'avoir un carnet et noter tous les résultats, de plus les résultats peuvent être plus visuel et peuvent être facilement mis en contact avec notre médecin traitant.');
+define('WHYEXPLAIN','De plus en plus de personne sont atteintes de ces maladies et il arrive que l\'on peut oublier de surveiller l\'heure de la prise de sang à cause d\'activité professionnelle ou privée. Le suivi est aussi plus pratique et écologique que d\'avoir un carnet et noter tous les résultats, de plus les résultats peuvent être plus visuel et peuvent être facilement mis en contact avec notre médecin traitant.');
 define('COMPLEMENTARYINFORMATIONS','Informations Complémentaires');
 define('COMPLEMENTARYINFORMATIONSEXPLAIN','Afin de mieux comprendre votre maladie et de vous tenir informer des recherches en cours, certaines informations apparaîtrons aux furs et à mesure. De plus une rubrique contact permet de vous mettre en relation avec nos services si vous avez des informations intéressantes ou bien des remarques et des questions sur le site, nous pourrons y répondre et si il est nécessaire au vus de plusieurs demandes du même type, d\'y mettre un encart.');
 // --- // INSCRIPTION
@@ -78,6 +78,7 @@ define('NAMEFIRSTNAME','Nom de Famille et Prénom');
 define('MAILPLACEHOLDER','Adresse mail');
 define('SUBJECTCONTACT','Sujet du message');
 define('MESSAGECONTACTFORM','Veuillez entrer votre remarque, question ou information.');
+define('SENDMESSAGEMAIL','Envoyez votre message !');
 // --- // PROFIL
 define('PROFILTITLE','Votre profil');
 define('PROFILMENU','Menu de votre profil :');
@@ -122,6 +123,7 @@ define('SEARCHDOCTOR','Chercher votre médecin :');
 define('SEARCHPATIENTPLACEHOLDER','Chercher votre patient');
 define('SEARCHPATIENT','Chercher votre patient :');
 define('DELETEACCOUNT','Supprimer son compte');
+define('DELETE','Supprimer');
 define('QRCODEMESSAGEPATIENT','Votre QRCode pour permettre à votre médecin de vous suivre instantané :');
 define('QRCODEMESSAGEDOCTOR','Votre QRCode pour permettre à votre patient de vous suivre instantané :');
 define('DELETEMESSAGEACCOUNT','Êtes-vous sûr de supprimer votre compte :');
@@ -160,6 +162,18 @@ define('ERRORINFORMATIONS','Plusieurs informations sont incorrectes !');
 define('ERRORCOMPLEMENTARYINFORMATIONS','Informations incorrects !');
 define('ERRORHOURAPPOINTMENT','Heure incorrecte !');
 define('INCORRECTDATE','Date incorrecte !');
+define('JANUARY','Janvier');
+define('FEBRUAR','Février');
+define('MARCH','Mars');
+define('APRIL','Avril');
+define('MAY','Mai');
+define('JUNE','Juin');
+define('JULY','Juillet');
+define('AUGUST','Août');
+define('SEPTEMBER','Septembre');
+define('OCTOBER','Octobre');
+define('NOVEMBER','Novembre');
+define('DECEMBER','Décembre');
 // --- // SUIVI
 define('CHOOSEPATIENT','Choisir son patient :');
 define('CHOOSEDATE','Entrez les dates pour voir le suivi d\'une période :');
@@ -205,7 +219,7 @@ define('MESSAGERETURNPAGE','Retourner à la page');
 define('PARAMETERSERROR','Un des paramètres est faux !');
 define('MISSPARAMETER','Il manque un paramètre !');
 // --- // COOKIE
-define('SUBTITLECOOKIE','Utilisation de cookies sur diavk');
+define('SUBTITLECOOKIE','Utilisation de cookies sur di-A-vk');
 define('COOKIEWHAT','Qu\’est-ce qu’un cookie ?');
 define('COOKIEWHATEXPLAIN','Un cookie est un petit fichier texte envoyé à votre navigateur via le site Web consulté. Grâce à ce cookie, des informations sur votre visite, notamment votre langue de prédilection et d\'autres paramètres, sont enregistrées sur le site Web. Cela peut faciliter votre visite suivante sur ce site et renforcer l\'utilité de ce dernier pour vous. Les cookies jouent un rôle important. Sans les cookies, l\'utilisation du Web pourrait s\'avérer beaucoup plus frustrante.');
 define('COOKIETYPE','Types de cookies');
@@ -236,14 +250,14 @@ define('ERRORINPUT','Les champs ne sont pas tous remplis !');
 define('ACCOUNTNOTACTIVATE','Veuillez activez votre compte !');
 define('INCORRECTLOGIN','Utilisateur ou mot de passe incorrect !');
 // --- // CONTACT CONTROLLER
-define('ERRORNAMECONTACT','Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg');
-define('ERRORMAILCONTACT','Le mail n\'est pas valide ! Il doit ressembler à exemple@mail.fr');
+define('ERRORNAMECONTACT','Le nom n\'est pas valide ! Vous devez entrez votre nom et prénom exemple: Steven Spielberg.');
+define('ERRORMAILCONTACT','Le mail n\'est pas valide ! Il doit ressembler à exemple@mail.fr.');
 define('ERRORSUBJECTCONTACT','Le sujet n\'est pas valide ! Il doit être entre 5 et 50 caractères.');
-define('ERRORMESSAGECONTACT','Le message n\'est pas valide ! Il doit avoir un minimum de 5 caractères');
+define('ERRORMESSAGECONTACT','Le message n\'est pas valide ! Il doit avoir un minimum de 5 caractères.');
 define('CONTACTSUCCESS','Le mail a bien était envoyé, vous aurez bientôt une réponse.');
 // --- // INFORMATION CONTROLLER
 define('ERRORHOURINFORMATION','L\'heure n\'est pas dans un format valide (ex:00:00)!');
-define('ERRORPAST','Vous ne pouvez pas mettre de rendez-vous au date passé');
+define('ERRORPAST','Vous ne pouvez pas mettre de rendez-vous au date passé.');
 define('INVALIDDATE','La date n\'est pas dans un format valide !');
 define('ERRORNAMEINFORMATION','Veuillez écrire votre nom de rendez-vous seulement avec des lettres !');
 define('ERRORCOMPLEMENTARYINFORMATION','Veuillez écrire vos informations complémentaires seulement avec des lettres et des chiffres ayant plus de 2 caractères !');

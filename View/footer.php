@@ -17,8 +17,6 @@
             if (isAndroid) {
               $('select.form-control').removeClass('form-control').css('width', '100%')
             }
-            
-    console.log(navigator.language);
             if (navigator.language != 'fr') {
                 document.addEventListener 
                 ('DOMContentLoaded', function(event) { cookieChoices.showCookieConsentBar 
