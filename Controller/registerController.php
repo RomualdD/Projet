@@ -7,10 +7,6 @@
     $errorMessageUser = '';
     $errorMessagePassword = '';
     $errorMessagePathology = '';
-    $pathology = new pathology();
-    $role = new role();
-    $pathologyinfos = $pathology->getPathology();
-    $roleinfos = $role->getRole();
 if(isset($_POST['inscriptionusername'])) {
   include_once '../configuration.php';
   include_once '../Model/dataBase.php';
@@ -24,6 +20,10 @@ if(isset($_POST['inscriptionusername'])) {
         echo 'Success';
     }
 }
+    $pathology = new pathology();
+    $role = new role();
+    $pathologyinfos = $pathology->getPathology();
+    $roleinfos = $role->getRole();
     $user = new users();
 if(isset($_POST['submit'])) {
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -93,11 +93,11 @@ if(isset($_POST['submit'])) {
        $user->pathology = $_POST['pathology'];
        $user->phone2 = 'Pas indiqué';
        $user->qrcodeParam = md5(microtime(TRUE)*100000);
-       if($user->role == 2) {
+       if($user->role == 3) {
          $user->pathology = 1;
        }
         if($error == 0) {
-            if(($user->role == 2 && $user->pathology != 1) || ($user->role == 2 && $user->pathology == 1)) {
+            if(($user->role == 2 && $user->pathology != 1) || ($user->role == 3 && $user->pathology == 1)) {
              // On vérifie que les mots de passes sont identiques
                 if($user->password == $passwordverif) {
                 // Cryptage de données mdp
@@ -116,20 +116,21 @@ if(isset($_POST['submit'])) {
                     // Indique qu'il faut le vérifier
                     $user->actif = 0;
                     // Inclusion dans la bdd
-                    $user->addUser();
-                    //Envoie du mail d'activation
-                    $recipient = $user->mail;
-                    $subject = REGISTERSUBJECTMAIL;
-                    $entete = REGISTERHEADINGMAIL;
-                    $message = REGISTERFIRSTMESSAGEMAIL."\r\n"
-                    .REGISTERSECONDMESSAGEMAIL."\r\n"
-                    .'https://diavk/compte-validation?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"
-                    .NOTREPLYMESSAGE;
-                    mail($recipient, $subject,$message,$entete);
-                    //Informer l'utilisateur que l'inscription est bien prise en compte
-                    //Redirection vers la page de connexion
-                    header('Location: connexion');
-                    exit();
+                    if($user->addUser()) {
+                        //Envoie du mail d'activation
+                        $recipient = $user->mail;
+                        $subject = REGISTERSUBJECTMAIL;
+                        $entete = REGISTERHEADINGMAIL;
+                        $message = REGISTERFIRSTMESSAGEMAIL."\r\n"
+                        .REGISTERSECONDMESSAGEMAIL."\r\n"
+                        .'https://diavk/compte-validation?log='.urlencode($user->username).'&cle='.urlencode($user->cleverif)."\r\n"
+                        .NOTREPLYMESSAGE;
+                        mail($recipient, $subject,$message,$entete);
+                        //Informer l'utilisateur que l'inscription est bien prise en compte
+                        //Redirection vers la page de connexion
+                        header('Location: connexion');
+                        exit();   
+                    }
                    }
                 }
                 else {

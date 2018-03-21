@@ -9,7 +9,7 @@ if(isset($_SESSION['user'])) {
         <div class="row">
             <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6 col-xs-offset-2"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
         </div><?php
-    if($role == 2) {
+    if($role == 3) {
        if(empty($_POST['patient'])) {
       ?>
     <div class="row">
@@ -63,7 +63,7 @@ if(isset($_SESSION['user'])) {
           <thead>
             <tr>
               <th><?php echo RESULTDAY; ?></th>
-              <th class=" col-xs-3"><?php echo RESULT; ?></th>
+              <th class="col-lg-3 col-xs-3"><?php echo RESULT; ?></th>
               <th><?php echo FUTUREDAY; ?></th>
             </tr>
           </thead>
@@ -120,7 +120,7 @@ if(isset($_SESSION['user'])) {
           <thead>
             <tr>
               <th><?php echo RESULTDAY; ?></th>
-              <th class=" col-xs-3"><?php echo RESULT; ?></th>
+              <th class="col-lg-3  col-xs-3"><?php echo RESULT; ?></th>
               <th><?php echo FUTUREDAY; ?></th>
             </tr>
           </thead>

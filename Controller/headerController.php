@@ -1,10 +1,12 @@
 <?php
-
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
     include_once 'Model/follow.php';
-    session_start();
+    // si il n'y a pas de session alors on fait un session start
+    if(session_id() == '') {
+        session_start(); 
+    } 
     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     switch ($lang) {
         case 'fr':

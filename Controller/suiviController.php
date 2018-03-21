@@ -19,15 +19,18 @@ if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
   $suivi->secondDate = date('Y-m-d', strtotime($dateSecond.' +1 DAY'));
 }
 else { 
-    if ($pathology == 2 || $pathology == 3) {
+    if ($pathology == 4) {
         $suivi->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -3 MONTH'));    
+    }
+    elseif($pathology == 3) {
+        $suivi->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -12 MONTH')); 
     }
     else {
         $suivi->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -1 WEEK'));
     }
         $suivi->secondDate = date('Y-m-d', strtotime(date('Y-m-d').' +1 DAY'));    
 }
-if($role == 3) {
+if($role == 2) {
 // Pagination
     $total = $suivi->countRate();
     if($total != NULL) {
@@ -58,7 +61,7 @@ if($role == 3) {
        $nbPage = 1;
        $suivi->nbPage = 4;
     }
-    if($pathology == 1) {
+    if($pathology == 2) {
         if(isset($_POST['submit'])) {
             // Vérification qu'il y'a bien un taux et qu'il est écrit en chiffre.chiffre ou chiffre
             if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]{2}$#',$_POST['rate']))){
@@ -75,10 +78,10 @@ if($role == 3) {
                 if($searchfuturedate != NULL) {
                     $iduser = $searchfuturedate->id_pbvhfjt_users;
                     $dateverif = $searchfuturedate->verification_date;
-                    $oneclock = $searchfuturedate->onehour;
-                    $twoclock = $searchfuturedate->twohour;
-                    $threeclock = $searchfuturedate->threehour;
-                    $fourclock = $searchfuturedate->fourhour;  
+                    $oneclock = $searchfuturedate->one_hour;
+                    $twoclock = $searchfuturedate->two_hour;
+                    $threeclock = $searchfuturedate->three_hour;
+                    $fourclock = $searchfuturedate->four_hour;  
                     // On ne récupère que les chiffres des heures et minutes
                     $onehour = substr($oneclock,0,2).substr($oneclock,3,4);
                     $twohour = substr($twoclock,0,2).substr($twoclock,3,4);
@@ -107,7 +110,7 @@ if($role == 3) {
                             $futuredate = date('Y-m-d', $tomorrow); // intégration pour passer au lendemain 
                     }
                     // Concaténation de la prochaine date avec l'heure correspondante
-                    $verification->dateverification = $suivi->datefutureverif = $futuredate.' '.$futurehour.':00';
+                    $verification->dateverification = $suivi->datefutureverif = $futuredate.' '.$futurehour;
                     if(($suivi->datefutureverif != $dateverif) && ($suivi->userId == $iduser )) {
                       // Ajout dans la table suivis pour récupéré ensuite les valeurs  
                       $suivi->addRate();  
@@ -133,7 +136,7 @@ if($role == 3) {
             }
         }
     }
-    elseif($pathology == 2 || $pathology == 3) {
+    elseif($pathology == 3 || $pathology == 4) {
         if(isset($_POST['submit'])) {
             if(!empty($_POST['rate']) && (preg_match('#^[0-9]+\.[0-9]$#',$_POST['rate'])) || (preg_match('#^[0-9]$#',$_POST['rate']))) {
                 $searchfuturedate = $verification->getVerification();
@@ -151,8 +154,8 @@ if($role == 3) {
                     if($resultdate != NULL) {
                         $verifDateDay = '';
                         foreach($resultdate as $datetime) {
-                            if($suivi->dateday == $datetime->today_date) {
-                                $verifDateDay = $datetime->today_date;
+                            if($suivi->dateday == $datetime->current_date) {
+                                $verifDateDay = $datetime->current_date;
                             }         
                         }           
                     } 
@@ -172,7 +175,7 @@ if($role == 3) {
                                 $successAddMsg = MODIFICATERESULT;  
                             }
                         }      
-                    $oneclock = $searchfuturedate->onehour;
+                    $oneclock = $searchfuturedate->one_hour;
                     $verification->dateverification = $suivi->datefutureverif.' '.$oneclock;
                     // Modification de la prochaine vérifiacation dans la table vérification
                     $verification->updateDateVerif();
@@ -201,11 +204,11 @@ else {
     $followDoctor = $follow->getPatientByDoctor();
     if(!empty($_POST['patient'])) {
         // -- // Tableau
-        $follow->username = $userPatient->username = $patient = $_POST['patient'];
+        $follow->username = $userPatient->username = $_POST['patient'];
        /* $request = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$patient.'"');
         $request = $request->fetch(); */
         $requestPatient = $userPatient->getUserId();
-        $follow->follow_to = $requestPatient->id;
+        $follow->to = $requestPatient->id;
         // Possibilité de mettre 2 dates pour voir son suivi   
         if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
           $follow->firstDate = $_POST['date1'];

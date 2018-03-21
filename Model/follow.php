@@ -50,7 +50,7 @@ class follow extends dataBase{
      */
     public function getFollowQuest() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT `id_'.$this->prefix.'users` AS to, `date`,`lastname`,`firstname`,`username` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id`=`id_'.$this->prefix.'users` WHERE `id_'.$this->prefix.'users_1` = :id AND `confirm` = :confirm');
+        $requestfollow = $this->db->prepare('SELECT `id_'.$this->prefix.'users` AS `to`, `date`,`lastname`,`firstname`,`username` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id`=`id_'.$this->prefix.'users` WHERE `id_'.$this->prefix.'users_1` = :id AND `confirm` = :confirm');
         $requestfollow->bindValue('id',$this->to,PDO::PARAM_INT);
         $requestfollow->bindValue('confirm',$this->confirm,PDO::PARAM_STR);
         if($requestfollow->execute()) {
@@ -64,7 +64,7 @@ class follow extends dataBase{
      */
     public function getPatientByDoctor() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT DISTINCT `id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id AS `id`, `lastname`, `firstname`, `username`,`id_pbvhfjt_role` AS `role` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` OR `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users_1` WHERE (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) AND `confirm` = :confirm AND `id_pbvhfjt_role` = 1 ORDER BY `lastname`');    
+        $requestfollow = $this->db->prepare('SELECT DISTINCT (`id_'.$this->prefix.'users` OR `id_'.$this->prefix.'users_1`) AS `id`, `lastname`, `firstname`, `username`,`id_pbvhfjt_role` AS `role` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` OR `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users_1` WHERE (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) AND `confirm` = :confirm AND `id_pbvhfjt_role` = 2 ORDER BY `lastname`');    
         $requestfollow->bindValue('confirm','1', PDO::PARAM_STR);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
@@ -78,12 +78,28 @@ class follow extends dataBase{
      */
     public function getRateGraphicForDoctor() {
         $rateGraphic = array();
-        $requestsearch = $this->db->prepare('SELECT DISTINCT CASE WHEN `id_pbvhfjt_pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result` FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'medical_followup`.`id_'.$this->prefix.'users` = :idpatient LEFT JOIN `'.$this->prefix.'follow` ON `id_pbvhfjt_role` = :role WHERE `username` = :user AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :id OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :id) AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :idpatient OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :idpatient) AND confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate');  
-        $requestsearch->bindValue('idpatient',$this->to, PDO::PARAM_STR);
+        $requestsearch = $this->db->prepare('SELECT DISTINCT '
+                . 'CASE WHEN `id_pbvhfjt_pathology` = 2 '
+                . 'THEN DATE_FORMAT(`current_date`,\'%d/%m/%Y %H:%i\') '
+                . 'ELSE DATE_FORMAT(`current_date`,\'%d/%m/%Y\') END AS `date_now`,'
+                . ' `result`'
+                . ' FROM `'.$this->prefix.'medical_followup`LEFT JOIN `'.$this->prefix.'users`'
+                . ' ON `pbvhfjt_medical_followup`.`id_pbvhfjt_users` = `pbvhfjt_users`.`id` '
+                . 'LEFT JOIN `'.$this->prefix.'follow`'
+                . ' ON (`pbvhfjt_users`.`id` = `pbvhfjt_follow`.`id_pbvhfjt_users`'
+                . ' OR `pbvhfjt_users`.`id` = `pbvhfjt_follow`.`id_pbvhfjt_users_1`) '
+                . 'WHERE `username` = :username'
+                . ' AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :idpatient'
+                . ' OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :idpatient)'
+                . ' AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :id'
+                . ' OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :id)'
+                . ' AND confirm = :confirm AND `id_pbvhfjt_role` = :role'
+                . ' AND `current_date` BETWEEN :firstdate AND :secondedate');  
         $requestsearch->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearch->bindValue('confirm','1', PDO::PARAM_STR);
-        $requestsearch->bindValue('role','1', PDO::PARAM_STR);
-        $requestsearch->bindValue('user',$this->username, PDO::PARAM_STR);
+        $requestsearch->bindValue('role','2', PDO::PARAM_INT);
+        $requestsearch->bindValue('idpatient',$this->to, PDO::PARAM_INT);
+        $requestsearch->bindValue('username',$this->username, PDO::PARAM_STR);
         $requestsearch->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
         $requestsearch->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearch->execute()) {
@@ -97,12 +113,30 @@ class follow extends dataBase{
      */    
     public function getRateArrayForDoctor() {
         $rateArray = array();
-        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `today_date`,CASE WHEN `id_pbvhfjt_pathology` = 1 THEN DATE_FORMAT(`today_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`today_date`,\'%d/%m/%Y\') END AS `date_now`, `result`, CASE WHEN pathology = 1 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS `next_date_check` FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'medical_followup`.`id_'.$this->prefix.'users` = :idpatient LEFT JOIN `'.$this->prefix.'follow` ON `id_pbvhfjt_role` = :role WHERE `username` = :user AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :id OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :id) AND (`'.$this->prefix.'follow`.`id_'.$this->prefix.'users` = :idpatient OR `'.$this->prefix.'follow`.`id_'.$this->prefix.'users_1` = :idpatient) AND confirm = :confirm AND `today_date` BETWEEN :firstdate AND :secondedate ORDER BY `today_date` DESC');
+        $requestsearcharray = $this->db->prepare('SELECT DISTINCT `current_date`,'
+                . 'CASE WHEN `id_pbvhfjt_pathology` = 2 THEN DATE_FORMAT(`current_date`,\'%d/%m/%Y %H:%i\')'
+                . ' ELSE DATE_FORMAT(`current_date`,\'%d/%m/%Y\') END AS `date_now`, '
+                . '`result`, '
+                . 'CASE WHEN `id_pbvhfjt_pathology` = 2 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\')'
+                . ' ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS `next_date_check` '
+                . 'FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users`'
+                . ' ON `pbvhfjt_medical_followup`.`id_pbvhfjt_users` = `pbvhfjt_users`.`id` '
+                . 'LEFT JOIN `'.$this->prefix.'follow`'
+                . ' ON (`pbvhfjt_users`.`id` = `pbvhfjt_follow`.`id_pbvhfjt_users`'
+                . ' OR `pbvhfjt_users`.`id` = `pbvhfjt_follow`.`id_pbvhfjt_users_1`) '
+                . 'WHERE `username` = :username'
+                . ' AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :idpatient'
+                . ' OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :idpatient)'
+                . ' AND (`pbvhfjt_follow`.`id_pbvhfjt_users` = :id'
+                . ' OR `pbvhfjt_follow`.`id_pbvhfjt_users_1` = :id)'
+                . ' AND confirm = :confirm AND `id_pbvhfjt_role` = :role'
+                . ' AND `current_date` BETWEEN :firstdate AND :secondedate'
+                . ' ORDER BY `current_date` DESC');
         $requestsearcharray->bindValue('id',$this->id, PDO::PARAM_INT);
         $requestsearcharray->bindValue('confirm','1', PDO::PARAM_STR);
-        $requestsearcharray->bindValue('role','1', PDO::PARAM_STR);
-        $requestsearcharray->bindValue('idpatient',$this->to, PDO::PARAM_STR);
-        $requestsearcharray->bindValue('user',$this->username, PDO::PARAM_STR);
+        $requestsearcharray->bindValue('role','2', PDO::PARAM_INT);
+        $requestsearcharray->bindValue('idpatient',$this->to, PDO::PARAM_INT);
+        $requestsearcharray->bindValue('username',$this->username, PDO::PARAM_STR);
         $requestsearcharray->bindValue('firstdate',$this->firstDate, PDO::PARAM_STR);
         $requestsearcharray->bindValue('secondedate',$this->secondDate, PDO::PARAM_STR);
         if($requestsearcharray->execute()) {
@@ -116,7 +150,11 @@ class follow extends dataBase{
      */
     public function getFollowAlready() {
         $verif = array();
-        $verifFollow = $this->db->prepare('SELECT `confirm` FROM `'.$this->prefix.'follow` WHERE (`id_'.$this->prefix.'users_1` = :id_to OR `id_'.$this->prefix.'users` = :id_to) AND (`id_'.$this->prefix.'users_1` = :id_from OR `id_'.$this->prefix.'users` = :id_from)');
+        $verifFollow = $this->db->prepare('SELECT `confirm` FROM `'.$this->prefix.'follow`'
+                . ' WHERE (`id_'.$this->prefix.'users_1` = :id_to'
+                . ' OR `id_'.$this->prefix.'users` = :id_to)'
+                . ' AND (`id_'.$this->prefix.'users_1` = :id_from'
+                . ' OR `id_'.$this->prefix.'users` = :id_from)');
         $verifFollow->bindValue('id_to',$this->to,PDO::PARAM_INT);
         $verifFollow->bindValue('id_from', $this->from,PDO::PARAM_INT);
         if($verifFollow->execute()) {

@@ -97,6 +97,7 @@ define('VERIFICATIONFORMAT','Format HH:mm');
 define('NOTIFICATION','Notifications par :');
 define('SMS','SMS');
 define('MAILNOTIFICATION','Mail');
+define('WARNINGMODIF','Attention! N\'oubliez pas de mettre toute vos horaires sinon il n\'y aura que les nouvelles !');
 define('FIRSTVERIFICATION','Première vérification');
 define('FIRSTVERIFICATIONFORMAT','Format jj/mm/aaaa hh:mm (première vérification sur le site !)');
 define('VALID','Valider !');

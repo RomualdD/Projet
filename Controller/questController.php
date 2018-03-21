@@ -1,12 +1,12 @@
 <?php
     $follow = new follow();
     $user = new users();
-    $follow->follow_to = $id;
+    $follow->to = $id;
 // -- //Acceptation ou Refus demande   
     $successAddMsg = '';
     $successDeniedMsg = '';
     if(isset($_POST['username']) && ($_POST['action'] == 'add') ) {
-        $follow->follow_from = (int)$_POST['username'];
+        $follow->from = (int)$_POST['username'];
         $follow->updateAddFollow();
         if($role == 1) {
             $successAddMsg = SUCCESSADDPATIENT;
@@ -16,7 +16,7 @@
         }
     }
     elseif(isset($_POST['username']) && (($_POST['action']) == 'delete')) {
-        $follow->follow_from = (int)$_POST['username'];
+        $follow->from = (int)$_POST['username'];
         $follow->deleteFollow();
         $successDeniedMsg = REFUSEFOLLOW;
     }

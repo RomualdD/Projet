@@ -205,6 +205,10 @@ textarea {
     color: red;    
 }    
 
+.addresult {
+    margin-top:0.5em;
+}
+
 li > a {
     color:red;
 }       

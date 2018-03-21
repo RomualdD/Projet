@@ -79,7 +79,7 @@ define('MAILPLACEHOLDER','E-mail Address');
 define('SUBJECTCONTACT','Subject of the message');
 define('MESSAGECONTACTFORM','Please enter your remark, question or information.');
 define('SENDMESSAGEMAIL','Send your message !');
-// --- // PROFIL
+// --- // PROFILE
 define('PROFILTITLE','Your profile');
 define('PROFILMENU','Your profile menu :');
 define('PROFILINFORMATION','Your information :');
@@ -92,6 +92,7 @@ define('VERIFICATIONSELECT','Verification by :');
 define('HOURVERIFICATION','Hours');
 define('DAYVERIFICATION','Days');
 define('MONTHVERIFICATION','Months');
+define('WARNINGMODIF','Warning! Don\'t forget to put all your hours or there\'ll only be news !');
 define('HOURVERIFICATIONPLACEHOLDER','Hours of Verification');
 define('VERIFICATIONFORMAT','Format HH:mm');
 define('NOTIFICATION','Notifications by :');

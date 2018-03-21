@@ -71,7 +71,12 @@ if (isset($_POST['connexion'])) {
                     $_SESSION['role'] = $infosUser->role;
                     $_SESSION['pathology'] = $infosUser->pathology;
                     if($infoAjax == false) {
-                        header('Location: votre-profil');
+                        if($_SESSION['role'] != 1) {
+                            header('Location: votre-profil');   
+                        }
+                        else {
+                            header('Location: /');
+                        }
                         exit();
                     }
                     else {

@@ -29,9 +29,9 @@ $(document).ready(function () {
             function (data) {
                 if (data == 'Success') {
                     if(navigator.language != 'fr') {
-                        alert('Error during unsubscribe !');
+                        alert('You are now unregistered  !');
                     } else {
-                        alert('You are now unregistered ');
+                        alert('Vous êtes désormais désinscris ');
                     }
                     location.href = 'index.php';
                 } else {

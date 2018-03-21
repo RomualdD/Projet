@@ -26,7 +26,7 @@ class role extends dataBase{
      */
     public function getRole() {
         $role = array();
-        $getRole = $this->db->query('SELECT `id`, `name` FROM '.$this->prefix.'role WHERE id != 1');
+        $getRole = $this->db->query('SELECT `id`, `name` FROM '.$this->prefix.'role WHERE id != 1 ORDER BY `name`');
         if(is_object($getRole)) {
             $role = $getRole->fetchAll(PDO::FETCH_OBJ);
         }

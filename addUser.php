@@ -1,9 +1,6 @@
 <?php
-include_once 'View/header.php';
-include_once 'Model/dataBase.php';
-include_once 'Model/users.php';
-include_once 'Model/follow.php';
 include_once 'Controller/qrcodeController.php';
+include_once 'View/header.php';
 if(!isset($_SESSION['user'])) {
     ?>
     <div class="container">
@@ -40,16 +37,16 @@ if(!isset($_SESSION['user'])) {
 else { 
     ?><div class="view"><?php
     if($researchidParam != FALSE) {
-        if($verif == '' && $follow->follow_to != $follow->follow_from && $roleUser != $role) {  
+        if($verif == '' && $follow->to != $follow->from && $roleUser != $role) {  
             ?><p><?php echo SUCCESSQRCODE; ?></p><?php
         }
-        elseif($verif == 0 && $follow->follow_to != $follow->follow_from && $roleUser != $role) {
+        elseif($verif == 0 && $follow->to != $follow->from && $roleUser != $role) {
             ?><p><?php echo MODIFICATESUCCESSQRCODE; ?></p><?php
         }
         elseif($roleUser == $role) {
             ?><p><?php echo NOTPOSSIBLEQRCODE; ?></p><?php  
         }
-        elseif($follow->follow_to == $follow->follow_from) {
+        elseif($follow->to == $follow->from) {
             ?><p><?php echo IDENTICNAME; ?></p><?php  
         }
         else {

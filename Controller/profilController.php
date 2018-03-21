@@ -21,7 +21,7 @@ if(isset($_POST['deleteajax'])) {
     $user->id = $verification->userId = $follow->id = $id;
     $info = $verification->getVerification();
 // -- // Modification vérification
-    if($pathology == 1) {
+    if($pathology == 2) {
         $successModifMsg='';
         $errorModifOneClock='';
         $errorModifTwoClock='';
@@ -55,7 +55,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }    
                 else {
-                    $verification->oneclock = $info->onehour;
+                    $verification->oneclock = $info->one_hour;
                     $clockfirst=explode(':', $verification->oneclock);
                     $firstHour = $clockfirst['0'];
                     $firstMin = $clockfirst['1'];                                           
@@ -73,7 +73,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }
                 else {
-                    $verification->twoclock = $info->twohour;
+                    $verification->twoclock = $info->two_hour;
                     if($verification->twoclock != '') {
                        $clocksecond=explode(':', $verification->twoclock);
                        $secondHour = $clocksecond['0'];
@@ -97,7 +97,7 @@ if(isset($_POST['deleteajax'])) {
                     }
                 }
                 else {
-                    $verification->threeclock = $info->threehour;
+                    $verification->threeclock = $info->three_hour;
                     if($verification->threeclock != '' ) {
                        $clockthree=explode(':', $verification->threeclock);
                        $threeHour = $clockthree['0'];
@@ -121,7 +121,7 @@ if(isset($_POST['deleteajax'])) {
                     }                                        
                 }
                 else {
-                    $verification->fourclock = $info->fourhour;
+                    $verification->fourclock = $info->four_hour;
                     if($verification->fourclock != '') {
                         $clockfour=explode(':', $verification->fourclock);
                         $fourHour = $clockfour['0'];
@@ -426,7 +426,7 @@ if(isset($_POST['deleteajax'])) {
                 }
         }
         // -- // Profil Avk
-        elseif($pathology == 2 || $pathology == 3) {
+        elseif($pathology == 3 || $pathology == 4) {
             $error = 0;
             $succesAddmsg='';
             $errorDateMsg='';
@@ -462,7 +462,7 @@ if(isset($_POST['deleteajax'])) {
                             $error++;
                         }
                         if($error == 0) {
-                            if($pathology == 3) {
+                            if($pathology == 4) {
                                 $verification->verification = 'Mois';
                             }
                             else {

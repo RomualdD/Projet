@@ -26,9 +26,9 @@ if(isset($_SESSION['user'])) {
                         <td><?php echo $element->lastname; ?></td>
                         <td><?php echo $element->firstname; ?></td>
                         <td><?php echo $element->username; ?></td>
-                        <td><?php if($element->follow_confirm == NULL) {
+                        <td><?php if($element->confirm == NULL) {
                             ?><form action="ajout" method="post"><input type="hidden" name="username" value="<?php echo $element->username;?>"/><button type="submit"><i class="fas fa-user-plus"></i></button></form>
-                            <?php } elseif($element->follow_confirm == 0) {
+                            <?php } elseif($element->confirm == 0) {
                             ?><i class="fas fa-hourglass-half"></i>
                             <?php } else {
                                 ?><i class="far fa-check-circle"></i></td></tr><?php

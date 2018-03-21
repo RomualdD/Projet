@@ -51,7 +51,7 @@
                     }
                     else {
                          $requestdate = $appointment->getDateAppointment();
-                         $appointment->newdayappointment = $requestdate->date_appointment;
+                         $appointment->newdayappointment = $requestdate->date;
                     }
                     if(!empty($_POST['nameappointmentmodif'])) {
                          if(preg_match('#^[a-zA-Z ÂÊÎÔÛÄËÏÖÜÀÆæÇÉÈŒéëêèàùüûœÙğ_\'!,;-]{2,}$#', $_POST['nameappointmentmodif'])) {
@@ -242,11 +242,11 @@
         foreach($appointmentResultForId as $appointmentResult) {
             // Récupération des inforations
             $idappointment = $appointmentResult->id;
-            $nameappointment = $appointmentResult->name_appointment;
-            $hourappointment = $appointmentResult->hour_appointment;
+            $nameappointment = $appointmentResult->name;
+            $hourappointment = $appointmentResult->hour;
             $informationappointment = $appointmentResult->additional_informations;
             $remarque = $appointmentResult->remarque;
-            $dateappointment = $appointmentResult->date_appointment;
+            $dateappointment = $appointmentResult->date;
             // On sépare le jour le mois et l'année du rendez-vous
             $dayappointment= $appointmentResult->day;
             $monthappointment= $appointmentResult->month;

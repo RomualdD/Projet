@@ -97,9 +97,9 @@
                 <label for="texte"><?php echo PATHOLOGY; ?></label>
                 <select name="pathology">
                     <option value="0" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo PATHOLOGYSELECT; ?></option>
-                <?php foreach($pathologyinfos as $pathology) { ?>
-                <option value="<?php echo $pathology->id; ?>" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo $pathology->name; ?></option>
-                <?php } ?>
+                    <?php foreach($pathologyinfos as $pathology) { ?>
+                    <option value="<?php echo $pathology->id; ?>" <?php echo ((isset($_POST['pathology'])) && (($_POST['pathology'])==0)) ? 'selected' : '';  ?>><?php echo $pathology->name; ?></option>
+                    <?php } ?>
                 </select>
                 <p class="errormessage col-lg-offset-3 col-lg-9"><?php echo $errorMessagePathology;?></p>
             </div>

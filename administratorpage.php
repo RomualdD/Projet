@@ -1,11 +1,11 @@
 <?php 
-     include 'View/header.php';
-if($_SESSION['role'] == 1) {
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/pathology.php';
     include_once 'Model/role.php';
     include 'Controller/administratorpageController.php';
+     include 'View/header.php';
+if($_SESSION['role'] == 1) {
     ?>
 <div class="container view">
     <h2 class="col-lg-offset-2">Ajout informations dans la base de données</h2>
@@ -33,7 +33,5 @@ if($_SESSION['role'] == 1) {
 </div>
 <?php 
 include 'View/footer.php';
-} else {
-    header('Location: /');
 }
 ?>

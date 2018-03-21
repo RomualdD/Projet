@@ -14,7 +14,7 @@
             <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary" disabled><?php echo PROFILMENU; ?></a>
             <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
               <li class="active"><a href="#displayInformations" data-toggle="tab"><?php echo PROFILINFORMATION; ?></a></li>
-              <?php if($role != 2) { ?>
+              <?php if($role == 2) { ?>
               <li><a href="#medicalInformations" data-toggle="tab"><?php echo PROFILMEDICALINFORMATION; ?></a></li>                
               <?php } ?>
               <li><a href="#modificateInformations" data-toggle="tab"><?php echo PROFILINFORMATIONMODIFICATE; ?></a></li>
@@ -69,7 +69,7 @@
                               <input type="text" class="form-control" disabled name="otherphone" value="<?php echo $user->phone2; ?>">
                           </div>
                         </div>
-                        <?php if($_SESSION['role'] == 3) { ?>
+                        <?php if($_SESSION['role'] == 2) { ?>
                         <div class="form-inline">
                           <div class="input-group pathology col-lg-offset-3">
                               <span class="input-group-addon"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
@@ -80,14 +80,15 @@
                     </div>
                 </div>
           </div>
-            <?php if($_SESSION['role'] != 2) { ?>
+            <?php if($_SESSION['role'] == 2) { ?>
             <div role="tabpanel" class="tab-pane fade" id="medicalInformations">  
                 <div class="formular col-lg-offset-3 col-lg-5 col-sm-offset-4">            
                     <div class="subtitle col-lg-offset-1"><h3><?php echo FORMULARINFORMATION; ?></h3></div>
                     <?php 
-                        if($pathology == 1) {
+                        if($pathology == 2) {
                             if($info != NULL) {
                     ?>
+                    <p class="col-lg-offset-1 errormessage"><?php echo WARNINGMODIF; ?></p>
                         <form name="modifverif" method="POST" action="profil.php">
                             <div class="form-inline">
                               <div class="input-group date col-lg-offset-3">
@@ -175,7 +176,7 @@
                         <?php 
                             }
                         }
-                        elseif($pathology == 2 || $pathology == 3) {
+                        elseif($pathology == 3 || $pathology == 4) {
                                 if($info == NULL) {
                             ?>
                         <form name="addverif" method="POST" action="profil.php">
@@ -344,7 +345,7 @@
                             </div>
                         <?php } ?></p>
                     </div>
-                    <?php if($_SESSION['role'] != 2) {  ?>
+                    <?php if($_SESSION['role'] != 3) {  ?>
                         <form method="post" action="ajout">
                             <div class="form-inline">
                                 <label class="col-lg-offset-2 col-lg-8 modificateform" for="namedoctor"><?php echo SEARCHDOCTOR; ?></label>                                                        
@@ -368,7 +369,7 @@
                                 </div>
                             </div>
                             <div class="form-inline col-lg-offset-4">
-                                    <input type="submit" value="<?php echo SEARCHBUTTON; ?>" name="addpatient" class="button btn btn-default col-lg-offset-1 col-xs-offset-4">
+                                <input type="submit" value="<?php echo SEARCHBUTTON; ?>" name="addpatient" class="button btn btn-default col-lg-offset-1 col-xs-offset-4">
                             </div>
                         </form>
                         <?php  } ?>
@@ -387,14 +388,14 @@
                     </div>
                 </div>
             </div>
-                <div class="qrcode col-lg-offset-3 col-lg-9 col-sm-offset-1">
-                    <?php if($_SESSION['role'] != 2) {  ?>
+                <div class="qrcode col-lg-offset-2 col-lg-9 col-sm-offset-1">
+                    <?php if($_SESSION['role'] == 2) {  ?>
                         <h4><?php echo QRCODEMESSAGEPATIENT; ?></h4>
                         <?php }
                         else { ?>
                         <h4><?php echo QRCODEMESSAGEDOCTOR; ?></h4>
                         <?php } ?>
-                    <img src="Controller/qrcode.php" class="col-lg-offset-2 col-sm-offset-4 col-xs-offset-4">
+                    <img src="Controller/qrcode.php" class="col-lg-offset-4 col-sm-offset-4 col-xs-offset-4">
                 </div>
             </div>
     </div>

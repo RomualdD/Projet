@@ -43,8 +43,8 @@
     $request = $users->getInfoAndAppointment();
     foreach($request as $informationAppointment) {
         // Récupération du jour du rendez-vous
-        $date = $informationAppointment->date_appointment;
-        $hourappointment = $informationAppointment->hour_appointment.':00';
+        $date = $informationAppointment->date;
+        $hourappointment = $informationAppointment->hour;
         // Récupèration du jour d'avant pour pouvoir envoyer le message la veille
         $dayappointment = date('Y-m-d', strtotime($date.' - 1 DAY'));
         // Comparaison si c'est le moment d'envoyer le mail
@@ -63,7 +63,7 @@
                 break;
             }   
         // Envoie du mail d'information pour informer           
-        $nameappointment = $informationAppointment->name_appointment;
+        $nameappointment = $informationAppointment->name;
         if($informationAppointment->additional_informations) {
             $infosappointment = $informationAppointment->additional_informations; 
             $messageinfosappointment = APPOINTMENTMAILMESSAGETHREE.'"'.$infosappointment.'"';
