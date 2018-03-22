@@ -128,6 +128,7 @@ define('DELETE','Supprimer');
 define('QRCODEMESSAGEPATIENT','Votre QRCode pour permettre à votre médecin de vous suivre instantané :');
 define('QRCODEMESSAGEDOCTOR','Votre QRCode pour permettre à votre patient de vous suivre instantané :');
 define('DELETEMESSAGEACCOUNT','Êtes-vous sûr de supprimer votre compte :');
+define('ADDPHONEMESSAGE','Le numéro a bien était ajouté !');
 // --- // INFORMATIONS
 define('ADDAPPOINTMENT','Ajouter vos rendez-vous');
 define('SHOWCALENDAR','Voir le calendrier !');

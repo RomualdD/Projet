@@ -44,8 +44,8 @@ setInterval(function() {
                 },
                 function(info) {
                     if(info != 'Failed') {
-                        $('#infoFollow').text(info);
-                        if(info == 1) {
+                            $('.addQuest').text(info);
+                        if(info >= 1) {
                             $('.addQuest').show();
                         }
                         if (!('Notification' in window)) {
@@ -74,5 +74,5 @@ setInterval(function() {
             );
         }   
     }
-},60000);    
+},60);    
 

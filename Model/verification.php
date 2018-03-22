@@ -99,7 +99,15 @@ class verification extends dataBase {
         $requestUpdateverif->bindValue('notification', $this->notification,PDO::PARAM_STR);
         return $requestUpdateverif->execute();          
     }
-    
+    /**
+     * Méthode supprime la vérification de l'utilisateur
+     * @return bool
+     */
+    public function deleteVerification() {
+        $delete = $this->db->prepare('DELETE FROM `'.$this->prefix.'verification` WHERE `id_'.$this->prefix.'users` = :id');
+        $delete->bindValue('id',$this->userId,PDO::PARAM_STR);
+        return $delete->execute();
+    }
     public function __destruct() {
         parent::__destruct();
     }

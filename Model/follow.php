@@ -33,6 +33,7 @@ class follow extends dataBase{
 // -- // Sélection
     /**
      * Méthode qui compte le nombre de demande
+     * @return array
      */
     public function getnbFollowQuest() {
         $nbFollow = array();

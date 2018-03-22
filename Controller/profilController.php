@@ -6,10 +6,14 @@ if(isset($_POST['deleteajax'])) {
     include_once '../Model/verification.php';
     include_once '../Model/follow.php';
     include_once '../Model/users.php'; 
+    include_once '../Model/appointments.php';
+    include_once '../Model/suivis.php';
     $users = new users();
+    $followup = new suivis();
+    $appointment = new appointments();
     $users->username = $_SESSION['user'];
     $userId = $users->getUserId();
-    $id = $userId->id;
+    $followup->id = $appointment->id = $id = $userId->id;
     $pathology = $_SESSION['pathology'];
 }
     $verification = new verification();
@@ -224,7 +228,7 @@ if(isset($_POST['deleteajax'])) {
                     $error = 0;
                     if(!empty($_POST['timeverif']) && (!empty($_POST['time'])) && (!empty($_POST['notification'])) && (!empty($_POST['clockone']))) {
                         $verification->verification = $_POST['timeverif'];
-                        if(preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
+                        if(preg_match('#^[0-2]{1}[13-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[13-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[13-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[2]{1}[0-8]{1}[\/]{1}[0]{1}[2]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))|| (preg_match('#^[0-1]{1}[0-9]{1}[\/]{1}[0]{1}[2]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])))){
                             $time = $_POST['time'];
                             //On récupère la date
                             $verif = explode(' ', $time);
@@ -446,7 +450,7 @@ if(isset($_POST['deleteajax'])) {
                             $errorAddOneClock = FORMATTIME;
                             $error++;
                         }
-                        if(preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))){
+                        if(preg_match('#^[0-2]{1}[13-9]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[0-2]{1}[0-9]{1}[\/]{1}[0]{1}[13-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[1-9]{1}[\/]{1}[0-9]{4}[ ]{1}[2]{1}[0-3]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])) || (preg_match('#^[3]{1}[0-1]{1}[\/]{1}[0]{1}[13-9]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']) || (preg_match('#^[2]{1}[0-8]{1}[\/]{1}[0]{1}[2]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time']))|| (preg_match('#^[0-1]{1}[0-9]{1}[\/]{1}[0]{1}[2]{1}[\/]{1}[0-9]{4}[ ]{1}[0-1]{1}[0-9]{1}[:]{1}[0-5]{1}[0-9]{1}$#', $_POST['time'])))){
                             $time = $_POST['time'];
                             //On récupère la date
                             $verif = explode(' ', $time);
@@ -572,7 +576,7 @@ if(isset($_POST['deleteajax'])) {
         if(preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $_POST['newnum'])) {
             $user->phone2 = strip_tags($_POST['newnum']);  
             $user->updateSecondPhone();
-            $successAddPhone = 'Le numéro a bien était ajouté !';
+            $successAddPhone = ADDPHONEMESSAGE;
         }
         else {
             $errorMessagePhone2 = ERRORPHONE;
@@ -583,6 +587,9 @@ if(isset($_POST['deleteajax'])) {
         $successDeletePhone = DELETEPHONE;
     } 
     if(isset($_POST['deleteajax'])) {
+        $appointment->deleteAppointment();
+        $followup->deleteRate();
+        $verification->deleteVerification();
         $follow->deleteFollowById();
         $user->deleteAccount();
         session_unset();

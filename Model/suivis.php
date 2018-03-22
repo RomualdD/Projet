@@ -79,7 +79,7 @@ class suivis extends dataBase{
      */
     public function getRateInArray() {
         $array = array();
-        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `id_'.$this->prefix.'pathology` = 2 THEN DATE_FORMAT(`current_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`current_date`,\'%d/%m/%Y\') END AS date_now ,`result`, CASE WHEN `id_'.$this->prefix.'pathology` = 1 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS next_date_check FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` WHERE `id_'.$this->prefix.'users` = :id ORDER BY current_date DESC LIMIT 10 OFFSET :offset');
+        $requestSearchInfo = $this->db->prepare('SELECT CASE WHEN `id_'.$this->prefix.'pathology` = 2 THEN DATE_FORMAT(`current_date`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`current_date`,\'%d/%m/%Y\') END AS date_now ,`result`, CASE WHEN `id_'.$this->prefix.'pathology` = 2 THEN DATE_FORMAT(`next_date_check`,\'%d/%m/%Y %H:%i\') ELSE DATE_FORMAT(`next_date_check`,\'%d/%m/%Y\') END AS next_date_check FROM `'.$this->prefix.'medical_followup` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` WHERE `id_'.$this->prefix.'users` = :id ORDER BY date_now DESC LIMIT 10 OFFSET :offset');
         $requestSearchInfo->bindValue('id',$this->userId,PDO::PARAM_INT);
         $requestSearchInfo->bindValue('offset',$this->offset,PDO::PARAM_INT);
         if($requestSearchInfo->execute()) {
@@ -114,6 +114,15 @@ class suivis extends dataBase{
         $requestModifRate->bindValue('futureverif',$this->datefutureverif,PDO::PARAM_STR);
         return $requestModifRate->execute();
     }    
+    /**
+     * Méthode supprime les suivis
+     * @return bool
+     */
+    public function deleteRate() {
+        $requestdelete =  $this->db->prepare('DELETE FROM `'.$this->prefix.'medical_followup` WHERE `id_'.$this->prefix.'users` = :id');
+        $requestdelete->bindValue('id',$this->id,PDO::PARAM_INT);
+        return $requestdelete->execute();
+    }
     public function __destruct() {
         parent::__destruct();
     }

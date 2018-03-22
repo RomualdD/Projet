@@ -4,6 +4,7 @@
        include_once 'Model/follow.php';
        include_once 'Model/verification.php';
        include_once 'Controller/profilController.php';
+       echo $role;
 ?>
 <!-- Page profil type -->
     <div class="container view">
@@ -18,7 +19,7 @@
               <li><a href="#medicalInformations" data-toggle="tab"><?php echo PROFILMEDICALINFORMATION; ?></a></li>                
               <?php } ?>
               <li><a href="#modificateInformations" data-toggle="tab"><?php echo PROFILINFORMATIONMODIFICATE; ?></a></li>
-              <li><a href="#displayFollow" data-toggle="tab"><?php echo VIEWADDFOLLOW; ?> <span id="infoFollow"><?php echo $nbquest;?></span></a></li>
+              <li><a href="#displayFollow" data-toggle="tab"><?php echo VIEWADDFOLLOW; ?> <span id="infoFollow" class="addQuest"><?php echo $nbquest;?></span></a></li>
               <li><a href="#DeleteAccount" data-toggle="tab"><?php echo UNSUSCRIBE; ?></a></li>            
             </ul>
         </div>
@@ -286,7 +287,7 @@
                         <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successModifMail; ?></p>                
                     </div>
                     <div class="row">
-                        <form name="modifnum" method="POST" action="profil.php">
+                        <form name="modifnum" method="POST" action="votre-profil">
                             <div class="form-inline">
                             <label class="col-lg-offset-3 col-lg-9 modificateform col-sm-offset-3 col-sm-9 " for="modificatenum"><?php echo EDITPHONE; ?></label>                                        
                               <div class="input-group phone col-lg-offset-3 col-sm-offset-3">
@@ -300,7 +301,7 @@
                         <p class="successmessage col-lg-offset-3 col-lg-9"><?php echo $successModifPhone; ?></p>                
                     </div>
                     <div class="row">
-                        <form name="addnum" method="POST" action="profil.php">
+                        <form name="addnum" method="POST" action="votre-profil">
                             <div class="form-inline">
                             <label class="col-lg-offset-3 col-lg-9 modificateform col-sm-offset-3 col-sm-9 " for="newnum"><?php echo ADDPHONE; ?></label>                                                            
                               <div class="input-group phone col-lg-offset-3 col-sm-offset-3">

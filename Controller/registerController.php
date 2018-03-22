@@ -45,7 +45,7 @@ if(isset($_POST['submit'])) {
          * Vérifications des regex
          * On évite les éléments comme balise html/php
          */
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,30}$#', $_POST['name'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,40}$#', $_POST['name'])) {
             // Mise en majuscule du nom
             $user->name = strtoupper(strip_tags($_POST['name']));
         }
@@ -53,7 +53,7 @@ if(isset($_POST['submit'])) {
             $errorMessageName = ERRORNAME;
             $error++;
         }
-        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,30}$#', $_POST['firstname'])) {
+        if(preg_match('#^[a-zA-ZéçèàûüÛÜÉÀÇÈ\- ]{2,40}$#', $_POST['firstname'])) {
           $user->firstname = strip_tags($_POST['firstname']);     
         }
         else {

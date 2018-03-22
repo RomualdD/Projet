@@ -309,6 +309,7 @@ define('SUCCESSADDHOUR','The addition is well taken into account !');
 define('FORMATTIME','The requested format is hh:mm');
 define('SUCCESSMODIFICATEMAIL','The e-mail was modified!');
 define('SUCCESSMODIFICATEPHONE','The number was changed!');
+define('ADDPHONEMESSAGE','The phone was added !');
 // --- // MOT DE PASSE OUBLIER
 define('USERFALLMAILSUBJECT','[IMPORTANT] Reminder of your identifiers');
 define('USERFALLMAILHEADING','From: inscriptiondiavk@gmail.com');

@@ -124,7 +124,15 @@ class appointments extends dataBase {
         $requestsupprappointment->bindValue('infos',$this->infosappointment,PDO::PARAM_STR);
         return $requestsupprappointment->execute();
     }
-    
+    /**
+     * Supprime tous les rendez-vous de l'utilisateur
+     * @return bool
+     */
+    public function deleteFollowup() {
+        $requestdelete =  $this->db->prepare('DELETE FROM `'.$this->prefix.'appointments` WHERE `id_'.$this->prefix.'users` = :id');
+        $requestdelete->bindValue('id',$this->id,PDO::PARAM_INT);
+        return $requestdelete->execute();
+    }
     public function __destruct() {
         
     }

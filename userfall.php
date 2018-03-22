@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="connexion col-lg-offset-3 col-lg-5">
-        <form action="userfall.php" method="post">
+        <form action="mot-de-passe-oublier" method="post">
           <div class="row">
             <div class="subtitle col-lg-offset-3 col-sm-offset-3"><h3><?php echo USERINFORMATION; ?></h3></div>
           </div>

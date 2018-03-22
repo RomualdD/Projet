@@ -10,17 +10,17 @@ if(isset($_POST['fallSubmit'])) {
         $user->mail = $_POST['mail'];
         $password = md5(microtime(TRUE));
         $user->password = password_hash($password,PASSWORD_DEFAULT);
-        $user->updatePasswordFall();
-        $recupUsername = $user->getUsernameByMail();
-        $username = $recupUsername->username;
-        $key = $recupUsername->keyverif;
-        $recipient = $user->mail;
-        $subject = USERFALLMAILSUBJECT;
-        $entete = USERFALLMAILHEADING;
-        $message = USERFALLMAILMESSAGEONE.$username."\r\n"
-                .'https://diavk/changer-mot-de-passe?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
-        .NOTREPLYMESSAGE;
-        mail($recipient, $subject,$message,$entete);
+        if($recupUsername = $user->getUsernameByMail()) {
+            $username = $recupUsername->username;
+            $key = $recupUsername->keyverif;
+            $recipient = $user->mail;
+            $subject = USERFALLMAILSUBJECT;
+            $entete = USERFALLMAILHEADING;
+            $message = USERFALLMAILMESSAGEONE.$username."\r\n"
+                    .'https://diavk/changer-mot-de-passe?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
+            .NOTREPLYMESSAGE;
+            mail($recipient, $subject,$message,$entete);   
+        }
     }
 }
 

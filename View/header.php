@@ -58,12 +58,12 @@
                               </div>
                               <div class="explication col-lg-offset-5 col-sm-offset-4 col-xs-offset-3"><p><?php echo LOOSELOGIN; ?> <a href="/mot-de-passe-oublier"><?php echo CLICK; ?></a></p></div>
                               <input type="submit" value="<?php echo CONNECTBUTTON; ?>" id="connexion" name="connexion" class="button btn btn-default col-lg-offset-4 col-sm-offset-4 col-xs-offset-4">
+                                <p class="errormessage col-lg-offset-1 col-lg-9 errormessagemodal" id="errorMessageModal"><?php echo INCORRECTLOGIN; ?></p> 
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <?php echo CLOSE; ?></button>
-                        </div>
-                        <p class="errormessage col-lg-offset-1 col-lg-9 errormessagemodal" id="errorMessageModal"><?php echo INCORRECTLOGIN; ?></p>                        
+                        </div>                       
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
           <div class="logo col-lg-1 col-xs-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
           <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo WEBSITETITLE; ?></h1></div>
           <div class="hello col-lg-offset-2 col-lg-3 col-sm-2"><p id="person"><?php echo HELLO.' '.$_SESSION['firstname'].' '.$_SESSION['name']; ?></p></div>
-          <div class="hello col-lg-offset-2 col-lg-3 addQuest" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus addQuest"></i> <span id="infoFollow"><?php echo $nbquest; ?></span></p></div>
+          <div class="quest col-lg-offset-2 col-lg-3" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus"></i><span id="infoFollow" class="addQuest"><?php echo $nbquest; ?></span></p></div>
         </div>
       </div>
         <nav class="navbar navbar-default">
@@ -117,7 +117,7 @@
                     <div class="collapse navbar-collapse" id="navbar">
                         <ul class="nav navbar-nav">
                           <li><a href="/" class="col-lg-offset-6 col-sm--offset-6"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
-                          <?php if($role == 2) { ?>
+                          <?php if($role == 3) { ?>
                           <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> <?php echo PROFILE; ?></a></li>
                           <?php }
                           else {?>
