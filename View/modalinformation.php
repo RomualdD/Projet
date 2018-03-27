@@ -49,7 +49,7 @@
                                                                     <label for="hourappointment"><?php echo HOURAPPOINTMENT; ?></label>
                                                                     <div class="input-group mail col-lg-offset-1 col-lg-4 col-sm-4 col-md-4 col-xs-10" id="hour">
                                                                         <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                        <input type="time" class="form-control" id="hour" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
+                                                                        <input type="time" class="form-control" id="newhour" name="hourappointmentmodif" placeholder="<?php echo date('H:i'); ?>">
                                                                     </div>
                                                                     <p class="errormessage col-lg-offset-3 col-lg-9 errormessagemodal" id="errorHourMessageModal"><?php echo ERRORHOURAPPOINTMENT; ?></p>
                                                                 </div> 

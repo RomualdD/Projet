@@ -74,5 +74,5 @@ setInterval(function() {
             );
         }   
     }
-},60);    
+},6000);    
 

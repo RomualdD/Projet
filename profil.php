@@ -4,7 +4,6 @@
        include_once 'Model/follow.php';
        include_once 'Model/verification.php';
        include_once 'Controller/profilController.php';
-       echo $role;
 ?>
 <!-- Page profil type -->
     <div class="container view">

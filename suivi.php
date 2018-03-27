@@ -158,7 +158,7 @@ if(isset($_SESSION['user'])) {
       <div class="row suivi">
           <div class="col-lg-offset-4 "><p><?php echo CHOOSEDATE; ?></p></div>
           <form action="suivis" method="POST">
-            <div class="col-lg-offset-3">
+            <div class="col-lg-offset-2">
                 <label for="firstDate" class="col-xs-offset-1"><?php echo FIRSTDATE; ?></label>
                 <input type="date" name="date1">
                 <label for="secondeDate" class="col-lg-offset-1 col-xs-offset-1"><?php echo SECONDDATE; ?></label>

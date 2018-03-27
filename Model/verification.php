@@ -4,6 +4,7 @@
  * @author romuald
  */
 class verification extends dataBase {
+    public $id = 0;
     public $userId=0;
     public $verification=0;
     public $oneclock='00:00';

@@ -205,8 +205,6 @@ else {
     if(!empty($_POST['patient'])) {
         // -- // Tableau
         $follow->username = $userPatient->username = $_POST['patient'];
-       /* $request = $db->query('SELECT `id` FROM `utilisateurs` WHERE `nom_utilisateur` = "'.$patient.'"');
-        $request = $request->fetch(); */
         $requestPatient = $userPatient->getUserId();
         $follow->to = $requestPatient->id;
         // Possibilité de mettre 2 dates pour voir son suivi   

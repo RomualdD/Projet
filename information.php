@@ -2,7 +2,7 @@
     include_once 'View/header.php';
     include_once 'Controller/informationController.php';
     if(!isset($_SESSION['user'])) {
-        ?><p>Vous n'êtes pas connecté pour accéder au contenu</p><?php
+        ?><p><?php echo NOTCONNECT; ?></p><?php
     }
     else {
 ?>
@@ -12,7 +12,7 @@
                 <h2><?php echo ADDAPPOINTMENT; ?></h2>
             </div>
             <a href="#calendar" id="viewcalendar">
-                <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-down"></i> <?php echo SHOWCALENDAR; ?></div>
+                <div class="btn btn-primary col-lg-offset-5 col-xs-offset-3"><i class="fas fa-arrow-alt-circle-down"></i> <?php echo SHOWCALENDAR; ?></div>
             </a>
             <div class="col-lg-offset-3">
                 <form action="rendez-vous" method="POST">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-lg-7">
                         <div class="form-inline">
-                          <input type="submit" value="<?php echo ADDBUTTON; ?>" class="button btn btn-default col-lg-offset-4" name="submit">                        
+                          <input type="submit" value="<?php echo ADDBUTTON; ?>" class="button btn btn-default col-lg-offset-4 col-xs-offset-4" name="submit">                        
                         </div>
                     </div>
                 </form>
@@ -101,7 +101,7 @@
         <div class="col-lg-offset-3 col-lg-8"><p><span class="col-lg-1" id="greencolor"><i class="fa fa-book" aria-hidden="true"></i></span> <?php echo FUTUREAPPOINTMENT; ?></p></div>    
         <div class="row" id="btnaddappointment">
             <a href="#addappointment" >
-                <div class="btn btn-primary"><i class="fas fa-arrow-alt-circle-up"></i> <?php echo ADDAPPOINTMENT; ?></div>
+                <div class="btn btn-primary col-lg-offset-5 col-xs-offset-3"><i class="fas fa-arrow-alt-circle-up"></i> <?php echo ADDAPPOINTMENT; ?></div>
             </a>
         </div>    
     </div>
@@ -146,7 +146,7 @@
                                     if($informations['day'] == $currentDay && $informations['month']== $month && $informations['year']== $yearDay) {
                                         $dateNow=date('Y-m-d H:i');
                                         $verifEventDay = $informations['year'].'-'.$informations['month'].'-'.$informations['day'].' '.$hour;
-                                        if($dateNow > $verifEventDay) {  ?> 
+                                        if($dateNow >= $verifEventDay) {  ?> 
                                             <p class="appointmentup" data-toggle="modal" data-idappointment="<?php echo $informations['id']; ?>" data-infoappointment="<?php echo $informations['infoappointment'];?>" data-hourappointment="<?php echo $informations['hour']; ?>" data-nameappointment="<?php echo $informations['nameappointment']; ?>" data-remarque="<?php echo $informations['remarque']; ?>" data-target="#modalAppointmentUp"><i class="fa fa-check-square-o" aria-hidden="true"></i></p>        
                                         <?php  }
                                         else { ?>

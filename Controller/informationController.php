@@ -17,7 +17,7 @@
                     include_once '../assets/lang/EN_EN.php';
                 break;
                 default:
-                    include_once 'assets/lang/EN_EN.php';
+                    include_once '../assets/lang/EN_EN.php';
                 break;
             }
             $users = new users();
@@ -40,8 +40,8 @@
                      * Vérification des regex des champs à modifier
                      * Si le champ est vide, on récupère la valeur actuelle du rendez-vous
                      */
-                    if(!empty($_POST['dayappointmentmodif']) && $_POST['dayappointmentmodif'] > date('Y-m-d')) {
-                        if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[0-9]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif']))){                     
+                    if(!empty($_POST['dayappointmentmodif']) && $_POST['dayappointmentmodif'] > date('Y-m-d H:i')) {
+                        if(preg_match('#^[0-9]{4}[-]{1}[0]{1}[13-9]{1}[-]{1}[1-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif'])|| (preg_match('#^[0-9]{4}[-]{1}[0]{1}[13-9]{1}[-]{1}[0]{1}[1-9]{1}$#', $_POST['dayappointmentmodif'])) || (preg_match('#^[0-9]{4}[-]{1}[0]{1}[2]{1}[-]{1}[0]{1}[1-9]{1}$#', $_POST['dayappointmentmodif'])) || (preg_match('#^[0-9]{4}[-]{1}[0]{1}[2]{1}[-]{1}[2]{1}[0-8]{1}$#', $_POST['dayappointmentmodif'])) || (preg_match('#^[0-9]{4}[-]{1}[0]{1}[2]{1}[-]{1}[1]{1}[0-9]{1}$#', $_POST['dayappointmentmodif'])) || (preg_match('#^[0-9]{4}[-]{1}[0]{1}[13-9]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointmentmodif']))|| (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[0-2]{1}[0-9]{1}$#', $_POST['dayappointmentmodif'])) || (preg_match('#^[0-9]{4}[-]{1}[1]{1}[0-2]{1}[-]{1}[3]{1}[0-1]{1}$#', $_POST['dayappointmentmodif']))){                     
                             $appointment->newdayappointment =  $_POST['dayappointmentmodif'];
                         }
                         else {

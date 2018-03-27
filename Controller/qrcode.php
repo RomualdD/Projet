@@ -13,7 +13,7 @@
     $researchqrcode = $user->getQrCode();
     $idParam = $researchqrcode->qrcode;
     // Lien redirection du QRCode
-    //$codeText = 'https://diavk/idFollow='.$idParam;
+   // $codeText = 'https://diavk/idFollow='.$idParam;
     $codeText = 'https://192.168.1.160/idFollow='.$idParam;
     QRcode::png($codeText);
 

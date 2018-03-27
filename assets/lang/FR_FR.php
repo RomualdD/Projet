@@ -18,7 +18,7 @@ define('HELLO','Bonjour');
 define('PROFILE','Profil');
 define('INFORMATION','Information');
 define('FOLLOWED','Suivi');
-define('DISCONNECT','Deconnexion');
+define('DISCONNECT','Déconnexion');
 // --- // FOOTER
 define('COPYRIGHT','Copyright 2018');
 // --- // INDEX

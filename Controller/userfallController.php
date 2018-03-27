@@ -16,7 +16,7 @@ if(isset($_POST['fallSubmit'])) {
             $recipient = $user->mail;
             $subject = USERFALLMAILSUBJECT;
             $entete = USERFALLMAILHEADING;
-            $message = USERFALLMAILMESSAGEONE.$username."\r\n"
+            $message = USERFALLMAILMESSAGEONE.' '.$username."\r\n"
                     .'https://diavk/changer-mot-de-passe?username='.urlencode($username).'&cle='.urlencode($key)."\r\n"
             .NOTREPLYMESSAGE;
             mail($recipient, $subject,$message,$entete);   

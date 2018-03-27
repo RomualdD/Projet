@@ -65,7 +65,16 @@ class follow extends dataBase{
      */
     public function getPatientByDoctor() {
         $follow = array();
-        $requestfollow = $this->db->prepare('SELECT DISTINCT (`id_'.$this->prefix.'users` OR `id_'.$this->prefix.'users_1`) AS `id`, `lastname`, `firstname`, `username`,`id_pbvhfjt_role` AS `role` FROM `'.$this->prefix.'follow` LEFT JOIN `'.$this->prefix.'users` ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users` OR `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users_1` WHERE (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id) AND `confirm` = :confirm AND `id_pbvhfjt_role` = 2 ORDER BY `lastname`');    
+        $requestfollow = $this->db->prepare('SELECT DISTINCT (`id_'.$this->prefix.'users`'
+                . ' OR `id_'.$this->prefix.'users_1`) AS `id`,'
+                . ' `lastname`, `firstname`, `username`,`id_pbvhfjt_role` AS `role`'
+                . ' FROM `'.$this->prefix.'follow`'
+                . ' LEFT JOIN `'.$this->prefix.'users`'
+                . ' ON `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users`'
+                . ' OR `'.$this->prefix.'users`.`id` = `id_'.$this->prefix.'users_1`'
+                . ' WHERE (`id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id)'
+                . ' AND `confirm` = :confirm'
+                . ' AND `id_pbvhfjt_role` = 2 ORDER BY `lastname`');    
         $requestfollow->bindValue('confirm','1', PDO::PARAM_STR);
         $requestfollow->bindValue('id',$this->id, PDO::PARAM_INT);
         if($requestfollow->execute()) {
@@ -185,12 +194,6 @@ class follow extends dataBase{
         $requestrefuse->bindValue('member',$this->from,PDO::PARAM_INT);
         $requestrefuse->bindValue('id',$this->id,PDO::PARAM_INT);
         return $requestrefuse->execute();
-    }
-    
-    public function deleteFollowById() {
-        $requestdelete =  $this->db->prepare('DELETE FROM `'.$this->prefix.'follow` WHERE `id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id');
-        $requestdelete->bindValue('id',$this->id,PDO::PARAM_INT);
-        return $requestdelete->execute();
     }
     
     public function __destruct() {

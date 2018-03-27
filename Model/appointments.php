@@ -23,6 +23,7 @@ class appointments extends dataBase {
 // -- // Ajout     
     /**
      * Méthode pour ajouter une note d'un rendez-vous
+     * @return bool
      */
     public function addRemarque() {
         $addremarqueappointment = $this->db->prepare('UPDATE `'.$this->prefix.'appointments` SET `remarque` = :remarque WHERE `name` = :name AND `hour` = :hour AND `additional_informations` = :infos');
@@ -35,6 +36,7 @@ class appointments extends dataBase {
     }
     /**
      * Méthode qui permet à l'utilisateur d'ajouter un rendez-vous
+     * @return bool
      */
     public function addAppointment() {
         $requestappointment = $this->db->prepare('INSERT INTO `'.$this->prefix.'appointments`(`id_'.$this->prefix.'users`,`name`, `date`, `hour`, `additional_informations`) VALUES(:id,:name, :date, :hour, :information)');
@@ -48,6 +50,7 @@ class appointments extends dataBase {
 // -- // Sélection
     /**
      * Méthode qui permet de vérifier si l'utilisateur a déjà un rendez-vous à la même hour
+     * @return array
      */
     public function getVerifInformation() {
         $verifappointment = array();
@@ -87,7 +90,7 @@ class appointments extends dataBase {
      */
     public function getAppointment() {
         $appointment = array();
-        $researchappoitment = $this->db->prepare('SELECT `id`,`name`,DATE_FORMAT(`date`,\'%d/%m/%Y\') AS date,DATE_FORMAT(`date`,\'%d\') AS day,DATE_FORMAT(`date`,\'%m\') AS month,DATE_FORMAT(`date`,\'%Y\') AS year,`hour`,`additional_informations`,`remarque` FROM `'.$this->prefix.'appointments` WHERE `id_'.$this->prefix.'users`= :userId ORDER BY hour');
+        $researchappoitment = $this->db->prepare('SELECT `id`,`name`,DATE_FORMAT(`date`,\'%d/%m/%Y\') AS date,DATE_FORMAT(`date`,\'%d\') AS day,DATE_FORMAT(`date`,\'%m\') AS month,DATE_FORMAT(`date`,\'%Y\') AS year,DATE_FORMAT(`hour`,\'%H:%i\') AS `hour`,`additional_informations`,`remarque` FROM `'.$this->prefix.'appointments` WHERE `id_'.$this->prefix.'users`= :userId ORDER BY hour');
         $researchappoitment->bindValue('userId',$this->userId,PDO::PARAM_INT);
        if($researchappoitment->execute()) {
             if(is_object($researchappoitment)) {
@@ -99,6 +102,7 @@ class appointments extends dataBase {
 // -- // Modification     
     /**
      * Méthode qui permet à l'utilisateur de modifier son rendez-vous
+     * @return bool
      */
     public function updateAppointment() {
         $requestmodifappointment = $this->db->prepare('UPDATE `'.$this->prefix.'appointments` SET `date` = :newday, `name` = :newname, `hour` = :newhour, `additional_informations` = :newinfos  WHERE `name` = :name AND `hour` = :hour AND `additional_informations` = :infos');
@@ -115,6 +119,7 @@ class appointments extends dataBase {
 // -- // Suppression    
     /**
      * Supprimer le rendez-vous
+     * @return bool
      */
     public function deleteAppointment() {
         $requestsupprappointment = $this->db->prepare('DELETE FROM `'.$this->prefix.'appointments` WHERE `name` = :name AND `hour` = :hour AND `additional_informations` = :infos');

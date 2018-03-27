@@ -59,7 +59,7 @@ $(document).ready(function () {
             '../Controller/informationController.php', {
                 dayappointmentmodif: $('#day').val(),
                 nameappointmentmodif: $('#newnameappointment').val(),
-                hourappointmentmodif: $('#hour').val(),
+                hourappointmentmodif: $('#newhour').val(),
                 infosappointmentmodif: $('#info').val(),
                 id: $('#id').val(),
                 name: $('#nameappointment').val(),

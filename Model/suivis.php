@@ -115,7 +115,7 @@ class suivis extends dataBase{
         return $requestModifRate->execute();
     }    
     /**
-     * Méthode supprime les suivis
+     * Méthode refuse le suivi
      * @return bool
      */
     public function deleteRate() {
@@ -123,6 +123,16 @@ class suivis extends dataBase{
         $requestdelete->bindValue('id',$this->id,PDO::PARAM_INT);
         return $requestdelete->execute();
     }
+    /**
+     * supprime les suivis
+     * @return bool
+     */
+    public function deleteFollowById() {
+        $requestdelete =  $this->db->prepare('DELETE FROM `'.$this->prefix.'follow` WHERE `id_'.$this->prefix.'users` = :id OR `id_'.$this->prefix.'users_1` = :id');
+        $requestdelete->bindValue('id',$this->id,PDO::PARAM_INT);
+        return $requestdelete->execute();
+    }
+    
     public function __destruct() {
         parent::__destruct();
     }

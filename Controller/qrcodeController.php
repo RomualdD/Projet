@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once 'configuration.php';
     include_once 'Model/dataBase.php';
     include_once 'Model/users.php';
@@ -15,11 +16,10 @@
             include_once 'assets/lang/EN_EN.php';
         break;
     }    
-    $idFollow = $_GET['idFollow'];
     $follow = new follow();  
     $users = new users();
     // Récupération du paramètre
-    $users->qrcodeParam = $_GET['idFollow'];
+    $users->qrcodeParam = $idFollow = $_GET['idFollow'];
     // Si on est pas directement connecté
     if(isset($_POST['connexion'])) {
         if(!empty($_POST['username']) && (!empty($_POST['password']))) {
@@ -70,8 +70,7 @@
         $user = $_SESSION['user'];
         $users->username = $_SESSION['user'];
         $userId = $users->getUserId();
-        $id = $userId->id;
-        $follow->from = $id;
+        $follow->from = $id = $userId->id;
         // On recherche si y'a un utilisateur qui correspond au qrcode
         $researchidParam = $users->getIdByQrCode();
         // Si oui, on vérifie le suivi entre les deux personnes
@@ -86,7 +85,7 @@
             }
             // Si il y'a une demande alors on fait une modification
             elseif($verif == 0 && ($follow->to != $follow->from && $roleUser != $role)) {
-              $follow->updateAddFollow() ; 
+              $follow->updateAddFollow(); 
             }        
         } 
     } 

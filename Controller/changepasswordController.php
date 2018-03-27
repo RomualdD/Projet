@@ -18,7 +18,7 @@
                             $user->mail = $recupMail->mail; 
                             $user->updatePasswordFall();
                             $recupUsername = $user->getUsernameByMail();
-                            $key = $recupUsername['keyverif'];
+                            $key = $recupUsername->keyverif;
                             $recipient = $user->mail;
                             $subject = PASSWORDMODIFSUBJECTMAIL;
                             $entete = PASSWORDMODIFHEADING;

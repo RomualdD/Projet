@@ -12,7 +12,7 @@ class role extends dataBase{
         parent::__construct();
     }
     /**
-     * Méthode permet d'ajouter les pathologies
+     * Méthode permet d'ajouter les roles
      * @return bool
      */
     public function addRole(){
@@ -21,7 +21,7 @@ class role extends dataBase{
         return $addpathology->execute();
     }    
     /**
-     * Méthode récupère les données des pathology sauf la première qui est égale à l'administrateur
+     * Méthode récupère les données des roles sauf la première qui est égale à l'administrateur
      * @return array
      */
     public function getRole() {

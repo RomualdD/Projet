@@ -27,6 +27,7 @@ class users extends dataBase {
 // -- // Ajout  
     /**
      * Méthode permet d'ajouter un utilisateur
+     * @return bool
      */
     public function addUser() {
         $requestAdd = $this->db->prepare('INSERT INTO `'.$this->prefix.'users`(`lastname`, `firstname`, `username`, `mail`, `password`,`birthdate`, `phone`,`phone2`, `id_'.$this->prefix.'role`, `id_'.$this->prefix.'pathology`,`language`,`keyverif`,`active`,`qrcode`) VALUES(:name, :firstname, :username, :mail, :password,:birthday,:phone,:phone2,:role,:pathology,:language,:cleverif,:actif,:qrcode)');
@@ -291,6 +292,7 @@ class users extends dataBase {
 // -- // Modification   
     /**
      * Méthode qui modifie le mot de passe de l'utilisateur si oublie
+     * @return bool
      */
     public function updatePasswordFall() {
         $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `mail` = :mail AND `username` = :username');
@@ -310,6 +312,7 @@ class users extends dataBase {
     } 
     /**
      * Méthode qui modifie le mot de passe de l'utilisateur
+     * @return bool
      */
     public function updatePassword() {
         $insertnewpassword = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `password` = :password WHERE `id` = :id');
@@ -319,6 +322,7 @@ class users extends dataBase {
     }
     /**
      * Méthode qui modifie le mail de l'utilisateur
+     * @return bool
      */
     public function updateMail() {
         $modifMail = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `mail` = :mail WHERE `username` = :user');
@@ -328,6 +332,7 @@ class users extends dataBase {
     }
     /**
      * Méthode qui modifie le premier numéro de l'utilisateur
+     * @return bool
      */
     public function updatePhone() {
         $modifPhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone` = :phone WHERE `username` = :user');
@@ -337,6 +342,7 @@ class users extends dataBase {
     }
     /**
      * Méthode qui modifie le second numéro de l'utilisateur
+     * @return bool
      */
     public function updateSecondPhone() {
         $modifPhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
@@ -346,6 +352,7 @@ class users extends dataBase {
     }
     /**
      * Méthode qui supprime le second numéro de l'utilisateur
+     * @return bool
      */
     public function deleteSecondPhone() {
         $deletePhone = $this->db->prepare('UPDATE `'.$this->prefix.'users` SET `phone2` = :phone WHERE `username` = :user');
@@ -355,6 +362,7 @@ class users extends dataBase {
     }
     /**
      * Méthode qui supprime le compte
+     * @return bool
      */
     public function deleteAccount() {
         $delete = $this->db->prepare('DELETE FROM `'.$this->prefix.'users` WHERE `id` = :id');
