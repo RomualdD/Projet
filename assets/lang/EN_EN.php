@@ -1,6 +1,6 @@
 <?php
 // -- // HEADER
-define('TITLE','di-A-vk: Health before all');
+define('TITLE','di-A-vk: Health above all');
 define('WEBSITETITLE','di-A-vk');
 define('MODALCONNECT','To login');
 define('USERNAME','Username :');
@@ -12,13 +12,13 @@ define('CONNECT','Connection :');
 define('CLOSE','Close');
 define('HOME','Home');
 define('REGISTER','Registration');
-define('CONNECTION','Connection');
+define('CONNECTION','Log in');
 define('CONTACT','Contact');
 define('HELLO','Hello');
 define('PROFILE','Profile');
 define('INFORMATION','Information');
 define('FOLLOWED','Followed');
-define('DISCONNECT','Sign out');
+define('DISCONNECT','Log out');
 // --- // FOOTER
 define('COPYRIGHT','Copyright 2018');
 // --- // INDEX

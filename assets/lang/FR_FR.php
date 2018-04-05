@@ -22,8 +22,8 @@ define('DISCONNECT','Déconnexion');
 // --- // FOOTER
 define('COPYRIGHT','Copyright 2018');
 // --- // INDEX
-define('HOMEMESSAGE','Bienvenue sur le site di-A-vk!');
-define('WHO','Pour qui est ce site?');
+define('HOMEMESSAGE','Bienvenue sur le site di-A-vk !');
+define('WHO','Pour qui est ce site ?');
 define('WHOEEXPLAINONE','Ce site est dédié aux personnes atteintes du Diabète ou de souci de santé nécessitant la prise d\'anticoagulant (AVK) et utilisant principalement des appareils (par exemple coagucheck). Vous pourrez noter les résultats de vos prises de sang composant le suivi de votre diabète ou INR et ainsi observer l\'évolution instantanément à chaque prise de sang.');
 define('WHOEXPLAINTWO','di-A-vk permet de vous aider à mémoriser la date à laquelle vous devez effectuez votre prise de sang grâce à un envoi de mail ou de SMS, et vous permet également de noter vos rendez-vous médicaux.');
 define('WHOELAINTHREE','Votre médecin pourra ainsi dans le même temps accéder à vos résultats de glycémie et d\'INR, dans le cadre d\'un accord patient-corps médical. Lors de vos consultations, l\'ensemble de votre suivi pourra être visualisé facilitant vos interrogations éventuelles.');
@@ -97,7 +97,7 @@ define('VERIFICATIONFORMAT','Format HH:mm');
 define('NOTIFICATION','Notifications par :');
 define('SMS','SMS');
 define('MAILNOTIFICATION','Mail');
-define('WARNINGMODIF','Attention! N\'oubliez pas de mettre toute vos horaires sinon il n\'y aura que les nouvelles !');
+define('WARNINGMODIF','Attention! N\'oubliez pas de mettre toutes vos horaires sinon il n\'y aura que les nouvelles !');
 define('FIRSTVERIFICATION','Première vérification');
 define('FIRSTVERIFICATIONFORMAT','Format jj/mm/aaaa hh:mm (première vérification sur le site !)');
 define('VALID','Valider !');

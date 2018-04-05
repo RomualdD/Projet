@@ -166,7 +166,7 @@
                                   <select name="notification">
                                     <option><?php echo NOTIFICATION; ?></option>
                                     <option value="SMS"><?php echo SMS; ?></option>
-                                    <option value="Mail"><?php echo MAIL; ?></option>
+                                    <option value="Mail"><?php echo MAILNOTIFICATION; ?></option>
                                   </select>
                               </div>
                             </div>

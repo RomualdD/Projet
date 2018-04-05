@@ -19,7 +19,7 @@
     $follow = new follow();  
     $users = new users();
     // Récupération du paramètre
-    $users->qrcodeParam = $idFollow = $_GET['idFollow'];
+    $users->qrcodeParam = $researchidParam = $idFollow = $_GET['idFollow'];
     // Si on est pas directement connecté
     if(isset($_POST['connexion'])) {
         if(!empty($_POST['username']) && (!empty($_POST['password']))) {

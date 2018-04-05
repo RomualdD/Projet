@@ -19,15 +19,15 @@
     <link rel="stylesheet" href="/assets/css/impression.css" media="print">
     <title><?php echo TITLE; ?></title>
   </head>
-  <body>
+  <body>   
       <?php 
     if(!isset($_SESSION['user'])) {
 ?>
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1 col-xs-1"><img src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo WEBSITETITLE; ?></h1></div>
+          <div class="logo col-lg-1 col-xs-1" itemscope><img itemprop="image" src="/assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5" itemscope<h1 itemprop="name">><?php echo WEBSITETITLE; ?></h1></div>
           <div class="hello col-lg-offset-3 col-lg-2 col-sm-offset-1" data-toggle="modal" data-target="#myModalConnexion"><p class="connexionheader"><?php echo MODALCONNECT; ?></p></div>        
           <div class="modal fade" id="myModalConnexion" role="dialog">
                 <div class="modal-dialog">
@@ -82,8 +82,8 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/" class="col-lg-offset-7 col-lg-5 col-md-offset-7 col-sm-offset-3 col-sm-9"><i class="fas fa-home"></i> <?php echo HOME; ?></a></li>
-                    <li><a href="/inscription" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="fas fa-user-plus"></i> <?php echo REGISTER; ?></a></li>
-                    <li><a href="/connexion" class="col-lg-offset-6 col-lg-6 col-sm-offset-6 col-sm-6"><i class="fas fa-sign-in-alt"></i> <?php echo CONNECTION; ?></a></li>
+                    <li><a href="/inscription" rel-nofollow class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="fas fa-user-plus"></i> <?php echo REGISTER; ?></a></li>
+                    <li><a href="/connexion" rel-nofollow class="col-lg-offset-6 col-lg-6 col-sm-offset-6 col-sm-6"><i class="fas fa-sign-in-alt"></i> <?php echo CONNECTION; ?></a></li>
                     <li><a href="/contactez-nous" class="col-lg-offset-1 col-lg-12 col-sm-offset-1 col-sm-12"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
                 </ul>
             </div>
@@ -97,9 +97,9 @@
     <header>
       <div class="container-fluid">
         <div class="row">
-          <div class="logo col-lg-1 col-xs-1"><img src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
-          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5"><h1><?php echo WEBSITETITLE; ?></h1></div>
-          <div class="hello col-lg-offset-2 col-lg-3 col-sm-2"><p id="person"><?php echo HELLO.' '.$_SESSION['firstname'].' '.$_SESSION['name']; ?></p></div>
+          <div class="logo col-lg-1 col-xs-1"><img itemprop="image" src="../assets/img/logo.png" alt="logosite" title="Logo diavk" width="70px" height="70px"/></div>
+          <div class="title col-lg-offset-4 col-lg-2 col-sm-offset-4 col-xs-offset-2 col-xs-5" itemprop="name"><h1><?php echo WEBSITETITLE; ?></h1></div>
+          <div class="hello col-lg-offset-2 col-lg-3 col-sm-2"><p id="person"><?php echo HELLO ;?> <span itemprop="name"><?php echo $_SESSION['firstname'].' '.$_SESSION['name']; ?></span></p></div>
           <div class="quest col-lg-offset-2 col-lg-3" <?php echo ($nbquest == 0) ? 'hidden' : ''; ?>><p id="add"><i class="fas fa-user-plus"></i><span id="infoFollow" class="addQuest"><?php echo $nbquest; ?></span></p></div>
         </div>
       </div>
@@ -120,9 +120,9 @@
                           <?php if($role == 3) { ?>
                           <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user-md"></i> <?php echo PROFILE; ?></a></li>
                           <?php }
-                          else {?>
+                          else { ?>
                           <li><a href="votre-profil" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-user"></i> <?php echo PROFILE; ?></a></li>                
-                        <?php  }?>
+                        <?php  } ?>
                           <li><a href="rendez-vous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-calendar-minus"></i> <?php echo INFORMATION; ?></a></li>
                           <li><a href="suivis" class="col-lg-offset-1 col-sm-offset-1"><i class="fas fa-stethoscope"></i> <?php echo FOLLOWED; ?></a></li>
                           <li><a href="contactez-nous" class="col-lg-offset-1 col-sm-offset-1"><i class="far fa-edit"></i> <?php echo CONTACT; ?></a></li>
