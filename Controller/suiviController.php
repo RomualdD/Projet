@@ -206,28 +206,30 @@ else {
         // -- // Tableau
         $follow->username = $userPatient->username = $_POST['patient'];
         $requestPatient = $userPatient->getUserId();
-        $follow->to = $requestPatient->id;
-        // Possibilité de mettre 2 dates pour voir son suivi   
-        if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
-          $follow->firstDate = $_POST['date1'];
-          $dateSecond = $_POST['date2'];
-          $follow->secondDate = date('Y-m-d', strtotime($dateSecond.' +1 DAY'));
-        }
-        else {
-          $follow->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -1 WEEK')); 
-          $follow->secondDate = date('Y-m-d', strtotime(date('Y-m-d').' +1 DAY'));
-        }
-        $requestarray = $follow->getRateArrayForDoctor();
-        
-        // -- // Graphique       
-        $dataPoints= array();
-        $nbresult = 0;
-        $requestSearchGraphic = $follow->getRateGraphicForDoctor();
-        foreach($requestSearchGraphic as $result) {
-            foreach($result as $resultchart) {
-                $dataPoints[$nbresult] = array('label'=>$result->date_now, 'y'=>$result->result);
+        if($requestPatient == TRUE) {
+            $follow->to = $requestPatient->id;
+            // Possibilité de mettre 2 dates pour voir son suivi   
+            if(!empty($_POST['date1'])&&(!empty($_POST['date2']))) {
+              $follow->firstDate = $_POST['date1'];
+              $dateSecond = $_POST['date2'];
+              $follow->secondDate = date('Y-m-d', strtotime($dateSecond.' +1 DAY'));
             }
-        $nbresult++;
+            else {
+              $follow->firstDate = date('Y-m-d', strtotime(date('Y-m-d').' -1 WEEK')); 
+              $follow->secondDate = date('Y-m-d', strtotime(date('Y-m-d').' +1 DAY'));
+            }
+            $requestarray = $follow->getRateArrayForDoctor();
+
+            // -- // Graphique       
+            $dataPoints= array();
+            $nbresult = 0;
+            $requestSearchGraphic = $follow->getRateGraphicForDoctor();
+            foreach($requestSearchGraphic as $result) {
+                foreach($result as $resultchart) {
+                    $dataPoints[$nbresult] = array('label'=>$result->date_now, 'y'=>$result->result);
+                }
+            $nbresult++;
+            }  
         } 
     } 
 }

@@ -20,16 +20,18 @@
             $error = 0;
             $user->username = $_POST['username'];
             $idfollow = $user->getUserId();
-            $follow->to = $idfollow->id;
-            $alreadyfollow = $follow->getFollowAlready();
-            if($alreadyfollow != 0) { 
-                $error++;
-            }
-            if($follow->from == $follow->to) { 
-                $error++;
-            }
-            if($error == 0) {
-                $follow->addFollow();
+            if($idfollow == TRUE) {
+                $follow->to = $idfollow->id;
+                $alreadyfollow = $follow->getFollowAlready();
+                if($alreadyfollow != 0) { 
+                    $error++;
+                }
+                if($follow->from == $follow->to) { 
+                    $error++;
+                }
+                if($error == 0) {
+                    $follow->addFollow();
+                }   
             }
         }
     }

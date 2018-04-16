@@ -39,17 +39,21 @@ if(isset($_SESSION['user'])) {
     </table>
     </div>
 <?php
-        }
-        else {
-                if(isset($_POST['username'])) {
+    }
+    else {
+            if(isset($_POST['username'])) {             
+                if($idfollow == TRUE) {
                     if($alreadyfollow != 0) {  ?>
                         <p class="view"><?php echo ALREADYFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
                     }
                     elseif($id == $idfollow) {  ?>
                         <p class="view"><?php echo NOTPOSSIBLEFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
                     }
-                   if($error == 0) { ?>
+                    if($error == 0) { ?>
                         <p class="view"><?php echo SUCCESSFOLLOW; ?> <a href="votre-profil"><?php echo CLICKHERE; ?></a></p><?php
+                    }
+                    else {
+                    ?><p class="view"><?php echo NAMENULL; ?> <a href="profil.php"><?php echo CLICKHERE; ?></a></p><?php
                     }
                 }
                 else {
@@ -57,4 +61,5 @@ if(isset($_SESSION['user'])) {
                 }
             }
         }
+    }
 ?>

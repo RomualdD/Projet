@@ -10,7 +10,7 @@ if(isset($_SESSION['user'])) {
             <div class="col-lg-offset-5 col-sm-offset-4 col-sm-6 col-xs-offset-2"><h2> <?php echo FOLLOWEDTITLE; ?></h2></div>
         </div><?php
     if($role == 3) {
-       if(empty($_POST['patient'])) {
+       if(empty($_POST['patient']) || $requestPatient == FALSE) {
       ?>
     <div class="row">
       <form name="followedrate" method="POST" action="suivis">
@@ -28,8 +28,8 @@ if(isset($_SESSION['user'])) {
     </div>
   </div>
       <?php
-      }
-       else {
+        }
+        else { 
       ?>
     <div class="row suivi">
         <form action="suivis" method="POST">
@@ -68,14 +68,14 @@ if(isset($_SESSION['user'])) {
             </tr>
           </thead>
           <tbody>
-              <?php
-                foreach($requestarray as $result) { 
-                ?><tr>
-                    <td><?php echo $result->date_now; ?></td>
-                    <td><?php echo $result->result; ?></td>
-                    <td><?php echo $result->next_date_check; ?></td>
-                </tr><?php
-              }
+              <?php  
+                    foreach($requestarray as $result) { 
+                    ?><tr>
+                        <td><?php echo $result->date_now; ?></td>
+                        <td><?php echo $result->result; ?></td>
+                        <td><?php echo $result->next_date_check; ?></td>
+                    </tr><?php
+                    }
              ?>
           </tbody>
         </table>

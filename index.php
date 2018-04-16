@@ -8,17 +8,17 @@ include_once 'View/header.php';
     </div>
     <div class="row view">
       <div class="welcome col-lg-offset-2 col-xs-10"><h3 itemprop="name"><?php echo HOMEMESSAGE; ?></h3></div>
-      <div class="subhead col-lg-offset-1 col-xs-12"><h4 itemprop="subtitle"><?php echo WHO; ?></h4></div>
+      <div class="subhead col-lg-offset-1 col-xs-12"><h4><?php echo WHO; ?></h4></div>
       <p class="col-xs-12" itemprop="description"><?php echo WHOEEXPLAINONE; ?></p>
       <p class="col-xs-12" itemprop="description"><?php echo WHOEXPLAINTWO; ?></p>
       <p class="col-xs-12" itemprop="description"><?php echo WHOELAINTHREE; ?></p>
-      <div class="subhead col-lg-offset-1 col-xs-12"><h4 itemprop="subtitle"><?php echo WHAT; ?></h4></div>
+      <div class="subhead col-lg-offset-1 col-xs-12"><h4><?php echo WHAT; ?></h4></div>
       <p class="col-xs-12" itemprop="description"><?php echo WHATEXPLAINONE; ?></p>
       <p class="col-xs-12" itemprop="description"><?php echo WHATEXPLAINTWO; ?></p>
       <p class="col-xs-12" itemprop="description"><?php echo WHATEXPLAINTHREE; ?></p>
-      <div class="subhead col-lg-offset-1 col-xs-12"><h4 itemprop="subtitle"><?php echo WHY; ?></h4></div>
+      <div class="subhead col-lg-offset-1 col-xs-12"><h4><?php echo WHY; ?></h4></div>
       <p class="col-xs-12" itemprop="description"><?php echo WHYEXPLAIN; ?></p>
-      <div class="subhead col-lg-offset-1 col-xs-12"><h4 itemprop="subtitle"><?php echo COMPLEMENTARYINFORMATIONS; ?></h4></div>
+      <div class="subhead col-lg-offset-1 col-xs-12"><h4><?php echo COMPLEMENTARYINFORMATIONS; ?></h4></div>
       <p class="col-xs-12" itemprop="description"><?php echo COMPLEMENTARYINFORMATIONSEXPLAIN; ?></p>
     </div>
   </div>
